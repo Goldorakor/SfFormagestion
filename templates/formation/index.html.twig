@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des formations{% endblock %}
+
+{% block body %}
+
+    <h1>Formations</h1>
+    <h2>Récapitulatif des formations disponibles pour générer des sessions</h2>
+
+    {% for formation in formations %}
+        {{ formation.nomFormation }} {{ formation.dateMaj }}
+    {% endfor %}
+
+{% endblock %}

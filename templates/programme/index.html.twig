@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des programmes{% endblock %}
+
+{% block body %}
+
+    <h1>Programmes</h1>
+    <h2>Récapitulatif des programmes qui fixent un cadre aux formations proposées</h2>
+
+    {% for programme in programmes %}
+        {{ programme.nomProgramme }} {{ programme.dateMaj }}
+    {% endfor %}
+
+{% endblock %}

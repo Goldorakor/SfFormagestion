@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des formateurs{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des formateurs</h1>
+    <h2>Votre annuaire compte x formateurs répertoriés</h2>
+
+    {% for formateur in formateurs %}
+        {{ formateur.prenom }} {{ formateur.nom }} {{ formateur.email }} {{ formateur.tel }} {{ formateur.societe.raisonSociale }}
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des bresponsables{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des responsables</h1>
+    <h2>Votre annuaire compte x intervenants répertoriés</h2>
+
+    {% for responsable in responsables %}
+        {{ responsable.prenom }} {{ responsable.nom }} {{ responsable.email }} {{ responsable.tel }}
+    {% endfor %}
+
+{% endblock %}

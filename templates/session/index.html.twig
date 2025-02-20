@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des sessions{% endblock %}
+
+{% block body %}
+
+    <h1>Sessions</h1>
+    <h2>Récapitulatif des sessions en cours de traitement</h2>
+
+    {% for session in sessions %}
+        {{ session.titreSession }} {{ session.dateDebut }} {{ session.dateFin }} {{ session.formation.type }} {{ session.formation.modalites }} {{ session.nbPlaces }}
+    {% endfor %}
+
+{% endblock %}

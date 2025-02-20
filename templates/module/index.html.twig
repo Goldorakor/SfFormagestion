@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des modules d'enseignement{% endblock %}
+
+{% block body %}
+
+    <h1>Modules d'enseignement</h1>
+    <h2>Récapitulatif des modules qui forment le contenu des formations proposées</h2>
+
+    {% for module in modules %}
+        {{ module.nomModule }} {{ module.categorie }}
+    {% endfor %}
+
+{% endblock %}

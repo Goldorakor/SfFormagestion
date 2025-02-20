@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des sociétés{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des sociétés</h1>
+    <h2>Votre annuaire compte x sociétés répertoriées</h2>
+
+    {% for societe in societes %}
+        {{ societe.raisonSociale }} {{ societe.email }} {{ societe.tel }}
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des apprenants{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des apprenants</h1>
+    <h2>Votre annuaire compte x apprenants répertoriés</h2>
+
+    {% for apprenant in apprenants %}
+        {{ apprenant.prenom }} {{ apprenant.nom }} {{ apprenant.email }} {{ apprenant.tel }} {{ apprenant.societe.raisonSociale }}<br>
+    {% endfor %}
+   
+{% endblock %}
