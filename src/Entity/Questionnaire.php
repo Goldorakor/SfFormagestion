@@ -24,6 +24,9 @@ class Questionnaire
     #[ORM\OneToMany(targetEntity: Sondage::class, mappedBy: 'questionnaire')]
     private Collection $sondages;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nomQuestionnaire = null;
+
     public function __construct()
     {
         $this->sondages = new ArrayCollection();
@@ -72,6 +75,18 @@ class Questionnaire
                 $sondage->setQuestionnaire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNomQuestionnaire(): ?string
+    {
+        return $this->nomQuestionnaire;
+    }
+
+    public function setNomQuestionnaire(string $nomQuestionnaire): static
+    {
+        $this->nomQuestionnaire = $nomQuestionnaire;
 
         return $this;
     }
