@@ -8,7 +8,7 @@
     <h2>Votre annuaire compte x intervenants répertoriés</h2>
 
     {% for responsable in responsables %}
-        {{ responsable.prenom }} {{ responsable.nom }} {{ responsable.email }} {{ responsable.tel }}
+        {{ responsable.prenom }} {{ responsable.nom }} {{ responsable.email }} {{ responsable.tel }} <br>
     {% endfor %}
 
 {% endblock %}

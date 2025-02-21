@@ -8,7 +8,7 @@
     <h2>Votre annuaire compte x apprenants répertoriés</h2>
 
     {% for apprenant in apprenants %}
-        {{ apprenant.prenom }} {{ apprenant.nom }} {{ apprenant.email }} {{ apprenant.tel }} {{ apprenant.societe.raisonSociale }}<br>
+    {{ apprenant.prenom }} {{ apprenant.nom }} {{ apprenant.email }} {{ apprenant.tel }} <br> {#   apprenant.societe.raisonSociale #}
     {% endfor %}
    
 {% endblock %}

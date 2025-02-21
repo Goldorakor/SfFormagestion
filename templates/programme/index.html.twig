@@ -8,7 +8,7 @@
     <h2>Récapitulatif des programmes qui fixent un cadre aux formations proposées</h2>
 
     {% for programme in programmes %}
-        {{ programme.nomProgramme }} {{ programme.dateMaj }}
+        {{ programme.nomProgramme }} {{ programme.dateMaj | date("d-m-Y") }} <br>
     {% endfor %}
 
 {% endblock %}

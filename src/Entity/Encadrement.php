@@ -62,4 +62,9 @@ class Encadrement
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->formateur->prenom." ".$this->formateur->nom." : ".$this->type_referent;
+    }
 }

@@ -8,7 +8,7 @@
     <h2>Récapitulatif des sessions en cours de traitement</h2>
 
     {% for session in sessions %}
-        {{ session.titreSession }} {{ session.dateDebut }} {{ session.dateFin }} {{ session.formation.type }} {{ session.formation.modalites }} {{ session.nbPlaces }}
+        {{ session.titreSession }} nb actuel d'inscrit : {{ session.dateDebut | date("d-m-Y") }} {{ session.dateFin | date("d-m-Y") }} {{ session.formation.type }} {{ session.formation.modalites }} {{ session.nbPlaces }} <br>
     {% endfor %}
 
 {% endblock %}

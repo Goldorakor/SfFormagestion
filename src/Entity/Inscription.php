@@ -62,4 +62,9 @@ class Inscription
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return " session : ".$this->session->titreSession." apprenant : ".$this->apprenant->prenom." ".$this->apprenant->nom." au prix de  ".$this->prix." euros ";
+    }
 }

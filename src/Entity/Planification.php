@@ -93,4 +93,15 @@ class Planification
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "de ".$this->dateDebut->format('d-m-Y H:i') ." à ". $this->dateFin->format('d-m-Y H:i');
+    }
 }
+
+
+// {{ formation.dateMaj | date:"d-M-y HH:mm" }}
+
+
+

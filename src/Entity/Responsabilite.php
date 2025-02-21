@@ -62,4 +62,9 @@ class Responsabilite
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->responsable->prenom." ".$this->responsable->nom." : référent ".$this->type_referent;
+    }
 }

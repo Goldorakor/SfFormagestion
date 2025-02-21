@@ -62,4 +62,9 @@ class Sondage
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->session->formation->nomFormation." : questionnaire ".$this->questionnaire->nomQuestionnaire;
+    }
 }

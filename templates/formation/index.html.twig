@@ -8,7 +8,7 @@
     <h2>Récapitulatif des formations disponibles pour générer des sessions</h2>
 
     {% for formation in formations %}
-        {{ formation.nomFormation }} {{ formation.dateMaj }}
+        {{ formation.nomFormation }} {{ formation.dateMaj | date("d-m-Y") }} <br>
     {% endfor %}
 
 {% endblock %}

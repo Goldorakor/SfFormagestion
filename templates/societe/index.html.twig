@@ -8,7 +8,7 @@
     <h2>Votre annuaire compte x sociétés répertoriées</h2>
 
     {% for societe in societes %}
-        {{ societe.raisonSociale }} {{ societe.email }} {{ societe.tel }}
+        {{ societe.raisonSociale }} {{ societe.email }} {{ societe.tel }} <br>
     {% endfor %}
 
 {% endblock %}

@@ -8,7 +8,7 @@
     <h2>Récapitulatif des modules qui forment le contenu des formations proposées</h2>
 
     {% for module in modules %}
-        {{ module.nomModule }} {{ module.categorie }}
+        {{ module.nomModule }} {{ module.categorie.nomCategorie }} <br>
     {% endfor %}
 
 {% endblock %}
