@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Apprenant;
+use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,11 +15,21 @@ final class ApprenantController extends AbstractController
     // url de la route : /apprenant
     // nom de la route : app_apprenant -> peut être changé mais doit être différent de tous les names de tous les controleurs !
     #[Route('/apprenant', name: 'app_apprenant')]
-    // méthode index 
-    public function index(EntityManagerInterface $entityManager): Response
+
+    // méthode index (première façon de faire)
+    // public function index(EntityManagerInterface $entityManager): Response
+
+    // méthode index (deuxième façon de faire)
+    public function index(ApprenantRepository $apprenantRepository): Response
     {
+        // exemple du début -> désuet pour la suite
         $name = 'nom';
-        $apprenants = $entityManager->getRepository(Apprenant::class)->findAll();
+
+        // méthode index (première façon de faire)
+        // $apprenants = $entityManager->getRepository(Apprenant::class)->findAll();
+
+        // méthode index (deuxième façon de faire)
+        $apprenants = $apprenantRepository->findAll();
 
         // permet de faire le lien entre le controleur et la vue (vers la vue 'apprenant/index.html.twig')
         return $this->render('apprenant/index.html.twig', [
