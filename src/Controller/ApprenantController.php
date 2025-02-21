@@ -29,7 +29,13 @@ final class ApprenantController extends AbstractController
         // $apprenants = $entityManager->getRepository(Apprenant::class)->findAll();
 
         // méthode index (deuxième façon de faire)
-        $apprenants = $apprenantRepository->findAll();
+        // $apprenants = $apprenantRepository->findAll();
+
+        // méthode index (troisième façon de faire)
+        $apprenants = $apprenantRepository->findBy([], ["nom"=>"ASC"]);
+        // SELECT * FROM apprenant ORDER BY nom
+
+
 
         // permet de faire le lien entre le controleur et la vue (vers la vue 'apprenant/index.html.twig')
         return $this->render('apprenant/index.html.twig', [

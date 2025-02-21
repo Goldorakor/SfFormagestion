@@ -14,7 +14,11 @@ final class FormationController extends AbstractController
     #[Route('/formation', name: 'app_formation')]
     public function index(FormationRepository $formationRepository): Response
     {
-        $formations = $formationRepository->findAll();
+        // méthode choisie qui ne permet pas de trier la liste des formations
+        // $formations = $formationRepository->findAll();
+
+        $formations = $formationRepository->findBy([], ["nomFormation"=>"ASC"]);
+
         return $this->render('formation/index.html.twig', [
             'formations' => $formations,
         ]);

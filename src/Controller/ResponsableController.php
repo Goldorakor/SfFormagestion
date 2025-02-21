@@ -14,7 +14,11 @@ final class ResponsableController extends AbstractController
     #[Route('/responsable', name: 'app_responsable')]
     public function index(ResponsableRepository $responsableRepository): Response
     {
-        $responsables = $responsableRepository->findAll();
+        // méthode choisie qui ne permet pas de trier la liste des responsables
+        // $responsables = $responsableRepository->findAll();
+
+        $responsables = $responsableRepository->findBy([], ["nom"=>"ASC"]);
+
         return $this->render('responsable/index.html.twig', [
             'responsables' => $responsables,
         ]);

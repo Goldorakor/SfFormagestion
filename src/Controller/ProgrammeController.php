@@ -14,7 +14,11 @@ final class ProgrammeController extends AbstractController
     #[Route('/programme', name: 'app_programme')]
     public function index(ProgrammeRepository $programmeRepository): Response
     {
-        $programmes = $programmeRepository->findAll();
+        // méthode choisie qui ne permet pas de trier la liste des programmes
+        // $programmes = $programmeRepository->findAll();
+
+        $programmes = $programmeRepository->findBy([], ["nomProgramme"=>"ASC"]);
+
         return $this->render('programme/index.html.twig', [
             'programmes' => $programmes,
         ]);

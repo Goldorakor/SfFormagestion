@@ -14,7 +14,10 @@ final class FormateurController extends AbstractController
     #[Route('/formateur', name: 'app_formateur')]
     public function index(FormateurRepository $formateurRepository): Response
     {
-        $formateurs = $formateurRepository->findAll();
+        // méthode choisie qui ne permet pas de trier la liste des formateurs
+        // $formateurs = $formateurRepository->findAll();
+        
+        $formateurs = $formateurRepository->findBy([], ["nom"=>"ASC"]);
         return $this->render('formateur/index.html.twig', [
             'formateurs' => $formateurs,
         ]);
