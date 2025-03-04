@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des sessions{% endblock %}
+
+{% block body %}
+
+    <h1>Sessions</h1>
+    <h3>Récapitulatif des sessions en cours de traitement</h3>
+    {# {% for session in sessions %}
+
+        <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }} nb actuel d'inscrits : {{ session.inscriptions | length }} {{ session.dateDebut | date("d/m/Y") }} {{ session.dateFin | date("d/m/Y") }} {{ session.formation.type }} {{ session.formation.modalites }} {{ session.nbPlaces }}</a>
+        <a class="btn btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}">M</a> -> bouton pour éditer la session
+        <a class="btn btn-gris" href="{{ path('delete_session', {'id' : session.id}) }}">X</a> <br> -> bouton pour supprimer la session
+        
+    {% endfor %} #}
+
+    {% if sessions|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Référence de la session<br>Nombre actuel d'inscrits
+                    </th>
+                    <th>
+                        Date de début
+                    </th>
+                    <th>
+                        Date de fin
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Modalité
+                    </th>
+                    <th>
+                        Nb de places
+                    </th>
+                    <th>
+                        <!-- vide : colonne pour les icones édition -->
+                    </th>
+                    <th>
+                        <!-- vide : colonne pour les icones suppression -->
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in sessions %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }}<br>
+                            {{ session.inscriptions|length }} apprenants inscrits</a>
+                        </td>
+                        <td>
+                            {{ session.dateDebut|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ session.dateFin|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ session.formation.type|upper }}
+                        </td>
+                        <td>
+                            {{ session.formation.modalites|capitalize }}
+                        </td>
+                        <td>
+                            {{ session.nbPlaces }}
+                        </td>
+                        <td>
+                            <a class="btn btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer la session #}
+                        </td>
+                        <td>
+                            <a class="btn btn-gris" href="{{ path('delete_session', {'id' : session.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer la session #}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <div>Aucun session n'est présente dans la base de données.</div>
+
+    {% endif %}
+
+
+    <div>
+        <a href="{{ path('new_session') }}" class="btn btn-rose">Créer une session</a><br><br>
+    </div>
+
+{% endblock %}
+
+{# 
+{{ session.inscriptions | length }} revient à compter le nombre d'éléments compris dans la collection d'inscriptions de la session donnée (sachant qu'une inscription vaut un apprenant inscrit !)
+#}
+

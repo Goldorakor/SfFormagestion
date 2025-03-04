@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des formations{% endblock %}
+
+{% block body %}
+
+    <h1>Formations</h1>
+    <h3>Récapitulatif des formations disponibles pour générer des sessions</h3>
+
+    {% if formations|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Nom ou référence de la formation
+                    </th>
+                    <th>
+                        Date de mise à jour
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for formation in formations %}
+                    <tr>
+                        <td>
+                            {{ formation.nomFormation }}
+                        </td>
+                        <td>
+                            {{ formation.dateMaj|date("d/m/Y") }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <div>Aucune formation n'est présente dans la base de données.</div>
+
+    {% endif %}
+
+    <div>
+        <a href="" class="btn btn-rose">Créer une formation - inactif</a><br><br> {# ce bouton n'est pas actif dans le MVP #}
+    </div>
+
+{% endblock %}

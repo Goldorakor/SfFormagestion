@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails d'un module d'enseignement{% endblock %}
+
+{% block body %}
+
+<h1></h1>
+<h3></h3>
+
+
+<div>
+    Nom du module : {{ module.nomModule }}<br>
+    Description : {{ module.description }}<br>
+    Catégorie : {{ module.categorie.nomCategorie }}<br>
+</div>
+
+{% endblock %}

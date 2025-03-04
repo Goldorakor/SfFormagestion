@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une société{% endblock %}
+
+{% block body %}
+
+    {% if not edit %}<h1>Créer une société</h1>{% else %}<h1>Modifier une société</h1>{% endif %} {# dans ApprenantController, on a bien passé la vriable : 'apprenants' => $apprenants #}
+    {% if not edit %}<h3>Saisissez les informations essentielles de la nouvelle société</h3>{% else %}<h3>Modifiez les informations essentielles de la société</h3>{% endif %}
+
+        {# {{ form(formAddSociete) }} #}
+
+        {{ form_start(formAddSociete) }}
+
+            <h2>Identité de la société</h2>
+
+            <div>
+                {{ form_label(formAddSociete.statutJuri) }}
+                {{ form_widget(formAddSociete.statutJuri) }}
+                {{ form_errors(formAddSociete.statutJuri) }}
+            </div>
+            
+            <div>
+                {{ form_label(formAddSociete.raisonSociale) }}
+                {{ form_widget(formAddSociete.raisonSociale) }}
+                {{ form_errors(formAddSociete.raisonSociale) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.numSiret) }}
+                {{ form_widget(formAddSociete.numSiret) }}
+                {{ form_errors(formAddSociete.numSiret) }}
+            </div>
+
+
+            <h2>Informations de contact</h2>
+
+            <div>
+                {{ form_label(formAddSociete.tel) }}
+                {{ form_widget(formAddSociete.tel) }}
+                {{ form_errors(formAddSociete.tel) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.email) }}
+                {{ form_widget(formAddSociete.email) }}
+                {{ form_errors(formAddSociete.email) }}
+            </div>
+
+
+            <h2>Adresse postale du siège social</h2>
+
+            <div>
+                {{ form_label(formAddSociete.adresseSiege) }}
+                {{ form_widget(formAddSociete.adresseSiege) }}
+                {{ form_errors(formAddSociete.adresseSiege) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.codePostalSiege) }}
+                {{ form_widget(formAddSociete.codePostalSiege) }}
+                {{ form_errors(formAddSociete.codePostalSiege) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.villeSiege) }}
+                {{ form_widget(formAddSociete.villeSiege) }}
+                {{ form_errors(formAddSociete.villeSiege) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.paysSiege) }}
+                {{ form_widget(formAddSociete.paysSiege) }}
+                {{ form_errors(formAddSociete.paysSiege) }}
+            </div>
+
+
+            <h2>Adresse postale de facturation</h2>
+
+            <div>
+                {{ form_label(formAddSociete.adresseFac) }}
+                {{ form_widget(formAddSociete.adresseFac) }}
+                {{ form_errors(formAddSociete.adresseFac) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.codePostalFac) }}
+                {{ form_widget(formAddSociete.codePostalFac) }}
+                {{ form_errors(formAddSociete.codePostalFac) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.villeFac) }}
+                {{ form_widget(formAddSociete.villeFac) }}
+                {{ form_errors(formAddSociete.villeFac) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.paysFac) }}
+                {{ form_widget(formAddSociete.paysFac) }}
+                {{ form_errors(formAddSociete.paysFac) }}
+            </div>
+
+
+            <h2>Contacts</h2>
+    
+            <div>
+                {{ form_label(formAddSociete.responsableLegal) }}
+                {{ form_widget(formAddSociete.responsableLegal) }}
+                {{ form_errors(formAddSociete.responsableLegal) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.responsableAdministratif) }}
+                {{ form_widget(formAddSociete.responsableAdministratif) }}
+                {{ form_errors(formAddSociete.responsableAdministratif) }}
+            </div>
+
+            <div>
+                {{ form_label(formAddSociete.responsableRH) }}
+                {{ form_widget(formAddSociete.responsableRH) }}
+                {{ form_errors(formAddSociete.responsableRH) }}
+            </div>
+
+            {# <button type="submit" class="btn btn-primary">Enregistrer</button>   -> doublon car dans SocieteType, on a déjà "->add('enregistrer', SubmitType::class)"" qui est un champ "submit" #}
+   
+            <div>
+                {{ form_end(formAddSociete) }}
+                <a class="btn btn-rose" href="{{ path('app_societe') }}">Quitter</a> {# bouton pour retourner à la liste des sociétés #}
+            </div>
+
+{% endblock %}
+
+{# {{ form(form) }} -> la fonction form permet de récup le formulaire, le deuxième form est le nom qui provient du controleur : on change ce nom pour éviter les confusions #}

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des responsables{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des responsables</h1>
+    <h3>Votre annuaire compte {{ responsables|length }} intervenants répertoriés</h3>
+
+    {% if responsables|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Prénom, Nom
+                    </th>
+                    <th>
+                        E-mail
+                    </th>
+                    <th>
+                        Téléphone
+                    </th>
+                    <th>
+                        <!-- vide : colonne pour les icones édition -->
+                    </th>
+                    <th>
+                        <!-- vide : colonne pour les icones suppression -->
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for responsable in responsables %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_responsable', {'id' : responsable.id}) }}">{{ responsable.prenom|capitalize }} {{ responsable.nom|upper }}</a>
+                        </td>
+                        <td>
+                            {{ responsable.email|lower }}
+                        </td>
+                        <td>
+                            {{ responsable.tel }}
+                        </td>
+                        <td>
+                            <a class="btn btn-gris" href="{{ path('edit_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer le responsable #}
+                        </td>
+                        <td>
+                            <a class="btn btn-gris" href="{{ path('delete_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer le responsable #}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <div>Aucun responsable n'est présent dans l'annuaire.</div>
+
+    {% endif %}
+
+
+    <div>
+        <a href="{{ path('new_responsable') }}" class="btn btn-rose">Créer un responsable</a><br><br>
+    </div>
+
+{% endblock %}
+
+

@@ -1,0 +1,280 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un apprenant{% endblock %}
+
+{% block body %}
+
+    <h1>{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</h1>
+    <h3>{{ apprenant.email|lower }}</h3>
+
+
+    <div>
+        Statut : {% if apprenant.sexe == 'F' %}apprenante{% else %}apprenant{% endif %}<br>
+        Adresse : <div>
+            {{ apprenant.adresse }}<br>
+            {{ apprenant.codePostal }} {{ apprenant.ville|capitalize }}<br>
+            {{ apprenant.pays|upper }}
+        </div>
+        Téléphone :{% if apprenant.tel %} {{ apprenant.tel }}{% else %} numéro non renseigné{% endif %}
+    </div>
+
+    <div>
+        Date de naissance : {{ apprenant.dateNaissance|date("d/m/Y") }}<br>
+        Sexe : {{ apprenant.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}<br>
+        Profession : {{ apprenant.metier|lower }}<br>
+        {% if apprenant.sexe == 'F' %}Salariée{% else %}Salarié{% endif %} de la société :{% if apprenant.societe is not null %} {{ apprenant.societe.raisonSociale }}{% else %} non renseigné ou statut de particulier{% endif %}
+    </div>
+
+    <h2>Sessions à venir :</h2> <!-- pour les 3 sections suivantes, il faut penser à passer la variable $now = new DateTime dans la méthode show_apprenant de l'ApprenantController -->
+
+    {% set sessions_a_venir = false %} {# On initialise une variable pour savoir si on a trouvé des sessions à venir #}
+
+    {% for inscription in apprenant.inscriptions %}
+
+        {% if inscription.session.dateDebut > now and inscription.session.dateFin > now %}
+            {% set sessions_a_venir = true %} {# On met la variable à true dès qu'on trouve une session #}
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Référence de la session
+                        </th>
+                        <th>
+                            Date de début
+                        </th>
+                        <th>
+                            Date de fin
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Modalité
+                        </th>
+                        <th>
+                            Prix en euros
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.titreSession }}<br>
+                            {{ inscription.session.inscriptions|length }} apprenants inscrits sur {{ inscription.session.nbPlaces }} places</a>
+                        </td>
+                        <td>
+                            {{ inscription.session.dateDebut|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ inscription.session.dateFin|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ inscription.session.formation.type|upper }}
+                        </td>
+                        <td>
+                            {{ inscription.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                        </td>
+                        <td>
+                            {{ inscription.prix }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        
+    {% endfor %}
+
+    {% if not sessions_a_venir %} {# Après la boucle for, on vérifie si la variable sessions_a_venir est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session à venir". #}
+        <div>Aucune session à venir</div>
+    {% endif %}
+
+
+
+
+    <h2>Sessions en cours :</h2> <!-- pour les 3 sections suivantes, il faut penser à passer la variable $now = new DateTime dans la méthode show_apprenant de l'ApprenantController -->
+
+    {% set sessions_en_cours = false %} {# On initialise une variable pour savoir si on a trouvé des sessions en cours #}
+
+    {% for inscription in apprenant.inscriptions %}
+
+        {% if inscription.session.dateDebut <= now and inscription.session.dateFin >= now %}
+            {% set sessions_en_cours = true %} {# On met la variable à true dès qu'on trouve une session #}
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Référence de la session
+                        </th>
+                        <th>
+                            Date de début
+                        </th>
+                        <th>
+                            Date de fin
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Modalité
+                        </th>
+                        <th>
+                            Prix en euros
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.titreSession }}<br>
+                            {{ inscription.session.inscriptions | length }} apprenants inscrits sur {{ inscription.session.nbPlaces }} places</a>
+                        </td>
+                        <td>
+                            {{ inscription.session.dateDebut|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ inscription.session.dateFin|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ inscription.session.formation.type|upper }}
+                        </td>
+                        <td>
+                            {{ inscription.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                        </td>
+                        <td>
+                            {{ inscription.prix }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        
+    {% endfor %}
+
+    {% if not sessions_en_cours %} {# Après la boucle for, on vérifie si la variable sessions_en_cours est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session en cours". #}
+        <div>Aucune session en cours</div>
+    {% endif %}
+
+
+
+
+    <h2>Sessions terminées :</h2> <!-- pour les 3 sections suivantes, il faut penser à passer la variable $now = new DateTime dans la méthode show_apprenant de l'ApprenantController -->
+
+    {% set sessions_terminees = false %} {# On initialise une variable pour savoir si on a trouvé des sessions terminées #}
+
+    {% for inscription in apprenant.inscriptions %}
+
+        {% if inscription.session.dateDebut < now and inscription.session.dateFin < now %}
+            {% set sessions_terminees = true %} {# On met la variable à true dès qu'on trouve une session #}
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Référence de la session
+                        </th>
+                        <th>
+                            Date de début
+                        </th>
+                        <th>
+                            Date de fin
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Modalité
+                        </th>
+                        <th>
+                            Prix en euros
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.titreSession }}<br>
+                            {{ inscription.session.inscriptions | length }} apprenants inscrits sur {{ inscription.session.nbPlaces }} places</a>
+                        </td>
+                        <td>
+                            {{ inscription.session.dateDebut|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ inscription.session.dateFin|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ inscription.session.formation.type|upper }}
+                        </td>
+                        <td>
+                            {{ inscription.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                        </td>
+                        <td>
+                            {{ inscription.prix }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        
+    {% endfor %}
+
+    {% if not sessions_terminees %} {# Après la boucle for, on vérifie si la variable sessions_terminees est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session terminée". #}
+        <div>Aucune session terminée</div>
+    {% endif %}
+
+
+
+
+    <div>
+        <a class="btn btn-rose" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}">Supprimer</a> {# bouton pour supprimer l'apprenant' #}
+
+        <a class="btn btn-rose" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}">Editer</a> {# bouton pour éditer l'apprenant #}
+
+        <a class="btn btn-rose" href="{{ path('app_apprenant') }}">Quitter</a> {# bouton pour retourner à la liste des apprenants #}
+    </div>
+
+    
+   
+{% endblock %}
+
+
+
+{#
+
+{% if sessions | length > 0 %}  : dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length
+
+        <table>  
+        </table>
+
+    {% else %}
+
+        <div>Aucun session n'est présente dans la base de données.</div>
+
+{% endif %}
+
+
+
+
+    <h2>Sessions à venir</h2>
+
+    {% for inscription in apprenant.inscriptions %}
+
+    {% if inscription.session.dateDebut > now and inscription.session.dateFin > now %}<a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.titreSession }} {{ inscription.session.dateDebut | date("d/m/Y") }} {{ inscription.session.dateFin | date("d/m/Y") }} {{ inscription.session.formation.type }} {{ inscription.session.formation.modalites }} {{ inscription.session.nbPlaces }}</a><br>{% endif %}
+        
+    {% endfor %}
+    
+    <h2>Sessions en cours</h2>
+
+    {% for inscription in apprenant.inscriptions %}
+
+    {% if inscription.session.dateDebut <= now and inscription.session.dateFin >= now %}<a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.titreSession }} {{ inscription.session.dateDebut | date("d/m/Y") }} {{ inscription.session.dateFin | date("d/m/Y") }} {{ inscription.session.formation.type }} {{ inscription.session.formation.modalites }} {{ inscription.session.nbPlaces }}</a><br>{% endif %}
+        
+    {% endfor %}
+
+    <h2>Sessions terminées</h2>
+
+    {% for inscription in apprenant.inscriptions %}
+
+    {% if inscription.session.dateDebut < now and inscription.session.dateFin < now %}<a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.titreSession }} {{ inscription.session.dateDebut | date("d/m/Y") }} {{ inscription.session.dateFin | date("d/m/Y") }} {{ inscription.session.formation.type }} {{ inscription.session.formation.modalites }} {{ inscription.session.nbPlaces }}</a><br>{% endif %}
+        
+    {% endfor %}
+
+#}

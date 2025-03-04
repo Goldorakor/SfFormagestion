@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une session{% endblock %}
+
+{% block body %}
+
+    {% if not edit %}<h1>Créer une session</h1>{% else %}<h1>Modifier une session</h1>{% endif %} {# dans ApprenantController, on a bien passé la vriable : 'apprenants' => $apprenants #}
+    {% if not edit %}<h3>Saisissez les informations essentielles de la nouvelle session</h3>{% else %}<h3>Modifiez les informations essentielles de la session</h3>{% endif %}
+
+    {#{{ form(formAddSession) }}#}
+
+    {{ form_start(formAddSession) }}
+        <h2>Présentation de la session</h2>
+
+        <div>
+            {{ form_label(formAddSession.sexe) }}
+            {{ form_widget(formAddSession.sexe) }}
+            {{ form_errors(formAddSession.sexe) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddSession.nom) }}
+            {{ form_widget(formAddSession.nom) }}
+            {{ form_errors(formAddSession.nom) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddSession.prenom) }}
+            {{ form_widget(formAddSession.prenom) }}
+            {{ form_errors(formAddSession.prenom) }}
+        </div>
+
+
+        <h2>Modalités</h2>
+
+        <div>
+            {{ form_label(formAddSession.tel) }}
+            {{ form_widget(formAddSession.tel) }}
+            {{ form_errors(formAddSession.tel) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddSession.email) }}
+            {{ form_widget(formAddSession.email) }}
+            {{ form_errors(formAddSession.email) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddSession.email) }}
+            {{ form_widget(formAddSession.email) }}
+            {{ form_errors(formAddSession.email) }}
+        </div>
+
+
+        <h2>Encadrement</h2>
+
+        <div>
+            {{ form_label(formAddSession.adresse) }}
+            {{ form_widget(formAddSession.adresse) }}
+            {{ form_errors(formAddSession.adresse) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddSession.email) }}
+            {{ form_widget(formAddSession.email) }}
+            {{ form_errors(formAddSession.email) }}
+        </div>
+
+
+        <h2>Questionnaires</h2>
+
+        <div>
+            {{ form_label(formAddSession.adresse) }}
+            {{ form_widget(formAddSession.adresse) }}
+            {{ form_errors(formAddSession.adresse) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddSession.email) }}
+            {{ form_widget(formAddSession.email) }}
+            {{ form_errors(formAddSession.email) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddSession.email) }}
+            {{ form_widget(formAddSession.email) }}
+            {{ form_errors(formAddSession.email) }}
+        </div>
+
+
+        <h2>Inscriptions avec tarifs</h2>
+
+        <div>
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+    
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+        </div>
+
+        <div>
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+    
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+        </div>
+
+        <div>
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+    
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+        </div>
+
+        <div>
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+    
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+        </div>
+
+
+        <h2>Planification de la session</h2>
+
+        <div class="liseret fushia">
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+    
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+    
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+    
+            <div>
+                {{ form_label(formAddSession.adresse) }}
+                {{ form_widget(formAddSession.adresse) }}
+                {{ form_errors(formAddSession.adresse) }}
+            </div>
+        </div>
+
+        
+
+
+        <div>
+         {{ form_end(formAddSession) }}
+         <a class="btn btn-rose" href="{{ path('app_session') }}">Quitter</a> {# bouton pour retourner à la liste des sessions #}
+        </div>
+   
+{% endblock %}
+
+{# {{ form(form) }} -> la fonction form permet de récup le formulaire, le deuxième form est le nom qui provient du controleur : on change ce nom pour éviter les confusions #}

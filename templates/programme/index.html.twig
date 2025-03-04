@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des programmes{% endblock %}
+
+{% block body %}
+
+    <h1>Programmes</h1>
+    <h3>Récapitulatif des programmes qui fixent un cadre aux formations proposées</h3>
+
+    {% if programmes|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Nom ou référence du programme
+                    </th>
+                    <th>
+                        Date de mise à jour
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for programme in programmes %}
+                    <tr>
+                        <td>
+                            {{ programme.nomProgramme }}
+                        </td>
+                        <td>
+                            {{ programme.dateMaj|date("d/m/Y") }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <div>Aucun programme n'est présent dans la base de données.</div>
+
+    {% endif %}
+
+    <div>
+        <a href="" class="btn btn-rose">Créer un programme - inactif</a><br><br> {# ce bouton n'est pas actif dans le MVP #}
+    </div>
+
+{% endblock %}

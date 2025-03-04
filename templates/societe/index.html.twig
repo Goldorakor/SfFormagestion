@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des sociétés{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des sociétés</h1>
+    <h3>Votre annuaire compte {{ societes|length }} sociétés répertoriées</h3>
+
+    {% if societes|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Nom de la société
+                    </th>
+                    <th>
+                        E-mail
+                    </th>
+                    <th>
+                        Téléphone
+                    </th>
+                    <th>
+                        <!-- vide : colonne pour les icones édition -->
+                    </th>
+                    <th>
+                        <!-- vide : colonne pour les icones suppression -->
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for societe in societes %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_societe', {'id' : societe.id}) }}">{{ societe.raisonSociale }}</a>
+                        </td>
+                        <td>
+                            {{ societe.email|lower }}
+                        </td>
+                        <td>
+                            {{ societe.tel }}
+                        </td>
+                        <td>
+                            <a class="btn btn-gris" href="{{ path('edit_societe', {'id' : societe.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer la société #}
+                        </td>
+                        <td>
+                            <a class="btn btn-gris" href="{{ path('delete_societe', {'id' : societe.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer la société #}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <div>Aucune société n'est présente dans l'annuaire.</div>
+
+    {% endif %}
+
+    <div>
+        <a href="{{ path('new_societe') }}" class="btn btn-rose">Créer une société</a><br><br>
+    </div>
+
+{% endblock %}
+
+
+

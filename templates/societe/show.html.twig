@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'une société{% endblock %}
+
+{% block body %}
+
+    <h1>{{ societe.statutJuri|upper }} {{ societe.raisonSociale }}</h1>
+    <h3>{{ societe.email|lower }}</h3>
+
+
+    <div>
+        Statut : société<br>
+        Téléphone : {{ societe.tel }}<br>
+        N° SIRET : {{ societe.numSiret }}
+    </div><br>
+
+    <div>
+        Adresse du siègle social: <div>
+            {{ societe.adresseSiege }}<br>
+            {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }}<br>
+            {{ societe.paysSiege|upper }}
+        </div><br>
+        
+        Adresse de facturation : <div>
+            {{ societe.adresseFac }}<br>
+            {{ societe.codePostalFac }} {{ societe.villeFac|capitalize }}<br>
+            {{ societe.paysFac|upper }}
+        </div> 
+    </div>
+
+    {#
+    <div>
+        Responsable légal : <div>
+            {{ .prenom }} {{ .nom | upper }}<br>
+            {{ .email }}<br>
+            {{ .tel }}
+        </div>
+    </div>
+
+    <div>
+        Responsable administratif : <div>
+            {{ .prenom }} {{ .nom | upper }}<br>
+            {{ .email }}<br>
+            {{ .tel }}
+        </div>
+    </div>
+
+    <div>
+        Responsable RH : <div>
+            {{ .prenom }} {{ .nom | upper }}<br>
+            {{ .email }}<br>
+            {{ .tel }}
+        </div>
+    </div>
+    #}
+
+    <h2>Responsables de l'entreprise :</h2>
+
+    {% for responsabilite in societe.responsabilites %}
+
+    Responsable {{ responsabilite.typeResponsable }}<br>
+    <a href="{{ path('show_responsable', {'id' : responsabilite.responsable.id}) }}">{{ responsabilite.responsable.prenom|capitalize }} {{ responsabilite.responsable.nom|upper }}</a><br>
+    {{ responsabilite.responsable.email|lower }}<br>
+    {{ responsabilite.responsable.tel }}<br>
+        
+    {% endfor %}
+
+    <h2>Salariés de l'entreprise :</h2>
+
+    {# on peut avoir nos 3 conditions puisque en réalité, une société possède soit des apprenants, soit des formateurs, soit personne mais jamais des formateurs et des apprenants mélangés 
+    
+    {% if societe.apprenants | length > 0 %}
+
+        {% for apprenant in societe.apprenants %}
+
+            <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.prenom }} {{ apprenant.nom }} {{ apprenant.email }} {{ apprenant.tel }}</a> <br> 
+
+        {% endfor %}
+
+    {% elseif societe.formateurs | length > 0 %}
+         
+        {% for formateur in societe.formateurs %}
+                  
+             <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom }} {{ formateur.nom }} {{ formateur.email }} {{ formateur.tel }}</a><br>
+                       
+        {% endfor %}
+    
+    {% else %}
+
+        <div>Aucun employé dans cette entreprise.</div>
+        
+    {% endif %}
+
+    #}
+
+
+    {# on établit une méthode plus performante qui autorise une société comportant des apprenants et des formateurs #}
+
+    {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants #}
+
+    {% for apprenant in societe.apprenants %}
+
+        {% if apprenant %} {# on vérifie qu'on trouve au moins un apprenant dans la collection d'apprenants de la société #}
+            {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Prénom, NOM
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Téléphone
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}<br>
+                            Apprenant</a>
+                        </td>
+                        <td>
+                            {{ apprenant.email|lower }}
+                        </td>
+                        <td>
+                            {{ apprenant.tel }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        
+    {% endfor %}
+
+    {% set formateurs_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des formateurs #}
+
+    {% for formateur in societe.formateurs %}
+
+        {% if formateur %} {# on vérifie qu'on trouve au moins un formateur dans la collection de formateurs de la société #}
+            {% set formateurs_trouves = true %} {# On met la variable à true dès qu'on trouve un formateur #}
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Prénom, NOM
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Téléphone
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom|capitalize }} {{ formateur.nom|upper }}<br>
+                            Formateur</a>
+                        </td>
+                        <td>
+                            {{ formateur.email|capitalize }}
+                        </td>
+                        <td>
+                            {{ formateur.tel }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        
+    {% endfor %}
+
+    {% if not apprenants_trouves and not formateurs_trouves %} {# Après la boucle for, on vérifie si les variables 'apprenants_trouves' et 'formateurs_trouves' sont toujours false. Si c'est le cas, cela signifie qu'aucun employé (formateur ou apprenant) n'a été trouvée, et donc on affiche le message "Aucun salarié de l’entreprise dans l’annuaire". #}
+        <div>Aucun salarié de l’entreprise dans l’annuaire</div>
+    {% endif %}
+
+
+    <div>
+        <a class="btn btn-rose" href="{{ path('delete_societe', {'id' : societe.id}) }}">Supprimer</a> {# bouton pour supprimer la société' #}
+
+        <a class="btn btn-rose" href="{{ path('edit_societe', {'id' : societe.id}) }}">Editer</a> {# bouton pour éditer la société #}
+
+        <a class="btn btn-rose" href="{{ path('app_societe') }}">Quitter</a> {# bouton pour retourner à la liste des sociétés #}
+    </div>
+
+{% endblock %}

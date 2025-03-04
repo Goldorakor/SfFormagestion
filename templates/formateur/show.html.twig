@@ -1,0 +1,229 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un formateur{% endblock %}
+
+{% block body %}
+
+    <h1>{{ formateur.prenom|capitalize }} {{ formateur.nom|upper }}</h1>
+    <h3>{{ formateur.email|lower }}</h3>
+
+
+    <div>
+        Statut : {% if formateur.sexe == 'F' %}formatrice {{ formateur.statut|lower }}e{% else %}formateur {{ formateur.statut|lower }}{% endif %}<br>
+        {% if formateur.statut == 'salarié' %}{% if formateur.sexe == 'F' %}Salariée{% else %}Salarié{% endif %} de la société :{% if formateur.societe is not null %} {{ formateur.societe.raisonSociale }}{% else %} Forma'Toque{% endif %}{% endif %}
+    </div>
+
+
+    <div>
+        Téléphone : {{ formateur.tel }}<br>
+        Sexe : {{ formateur.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}
+    </div>
+
+    <h2>Sessions à venir :</h2> <!-- pour les 3 sections suivantes, il faut penser à passer la variable $now = new DateTime dans la méthode show_formateur du FormateurController -->
+
+    {% set sessions_a_venir = false %} {# On initialise une variable pour savoir si on a trouvé des sessions à venir #}
+
+    {% for encadrement in formateur.encadrements %}
+
+        {% if encadrement.session.dateDebut > now and encadrement.session.dateFin > now %}
+            {% set sessions_a_venir = true %} {# On met la variable à true dès qu'on trouve une session à venir #}
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Référence de la session
+                        </th>
+                        <th>
+                            Date de début
+                        </th>
+                        <th>
+                            Date de fin
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Modalité
+                        </th>
+                        <th>
+                            Référent
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.titreSession }}<br>
+                            {{ encadrement.session.inscriptions | length }} apprenants inscrits sur {{ encadrement.session.nbPlaces }} places</a>
+                        </td>
+                        <td>
+                            {{ encadrement.session.dateDebut|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ encadrement.session.dateFin|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ encadrement.session.formation.type|upper }}
+                        </td>
+                        <td>
+                            {{ encadrement.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                        </td>
+                        <td>
+                            {{ encadrement.typeReferent|capitalize }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        
+    {% endfor %}
+
+    {% if not sessions_a_venir %} {# Après la boucle for, on vérifie si la variable sessions_a_venir est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session à venir". #}
+        <div>Aucune session à venir</div>
+    {% endif %}
+
+
+
+
+    <h2>Sessions en cours :</h2> <!-- pour les 3 sections suivantes, il faut penser à passer la variable $now = new DateTime dans la méthode show_formateur du FormateurController -->
+
+    {% set sessions_en_cours = false %} {# On initialise une variable pour savoir si on a trouvé des sessions en cours #}
+
+    {% for encadrement in formateur.encadrements %}
+
+        {% if encadrement.session.dateDebut <= now and encadrement.session.dateFin >= now %} {# on vérifie qu'on trouve au moins un encadrement de ce formateur, avec les bonnes dates de début et de fin #}
+            {% set sessions_en_cours = true %} {# On met la variable à true dès qu'on trouve une session en cours #}
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Référence de la session
+                        </th>
+                        <th>
+                            Date de début
+                        </th>
+                        <th>
+                            Date de fin
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Modalité
+                        </th>
+                        <th>
+                            Référent
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.titreSession }}<br>
+                            {{ encadrement.session.inscriptions | length }} apprenants inscrits sur {{ encadrement.session.nbPlaces }} places</a>
+                        </td>
+                        <td>
+                            {{ encadrement.session.dateDebut|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ encadrement.session.dateFin|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ encadrement.session.formation.type|upper }}
+                        </td>
+                        <td>
+                            {{ encadrement.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                        </td>
+                        <td>
+                            {{ encadrement.typeReferent|capitalize }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        
+    {% endfor %}
+
+    {% if not sessions_en_cours %} {# Après la boucle for, on vérifie si la variable sessions_en_cours est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session en cours". #}
+        <div>Aucune session en cours</div>
+    {% endif %}
+
+
+
+
+    <h2>Sessions terminées :</h2> <!-- pour les 3 sections suivantes, il faut penser à passer la variable $now = new DateTime dans la méthode show_formateur du FormateurController -->
+
+    {% set sessions_terminees = false %} {# On initialise une variable pour savoir si on a trouvé des sessions terminées #}
+
+    {% for encadrement in formateur.encadrements %}
+
+        {% if encadrement.session.dateDebut < now and encadrement.session.dateFin < now %}
+            {% set sessions_terminees = true %} {# On met la variable à true dès qu'on trouve une session terminée #}
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Référence de la session
+                        </th>
+                        <th>
+                            Date de début
+                        </th>
+                        <th>
+                            Date de fin
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Modalité
+                        </th>
+                        <th>
+                            Référent
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.titreSession }}<br>
+                            {{ encadrement.session.inscriptions | length }} apprenants inscrits sur {{ encadrement.session.nbPlaces }} places</a>
+                        </td>
+                        <td>
+                            {{ encadrement.session.dateDebut|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ encadrement.session.dateFin|date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ encadrement.session.formation.type|upper }}
+                        </td>
+                        <td>
+                            {{ encadrement.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                        </td>
+                        <td>
+                            {{ encadrement.typeReferent|capitalize }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        
+    {% endfor %}
+
+    {% if not sessions_terminees %} {# Après la boucle for, on vérifie si la variable sessions_terminees est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session terminée". #}
+        <div>Aucune session terminée</div>
+    {% endif %}
+
+
+
+    <div>
+        <a class="btn btn-rose" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">Supprimer</a> {# bouton pour supprimer le formateur' #}
+
+        <a class="btn btn-rose" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">Editer</a> {# bouton pour éditer le formateur #}
+
+        <a class="btn btn-rose" href="{{ path('app_formateur') }}">Quitter</a> {# bouton pour retourner à la liste des formateurs #}
+    </div>
+
+  
+
+{% endblock %}

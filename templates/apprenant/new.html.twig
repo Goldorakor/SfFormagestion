@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un apprenant{% endblock %}
+
+{% block body %}
+
+    {% if not edit %}<h1>Créer un apprenant</h1>{% else %}<h1>Modifier un apprenant</h1>{% endif %} {# dans ApprenantController, on a bien passé la vriable : 'apprenants' => $apprenants #}
+    {% if not edit %}<h3>Saisissez les informations essentielles du nouvel apprenant</h3>{% else %}<h3>Modifiez les informations essentielles de l'apprenant</h3>{% endif %}
+    
+    {# {{ form(formAddApprenant) }} #}
+
+    {{ form_start(formAddApprenant) }}
+
+        <h2>Identité de l'apprenant</h2>
+
+        <div>
+            {{ form_label(formAddApprenant.sexe) }}
+            {{ form_widget(formAddApprenant.sexe) }}
+            {{ form_errors(formAddApprenant.sexe) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddApprenant.nom) }}
+            {{ form_widget(formAddApprenant.nom) }}
+            {{ form_errors(formAddApprenant.nom) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddApprenant.prenom) }}
+            {{ form_widget(formAddApprenant.prenom) }}
+            {{ form_errors(formAddApprenant.prenom) }}
+        </div>
+
+
+        <h2>Informations de contact</h2>
+
+        <div>
+            {{ form_label(formAddApprenant.tel) }}
+            {{ form_widget(formAddApprenant.tel) }}
+            {{ form_errors(formAddApprenant.tel) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddApprenant.email) }}
+            {{ form_widget(formAddApprenant.email) }}
+            {{ form_errors(formAddApprenant.email) }}
+        </div>
+
+
+        <h2>Adresse postale</h2>
+
+        <div>
+            {{ form_label(formAddApprenant.adresse) }}
+            {{ form_widget(formAddApprenant.adresse) }}
+            {{ form_errors(formAddApprenant.adresse) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddApprenant.codePostal) }}
+            {{ form_widget(formAddApprenant.codePostal) }}
+            {{ form_errors(formAddApprenant.codePostal) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddApprenant.ville) }}
+            {{ form_widget(formAddApprenant.ville) }}
+            {{ form_errors(formAddApprenant.ville) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddApprenant.pays) }}
+            {{ form_widget(formAddApprenant.pays) }}
+            {{ form_errors(formAddApprenant.pays) }}
+        </div>
+
+
+        <h2>Statut de l'apprenant</h2>
+
+        <div>
+            {{ form_label(formAddApprenant.societe) }}
+            {{ form_widget(formAddApprenant.societe) }}
+            {{ form_errors(formAddApprenant.societe) }}
+        </div>
+
+
+        <h2>Informations complémentaires</h2>
+
+        <div>
+            {{ form_label(formAddApprenant.dateNaissance) }}
+            {{ form_widget(formAddApprenant.dateNaissance) }}
+            {{ form_errors(formAddApprenant.dateNaissance) }}
+        </div>
+
+        <div>
+            {{ form_label(formAddApprenant.metier) }}
+            {{ form_widget(formAddApprenant.metier) }}
+            {{ form_errors(formAddApprenant.metier) }}
+        </div>
+
+        <div>
+            {{ form_end(formAddApprenant) }}
+            <a class="btn btn-rose" href="{{ path('app_apprenant') }}">Quitter</a> {# bouton pour retourner à la liste des apprenants #}
+        </div>
+
+{% endblock %}
+
+{# {{ form(form) }} -> la fonction form permet de récup le formulaire, le deuxième form est le nom qui provient du controleur : on change ce nom pour éviter les confusions #}
+
+{#Interprétation de edit dans Twig
+
+    $apprenant->getId() retourne l'identifiant de l'apprenant s'il existe en base de données.
+    Si $apprenant est nouveau, il n'a pas encore d'ID, donc $apprenant->getId() retourne null.
+    En PHP, null est falsy, donc dans Twig :
+        edit = null est évalué comme false
+        edit = 5 (par exemple) est évalué comme true
+
+Condition {% if not edit %}
+
+    Si edit est false (donc null), alors {% if not edit %} est vrai, ce qui signifie qu'on est en création.
+    Si edit contient un ID (donc true), alors {% if not edit %} est faux, ce qui signifie qu'on est en modification.
+
+
+
+ form_label(...) → Affiche le label du champ.
+ form_widget(...) → Affiche le champ lui-même (input, select, textarea…).
+ form_errors(...) → Affiche les erreurs si le champ est mal rempli.
+ #}
+
+
+
+ {#
+ <div class="form-control">
+    <i class="fa fa-calendar"></i> {{ form_label(form.dueDate) }}
+    {{ form_widget(form.dueDate) }}
+
+    <small>{{ form_help(form.dueDate) }}</small>
+
+    <div class="form-error">
+        {{ form_errors(form.dueDate) }}
+    </div>
+</div>
+
+If you're rendering each field manually, make sure you don't forget the _token field that is automatically added for CSRF protection.
+
+You can also use {{ form_rest(form) }} (recommended) to render any fields that aren't rendered manually.
+#}

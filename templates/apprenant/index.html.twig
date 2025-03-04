@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des apprenants{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des apprenants</h1>
+    <h3>Votre annuaire compte {{ apprenants|length }} apprenants répertoriés</h3>
+
+    {% if apprenants|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Prénom, Nom
+                    </th>
+                    <th>
+                        E-mail
+                    </th>
+                    <th>
+                        Téléphone
+                    </th>
+                    <th>
+                        Nom de la société
+                    </th>
+                    <th>
+                        <!-- vide : colonne pour les icones édition -->
+                    </th>
+                    <th>
+                        <!-- vide : colonne pour les icones suppression -->
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for apprenant in apprenants %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</a>
+                        </td>
+                        <td>
+                            {{ apprenant.email|lower }}
+                        </td>
+                        <td>
+                            {{ apprenant.tel }}
+                        </td>
+                        <td>
+                            {% if apprenant.societe is not null %}{{ apprenant.societe.raisonSociale }}{% else %}-{% endif %}
+                        </td>
+                        <td>
+                            <a class="btn btn-gris" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer l'apprenant #}
+                        </td>
+                        <td>
+                            <a class="btn btn-gris" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer l'apprenant #}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <div>Aucun apprenant n'est présent dans l'annuaire.</div>
+
+    {% endif %}
+
+    
+    <div>
+        <a href="{{ path('new_apprenant') }}" class="btn btn-rose">Créer un apprenant</a><br><br>
+    </div>
+   
+{% endblock %}
+
+
+{# 
+dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length
+
+{{ apprenants | length }} équivalent à ce qui suit :
+Dans le contrôleur ApprenantController.php, on passe le nombre total d'apprenants au template :
+#[Route('/apprenants', name: 'liste_apprenants')]
+public function index(ApprenantRepository $apprenantRepository): Response
+{
+    $totalApprenants = $apprenantRepository->countApprenants();
+
+    return $this->render('apprenant/index.html.twig', [
+        'apprenants' => $apprenantRepository->findAll(),
+        'totalApprenants' => $totalApprenants
+    ]);
+}
+
+Dans le fichier index.html.twig qui affiche la liste des apprenants, on ajoute ceci :
+<h2>Nombre total d'apprenants : {{ totalApprenants }}</h2>
+#}
