@@ -13,78 +13,78 @@
         <h2>Présentation de la session</h2>
 
         <div>
-            {{ form_label(formAddSession.sexe) }}
-            {{ form_widget(formAddSession.sexe) }}
-            {{ form_errors(formAddSession.sexe) }}
+            {{ form_label(formAddSession.titreSession) }}
+            {{ form_widget(formAddSession.titreSession) }}
+            {{ form_errors(formAddSession.titreSession) }}
         </div>
 
         <div>
-            {{ form_label(formAddSession.nom) }}
-            {{ form_widget(formAddSession.nom) }}
-            {{ form_errors(formAddSession.nom) }}
+            {{ form_label(formAddSession.accroche) }}
+            {{ form_widget(formAddSession.accroche) }}
+            {{ form_errors(formAddSession.accroche) }}
         </div>
 
         <div>
-            {{ form_label(formAddSession.prenom) }}
-            {{ form_widget(formAddSession.prenom) }}
-            {{ form_errors(formAddSession.prenom) }}
+            {{ form_label(formAddSession.formation) }}
+            {{ form_widget(formAddSession.formation) }}
+            {{ form_errors(formAddSession.formation) }}
         </div>
 
 
         <h2>Modalités</h2>
 
         <div>
-            {{ form_label(formAddSession.tel) }}
-            {{ form_widget(formAddSession.tel) }}
-            {{ form_errors(formAddSession.tel) }}
+            {{ form_label(formAddSession.nbPlaces) }}
+            {{ form_widget(formAddSession.nbPlaces) }}
+            {{ form_errors(formAddSession.nbPlaces) }}
         </div>
 
         <div>
-            {{ form_label(formAddSession.email) }}
-            {{ form_widget(formAddSession.email) }}
-            {{ form_errors(formAddSession.email) }}
+            {{ form_label(formAddSession.dateDebut) }}
+            {{ form_widget(formAddSession.dateDebut) }}
+            {{ form_errors(formAddSession.dateDebut) }}
         </div>
 
         <div>
-            {{ form_label(formAddSession.email) }}
-            {{ form_widget(formAddSession.email) }}
-            {{ form_errors(formAddSession.email) }}
+            {{ form_label(formAddSession.dateFin) }}
+            {{ form_widget(formAddSession.dateFin) }}
+            {{ form_errors(formAddSession.dateFin) }}
         </div>
 
 
         <h2>Encadrement</h2>
 
         <div>
-            {{ form_label(formAddSession.adresse) }}
-            {{ form_widget(formAddSession.adresse) }}
-            {{ form_errors(formAddSession.adresse) }}
+            {{ form_label(formAddSession.referentPedagogique) }}
+            {{ form_widget(formAddSession.referentPedagogique) }}
+            {{ form_errors(formAddSession.referentPedagogique) }}
         </div>
 
         <div>
-            {{ form_label(formAddSession.email) }}
-            {{ form_widget(formAddSession.email) }}
-            {{ form_errors(formAddSession.email) }}
+            {{ form_label(formAddSession.referentAdministratif) }}
+            {{ form_widget(formAddSession.referentAdministratif) }}
+            {{ form_errors(formAddSession.referentAdministratif) }}
         </div>
 
 
         <h2>Questionnaires</h2>
 
         <div>
-            {{ form_label(formAddSession.adresse) }}
-            {{ form_widget(formAddSession.adresse) }}
-            {{ form_errors(formAddSession.adresse) }}
+            {{ form_label(formAddSession.questionnairePrefor) }}
+            {{ form_widget(formAddSession.questionnairePrefor) }}
+            {{ form_errors(formAddSession.questionnairePrefor) }}
         </div>
 
         <div>
-            {{ form_label(formAddSession.email) }}
-            {{ form_widget(formAddSession.email) }}
-            {{ form_errors(formAddSession.email) }}
+            {{ form_label(formAddSession.questionnaireChaud) }}
+            {{ form_widget(formAddSession.questionnaireChaud) }}
+            {{ form_errors(formAddSession.questionnaireChaud) }}
         </div>
 
         <div>
-            {{ form_label(formAddSession.email) }}
-            {{ form_widget(formAddSession.email) }}
-            {{ form_errors(formAddSession.email) }}
+            {{ form_label(formAddSession.questionnaireFroid) }}
+            {{ form_widget(formAddSession.questionnaireFroid) }}
+            {{ form_errors(formAddSession.questionnaireFroid) }}
         </div>
 
 
@@ -92,66 +92,24 @@
 
         <div>
             <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
+                {{ form_label(formAddSession.apprenantInscrit) }}
+                {{ form_widget(formAddSession.apprenantInscrit) }}
+                {{ form_errors(formAddSession.apprenantInscrit) }}
             </div>
     
             <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
-            </div>
-        </div>
-
-        <div>
-            <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
-            </div>
-    
-            <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
-            </div>
-        </div>
-
-        <div>
-            <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
-            </div>
-    
-            <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
-            </div>
-        </div>
-
-        <div>
-            <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
-            </div>
-    
-            <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
+                {{ form_label(formAddSession.prix) }}
+                {{ form_widget(formAddSession.prix) }}
+                {{ form_errors(formAddSession.prix) }}
             </div>
         </div>
 
 
-        <h2>Planification de la session</h2>
+         {# <h2>Planification de la session</h2>
 
         <div class="liseret fushia">
             <div>
-                {{ form_label(formAddSession.adresse) }}
+                {{ form_label(formAddSession.) }}
                 {{ form_widget(formAddSession.adresse) }}
                 {{ form_errors(formAddSession.adresse) }}
             </div>
@@ -173,7 +131,7 @@
                 {{ form_widget(formAddSession.adresse) }}
                 {{ form_errors(formAddSession.adresse) }}
             </div>
-        </div>
+        </div> #}
 
         
 

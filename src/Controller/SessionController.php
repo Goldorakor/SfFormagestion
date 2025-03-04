@@ -54,7 +54,6 @@ final class SessionController extends AbstractController
             // $entityManager->flush();  équivaut à la méthode execute() en PDOStatement -> on n'envoie rien en BDD à ce stade car on enverra tout en BDD à la fin et pas uniquement ce qui concerne Session
 
 
-
             // Récupération des formateurs sélectionnés
             $referentPedagogique = $form->get('referentPedagogique')->getData();
             $referentAdministratif = $form->get('referentAdministratif')->getData();
@@ -78,9 +77,10 @@ final class SessionController extends AbstractController
             }
 
             
-            // Récupération des formateurs sélectionnés
-            $referentPedagogique = $form->get('referentPedagogique')->getData();
-            $referentAdministratif = $form->get('referentAdministratif')->getData();
+            // Récupération des questionnaires sélectionnés
+            $questionnairePrefor = $form->get('questionnairePrefor')->getData();
+            $questionnaireChaud = $form->get('questionnaireChaud')->getData();
+            $questionnaireFroid = $form->get('questionnaireFroid')->getData();
 
 
             // Création des sondages si un questionnaire est sélectionné
@@ -109,6 +109,20 @@ final class SessionController extends AbstractController
             }
 
 
+            // Récupération de l'apprenant sélectionné et du prix indiqué
+            $apprenantInscrit = $form->get('apprenantInscrit')->getData();
+            $prix = $form->get('prix')->getData();
+
+            // Création de l'inscription si un apprenant est sélectionné et si un prix est rentré dans le champ du formulaire
+            if ($apprenantInscrit AND $prix) { // vérifie si l'utilisateur a effectivement sélectionné un apprenant via le formulaire et rentré un nombre dans le champ 'prix' -> si un apprenant a été choisi et un prix entré dans le formulaire, une nouvelle inscription est créée.
+                $inscription = new Inscription();
+                $inscription->setSession($session);
+                $inscription->setApprenant($apprenantInscrit);
+                $inscription->setPrix($prix);
+                $entityManager->persist($inscription); // équivaut à la méthode prepare() en PDO
+            }
+
+
             // Enregistrement de la session, des encadrements et des sondages
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement -> maintenant, on envoie la totalité des informations en BDD
 
@@ -129,7 +143,6 @@ final class SessionController extends AbstractController
     }
 
 
-
     #[Route('/session/{id}/delete', name: 'delete_session')]
     public function delete(Session $session, EntityManagerInterface $entityManager): Response
     {
@@ -138,7 +151,6 @@ final class SessionController extends AbstractController
 
         return $this->redirectToRoute('app_session'); // après une suppression, on redirige vers la liste des sessions
     }
-
 
     
     #[Route('/session/{id}', name: 'show_session')]

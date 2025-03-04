@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Session;
+use App\Entity\Apprenant;
 use App\Entity\Formateur;
 use App\Entity\Formation;
 use App\Entity\Questionnaire;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -94,6 +96,25 @@ class SessionType extends AbstractType
                 'label' => 'Questionnaire à froid',
                 //'required' => false,  Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
             ])
+
+
+            // Champ pour l'apprenant inscrit'
+            ->add('apprenantInscrit', EntityType::class, [ // nom à utiliser dans le SocieteController
+                'class' => Apprenant::class,
+                //'choice_label' => 'nom',  Affiche le nom du responsable -> on supprime pour qu'il affiche le __toString du responsable
+                'placeholder' => 'Sélectionner un apprenant',
+                'mapped' => false, // On ne mappe pas à l'entité Session directement -> ce champ n'est pas directement lié à l'entité Session. Il sera utilisé pour créer une entrée dans la table Inscription
+                'label' => 'Apprenant inscrit à la session',
+                'required' => false, // Rendre le champ optionnel -> parfois les sociétés n'ont pas la certitude de qui participera à la session, on veut donc pouvoir compléter ce champ plus tard
+            ])
+
+            ->add('prix', NumberType::class, [
+                'mapped' => false, // On ne mappe pas à l'entité Session directement -> ce champ n'est pas directement lié à l'entité Session. Il sera utilisé pour créer une entrée dans la table Inscription
+                'label' => 'Prix en € HT', // texte qui s'affiche devant le rectangle de saisie
+                'required' => false, // Rendre le champ optionnel -> comme je ne suis pas certain d'avoir un apprenant, je ne suis pas certain d'avoir un prix
+            ])
+
+
 
 
             ->add('enregistrer', SubmitType::class)
