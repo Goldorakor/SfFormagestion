@@ -25,7 +25,7 @@
             référent {{ encadrement.typeReferent }}<br>
             <a href="{{ path('show_formateur', {'id' : encadrement.formateur.id}) }}">{{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }}</a><br>
             {{ encadrement.formateur.email }}<br>
-            {{ encadrement.formateur.tel }}
+            {{ encadrement.formateur.tel }}<br>
 
         {% endfor %}
     </div>

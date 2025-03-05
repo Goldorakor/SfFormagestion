@@ -7,7 +7,7 @@
     {% if not edit %}<h1>Créer une session</h1>{% else %}<h1>Modifier une session</h1>{% endif %} {# dans ApprenantController, on a bien passé la vriable : 'apprenants' => $apprenants #}
     {% if not edit %}<h3>Saisissez les informations essentielles de la nouvelle session</h3>{% else %}<h3>Modifiez les informations essentielles de la session</h3>{% endif %}
 
-    {#{{ form(formAddSession) }}#}
+{#{{ form(formAddSession) }}#}
 
     {{ form_start(formAddSession) }}
         <h2>Présentation de la session</h2>
@@ -35,7 +35,7 @@
 
         <div>
             {{ form_label(formAddSession.nbPlaces) }}
-            {{ form_widget(formAddSession.nbPlaces) }}
+            {{ form_widget(formAddSession.nbPlaces, {'attr': {'data-nb-places': 'true'}}) }} {# {{ form_widget(formAddSession.nbPlaces) }} #}
             {{ form_errors(formAddSession.nbPlaces) }}
         </div>
 
@@ -90,6 +90,19 @@
 
         <h2>Inscriptions avec tarifs</h2>
 
+        <div id="apprenants-container" data-prototype="{{ form_widget(formAddSession.apprenantsInscrits.vars.prototype)|e('html_attr') }}">
+            {% for apprenantField in formAddSession.apprenantsInscrits %}
+                <div class="apprenant-entry">{{ form_row(apprenantField) }}</div>
+            {% endfor %}
+        </div>
+
+
+        <h2>Planification de la session</h2>
+
+
+        {#
+        <h2>Inscriptions avec tarifs</h2>
+
         <div>
             <div>
                 {{ form_label(formAddSession.apprenantInscrit) }}
@@ -102,10 +115,10 @@
                 {{ form_widget(formAddSession.prix) }}
                 {{ form_errors(formAddSession.prix) }}
             </div>
-        </div>
+        </div> 
 
 
-         {# <h2>Planification de la session</h2>
+          <h2>Planification de la session</h2>
 
         <div class="liseret fushia">
             <div>
@@ -133,13 +146,12 @@
             </div>
         </div> #}
 
-        
-
-
         <div>
          {{ form_end(formAddSession) }}
-         <a class="btn btn-rose" href="{{ path('app_session') }}">Quitter</a> {# bouton pour retourner à la liste des sessions #}
+         <a class="btn btn-rose" href="{{ path('app_session') }}">Quitter</a> {#--------- bouton pour retourner à la liste des sessions -------#}
         </div>
+
+        <script src="{{ asset('js/form-dynamique.js') }}"></script>
    
 {% endblock %}
 

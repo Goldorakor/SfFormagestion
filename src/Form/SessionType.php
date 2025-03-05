@@ -7,6 +7,7 @@ use App\Entity\Apprenant;
 use App\Entity\Formateur;
 use App\Entity\Formation;
 use App\Entity\Questionnaire;
+use App\Form\ApprenantInscritType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class SessionType extends AbstractType
 {
@@ -32,14 +34,14 @@ class SessionType extends AbstractType
             ->add('nbPlaces', IntegerType::class, [
                 'label' => 'Places max.', // texte qui s'affiche devant le rectangle de saisie
             ])
-            ->add('dateDebut', null, [
+            ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début de session',
                 'widget' => 'single_text', // pour forcer l'affichage sous forme d'un seul champ texte avec un format standardisé
-            ], DateTimeType::class)
-            ->add('dateFin', null, [
+            ])
+            ->add('dateFin', DateTimeType::class, [
                 'label' => 'Date de fin de session',
                 'widget' => 'single_text', // pour forcer l'affichage sous forme d'un seul champ texte avec un format standardisé
-            ], DateTimeType::class)
+            ])
             ->add('formation', EntityType::class, [
                 'class' => Formation::class,
                 'choice_label' => 'nomFormation', // on ne le supprime pas car on ne veut pas spécialement afficher le __toString dans ce cas précis
@@ -98,7 +100,7 @@ class SessionType extends AbstractType
             ])
 
 
-            // Champ pour l'apprenant inscrit'
+            /* Champ pour l'apprenant inscrit' -> ancienne méthode pour juste afficher un champ (pour tester)
             ->add('apprenantInscrit', EntityType::class, [ // nom à utiliser dans le SocieteController
                 'class' => Apprenant::class,
                 //'choice_label' => 'nom',  Affiche le nom du responsable -> on supprime pour qu'il affiche le __toString du responsable
@@ -113,12 +115,28 @@ class SessionType extends AbstractType
                 'label' => 'Prix en € HT', // texte qui s'affiche devant le rectangle de saisie
                 'required' => false, // Rendre le champ optionnel -> comme je ne suis pas certain d'avoir un apprenant, je ne suis pas certain d'avoir un prix
             ])
+            */
 
 
+
+            // Champ pour inscrire les apprenants avec leur prix
+            ->add('apprenantsInscrits', CollectionType::class, [
+                'entry_type' => ApprenantInscritType::class, // Formulaire imbriqué pour chaque apprenant
+                'allow_add' => true, // Permet d'ajouter dynamiquement des apprenants
+                'allow_delete' => true, // Permet de supprimer un apprenant inscrit
+                'entry_options' => [
+                    'label' => false,
+                ],
+                'mapped' => false, // Ce champ ne mappe pas directement avec l'entité Session
+                'by_reference' => false, // Utilisé pour les ajouts dynamiques
+                'prototype' => true, //  Ajout du prototype pour le JavaScript
+                'required' => false, // rend le champ optionnel
+            ])
 
 
             ->add('enregistrer', SubmitType::class)
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -131,24 +149,55 @@ class SessionType extends AbstractType
 
 
 
+
 /*
-les "places" de DateTimeType::class sont peut-être celles-là.
 
-->add('dateDebut', null, [
-    'widget' => 'single_text',
-], DateTimeType::class)
-->add('dateFin', null, [
-    'widget' => 'single_text',
-], DateTimeType::class)
+<?php
 
+namespace App\Form;
 
-les anciennes "places" de DateTimeType::class sont celles-là.
+use App\Entity\Session;
+use App\Entity\Apprenant;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Validator\Constraints\Range;
 
-->add('dateDebut', DateTimeType::class, null, [
-    'widget' => 'single_text',
-])
-->add('dateFin', DateTimeType::class, null, [
-     'widget' => 'single_text',
- ])
+class SessionType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('dateDebut')
+            ->add('placesDisponibles', IntegerType::class, [
+                'constraints' => [
+                    new Range(['min' => 1]),
+                ],
+                'attr' => [
+                    'onchange' => 'updateInscriptions()'
+                ]
+            ])
+            ->add('inscriptions', CollectionType::class, [
+                'entry_type' => InscriptionEmbeddedType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'attr' => ['class' => 'inscriptions-collection'],
+            ])
+            ->add('save', SubmitType::class);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Session::class,
+        ]);
+    }
+}
 
 */
