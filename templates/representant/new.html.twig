@@ -38,12 +38,20 @@
         </div>
 
         <div>
-            {{ form_label(formAddRepresentant.tamponFile) }}
-            {{ form_widget(formAddRepresentant.tamponFile) }}
-            {{ form_errors(formAddRepresentant.tamponFile) }}
+            {{ form_label(formAddRepresentant.tampon) }}
+            {{ form_widget(formAddRepresentant.tampon) }}
+            {{ form_errors(formAddRepresentant.tampon) }}
         </div>
 
 
+        {# https://symfony.com/doc/current/controller/upload_file.html #}
+        {# {{ form_start(form) }}
+             ... 
+             ...
+
+            {{ form_row(form.brochure) }}
+            {{ form_end(form) }} #}
+             
         <div>
             {{ form_end(formAddRepresentant) }}
             {# <a class="btn btn-rose" href="{{ path('edit_representant', {'id' : representant.id}) }}">Quitter</a>  bouton pour retourner au formulaire d'édition #}

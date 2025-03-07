@@ -28,10 +28,15 @@ class RepresentantType extends AbstractType
             ->add('fonction', TextType::class, [
                 'label' => 'Fonction', // texte qui s'affiche devant le rectangle de saisie
             ])
-            ->add('tamponFile', FileType::class, [
+
+            // https://symfony.com/doc/current/controller/upload_file.html -> on récupère ce bout de code dans la doc officielle
+            ->add('tampon', FileType::class, [
                 'label' => 'Tampon et signature du représentant légal (.PNG, .JPG)',
+
                 'mapped' => false, // Ne pas mapper à l'entité (comme on ne stocke pas le fichier directement en BDD, on ne mappe pas ce champ à l'entité ) -> on ne stocke que le chemin
-                'required' => false, // on rend le champ optionnel
+
+                'required' => false, // on rend le champ optionnel -> pas besoin de re-uploader le fichier à chaque edit du représentant
+
                 'constraints' => [ // pour s'assurer que l'utilisateur n'upload que des fichiers conformes.
                     new File([
                         'maxSize' => '2M', // Limite la taille du fichier à 2 mégaoctets.

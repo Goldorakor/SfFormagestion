@@ -26,7 +26,7 @@ class Representant
     private ?string $fonction = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $tampon = null;
+    private ?string $tamponFilename = null;
 
     public function getId(): ?int
     {
@@ -81,14 +81,14 @@ class Representant
         return $this;
     }
 
-    public function getTampon(): ?string
+    public function getTamponFilename(): ?string
     {
-        return $this->tampon;
+        return $this->tamponFilename;
     }
 
-    public function setTampon(string $tampon): static
+    public function setTamponFilename(string $tamponFilename): static
     {
-        $this->tampon = $tampon;
+        $this->tamponFilename = $tamponFilename;
 
         return $this;
     }

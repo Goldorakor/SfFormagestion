@@ -9,7 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 final class RepresentantController extends AbstractController
 {
@@ -23,9 +25,11 @@ final class RepresentantController extends AbstractController
     }
 
 
+    // https://symfony.com/doc/current/controller/upload_file.html -> on récupère la partie de code qui permet définir la méthode ci-dessous
+
     #[Route('/representant/new', name: 'new_representant')] // 'new_representant' est un nom cohérent qui décrit bien la fonction
     #[Route('/representant/{id}/edit', name: 'edit_representant')] // 'edit_representant' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Representant $representant = null, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response // pour ajouter un représentant à notre BDD
+    public function new_edit(Representant $representant = null, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%kernel.project_dir%/public/uploads/images')] string $tamponsDirectory): Response // pour ajouter un représentant à notre BDD
     {
         // 1. si pas de representant, on crée un nouveau representant (un objet representant est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$representant) {
@@ -47,31 +51,26 @@ final class RepresentantController extends AbstractController
 
 
             // partie faite avec l'aide d'un formateur
-            $logoFile = $form->get('logoFile')->getData();
+            $tamponFile = $form->get('tampon')->getData();
 
             if ($tamponFile) {
 
                 // Supprime l'ancien fichier si un logo existait déjà
-                if ($representant->getTampon()) {
-                    $oldFilePath = $this->getParameter('tampons_directory') . '/' . $representant->getTampon();
-                    if (file_exists($oldFilePath)) {
-                        unlink($oldFilePath);
-                    }
-                }
-
+                
+              
                 $originalFilename = pathinfo($tamponFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $tamponFile->guessExtension();
 
                 try {
-                    $logoFile->move(
-                        $this->getParameter('tampons_directory'),
-                        $newFilename
-                    );
-                    $representant->setTampon($newFilename);
+                    $tamponFile->move($tamponsDirectory, $newFilename);
+                    
                 } catch (FileException $e) {
                     $this->addFlash('error', "Erreur lors de l'upload du fichier");
                 }
+
+                $representant->setTamponFilename($newFilename);
+
             }
 
             
@@ -94,4 +93,19 @@ final class RepresentantController extends AbstractController
             'representant' => $representant // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $representant n'existe pas
         ]);
     }
+    
 }
+
+
+
+/*
+if ($representant->getTampon()) {
+    $oldFilePath = $this->getParameter('tampons_directory') . '/' . $representant->getTampon();
+    if (file_exists($oldFilePath)) {
+        unlink($oldFilePath);
+    }
+}
+
+$representant->setTampon($newFilename);
+
+*/
