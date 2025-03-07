@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class EntrepriseController extends AbstractController
@@ -25,7 +26,7 @@ final class EntrepriseController extends AbstractController
     // cette section est construite de la même façon que son équivalente dans RepresentantController
     #[Route('/entreprise/new', name: 'new_entreprise')] // 'new_entreprise' est un nom cohérent qui décrit bien la fonction
     #[Route('/entreprise/{id}/edit', name: 'edit_entreprise')] // 'edit_entreprise' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Entreprise $entreprise = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un représentant à notre BDD
+    public function new_edit(Entreprise $entreprise = null, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response // pour ajouter un représentant à notre BDD  -- , SluggerInterface $slugger est ajouté pour pouvoir soumettre le fichier logo
     {
         // 1. si pas de representant, on crée un nouveau representant (un objet representant est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$entreprise) {
@@ -44,13 +45,41 @@ final class EntrepriseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $entreprise = $form->getData(); // on récupère les données du formulaire dans notre objet entreprise
+
+            // partie faite avec l'aide d'un formateur
+            $logoFile = $form->get('logoFile')->getData();
+
+            if ($logoFile) {
+
+                // Supprime l'ancien fichier si un logo existait déjà
+                if ($entreprise->getLogo()) {
+                    $oldFilePath = $this->getParameter('logos_directory') . '/' . $entreprise->getLogo();
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);
+                    }
+                }
+
+                $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $logoFile->guessExtension();
+
+                try {
+                    $logoFile->move(
+                        $this->getParameter('logos_directory'),
+                        $newFilename
+                    );
+                    $entreprise->setLogo($newFilename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', "Erreur lors de l'upload du fichier");
+                }
+            }
             
             $entityManager->persist($entreprise); // équivaut à la méthode prepare() en PDO
 
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
 
             // redirection vers le formulaire de l'entreprise (rempli, si tout fonctionne !) (si formulaire soumis et formulaire valide) -> pas le choix car il n'existe pas de liste d'entreprises, ni de vue de détails d'une entreprise
-            return $this->redirectToRoute('edit_entreprise');
+            return $this->redirectToRoute('edit_entreprise', ['id' => $entreprise->getId()]);
         }
         // fin du bloc
 
@@ -61,7 +90,7 @@ final class EntrepriseController extends AbstractController
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddEntreprise' comme expliqué dans new.html.twig
             'formAddEntreprise' => $form,
             'edit' => $entreprise->getId(), // comportement booléen -> permet dans la vue de faire la diff entre création d'une entreprise et édition d'une entreprise (peut servir plus tard donc on garde ce dispositif)
-            'entreprise' => $entreprise ?? null, // rajout suite à un message d'erreur où il prétend que la variable $entreprise n'existe pas
+            'entreprise' => $entreprise // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $entreprise n'existe pas
         ]);
     }
 }

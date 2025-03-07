@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des termes publiables{% endblock %}
+
+{% block body %}
+
+    <h1>Termes publiables</h1>
+    <h3>Les termes publiables sont des textes juridiques qui informent des droits des utilisateurs</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Date de mise à jour
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="{{ path('reglement_interieur_page') }}">Règlement intérieur</a>
+                    </td>
+                    <td>
+                        12/02/2023
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{{ path('conditions_generales_utilisation_page') }}">Conditions générales d'utilisation</a>
+                    </td>
+                    <td>
+                        18/06/2023
+                    </td>   
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{{ path('conditions_generales_vente_page') }}">Conditions générales de vente</a>
+                    </td>
+                    <td>
+                        15/02/2023
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+
+{% endblock %}

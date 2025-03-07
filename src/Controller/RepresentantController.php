@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class RepresentantController extends AbstractController
@@ -24,7 +25,7 @@ final class RepresentantController extends AbstractController
 
     #[Route('/representant/new', name: 'new_representant')] // 'new_representant' est un nom cohérent qui décrit bien la fonction
     #[Route('/representant/{id}/edit', name: 'edit_representant')] // 'edit_representant' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Representant $representant = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un représentant à notre BDD
+    public function new_edit(Representant $representant = null, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response // pour ajouter un représentant à notre BDD
     {
         // 1. si pas de representant, on crée un nouveau representant (un objet representant est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$representant) {
@@ -43,13 +44,43 @@ final class RepresentantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $representant = $form->getData(); // on récupère les données du formulaire dans notre objet representant
+
+
+            // partie faite avec l'aide d'un formateur
+            $logoFile = $form->get('logoFile')->getData();
+
+            if ($tamponFile) {
+
+                // Supprime l'ancien fichier si un logo existait déjà
+                if ($representant->getTampon()) {
+                    $oldFilePath = $this->getParameter('tampons_directory') . '/' . $representant->getTampon();
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);
+                    }
+                }
+
+                $originalFilename = pathinfo($tamponFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $tamponFile->guessExtension();
+
+                try {
+                    $logoFile->move(
+                        $this->getParameter('tampons_directory'),
+                        $newFilename
+                    );
+                    $representant->setTampon($newFilename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', "Erreur lors de l'upload du fichier");
+                }
+            }
+
             
             $entityManager->persist($representant); // équivaut à la méthode prepare() en PDO
 
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
 
             // redirection vers le formulaire du représentant (rempli, si tout fonctionne !) (si formulaire soumis et formulaire valide) -> pas le choix car il n'existe pas de liste de représentants, ni de vue de détails d'un représentant
-            return $this->redirectToRoute('edit_representant');
+            return $this->redirectToRoute('edit_representant', ['id' => $representant->getId()]);
         }
         // fin du bloc
 
@@ -60,7 +91,7 @@ final class RepresentantController extends AbstractController
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddRepresentant' comme expliqué dans new.html.twig
             'formAddRepresentant' => $form,
             'edit' => $representant->getId(), // comportement booléen -> permet dans la vue de faire la diff entre création d'un representant et édition d'un representant (peut servir plus tard donc on garde ce dispositif)
-            'representant' => $representant ?? null, // rajout suite à un message d'erreur où il prétend que la variable $representant n'existe pas
+            'representant' => $representant // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $representant n'existe pas
         ]);
     }
 }
