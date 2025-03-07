@@ -51,6 +51,34 @@ final class PageController extends AbstractController
         return $this->render('page/modeles_documents.html.twig');
     }
 
+
+    #[Route('/accueil/parametres', name: 'parametres')]
+    public function parametres(): Response
+    {
+        return $this->render('page/parametres.html.twig');
+    }
+
+
+    #[Route('/accueil/suivis', name: 'suivis')]
+    public function suivis(): Response
+    {
+        return $this->render('page/suivis.html.twig');
+    }
+
+
+    #[Route('/accueil/creations', name: 'creations')]
+    public function creations(): Response
+    {
+        return $this->render('page/creations.html.twig');
+    }
+
+
+    #[Route('/accueil', name: 'accueil')]
+    public function accueil(): Response
+    {
+        return $this->render('page/accueil.html.twig');
+    }
+
 }
 
 
