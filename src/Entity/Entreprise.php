@@ -56,7 +56,7 @@ class Entreprise
     private ?string $tribunal = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $logo = null;
+    private ?string $logoFilename = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -235,14 +235,14 @@ class Entreprise
         return $this;
     }
 
-    public function getLogo(): ?string
+    public function getLogoFilename(): ?string
     {
-        return $this->logo;
+        return $this->logoFilename;
     }
 
-    public function setLogo(string $logo): static
+    public function setLogoFilename(string $logoFilename): static
     {
-        $this->logo = $logo;
+        $this->logoFilename = $logoFilename;
 
         return $this;
     }

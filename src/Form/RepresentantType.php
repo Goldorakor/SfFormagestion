@@ -19,12 +19,15 @@ class RepresentantType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => 'Nom', // texte qui s'affiche devant le rectangle de saisie
             ])
+
             ->add('prenom', TextType::class, [
                 'label' => 'Prénom', // texte qui s'affiche devant le rectangle de saisie
             ])
+
             ->add('sexe', TextType::class, [
                 'label' => 'Civilité', // texte qui s'affiche devant le rectangle de saisie
             ])
+            
             ->add('fonction', TextType::class, [
                 'label' => 'Fonction', // texte qui s'affiche devant le rectangle de saisie
             ])
@@ -45,6 +48,7 @@ class RepresentantType extends AbstractType
                     ]),
                 ],
             ])
+
             ->add('enregistrer', SubmitType::class)
         ;
     }

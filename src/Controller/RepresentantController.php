@@ -29,7 +29,7 @@ final class RepresentantController extends AbstractController
 
     #[Route('/representant/new', name: 'new_representant')] // 'new_representant' est un nom cohérent qui décrit bien la fonction
     #[Route('/representant/{id}/edit', name: 'edit_representant')] // 'edit_representant' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Representant $representant = null, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%kernel.project_dir%/public/uploads/images')] string $tamponsDirectory): Response // pour ajouter un représentant à notre BDD
+    public function new_edit(Representant $representant = null, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%kernel.project_dir%/public/uploads/tampons')] string $tamponsDirectory): Response // pour ajouter un représentant à notre BDD
     {
         // 1. si pas de representant, on crée un nouveau representant (un objet representant est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$representant) {
@@ -50,14 +50,12 @@ final class RepresentantController extends AbstractController
             $representant = $form->getData(); // on récupère les données du formulaire dans notre objet representant
 
 
-            // partie faite avec l'aide d'un formateur
+            
             $tamponFile = $form->get('tampon')->getData();
 
             if ($tamponFile) {
 
-                // Supprime l'ancien fichier si un logo existait déjà
                 
-              
                 $originalFilename = pathinfo($tamponFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $tamponFile->guessExtension();
