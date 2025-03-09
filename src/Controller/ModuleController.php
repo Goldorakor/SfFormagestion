@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class ModuleController extends AbstractController
 {
-    #[Route('/module', name: 'app_module')]
+    #[Route('/accueil/creations/module', name: 'app_module')]
     public function index(ModuleRepository $moduleRepository): Response
     {
         // méthode choisie qui ne permet pas de trier la liste des modules
@@ -80,13 +80,12 @@ final class ModuleController extends AbstractController
 
 
     // on a besoin de cette méthode pour afficher correctement certaines informations dans la vue de détails d'une session
-    #[Route('/module/{id}', name: 'show_module')]
+    #[Route('/accueil/creations/module/{id}', name: 'show_module')]
     public function show(Module $module): Response
     {
         return $this->render('module/show.html.twig', [
             'module' => $module, // au singulier puisqu'on ne passe qu'un seul objet 'module' et pas une collection d'objets 'module'
         ]);
     }
-
-    
+ 
 }

@@ -26,9 +26,9 @@
         </div>
 
         <div>
-            {{ form_label(formAddEntreprise.logoFile) }}
-            {{ form_widget(formAddEntreprise.logoFile) }}
-            {{ form_errors(formAddEntreprise.logoFile) }}
+            {{ form_label(formAddEntreprise.logo) }}
+            {{ form_widget(formAddEntreprise.logo) }}
+            {{ form_errors(formAddEntreprise.logo) }}
         </div>
 
 
@@ -74,13 +74,14 @@
         </div>
 
 
+        {# pas besoin du représentant légal : un formulaire dédié existe pour lui
         <h2>Représentant légal</h2>
 
         <div>
             {{ form_label(formAddEntreprise.representant) }}
             {{ form_widget(formAddEntreprise.representant) }}
             {{ form_errors(formAddEntreprise.representant) }}
-        </div>
+        </div> #}
 
         <h2>Informations légales</h2>
 

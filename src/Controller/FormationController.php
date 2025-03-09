@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class FormationController extends AbstractController
 {
-    #[Route('/formation', name: 'app_formation')]
+    #[Route('/accueil/creations/formation', name: 'app_formation')]
     public function index(FormationRepository $formationRepository): Response
     {
         // méthode choisie qui ne permet pas de trier la liste des formations

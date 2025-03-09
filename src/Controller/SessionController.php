@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class SessionController extends AbstractController
 {
-    #[Route('/session', name: 'app_session')]
+    #[Route('/accueil/creations/session', name: 'app_session')]
     public function index(SessionRepository $sessionRepository): Response
     {
         // méthode choisie qui ne permet pas de trier la liste des sessions
@@ -31,8 +31,8 @@ final class SessionController extends AbstractController
 
 
 
-    #[Route('/session/new', name: 'new_session')] // 'new_session' est un nom cohérent qui décrit bien la fonction
-    #[Route('/session/{id}/edit', name: 'edit_session')] // 'edit_session' est un nom cohérent qui décrit bien la fonction attendue
+    #[Route('/accueil/creations/session/new', name: 'new_session')] // 'new_session' est un nom cohérent qui décrit bien la fonction
+    #[Route('/accueil/creations/session/{id}/edit', name: 'edit_session')] // 'edit_session' est un nom cohérent qui décrit bien la fonction attendue
     public function new_edit(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un session à notre BDD
     {
         // 1. si pas de session, on crée une nouvelle session (un objet session est bien créé ici) - s'il existe déjà, pas besoin de le créer
@@ -209,7 +209,7 @@ final class SessionController extends AbstractController
     }
 
 
-    #[Route('/session/{id}/delete', name: 'delete_session')]
+    #[Route('/accueil/creations/session/{id}/delete', name: 'delete_session')]
     public function delete(Session $session, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($session); // on enlève la session ciblée de la collection des sessions
@@ -219,7 +219,7 @@ final class SessionController extends AbstractController
     }
 
     
-    #[Route('/session/{id}', name: 'show_session')]
+    #[Route('/accueil/creations/session/{id}', name: 'show_session')]
     public function show(Session $session): Response
     {
         return $this->render('session/show.html.twig', [

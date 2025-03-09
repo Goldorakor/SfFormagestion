@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class FormateurController extends AbstractController
 {
-    #[Route('/formateur', name: 'app_formateur')]
+    #[Route('/accueil/creations/formateur', name: 'app_formateur')]
     public function index(FormateurRepository $formateurRepository): Response
     {
         // méthode choisie qui ne permet pas de trier la liste des formateurs
@@ -29,8 +29,8 @@ final class FormateurController extends AbstractController
 
 
 
-    #[Route('/formateur/new', name: 'new_formateur')] // 'new_formateur' est un nom cohérent qui décrit bien la fonction
-    #[Route('/formateur/{id}/edit', name: 'edit_formateur')] // 'edit_formateur' est un nom cohérent qui décrit bien la fonction attendue
+    #[Route('/accueil/creations/formateur/new', name: 'new_formateur')] // 'new_formateur' est un nom cohérent qui décrit bien la fonction
+    #[Route('/accueil/creations/formateur/{id}/edit', name: 'edit_formateur')] // 'edit_formateur' est un nom cohérent qui décrit bien la fonction attendue
     public function new_edit(Formateur $formateur = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un formateur à notre BDD
     {
         // 1. si pas de formateur, on crée un nouveau formateur (un objet formateur est bien créé ici) - s'il existe déjà, pas besoin de le créer
@@ -72,7 +72,7 @@ final class FormateurController extends AbstractController
 
     
 
-    #[Route('/formateur/{id}/delete', name: 'delete_formateur')]
+    #[Route('/accueil/creations/formateur/{id}/delete', name: 'delete_formateur')]
     public function delete(Formateur $formateur, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($formateur); // on enlève le formateur ciblé de la collection des formateurs
@@ -83,7 +83,7 @@ final class FormateurController extends AbstractController
 
 
     
-    #[Route('/formateur/{id}', name: 'show_formateur')]
+    #[Route('/accueil/creations/formateur/{id}', name: 'show_formateur')]
     public function show(Formateur $formateur): Response
     {
         $now = new DateTime(); // on a besoin de créer cet objet DateTime pour savoir si une session est à venir, en cours ou terminée dans la vue de détails de l'apprenant (repère temporel)

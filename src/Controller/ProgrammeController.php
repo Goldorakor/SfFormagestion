@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class ProgrammeController extends AbstractController
 {
-    #[Route('/programme', name: 'app_programme')]
+    #[Route('/accueil/creations/programme', name: 'app_programme')]
     public function index(ProgrammeRepository $programmeRepository): Response
     {
         // méthode choisie qui ne permet pas de trier la liste des programmes

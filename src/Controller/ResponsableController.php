@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class ResponsableController extends AbstractController
 {
-    #[Route('/responsable', name: 'app_responsable')]
+    #[Route('/accueil/creations/responsable', name: 'app_responsable')]
     public function index(ResponsableRepository $responsableRepository): Response
     {
         // méthode choisie qui ne permet pas de trier la liste des responsables
@@ -29,8 +29,8 @@ final class ResponsableController extends AbstractController
 
     
 
-    #[Route('/responsable/new', name: 'new_responsable')] // 'new_responsable' est un nom cohérent qui décrit bien la fonction
-    #[Route('/responsable/{id}/edit', name: 'edit_responsable')] // 'edit_responsable' est un nom cohérent qui décrit bien la fonction attendue
+    #[Route('/accueil/creations/responsable/new', name: 'new_responsable')] // 'new_responsable' est un nom cohérent qui décrit bien la fonction
+    #[Route('/accueil/creations/responsable/{id}/edit', name: 'edit_responsable')] // 'edit_responsable' est un nom cohérent qui décrit bien la fonction attendue
     public function new_edit(Responsable $responsable = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un responsable à notre BDD
     {
         // 1. si pas de responsable, on crée un nouveau responsable (un objet responsable est bien créé ici) - s'il existe déjà, pas besoin de le créer
@@ -71,7 +71,7 @@ final class ResponsableController extends AbstractController
 
 
 
-    #[Route('/responsable/{id}/delete', name: 'delete_responsable')]
+    #[Route('/accueil/creations/responsable/{id}/delete', name: 'delete_responsable')]
     public function delete(Responsable $responsable, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($responsable); // on enlève le responsable ciblé de la collection des responsables
@@ -82,7 +82,7 @@ final class ResponsableController extends AbstractController
 
 
     
-    #[Route('/responsable/{id}', name: 'show_responsable')]
+    #[Route('/accueil/creations/responsable/{id}', name: 'show_responsable')]
     public function show(Responsable $responsable): Response
     {
        

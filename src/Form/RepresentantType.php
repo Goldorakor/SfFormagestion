@@ -36,7 +36,7 @@ class RepresentantType extends AbstractType
             ->add('tampon', FileType::class, [
                 'label' => 'Tampon et signature du représentant légal (.PNG, .JPG)',
 
-                'mapped' => false, // Ne pas mapper à l'entité (comme on ne stocke pas le fichier directement en BDD, on ne mappe pas ce champ à l'entité ) -> on ne stocke que le chemin
+                'mapped' => false, // Ne pas mapper à l'entité (comme on ne stocke pas le fichier directement en BDD, on ne mappe pas ce champ à l'entité ) -> on ne stocke que le chemin (ça empêche une injection directe en BDD)
 
                 'required' => false, // on rend le champ optionnel -> pas besoin de re-uploader le fichier à chaque edit du représentant
 

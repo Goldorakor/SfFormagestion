@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PageController extends AbstractController
 {
+    // méthode non utilisée pour le moment
     #[Route('/page', name: 'app_page')]
     public function index(): Response
     {
@@ -77,6 +78,13 @@ final class PageController extends AbstractController
     public function accueil(): Response
     {
         return $this->render('page/accueil.html.twig');
+    }
+
+    // voie de garage pour les fonctionnalités en cours de développement ! 
+    #[Route('/accueil/construction', name: 'construction')]
+    public function construction(): Response
+    {
+        return $this->render('page/construction.html.twig');
     }
 
 }

@@ -78,7 +78,7 @@ class EntrepriseType extends AbstractType
             ->add('logo', FileType::class, [
                 'label' => "Logo de l'entreprise (PNG, JPG)",
 
-                'mapped' => false, // Ne pas mapper à l'entité (comme on ne stocke pas le fichier directement en BDD, on ne mappe pas ce champ à l'entité ) -> on ne stocke que le chemin
+                'mapped' => false, // Ne pas mapper à l'entité (comme on ne stocke pas le fichier directement en BDD, on ne mappe pas ce champ à l'entité ) -> on ne stocke que le chemin (ça empêche une injection directe en BDD)
 
                 'required' => false, // on rend le champ optionnel
                 
@@ -91,13 +91,13 @@ class EntrepriseType extends AbstractType
                 ],
             ])
 
-            ->add('representant', EntityType::class, [
+            /*->add('representant', EntityType::class, [
                 'class' => Representant::class,
                 // 'choice_label' => 'id', : on supprime cette ligne pour qu'il affiche le __toString de 
                 'placeholder' => 'Sélectionner un représentant',
                 'label' => 'Représentant légal de la société',
                 //'required' => false,  Rendre le champ optionnel : pas ici car on exige que le représentant légal soit défini pour l'entreprise
-            ])
+            ])*/
 
             ->add('enregistrer', SubmitType::class)
         ;

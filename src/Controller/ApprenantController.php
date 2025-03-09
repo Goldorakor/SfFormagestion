@@ -17,7 +17,7 @@ final class ApprenantController extends AbstractController
 {
     // url de la route : /apprenant
     // nom de la route : app_apprenant -> peut être changé mais doit être différent de tous les names de tous les controleurs !
-    #[Route('/apprenant', name: 'app_apprenant')]
+    #[Route('/accueil/creations/apprenant', name: 'app_apprenant')]
 
     // méthode index (première façon de faire)
     // public function index(EntityManagerInterface $entityManager): Response
@@ -57,8 +57,8 @@ final class ApprenantController extends AbstractController
 
 
 
-    #[Route('/apprenant/new', name: 'new_apprenant')] // 'new_apprenant' est un nom cohérent qui décrit bien la fonction
-    #[Route('/apprenant/{id}/edit', name: 'edit_apprenant')] // 'edit_apprenant' est un nom cohérent qui décrit bien la fonction attendue
+    #[Route('/accueil/creations/apprenant/new', name: 'new_apprenant')] // 'new_apprenant' est un nom cohérent qui décrit bien la fonction
+    #[Route('/accueil/creations/apprenant/{id}/edit', name: 'edit_apprenant')] // 'edit_apprenant' est un nom cohérent qui décrit bien la fonction attendue
     public function new_edit(Apprenant $apprenant = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un apprenant à notre BDD
     {
         // 1. si pas de apprenant, on crée un nouveau apprenant (un objet apprenant est bien créé ici) - s'il existe déjà, pas besoin de le créer
@@ -101,7 +101,7 @@ final class ApprenantController extends AbstractController
 
 
 
-    #[Route('/apprenant/{id}/delete', name: 'delete_apprenant')]
+    #[Route('/accueil/creations/apprenant/{id}/delete', name: 'delete_apprenant')]
     public function delete(Apprenant $apprenant, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($apprenant); // on enlève l'apprenant ciblé de la collection des apprenants
@@ -113,7 +113,7 @@ final class ApprenantController extends AbstractController
 
 
     
-    #[Route('/apprenant/{id}', name: 'show_apprenant')]
+    #[Route('/accueil/creations/apprenant/{id}', name: 'show_apprenant')]
     public function show(Apprenant $apprenant): Response
     {
         $now = new DateTime(); // on a besoin de créer cet objet DateTime pour savoir si une session est à venir, en cours ou terminée dans la vue de détails de l'apprenant (repère temporel)
@@ -126,3 +126,30 @@ final class ApprenantController extends AbstractController
 }
 
 // fetching : parcours de la BDD
+
+
+
+
+
+// Symfony redirigera tous les utilisateurs vers la même page après connexion, et tu pourras ensuite gérer les fonctionnalités accessibles en fonction des rôles directement dans tes templates ou tes contrôleurs.
+
+/*
+Gérer les fonctionnalités selon les rôles
+
+Dans tes templates Twig, tu peux utiliser :
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin_dashboard') }}">Accès admin</a>
+{% endif %}
+
+Et dans tes contrôleurs, tu peux restreindre l’accès avec :
+
+if (!$this->isGranted('ROLE_ADMIN')) {
+    throw $this->createAccessDeniedException('Accès refusé.');
+}
+
+Comme ça, les deux rôles accèdent aux mêmes pages, mais avec des fonctionnalités adaptées ! 🎯
+*/
+
+
+

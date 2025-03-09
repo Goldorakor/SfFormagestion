@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class SocieteController extends AbstractController
 {
-    #[Route('/societe', name: 'app_societe')]
+    #[Route('/accueil/creations/societe', name: 'app_societe')]
     public function index(SocieteRepository $societeRepository): Response
     {
         // méthode choisie qui ne permet pas de trier la liste des sociétés
@@ -35,8 +35,8 @@ final class SocieteController extends AbstractController
 
 
 
-    #[Route('/societe/new', name: 'new_societe')] // 'new_societe' est un nom cohérent qui décrit bien la fonction
-    #[Route('/societe/{id}/edit', name: 'edit_societe')] // 'edit_societe' est un nom cohérent qui décrit bien la fonction attendue
+    #[Route('/accueil/creations/societe/new', name: 'new_societe')] // 'new_societe' est un nom cohérent qui décrit bien la fonction
+    #[Route('/accueil/creations/societe/{id}/edit', name: 'edit_societe')] // 'edit_societe' est un nom cohérent qui décrit bien la fonction attendue
     public function new_edit(Societe $societe = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un societe à notre BDD
     {
         // 1. si pas de societe, on crée un nouveau societe (un objet societe est bien créé ici) - s'il existe déjà, pas besoin de le créer
@@ -117,7 +117,7 @@ final class SocieteController extends AbstractController
 
     
 
-    #[Route('/societe/{id}/delete', name: 'delete_societe')]
+    #[Route('/accueil/creations/societe/{id}/delete', name: 'delete_societe')]
     public function delete(Societe $societe, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($societe); // on enlève la societe ciblée de la collection des societes
@@ -128,7 +128,7 @@ final class SocieteController extends AbstractController
 
 
     
-    #[Route('/societe/{id}', name: 'show_societe')]
+    #[Route('/accueil/creations/societe/{id}', name: 'show_societe')]
     public function show(Societe $societe): Response
     {
         return $this->render('societe/show.html.twig', [

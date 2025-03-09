@@ -27,34 +27,29 @@ final class RepresentantController extends AbstractController
 
     // https://symfony.com/doc/current/controller/upload_file.html -> on récupère la partie de code qui permet définir la méthode ci-dessous
 
-    #[Route('/representant/new', name: 'new_representant')] // 'new_representant' est un nom cohérent qui décrit bien la fonction
-    #[Route('/representant/{id}/edit', name: 'edit_representant')] // 'edit_representant' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Representant $representant = null, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%kernel.project_dir%/public/uploads/tampons')] string $tamponsDirectory): Response // pour ajouter un représentant à notre BDD
+    // Route unique pour créer ou éditer le représentant (on fusionne les deux noms)
+    #[Route('/representant/new_edit', name: 'new_edit_representant')] // 'new_edit_representant' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'un seul représentant au maximum !
+    public function new_edit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%kernel.project_dir%/public/uploads/tampons')] string $tamponsDirectory): Response // pour ajouter un représentant à notre BDD
     {
-        // 1. si pas de representant, on crée un nouveau representant (un objet representant est bien créé ici) - s'il existe déjà, pas besoin de le créer
-        if(!$representant) {
-            $representant = new Representant();
-        }
+    
+
+        // On récupère le seul représentant existant ou on en crée un si aucun n'existe.
+        $representant = $entityManager->getRepository(Representant::class)->findOneBy([]) ?? new Representant();
 
         // 2. on crée le formulaire à partir de RepresentantType (on veut ce modèle là bien entendu)
         $form = $this->createForm(RepresentantType::class, $representant); // c'est bien la méthode createForm() qui permet de créer le formulaire
-
         
         // 4. le traitement s'effectue ici ! si le formulaire soumis est correct, on fera l'insertion en BDD
         $form->handleRequest($request);
         
-
         // bloc qui concerne la soumission
         if ($form->isSubmitted() && $form->isValid()) {
             
             $representant = $form->getData(); // on récupère les données du formulaire dans notre objet representant
 
-
-            
             $tamponFile = $form->get('tampon')->getData();
 
             if ($tamponFile) {
-
                 
                 $originalFilename = pathinfo($tamponFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
@@ -71,27 +66,25 @@ final class RepresentantController extends AbstractController
 
             }
 
-            
             $entityManager->persist($representant); // équivaut à la méthode prepare() en PDO
 
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
 
-            // redirection vers le formulaire du représentant (rempli, si tout fonctionne !) (si formulaire soumis et formulaire valide) -> pas le choix car il n'existe pas de liste de représentants, ni de vue de détails d'un représentant
-            return $this->redirectToRoute('edit_representant', ['id' => $representant->getId()]);
+            // redirection après sauvegarde -> vers le formulaire de l'entreprise (rempli, si tout fonctionne !)
+            return $this->redirectToRoute('new_edit_representant');
         }
         // fin du bloc
 
-
         // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddRepresentant) }} --> affichage par défaut 
-        return $this->render('representant/new.html.twig', [ // 'representant/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier representant
+        return $this->render('representant/new_edit.html.twig', [ // 'representant/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier representant
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
-            // on change le nom pour éviter toute ambiguité 'form' -> 'formAddRepresentant' comme expliqué dans new.html.twig
+            // on change le nom pour éviter toute ambiguité 'form' -> 'formAddRepresentant' comme expliqué dans new_edit.html.twig
             'formAddRepresentant' => $form,
-            'edit' => $representant->getId(), // comportement booléen -> permet dans la vue de faire la diff entre création d'un representant et édition d'un representant (peut servir plus tard donc on garde ce dispositif)
+            'edit' => $representant->getId() !== null, // comportement booléen -> si getId() retourne une valeur, on est en mode édition et si getId() est null, on est en mode création.
             'representant' => $representant // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $representant n'existe pas
         ]);
     }
-    
+ 
 }
 
 
