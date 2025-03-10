@@ -15,14 +15,27 @@
     </head>
     <body>
 
-        {#   dans cette vue 'base.html.twig', il faudra mettre notre navbar -> au dessus du block body ! #}
-        <nav>
+        {# dans cette vue 'base.html.twig', il faudra mettre notre navbar -> au dessus du block body ! #}
+        {# https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp excellent tutoriel pour construire le dropdown du bouton "nouveau" #}
+        <nav class="sidenav" id="mySidenav">
             <ul>
                 <li>
-                    <a href="{{ path('creations') }}">Créations</a>                   {#   éléments futurs de la navbar (video : 2:17:00) #}
+                    <a href="{{ path('creations') }}" class="princbtn">Créations</a> {# class="princbtn" dans la balise <li> </li> ? #} {#   éléments futurs de la navbar (video : 2:17:00) #}
                 </li>
-                <li>
-                    <a href="">Nouveau</a>
+                <li class="dropdown">
+                    <button class="dropbtn">
+                        Nouveau <i class="fa-solid fa-arrow-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="">Créer un module</a> {# lien non fonctionnel pour le moment #}
+                        <a href="">Créer un programme</a> {# lien non fonctionnel pour le moment #}
+                        <a href="">Créer une formation</a> {# lien non fonctionnel pour le moment #}
+                        <a href="{{ path('new_session') }}">Créer une session</a>
+                        <a href="{{ path('new_apprenant') }}">Créer un apprenant</a>
+                        <a href="{{ path('new_formateur') }}">Créer un formateur</a>
+                        <a href="{{ path('new_responsable') }}">Créer un responsable</a>
+                        <a href="{{ path('new_societe') }}">Créer une société</a>
+                    </div>
                 </li>
                 <li>
                     <a href="{{ path('app_module') }}">Modules</a>
@@ -49,7 +62,7 @@
                     <a href="{{ path('app_societe') }}">Sociétés</a>
                 </li>
                 <li>
-                    <a href="{{ path('suivis') }}">Suivis</a>
+                    <a href="{{ path('suivis') }}" class="princbtn">Suivis</a>
                 </li>
                 <li>
                     <a href="{{ path('construction') }}">Apprenants</a>
@@ -64,7 +77,7 @@
                     <a href="{{ path('construction') }}">Agenda</a>
                 </li>
                 <li>
-                    <a href="{{ path('parametres') }}">Paramètres</a>
+                    <a href="{{ path('parametres') }}" class="princbtn">Paramètres</a>
                 </li>
                 <li>
                     <a href="{{ path('creations') }}">Utilisateurs</a>
@@ -85,6 +98,7 @@
                     <a href="{{ path('termes_publiables') }}">Publiables</a>
                 </li>
             </ul>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
         </nav>
 
         {% block body %}{% endblock %}
