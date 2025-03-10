@@ -6,6 +6,8 @@
 parameters:
     logos_directory: '%kernel.project_dir%/var/uploads/logos'
     tampons_directory: '%kernel.project_dir%/var/uploads/tampons'
+    logos_directory: '%env(LOGO_DIRECTORY)%'
+
 
 
 services:
