@@ -29,10 +29,11 @@ final class RepresentantController extends AbstractController
 
     // Route unique pour créer ou éditer le représentant (on fusionne les deux noms)
     #[Route('/representant/new_edit', name: 'new_edit_representant')] // 'new_edit_representant' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'un seul représentant au maximum !
-    public function new_edit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%kernel.project_dir%/public/uploads/tampons')] string $tamponsDirectory): Response // pour ajouter un représentant à notre BDD
+    public function new_edit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%env(TAMPON_DIRECTORY)%')] string $tamponsDirectory): Response // pour ajouter un représentant à notre BDD
+    // attention : #[Autowire('%kernel.project_dir%/public/uploads/tampons')] => #[Autowire('%env(TAMPON_DIRECTORY)%')] : stockage en dehors de public - voir le fichier .env
+
     {
     
-
         // On récupère le seul représentant existant ou on en crée un si aucun n'existe.
         $representant = $entityManager->getRepository(Representant::class)->findOneBy([]) ?? new Representant();
 
@@ -50,6 +51,15 @@ final class RepresentantController extends AbstractController
             $tamponFile = $form->get('tampon')->getData();
 
             if ($tamponFile) {
+
+                // vérification de l'extension du fichier (on vérifie déjà dans RepresentantType.php mais une vérification supplémentaire au niveau du contrôleur empêche toute tentative de contournement en manipulant l’extension d’un fichier malveillant)
+                $allowedExtensions = ['jpg', 'jpeg', 'png']; // liste des extensions autorisées
+                $extension = $tamponFile->guessExtension(); // Récupère l'extension réelle du fichier
+
+                if (!in_array($extension, $allowedExtensions)) { // si l'extension ne coïncide pas avec la liste d'extensions autorisées
+                    $this->addFlash('error', 'Format de fichier non autorisé.');
+                    return $this->redirectToRoute('new_edit_representant'); // on est redirigé vers le formulaire
+                }
                 
                 $originalFilename = pathinfo($tamponFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
@@ -84,9 +94,32 @@ final class RepresentantController extends AbstractController
             'representant' => $representant // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $representant n'existe pas
         ]);
     }
+
+
+    // les fichiers stockés en dehors de 'public' ne sont pas directement accessibles par url. Pour les afficher, il faut créer une route spéciale qui lit les fichiers et les sert via Symfony.
+    #[Route('/tampon/{filename}', name: 'tampon_display')]
+    public function displayTampon(string $filename): Response
+    {
+        $tamponsDirectory = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/';
+        $filePath = $tamponsDirectory . $filename;
+
+        if (!file_exists($filePath)) {
+            throw $this->createNotFoundException("Le fichier n'existe pas.");
+        }
+
+        return new BinaryFileResponse($filePath);
+    }
  
 }
 
+
+/*
+Une fois cette route en place, pour afficher un tampon dans le template Twig, on peut faire :
+
+<img src="{{ path('tampon_display', { filename: entreprise.tamponFilename }) }}" alt="tampon du représentant">
+
+Ça génère une URL comme /tampon/mon-tampon.png, qui affichera correctement l’image !
+*/
 
 
 /*

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter votre société{% endblock %}
+{% block title %}{% if edit %}Modifier les informations de votre société{% else %}Ajouter les informations de votre société{% endif %}{% endblock %}
 
 {% block body %}
 

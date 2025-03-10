@@ -28,8 +28,11 @@ final class EntrepriseController extends AbstractController
     // cette section est construite de la même façon que son équivalente dans RepresentantController
     // Route unique pour créer ou éditer l'entreprise (on fusionne les deux noms)
     #[Route('/entreprise/new_edit', name: 'new_edit_entreprise')] // 'new_edit_entreprise' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'une seule entreprise au maximum !
-    public function new_edit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%kernel.project_dir%/public/uploads/logos')] string $logosDirectory): Response // pour ajouter une entreprise à notre BDD
+    public function new_edit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%env(LOGO_DIRECTORY)%')] string $logosDirectory): Response // pour ajouter une entreprise à notre BDD
+    // attention : #[Autowire('%kernel.project_dir%/public/uploads/logos')] => #[Autowire('%env(LOGO_DIRECTORY)%')] : stockage en dehors de public - voir le fichier .env
+
     {
+        
         // On récupère la seule entreprise existante ou on en crée une si aucune n'existe.
         $entreprise = $entityManager->getRepository(Entreprise::class)->findOneBy([]) ?? new Entreprise();
 
@@ -47,6 +50,16 @@ final class EntrepriseController extends AbstractController
             $logoFile = $form->get('logo')->getData();
 
             if ($logoFile) {
+
+                // vérification de l'extension du fichier (on vérifie déjà dans EntrepriseType.php mais une vérification supplémentaire au niveau du contrôleur empêche toute tentative de contournement en manipulant l’extension d’un fichier malveillant)
+                $allowedExtensions = ['jpg', 'jpeg', 'png']; // liste des extensions autorisées
+                $extension = $logoFile->guessExtension(); // Récupère l'extension réelle du fichier
+
+                if (!in_array($extension, $allowedExtensions)) { // si l'extension ne coïncide pas avec la liste d'extensions autorisées
+                    $this->addFlash('error', 'Format de fichier non autorisé.');
+                    return $this->redirectToRoute('new_edit_entreprise'); // on est redirigé vers le formulaire
+                }
+
 
                 $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
@@ -80,4 +93,31 @@ final class EntrepriseController extends AbstractController
             'entreprise' => $entreprise // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $entreprise n'existe pas
         ]);
     }
+
+
+    // les fichiers stockés en dehors de 'public' ne sont pas directement accessibles par url. Pour les afficher, il faut créer une route spéciale qui lit les fichiers et les sert via Symfony.
+    #[Route('/logo/{filename}', name: 'logo_display')]
+    public function displayLogo(string $filename): Response
+    {
+        $logosDirectory = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/';
+        $filePath = $logosDirectory . $filename;
+
+        if (!file_exists($filePath)) {
+            throw $this->createNotFoundException("Le fichier n'existe pas.");
+        }
+
+        return new BinaryFileResponse($filePath);
+    }
+
 }
+
+/*
+Une fois cette route en place, pour afficher un logo dans le template Twig, on peut faire :
+
+<img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise">
+
+Ça génère une URL comme /logo/mon-logo.png, qui affichera correctement l’image !
+
+avant, on faisdait :
+<img src="{{ asset('uploads/logos/' ~ entreprise.logoFilename) }}" alt="Logo de l'entreprise">
+*/

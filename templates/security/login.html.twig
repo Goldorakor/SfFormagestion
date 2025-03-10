@@ -34,14 +34,17 @@
                 </div>
             {% endif %}
     
-            {#<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> pas besoin de ce titre#}
+            {# <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> pas besoin de ce titre #}
     
     
             
     
             <div></div>
             <div>
-                <img class="fit-picture" src="/uploads/logos/logo_formatoque.png" alt="le logo de l'entreprise Forma'Toque" />
+                {# <img class="fit-picture" src="/uploads/logos/logo_formatoque.png" alt="le logo de l'entreprise Forma'Toque" /> #}
+                {% if entreprise.logoFilename %} {# on ajoute une vérification pour éviter une erreur si le logo est null #}
+                <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise Forma'Toque">
+                {% endif %}
             </div>
     
             <div>

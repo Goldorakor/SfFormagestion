@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter le représentant légal de votre société{% endblock %}
+{% block title %}{% if edit %}Modifier les informations du représentant légal de votre société{% else %}Ajouter les informations du représentant légal de votre société{% endif %}{% endblock %}
 
 {% block body %}
 
