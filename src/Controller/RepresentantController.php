@@ -65,6 +65,12 @@ final class RepresentantController extends AbstractController
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $tamponFile->guessExtension();
 
+                /*
+                uniqid() génère un identifiant unique pour chaque fichier.
+                pathinfo() récupère le nom original du fichier sans son extension.
+                slug() transforme une chaine de texte en une version sécurisée et lisible pour l'URL : supprime les caractères spéciaux, remplace les espaces par des tirets, met en minuscules
+                */
+
                 try {
                     $tamponFile->move($tamponsDirectory, $newFilename);
                     

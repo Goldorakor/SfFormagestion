@@ -43,7 +43,7 @@
             <div>
                 {# <img class="fit-picture" src="/uploads/logos/logo_formatoque.png" alt="le logo de l'entreprise Forma'Toque" /> #}
                 {% if entreprise.logoFilename %} {# on ajoute une vérification pour éviter une erreur si le logo est null #}
-                <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise Forma'Toque">
+                <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
                 {% endif %}
             </div>
     
@@ -85,6 +85,8 @@
             </p>
         </div>
     </div>
+
+    <p>{{ path('logo_display', { filename: entreprise.logoFilename }) }}</p>
     
 
 {% endblock %}

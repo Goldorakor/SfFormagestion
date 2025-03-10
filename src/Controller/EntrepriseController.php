@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -64,6 +65,12 @@ final class EntrepriseController extends AbstractController
                 $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $logoFile->guessExtension();
+
+                /*
+                uniqid() génère un identifiant unique pour chaque fichier.
+                pathinfo() récupère le nom original du fichier sans son extension.
+                slug() transforme une chaine de texte en une version sécurisée et lisible pour l'URL : supprime les caractères spéciaux, remplace les espaces par des tirets, met en minuscules
+                */
 
                 try {
                     $logoFile->move($logosDirectory, $newFilename);

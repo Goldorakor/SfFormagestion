@@ -57,10 +57,7 @@ class Entreprise
 
     #[ORM\Column(length: 255)]
     private ?string $logoFilename = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Representant $representant = null;
+    
 
     public function getId(): ?int
     {
@@ -247,17 +244,6 @@ class Entreprise
         return $this;
     }
 
-    public function getRepresentant(): ?Representant
-    {
-        return $this->representant;
-    }
-
-    public function setRepresentant(Representant $representant): static
-    {
-        $this->representant = $representant;
-
-        return $this;
-    }
 
     public function __toString()
     {
