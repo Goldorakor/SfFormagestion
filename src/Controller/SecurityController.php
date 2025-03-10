@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use LogicException;
 use App\Entity\Entreprise;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class SecurityController extends AbstractController
         // Dernier identifiant saisi par l'utilisateur
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        
+
         dump($entreprise->getLogoFilename());
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
@@ -36,6 +37,6 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
