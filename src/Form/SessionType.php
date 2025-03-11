@@ -127,13 +127,14 @@ class SessionType extends AbstractType
                 'entry_type' => ApprenantInscritType::class, // Formulaire imbriqué pour chaque apprenant
                 'allow_add' => true, // Permet d'ajouter dynamiquement des apprenants
                 'allow_delete' => true, // Permet de supprimer un apprenant inscrit
-                'entry_options' => [
-                    'label' => false,
-                ],
+                /*'entry_options' => [
+                    'label' => false,    -> Supprime les labels des champs à l'intérieur de chaque répétition de la collection.
+                ],*/
                 'mapped' => false, // Ce champ ne mappe pas directement avec l'entité Session
                 'by_reference' => false, // Utilisé pour les ajouts dynamiques
                 'prototype' => true, //  Ajout du prototype pour le JavaScript
                 'required' => false, // rend le champ optionnel
+                'label' => false, // Empêche l'affichage automatique du label (Apprenants inscrits) -> supprime le label global de la collection
             ])
 
 
@@ -142,13 +143,14 @@ class SessionType extends AbstractType
                 'entry_type' => PlanificationSessionType::class, // Formulaire imbriqué pour chaque apprenant
                 'allow_add' => true, // Permet d'ajouter dynamiquement des apprenants
                 'allow_delete' => true, // Permet de supprimer un apprenant inscrit
-                'entry_options' => [
+                /*'entry_options' => [    -> Supprime les labels des champs à l'intérieur de chaque répétition de la collection.
                     'label' => false,
-                ],
+                ],*/
                 'mapped' => false, // Ce champ ne mappe pas directement avec l'entité Session
                 'by_reference' => false, // Utilisé pour les ajouts dynamiques
                 'prototype' => true, //  Ajout du prototype pour le JavaScript
                 'required' => false, // rend le champ optionnel
+                'label' => false, // Empêche l'affichage automatique du label (Planification sessions) -> supprime le label global de la collection
             ])
 
 
@@ -164,58 +166,3 @@ class SessionType extends AbstractType
         ]);
     }
 }
-
-
-
-
-/*
-
-<?php
-
-namespace App\Form;
-
-use App\Entity\Session;
-use App\Entity\Apprenant;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Validator\Constraints\Range;
-
-class SessionType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('dateDebut')
-            ->add('placesDisponibles', IntegerType::class, [
-                'constraints' => [
-                    new Range(['min' => 1]),
-                ],
-                'attr' => [
-                    'onchange' => 'updateInscriptions()'
-                ]
-            ])
-            ->add('inscriptions', CollectionType::class, [
-                'entry_type' => InscriptionEmbeddedType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'attr' => ['class' => 'inscriptions-collection'],
-            ])
-            ->add('save', SubmitType::class);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Session::class,
-        ]);
-    }
-}
-
-*/

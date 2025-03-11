@@ -7,6 +7,7 @@ use App\Entity\Sondage;
 use App\Form\SessionType;
 use App\Entity\Encadrement;
 use App\Entity\Inscription;
+use App\Entity\Planification;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -117,23 +118,9 @@ final class SessionController extends AbstractController
 
 
             foreach ($apprenantsInscrits as $apprenantData) {
-                $apprenant = $apprenantData['apprenant'] ?? null;
-                $prix = $apprenantData['prix'] ?? null;
+                $apprenant = $apprenantData['apprenant'] ?? null; // Récupérer l'apprenant sélectionné
+                $prix = $apprenantData['prix'] ?? null; // Récupérer le prix associé
             
-                if ($apprenant && $prix !== null) {
-                    $inscription = new Inscription();
-                    $inscription->setSession($session);
-                    $inscription->setApprenant($apprenant);
-                    $inscription->setPrix($prix);
-                    $entityManager->persist($inscription);
-                }
-            }
-            
-/*
-            foreach ($apprenantsInscrits as $apprenantInscrit) {
-                $apprenant = $apprenantInscrit->getApprenant(); // Récupérer l'apprenant sélectionné
-                $prix = $apprenantInscrit->getPrix(); // Récupérer le prix associé
-
                 if ($apprenant && $prix !== null) { // Vérifie que l'apprenant est sélectionné ET que le prix est renseigné
                     $inscription = new Inscription();
                     $inscription->setSession($session);
@@ -142,40 +129,28 @@ final class SessionController extends AbstractController
                     $entityManager->persist($inscription);
                 }
             }
-*/
 
-            /* Récupération de tous les apprenants sélectionnés et de leurs prix associés
-            $apprenantsInscrits = $form->get('apprenantsInscrits')->getData();
-            $prixInscrits = $form->get('prixInscrits')->getData();
 
-            // Vérification que les données sont bien présentes et cohérentes
-            if (!empty($apprenantsInscrits) && !empty($prixInscrits) && count($apprenantsInscrits) === count($prixInscrits)) {
-                foreach ($apprenantsInscrits as $index => $apprenant) {
-                    if ($apprenant && isset($prixInscrits[$index])) {  // on veut le prix correspondant à l'apprenant, donc on récupère le prix qui correspond à l'index de l'apprenant
-                        $inscription = new Inscription();
-                        $inscription->setSession($session);
-                        $inscription->setApprenant($apprenant);
-                        $inscription->setPrix($prixInscrits[$index]);
-                        $entityManager->persist($inscription);
-                    }
+            // Récupération des apprenants et de leurs prix (apprenant inscrit transporte les deux informations)
+            $planificationSessions = $form->get('planificationSessions')->getData();
+
+
+            foreach ($planificationSessions as $moduleData) {
+                $module = $moduleData['module'] ?? null; // Récupérer le module sélectionné
+                $duree = $moduleData['duree'] ?? null; // Récupérer la durée associée
+                $dateDebut = $moduleData['dateDebut'] ?? null; // Récupérer la date de début associée
+                $dateFin = $moduleData['dateFin'] ?? null; // Récupérer la date de fin associée
+            
+                if ($apprenant && $prix !== null) { // Vérifie que le module est sélectionné ET que la durée est renseignée ET que les dates de début et de fin sont remplies
+                    $planification = new Planification();
+                    $planification->setSession($session);
+                    $planification->setModule($module);
+                    $planification->setDuree($duree);
+                    $planification->setDateDebut($dateDebut);
+                    $planification->setDateFin($dateFin);
+                    $entityManager->persist($planification);
                 }
             }
-            */
-
-
-            /* Récupération de l'apprenant sélectionné et du prix indiqué --> méthode valable pour un apprenant et un prix, dans le formulaire
-            $apprenantInscrit = $form->get('apprenantInscrit')->getData();
-            $prix = $form->get('prix')->getData();
-
-            // Création de l'inscription si un apprenant est sélectionné et si un prix est rentré dans le champ du formulaire
-            if ($apprenantInscrit AND $prix) { // vérifie si l'utilisateur a effectivement sélectionné un apprenant via le formulaire et rentré un nombre dans le champ 'prix' -> si un apprenant a été choisi et un prix entré dans le formulaire, une nouvelle inscription est créée.
-                $inscription = new Inscription();
-                $inscription->setSession($session);
-                $inscription->setApprenant($apprenantInscrit);
-                $inscription->setPrix($prix);
-                $entityManager->persist($inscription); // équivaut à la méthode prepare() en PDO
-            }
-            */
 
 
             // Enregistrement de la session, des encadrements et des sondages
@@ -188,23 +163,13 @@ final class SessionController extends AbstractController
         // fin du bloc
         
 
-        /* 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddSession) }} --> affichage par défaut 
+        // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddSession) }} --> affichage par défaut 
         return $this->render('session/new.html.twig', [ // 'session/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier session
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddSession' comme expliqué dans new.html.twig
             'formAddSession' => $form,
             'edit' => $session->getId(), // comportement booléen
         ]);
-        */
-
-
-        return $this->render('session/new.html.twig', [
-            'formAddSession' => $form, //->createView(),  
-            'edit' => $session->getId(),
-        ]);
-
-
-
 
     }
 
@@ -227,6 +192,3 @@ final class SessionController extends AbstractController
         ]);
     }
 }
-
-
-
