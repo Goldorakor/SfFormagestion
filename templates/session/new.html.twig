@@ -35,6 +35,7 @@
 
         <div>
             {{ form_label(formAddSession.nbPlaces) }}
+            <!-- Ajout de l'attribut 'data-nb-places' pour la gestion dynamique des champs -->
             {{ form_widget(formAddSession.nbPlaces, {'attr': {'data-nb-places': 'true'}}) }} {# {{ form_widget(formAddSession.nbPlaces) }} #}
             {{ form_errors(formAddSession.nbPlaces) }}
         </div>
@@ -90,8 +91,10 @@
 
         <h2>Inscriptions avec tarifs</h2>
 
+        <!-- Conteneur dynamique pour l'inscription des apprenants -->
         <div id="apprenants-container" data-prototype="{{ form_widget(formAddSession.apprenantsInscrits.vars.prototype)|e('html_attr') }}">
             {% for apprenantField in formAddSession.apprenantsInscrits %}
+                <!-- Chaque champ d'apprenant est enveloppé dans un div avec la classe 'apprenant-entry' -->
                 <div class="apprenant-entry">{{ form_row(apprenantField) }}</div>
             {% endfor %}
         </div>
@@ -146,11 +149,13 @@
             </div>
         </div> #}
 
+        <!-- Fin du formulaire -->
         <div>
-         {{ form_end(formAddSession) }}
-         <a class="btn btn-rose" href="{{ path('app_session') }}">Quitter</a> {#--------- bouton pour retourner à la liste des sessions -------#}
+            {{ form_end(formAddSession) }}
+            <a class="btn btn-rose" href="{{ path('app_session') }}">Quitter</a> {#--------- bouton pour retourner à la liste des sessions -------#}
         </div>
 
+        <!-- Inclusion du script JavaScript pour la gestion dynamique des champs d'inscription -->
         <script src="{{ asset('js/form-dynamique.js') }}"></script>
    
 {% endblock %}
