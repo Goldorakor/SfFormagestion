@@ -2,18 +2,20 @@
 
 namespace App\Form;
 
-use App\Entity\Apprenant;
+use App\Entity\Module;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-class ApprenantInscritType extends AbstractType
+
+class PlanificationSessionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', EntityType::class, [
+            ->add('module', EntityType::class, [
                 'class' => Module::class,
                 'placeholder' => 'Sélectionner un module',
                 //'choice_label' => 'nom',  Ajuste selon le champ à afficher

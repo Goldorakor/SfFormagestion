@@ -41,6 +41,13 @@
         </div>
 
         <div>
+            {{ form_label(formAddSession.nbModules) }}
+            <!-- Ajout de l'attribut 'data-nb-modules' pour la gestion dynamique des champs -->
+            {{ form_widget(formAddSession.nbModules, {'attr': {'data-nb-modules': 'true'}}) }} {# {{ form_widget(formAddSession.nbModules) }} #}
+            {{ form_errors(formAddSession.nbModules) }}
+        </div>
+
+        <div>
             {{ form_label(formAddSession.dateDebut) }}
             {{ form_widget(formAddSession.dateDebut) }}
             {{ form_errors(formAddSession.dateDebut) }}
@@ -102,15 +109,25 @@
 
         <h2>Planification de la session</h2>
 
+        <!-- Conteneur dynamique pour l'inscription des apprenants -->
+        <div id="modules-container" data-prototype="{{ form_widget(formAddSession.planificationSessions.vars.prototype)|e('html_attr') }}">
+            {% for moduleField in formAddSession.planificationSessions %}
+                <!-- Chaque champ de module est enveloppé dans un div avec la classe 'module-entry' -->
+                <div class="module-entry">{{ form_row(moduleField) }}</div>
+            {% endfor %}
+        </div>
 
-        {# un champ apprenant sans la gestion dynamique de javascript
+
+        {# <h2>Planification de la session</h2>
+
+        un champ apprenant sans la gestion dynamique de javascript
         <h2>Inscriptions avec tarifs</h2>
 
         <div>
             <div>
-                {{ form_label(formAddSession.apprenantInscrit) }}
-                {{ form_widget(formAddSession.apprenantInscrit) }}
-                {{ form_errors(formAddSession.apprenantInscrit) }}
+                {{ form_label(formAddSession.apprenant) }}
+                {{ form_widget(formAddSession.apprenant) }}
+                {{ form_errors(formAddSession.apprenant) }}
             </div>
     
             <div>
@@ -118,36 +135,36 @@
                 {{ form_widget(formAddSession.prix) }}
                 {{ form_errors(formAddSession.prix) }}
             </div>
-        </div> #}
+        </div> 
 
 
-          <h2>Planification de la session</h2>
+        <h2>Planification de la session</h2>
 
         <div class="liseret fushia">
             <div>
-                {{ form_label(formAddSession.) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
+                {{ form_label(formAddSession.module) }}
+                {{ form_widget(formAddSession.module) }}
+                {{ form_errors(formAddSession.module) }}
             </div>
     
             <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
+                {{ form_label(formAddSession.duree) }}
+                {{ form_widget(formAddSession.duree) }}
+                {{ form_errors(formAddSession.duree) }}
             </div>
     
             <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
+                {{ form_label(formAddSession.dateDebut) }}
+                {{ form_widget(formAddSession.dateDebut) }}
+                {{ form_errors(formAddSession.dateDebut) }}
             </div>
     
             <div>
-                {{ form_label(formAddSession.adresse) }}
-                {{ form_widget(formAddSession.adresse) }}
-                {{ form_errors(formAddSession.adresse) }}
+                {{ form_label(formAddSession.dateFin) }}
+                {{ form_widget(formAddSession.dateFin) }}
+                {{ form_errors(formAddSession.dateFin) }}
             </div>
-        </div> 
+        </div> #}
 
         <!-- Fin du formulaire -->
         <div>
@@ -157,6 +174,9 @@
 
         <!-- Inclusion du script JavaScript pour la gestion dynamique des champs d'inscription -->
         <script src="{{ asset('js/form-dynamique.js') }}"></script>
+
+        <!-- Inclusion du script JavaScript pour la gestion dynamique des champs de planification -->
+        <script src="{{ asset('js/form-dynamique-02.js') }}"></script>
    
 {% endblock %}
 

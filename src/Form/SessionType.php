@@ -34,6 +34,9 @@ class SessionType extends AbstractType
             ->add('nbPlaces', IntegerType::class, [
                 'label' => 'Places max.', // texte qui s'affiche devant le rectangle de saisie
             ])
+            ->add('nbModules', IntegerType::class, [
+                'label' => 'Nb de modules enseignés', // texte qui s'affiche devant le rectangle de saisie
+            ])
             ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début de session',
                 'widget' => 'single_text', // pour forcer l'affichage sous forme d'un seul champ texte avec un format standardisé
@@ -122,6 +125,21 @@ class SessionType extends AbstractType
             // Champ pour inscrire les apprenants avec leur prix
             ->add('apprenantsInscrits', CollectionType::class, [
                 'entry_type' => ApprenantInscritType::class, // Formulaire imbriqué pour chaque apprenant
+                'allow_add' => true, // Permet d'ajouter dynamiquement des apprenants
+                'allow_delete' => true, // Permet de supprimer un apprenant inscrit
+                'entry_options' => [
+                    'label' => false,
+                ],
+                'mapped' => false, // Ce champ ne mappe pas directement avec l'entité Session
+                'by_reference' => false, // Utilisé pour les ajouts dynamiques
+                'prototype' => true, //  Ajout du prototype pour le JavaScript
+                'required' => false, // rend le champ optionnel
+            ])
+
+
+            // Champ pour inscrire les modules avec leur durée, leur date de début et leur date de fin
+            ->add('planificationSessions', CollectionType::class, [
+                'entry_type' => PlanificationSessionType::class, // Formulaire imbriqué pour chaque apprenant
                 'allow_add' => true, // Permet d'ajouter dynamiquement des apprenants
                 'allow_delete' => true, // Permet de supprimer un apprenant inscrit
                 'entry_options' => [
