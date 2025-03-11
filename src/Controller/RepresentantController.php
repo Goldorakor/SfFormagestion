@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
+// use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -29,11 +30,16 @@ final class RepresentantController extends AbstractController
 
     // Route unique pour créer ou éditer le représentant (on fusionne les deux noms)
     #[Route('/representant/new_edit', name: 'new_edit_representant')] // 'new_edit_representant' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'un seul représentant au maximum !
-    public function new_edit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, #[Autowire('%env(TAMPON_DIRECTORY)%')] string $tamponsDirectory): Response // pour ajouter un représentant à notre BDD
+    public function newEdit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response // pour ajouter un représentant à notre BDD
     // attention : #[Autowire('%kernel.project_dir%/public/uploads/tampons')] => #[Autowire('%env(TAMPON_DIRECTORY)%')] : stockage en dehors de public - voir le fichier .env
 
     {
     
+        $tamponsDirectory = $this->getParameter('tampons_directory'); // on récupère le bon chemin d'upload
+        
+        // dump($tamponsDirectory); die();  Vérification du chemin
+        
+        
         // On récupère le seul représentant existant ou on en crée un si aucun n'existe.
         $representant = $entityManager->getRepository(Representant::class)->findOneBy([]) ?? new Representant();
 
@@ -76,6 +82,7 @@ final class RepresentantController extends AbstractController
                     
                 } catch (FileException $e) {
                     $this->addFlash('error', "Erreur lors de l'upload du fichier");
+                    return $this->redirectToRoute('new_edit_representant'); // en cas d'erreur, on est redirigé sur le formulaire (mais sans validation)
                 }
 
                 $representant->setTamponFilename($newFilename);
@@ -86,7 +93,7 @@ final class RepresentantController extends AbstractController
 
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
 
-            // redirection après sauvegarde -> vers le formulaire de l'entreprise (rempli, si tout fonctionne !)
+            // redirection après sauvegarde -> vers le formulaire du représentant (rempli, si tout fonctionne !)
             return $this->redirectToRoute('new_edit_representant');
         }
         // fin du bloc
