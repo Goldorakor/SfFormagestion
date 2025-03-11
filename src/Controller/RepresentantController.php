@@ -58,6 +58,17 @@ final class RepresentantController extends AbstractController
 
             if ($tamponFile) {
 
+
+                // Si un tampon existe déjà, on supprime l'ancien fichier du dossier
+                if ($representant->getTamponFilename()) {
+                    $oldFilePath = $tamponsDirectory . $representant->getTamponFilename();
+
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);  // Supprimer le fichier tampon existant
+                    }
+                }
+
+
                 // vérification de l'extension du fichier (on vérifie déjà dans RepresentantType.php mais une vérification supplémentaire au niveau du contrôleur empêche toute tentative de contournement en manipulant l’extension d’un fichier malveillant)
                 $allowedExtensions = ['jpg', 'jpeg', 'png']; // liste des extensions autorisées
                 $extension = $tamponFile->guessExtension(); // Récupère l'extension réelle du fichier
@@ -79,6 +90,10 @@ final class RepresentantController extends AbstractController
 
                 try {
                     $tamponFile->move($tamponsDirectory, $newFilename);
+
+                    // Si le fichier a bien été déplacé, on met à jour le nom dans l'entité
+                    $representant->setTamponFilename($newFilename);
+
                     
                 } catch (FileException $e) {
                     $this->addFlash('error', "Erreur lors de l'upload du fichier");

@@ -60,6 +60,17 @@ final class EntrepriseController extends AbstractController
 
             if ($logoFile) {
 
+
+                // Si un logo existe déjà, on supprime l'ancien fichier du dossier
+                if ($entreprise->getLogoFilename()) {
+                    $oldFilePath = $logosDirectory . $entreprise->getLogoFilename();
+
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);  // Supprimer le fichier logo existant
+                    }
+                }
+
+
                 // vérification de l'extension du fichier (on vérifie déjà dans RepresentantType.php mais une vérification supplémentaire au niveau du contrôleur empêche toute tentative de contournement en manipulant l’extension d’un fichier malveillant)
                 $allowedExtensions = ['jpg', 'jpeg', 'png']; // liste des extensions autorisées
                 $extension = $logoFile->guessExtension(); // Récupère l'extension réelle du fichier
@@ -81,6 +92,9 @@ final class EntrepriseController extends AbstractController
 
                 try {
                     $logoFile->move($logosDirectory, $newFilename);
+
+                    // Si le fichier a bien été déplacé, on met à jour le nom dans l'entité
+                    $entreprise->setLogoFilename($newFilename);
                     
                 } catch (FileException $e) {
                     $this->addFlash('error', "Erreur lors de l'upload du fichier");
