@@ -45,10 +45,10 @@ class ApprenantType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Adresse e-mail', // texte qui s'affiche devant le rectangle de saisie
             ])
-            ->add('dateNaissance', null, [
+            ->add('dateNaissance', DateType::class, [
                 'label' => 'Date de naissance',
                 'widget' => 'single_text', // pour forcer l'affichage sous forme d'un seul champ texte avec un format standardisé
-            ], DateType::class)
+            ])
             ->add('metier', TextType::class, [
                 'label' => 'Fonction', // texte qui s'affiche devant le rectangle de saisie
             ])
