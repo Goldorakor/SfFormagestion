@@ -337,6 +337,13 @@ class Session
     }
 
 
+    // cette méthode permet d'afficher le jour et l'heure de début et de fin de la session de formation
+    public function getDatesSession(): string
+    {
+        return "du ".$this->dateDebut->format('d/m/Y') ." à ". $this->dateDebut->format('H:i')." au ". $this->dateFin->format('d/m/Y')." à ". $this->dateFin->format('H:i');
+    }
+    
+
     public function __toString()
     {
         return $this->titreSession;
