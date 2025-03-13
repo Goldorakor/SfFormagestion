@@ -71,6 +71,7 @@ final class EntrepriseController extends AbstractController
                 }
 
 
+                // https://symfony.com/doc/current/controller/upload_file.html
                 // vérification de l'extension du fichier (on vérifie déjà dans RepresentantType.php mais une vérification supplémentaire au niveau du contrôleur empêche toute tentative de contournement en manipulant l’extension d’un fichier malveillant)
                 $allowedExtensions = ['jpg', 'jpeg', 'png']; // liste des extensions autorisées
                 $extension = $logoFile->guessExtension(); // Récupère l'extension réelle du fichier

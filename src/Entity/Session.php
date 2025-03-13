@@ -314,6 +314,9 @@ class Session
     */
 
 
+    // Cette méthode permet d'additionner toutes les durées (dans la table planification) pour tous les modules enseignés dans une session donnée
+    // On initialise à zéro puis on ajoute pour cet objet Session là toutes les durées des planifications qui le concernent
+    // Ensuite, on reprend la méthode au dessus pour convertir proprement en heures et minutes (repris de l'entité Planification)
     public function getFormattedDuration(): string
     {
         $somme = 0;
