@@ -8,3 +8,28 @@ DOCUMENTS ADMINISTRATIFS
 Ce fichier servira à styliser les documents administratifs
 Il est souhaitable de ne pas afficher la navbar dans ces documents pour le moment 
 */
+
+h1 {
+    color :#bd1e73; /* Change la couleur du texte en bleu */
+    background-color: #ffffff; /* Fond noir */
+    border-top: 3px solid #ff9944;   /* Ecriture abrégé : bordure en haut */
+    border-bottom: 3px solid #ff9944; /* Ecriture abrégé : bordure en bas */
+    border-left: none;  /* Pas de bordure à gauche */
+    border-right: none; /* Pas de bordure à droite */
+    padding: 10px; /* Espace entre le texte et la bordure */
+    /* display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
+    border-radius: 10px; /* on arrondit les coins */
+}
+
+
+h2 {
+    color :#bd1e73; /* Change la couleur du texte en bleu */
+    background-color: #ffffff; /* Fond noir */
+    /* border : 3px solid red; */
+    border-width: 3px; /* Épaisseur */
+    border-style: solid; /* Style plein */
+    border-color: #bd1e73; /* Change la couleur de la bordure en bleu */
+    padding: 10px; /* Espace entre le texte et la bordure */
+    /* display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
+    border-radius: 10px; /* on arrondit les coins */
+}

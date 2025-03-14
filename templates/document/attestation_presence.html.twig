@@ -5,5 +5,64 @@
 {% block body %}
 
 
+    <h1>ATTESTATION DE PRÉSENCE</h1>
+
+
+    <p>
+        Je {% if representant.sexe == 'M' %} soussigné, {% elseif representant.sexe == 'F' %} soussignée, {% else %} soussigné(e), {% endif %}, {{ representant.prenom }} {{ representant.nom  }},<br>
+        agissant en qualité de {{ representant.fonction }} de la société {{ entreprise.raisonSociale }},
+    </p>
+
+    <p>
+        atteste que :
+    </p>
+
+    <p>
+        {% if apprenant.sexe == 'M' %}Monsieur{% elseif apprenant.sexe == 'F' %}Madame{% else %}L'apprenant{% endif %}{{ apprenant.prenom }} {{ apprenant.nom }},<br>
+        {% if societe is defined %}{% if apprenant.sexe == 'M' %}salarié{% elseif if apprenant.sexe == 'F' %}salariée{% else %}salarié(e){% endif %} de l'entreprise {{ societe.raisonSociale }}{% endif %},<br>
+        a suivi la formation :
+    </p>
+
+    <h2>{{ session.formation.nomFormation }}</h2>
+
+    <p>
+        qui s'est déroulée {{ session.datesSession }},
+    </p>
+
+    <p>
+        pour une durée de {{ session.formatteDuration }}.
+    </p>
+
+    <div>
+        <p>
+            La formation {% if session.formation.modalites == 'présentiel' %}'en présence'{% elseif session.formation.modalites == 'distanciel' %}'à distance'{% else %}{% endif %} s'est réalisée à l'adresse suivante :
+        </p>
+        <ul>
+            <li>
+                •	{% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege }} {{ societe.paysSiege }}{% else %}au domicile de {{ apprenant.prenom }} {{ apprenant.nom }}{% endif %}
+            </li>
+        </ul>
+    </div>
+
+    <div class="signatures">
+        <div>
+            <p>
+                Signature de<br>
+                {% if apprenant.sexe == 'M' %}Monsieur{% elseif apprenant.sexe == 'F' %}Madame{% else %}L'apprenant{% endif %}{{ apprenant.prenom }} {{ apprenant.nom }}                 
+            </p>
+            <div class="signature"></div>
+        </div>
+        <div>
+            <p>
+                Cachet et signature<br>
+                du responsable du dispensateur de formation<br>
+                {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom }} {{ representant.nom  }}, {{ representant.fonction }}
+            </p>
+            <div class="signature">
+                <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="logo du représentant">
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}
