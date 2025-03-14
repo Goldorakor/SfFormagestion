@@ -1,0 +1,221 @@
+/* 
+PAGES ORANGES
+PAGES ORANGES
+PAGES ORANGES
+*/
+
+
+.container {
+    display : flex
+  }
+  
+  h1 {
+      color : #BD1E73;
+  }
+  
+  h2 {
+      color : #4449D5;
+  }
+  
+  h3 {
+      color : #E16FAB;
+  }
+  
+  
+  
+  /* DEBUT
+  
+  https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+  https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+  https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+  
+  */
+  
+  
+  /* Add a black background color to the top navigation */
+  .sidenav {
+      background-color: #CCCEFF;
+      display: flex;
+      flex-direction: column; /* Met les éléments en colonne */
+      align-items: center; /* Aligne les éléments au centre */
+      width: 250px; /* Largeur fixe pour la sidebar */
+      padding: 10px 0;
+      overflow: hidden; /* pour cacher ce qui déborde */
+    }
+  
+    .sidenav ul {
+      list-style: none; /* on cache les listes à puces */
+      padding: 0;
+      margin: 0;
+      width: 100%;
+  }
+  
+  .sidenav li {
+    width: 75%; /* on respecte les proportions de la maquette 120/160 */
+  }
+    
+    /* Style the links inside the navigation bar */
+    .sidenav a {
+      /* float: left; propriété qui empêche un affichage vertical */
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+  
+    /* Hide the link that should open and close the sidenav on small screens */
+    .sidenav .icon {
+      display: none;
+    }
+    
+    /* Dropdown container - needed to position the dropdown content */
+    .dropdown {
+      overflow: hidden;
+    }
+    
+    /* Style the dropdown button to fit inside the sidenav */
+    .dropdown .dropbtn {
+      font-size: 17px;
+      border: none;
+      outline: none;
+      color: white;
+      padding: 14px 16px;
+      background-color: inherit;
+      font-family: inherit;
+      margin: 0;
+    }
+    
+    /* Style the dropdown content (hidden by default) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    /* Style the links inside the dropdown */
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+    
+    /* Add a dark background on topnav links and the dropdown button on hover */
+    .topnav a:hover, .dropdown:hover .dropbtn {
+      background-color: #555;
+      color: white;
+    }
+    
+    /* Add a grey background to dropdown links on hover */
+    .dropdown-content a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    
+    /* Show the dropdown menu when the user moves the mouse over the dropdown button */
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the sidenav (.icon) */
+    @media screen and (max-width: 600px) {
+      .sidenav a:not(:first-child), .dropdown .dropbtn {
+        display: none;
+      }
+      .sidenav a.icon {
+        float: right;
+        display: block;
+      }
+    }
+    
+    /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+    @media screen and (max-width: 600px) {
+      .sidenav.responsive {position: relative;}
+      .sidenav.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .sidenav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+      }
+      .sidenav.responsive .dropdown {float: none;}
+      .sidenav.responsive .dropdown-content {position: relative;}
+      .sidenav.responsive .dropdown .dropbtn {
+        display: block;
+        width: 100%;
+        text-align: left;
+      }
+    }
+  
+  
+    /* FIN
+  
+  https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+  https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+  https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+  
+  */
+  
+  
+  
+  /* code css pour mon fil d'ariane (celui en orange) */
+  
+  .ariane {
+    display: flex;
+    align-items: center; /* Aligne le texte et la liste sur la même ligne */
+    gap: 5px; /* Ajoute un petit espace entre les éléments */
+  }
+  
+  .fil-ariane {
+    list-style: none; /* Supprime les puces des listes (<ol> ou <ul>) */
+    display: flex; /* Affiche les éléments en ligne (horizontalement) */
+    font-size: 14px; /* Définit la taille du texte */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .fil-ariane-texte {
+    color: #dc6a17; /* Définit la couleur du texte en orange */
+    font-weight: bold; /* Met le texte d'introduction du fil d'ariane en gras */
+    margin-right: 5px; /* Ajoute un espace entre le texte d'introduction et l'élément suivant */
+  }
+  
+  .fil-ariane li {
+    display: flex; /* Garde les éléments sur une ligne */
+    align-items: center;
+  }
+  
+  .fil-ariane li:not(:last-child)::after {
+    content: " > "; /* Ajoute le séparateur automatique */
+    margin: 0 5px;
+    color: #dc6a17; /* Même couleur que les liens */
+  }
+  
+  .fil-ariane li a {
+    text-decoration: none; /* Supprime le soulignement des liens */
+    color: #dc6a17; /* Définit la couleur des liens en bleu */
+  }
+  
+  .fil-ariane li a:hover {
+    text-decoration: underline; /* Ajoute un soulignement au survol des liens */
+    color: #ff4300; /* Définit la couleur au survol de la souris */
+  }
+  
+  .fil-ariane .dernier {
+    font-weight: italic; /* Met le dernier élément du fil d'Ariane en italic */
+    color: #ff4300; /* Change la couleur du dernier élément en noir */
+  }
+  
+  /* fin du code css pour mon fil d'ariane */
+  
+  
