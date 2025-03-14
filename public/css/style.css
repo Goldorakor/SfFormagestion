@@ -1,3 +1,7 @@
+.container{
+  display : flex
+}
+
 h1 {
     color : #BD1E73;
 }
@@ -23,13 +27,29 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 /* Add a black background color to the top navigation */
 .sidenav {
-    background-color: #333;
-    overflow: hidden;
+    background-color: #CCCEFF;
+    display: flex;
+    flex-direction: column; /* Met les éléments en colonne */
+    align-items: center; /* Aligne les éléments au centre */
+    width: 250px; /* Largeur fixe pour la sidebar */
+    padding: 10px 0;
+    overflow: hidden; /* pour cacher ce qui déborde */
   }
+
+  .sidenav ul {
+    list-style: none; /* on cache les listes à puces */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.sidenav li {
+  width: 75%; /* on respecte les proportions de la maquette 120/160 */
+}
   
   /* Style the links inside the navigation bar */
   .sidenav a {
-    float: left;
+    /* float: left; propriété qui empêche un affichage vertical */
     display: block;
     color: #f2f2f2;
     text-align: center;
@@ -37,14 +57,7 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     text-decoration: none;
     font-size: 17px;
   }
-  
-  /* Add an active class to highlight the current page 
-  .active {
-    background-color: #04AA6D;
-    color: white;
-  }
-    */
-  
+
   /* Hide the link that should open and close the sidenav on small screens */
   .sidenav .icon {
     display: none;
@@ -52,7 +65,6 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
   
   /* Dropdown container - needed to position the dropdown content */
   .dropdown {
-    float: left;
     overflow: hidden;
   }
   

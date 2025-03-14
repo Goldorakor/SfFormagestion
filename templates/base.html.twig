@@ -15,103 +15,108 @@
     </head>
     <body>
 
-        <header>
-            {# dans cette vue 'base.html.twig', il faudra mettre notre navbar -> au dessus du block body ! #}
-            {# https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp excellent tutoriel pour construire le dropdown du bouton "nouveau" #}
-            <nav class="sidenav" id="mySidenav">
-                <ul>
-                    <li>
-                        <a href="{{ path('creations') }}" class="princbtn">Créations</a> {# class="princbtn" dans la balise <li> </li> ? #} {#   éléments futurs de la navbar (video : 2:17:00) #}
-                    </li>
-                    <li class="dropdown">
-                        <button class="dropbtn">
-                            Nouveau <i class="fa-solid fa-arrow-down"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="">Créer un module</a> {# lien non fonctionnel pour le moment #}
-                            <a href="">Créer un programme</a> {# lien non fonctionnel pour le moment #}
-                            <a href="">Créer une formation</a> {# lien non fonctionnel pour le moment #}
-                            <a href="{{ path('new_session') }}">Créer une session</a>
-                            <a href="{{ path('new_apprenant') }}">Créer un apprenant</a>
-                            <a href="{{ path('new_formateur') }}">Créer un formateur</a>
-                            <a href="{{ path('new_responsable') }}">Créer un responsable</a>
-                            <a href="{{ path('new_societe') }}">Créer une société</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_module') }}">Modules</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_programme') }}">Programmes</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_formation') }}">Formations</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_session') }}">Sessions</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_apprenant') }}">Apprenants</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_formateur') }}">Formateurs</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_responsable') }}">Responsables</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_societe') }}">Sociétés</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('suivis') }}" class="princbtn">Suivis</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('construction') }}">Apprenants</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('construction') }}">Sessions</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('construction') }}">Questionnaires</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('construction') }}">Agenda</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('parametres') }}" class="princbtn">Paramètres</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('creations') }}">Utilisateurs</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('modeles_documents') }}">Modèles docs</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('new_edit_entreprise') }}">Infos société</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('new_edit_representant') }}">Infos rep. légal</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('construction') }}">Lieux formation</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('termes_publiables') }}">Publiables</a>
-                    </li>
-                </ul>
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
-            </nav>
-        </header>
+        <div class="container">
+            <header>
+                {# dans cette vue 'base.html.twig', il faudra mettre notre navbar -> au dessus du block body ! #}
+                {# https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp excellent tutoriel pour construire le dropdown du bouton "nouveau" #}
+                <nav class="sidenav" id="mySidenav">
+                    <ul>
+                        <li>
+                            <a href="{{ path('creations') }}" class="princbtn">Créations</a> {# class="princbtn" dans la balise <li> </li> ? #} {#   éléments futurs de la navbar (video : 2:17:00) #}
+                        </li>
+                        <li class="dropdown">
+                            <button class="dropbtn">
+                                Nouveau <i class="fa-solid fa-arrow-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="">Créer un module</a> {# lien non fonctionnel pour le moment #}
+                                <a href="">Créer un programme</a> {# lien non fonctionnel pour le moment #}
+                                <a href="">Créer une formation</a> {# lien non fonctionnel pour le moment #}
+                                <a href="{{ path('new_session') }}">Créer une session</a>
+                                <a href="{{ path('new_apprenant') }}">Créer un apprenant</a>
+                                <a href="{{ path('new_formateur') }}">Créer un formateur</a>
+                                <a href="{{ path('new_responsable') }}">Créer un responsable</a>
+                                <a href="{{ path('new_societe') }}">Créer une société</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_module') }}">Modules</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_programme') }}">Programmes</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_formation') }}">Formations</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_session') }}">Sessions</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_apprenant') }}">Apprenants</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_formateur') }}">Formateurs</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_responsable') }}">Responsables</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_societe') }}">Sociétés</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('suivis') }}" class="princbtn">Suivis</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('construction') }}">Apprenants</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('construction') }}">Sessions</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('construction') }}">Questionnaires</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('construction') }}">Agenda</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('parametres') }}" class="princbtn">Paramètres</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('creations') }}">Utilisateurs</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('modeles_documents') }}">Modèles docs</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('new_edit_entreprise') }}">Infos société</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('new_edit_representant') }}">Infos rep. légal</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('construction') }}">Lieux formation</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('termes_publiables') }}">Publiables</a>
+                        </li>
+                    </ul>
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+                </nav>
+            </header>
+    
+    
+            <main> {# ici, on affiche le contenu de la page. #}
+    
+                {# Inclusion du fil d'Ariane juste sous la navbar, en dehors du header #}
+                {% if breadcrumbs is defined %} {# on vérifie si la variable breadcrumbs existe avant d'afficher le fil d'Ariane #}
+                    {% include 'breadcrumb.html.twig' %} {# on appelle le fichier breadcrumb.html.twig pour afficher la barre de navigation #}
+                {% endif %}
+    
+                {% block body %}{% endblock %}
+            </main>
+        </div>
 
-
-        {# Inclusion du fil d'Ariane juste sous la navbar, en dehors du header #}
-        {% if breadcrumbs is defined %} {# on vérifie si la variable breadcrumbs existe avant d'afficher le fil d'Ariane #}
-            {% include 'breadcrumb.html.twig' %} {# on appelle le fichier breadcrumb.html.twig pour afficher la barre de navigation #}
-        {% endif %}
-
-        <main> {# ici, on affiche le contenu de la page. #}
-            {% block body %}{% endblock %}
-        </main>
+        
 
 
         {% block javascripts %}
