@@ -147,3 +147,40 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 */
 
+
+
+/* code css pour mon fil d'ariane (celui en orange) */
+
+.fil-ariane {
+  list-style: none; /* Supprime les puces des listes (<ol> ou <ul>) */
+  display: flex; /* Affiche les éléments en ligne (horizontalement) */
+  font-size: 14px; /* Définit la taille du texte */
+}
+
+.fil-ariane-texte {
+  color: #dc6a17; /* Définit la couleur du texte en orange */
+  font-weight: bold; /* Met le texte d'introduction du fil d'ariane en gras */
+  margin-right: 5px; /* Ajoute un espace entre le texte d'introduction et l'élément suivant */
+}
+
+.fil-ariane li {
+  margin-right: 5px; /* Ajoute un espace entre chaque élément du fil d'Ariane */
+}
+
+.fil-ariane li a {
+  text-decoration: none; /* Supprime le soulignement des liens */
+  color: #dc6a17; /* Définit la couleur des liens en bleu */
+}
+
+.fil-ariane li a:hover {
+  text-decoration: underline; /* Ajoute un soulignement au survol des liens */
+  color: #ff4300; /* Définit la couleur au survol de la souris */
+}
+
+.fil-ariane .dernier {
+  font-weight: italic; /* Met le dernier élément du fil d'Ariane en italic */
+  color: #ff4300; /* Change la couleur du dernier élément en noir */
+}
+
+/* fin du code css pour mon fil d'ariane */
+

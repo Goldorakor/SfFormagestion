@@ -4,12 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Entreprise;
 use App\Form\EntrepriseType;
+use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 // use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -32,11 +33,19 @@ final class EntrepriseController extends AbstractController
 
     // Route unique pour créer ou éditer l'entreprise (on fusionne les deux noms)
     #[Route('/entreprise/new_edit', name: 'new_edit_entreprise')] // 'new_edit_entreprise' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'une seule entreprise au maximum !
-    public function newEdit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response // pour ajouter un représentant à notre BDD
+    public function newEdit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un représentant à notre BDD
     // attention : #[Autowire('%kernel.project_dir%/public/uploads/logos')] => #[Autowire('%env(LOGO_DIRECTORY)%')] : stockage en dehors de public - voir le fichier .env
 
     {
     
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres', 'route' => 'parametres'],
+            ['label' => 'Infos sur la société'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         $logosDirectory = $this->getParameter('logos_directory'); // on récupère le bon chemin d'upload
         
         // dump($logosDirectory); die();  Vérification du chemin
@@ -121,7 +130,8 @@ final class EntrepriseController extends AbstractController
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddEntreprise' comme expliqué dans new_edit.html.twig
             'formAddEntreprise' => $form,
             'edit' => $entreprise->getId() !== null, // comportement booléen -> si getId() retourne une valeur, on est en mode édition et si getId() est null, on est en mode création.
-            'entreprise' => $entreprise // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $entreprise n'existe pas
+            'entreprise' => $entreprise, // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $entreprise n'existe pas
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 

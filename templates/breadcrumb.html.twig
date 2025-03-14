@@ -1,0 +1,32 @@
+<!-- 
+on crée ce template pour la mise en place du fil d'ariane
+ensuite, il sera incorporé au template base.html.twig, juste sous la navbar
+-->
+
+{# Balise sémantique <nav> avec l'attribut aria-label pour indiquer aux lecteurs d'écran qu'il s'agit d'un fil d'Ariane -> meilleure accessibilité #}
+<nav aria-label="breadcrumb">
+
+    {# ajout d'un petit texte de présentation du fil d'ariane avec une classe CSS "fil-ariane-texte" pour la mise en forme #}
+    <span class="fil-ariane-texte">Vous êtes ici : >></span> 
+    
+    {# Liste ordonnée (<ol>) avec une classe CSS "fil-ariane" pour la mise en forme #}
+    <ol class="fil-ariane">
+
+        {# Boucle sur la variable "breadcrumbs" qui contient la liste des éléments du fil d'Ariane : breadcrumbs = liste d'objets contenant url et label #}
+        {% for item in breadcrumbs %}
+
+            {# Chaque élément du fil est une <li>. Si c'est le dernier élément, on lui ajoute la classe "dernier" pour styliser différemment le dernier élément #}
+            <li class="{% if loop.last %}dernier{% endif %}">
+
+                {# Si ce n'est PAS le dernier élément, on affiche un lien vers la page correspondante #}
+                {% if not loop.last %}
+                    <a href="{{ item.url }}">{{ item.label }}</a> > {# On ajoute un ">" pour séparer les éléments du fil d'Ariane #}
+
+                {# Si c'est le dernier élément, on affiche juste son nom sans lien #}
+                {% else %}
+                    {{ item.label }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+</nav>

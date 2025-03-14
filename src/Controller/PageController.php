@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\BreadcrumbsGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class PageController extends AbstractController
 {
@@ -19,72 +20,153 @@ final class PageController extends AbstractController
 
 
     #[Route('/accueil/parametres/termes_publiables/reglement_interieur', name: 'reglement_interieur_page')]
-    public function regInterieur(): Response
+    public function regInterieur(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/reglement_interieur.html.twig');
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres', 'route' => 'parametres'],
+            ['label' => 'Termes publiables', 'route' => 'termes_publiables'],
+            ['label' => "Règlement intérieur"], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/reglement_interieur.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
 
     #[Route('/accueil/parametres/termes_publiables/conditions_generales_utilisation', name: 'conditions_generales_utilisation_page')]
-    public function condGenUtilisation(): Response
+    public function condGenUtilisation(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/conditions_generales_utilisation.html.twig');
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres', 'route' => 'parametres'],
+            ['label' => 'Termes publiables', 'route' => 'termes_publiables'],
+            ['label' => "Conditions générales d'utilisation"], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/conditions_generales_utilisation.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
 
     #[Route('/accueil/parametres/termes_publiables/conditions_generales_vente', name: 'conditions_generales_vente_page')]
-    public function condGenVente(): Response
+    public function condGenVente(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/conditions_generales_vente.html.twig');
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres', 'route' => 'parametres'],
+            ['label' => 'Termes publiables', 'route' => 'termes_publiables'],
+            ['label' => 'Conditions générales de vente'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/conditions_generales_vente.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
 
     #[Route('/accueil/parametres/termes_publiables', name: 'termes_publiables')]
-    public function termesPubliables(): Response
+    public function termesPubliables(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/termes_publiables.html.twig');
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres', 'route' => 'parametres'],
+            ['label' => 'Termes publiables'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/termes_publiables.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
 
     #[Route('/accueil/parametres/modeles_documents', name: 'modeles_documents')]
-    public function modelesDocuments(): Response
+    public function modelesDocuments(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/modeles_documents.html.twig');
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres', 'route' => 'parametres'],
+            ['label' => 'Liste des modèles de documents'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/modeles_documents.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
 
     #[Route('/accueil/parametres', name: 'parametres')]
-    public function parametres(): Response
+    public function parametres(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/parametres.html.twig');
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/parametres.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
 
     #[Route('/accueil/suivis', name: 'suivis')]
-    public function suivis(): Response
+    public function suivis(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/suivis.html.twig');
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Suivis'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/suivis.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
 
     #[Route('/accueil/creations', name: 'creations')]
-    public function creations(): Response
+    public function creations(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/creations.html.twig');
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/creations.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
 
     #[Route('/accueil', name: 'accueil')]
-    public function accueil(): Response
+    public function accueil(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/accueil.html.twig');
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/accueil.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
     // voie de garage pour les fonctionnalités en cours de développement ! 
     #[Route('/accueil/construction', name: 'construction')]
-    public function construction(): Response
+    public function construction(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        return $this->render('page/construction.html.twig');
+        return $this->render('page/construction.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
     }
 
 }

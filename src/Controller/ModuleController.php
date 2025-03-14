@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Module;
 use App\Repository\ModuleRepository;
+use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,8 +13,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ModuleController extends AbstractController
 {
     #[Route('/accueil/creations/module', name: 'app_module')]
-    public function index(ModuleRepository $moduleRepository): Response
+    public function index(ModuleRepository $moduleRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des modules'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         // méthode choisie qui ne permet pas de trier la liste des modules
         // $modules = $moduleRepository->findAll();
 
@@ -22,6 +31,7 @@ final class ModuleController extends AbstractController
 
         return $this->render('module/index.html.twig', [
             'modules' => $modules,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 

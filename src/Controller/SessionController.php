@@ -9,6 +9,7 @@ use App\Entity\Encadrement;
 use App\Entity\Inscription;
 use App\Entity\Planification;
 use App\Repository\SessionRepository;
+use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +19,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class SessionController extends AbstractController
 {
     #[Route('/accueil/creations/session', name: 'app_session')]
-    public function index(SessionRepository $sessionRepository): Response
+    public function index(SessionRepository $sessionRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des sessions'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         // méthode choisie qui ne permet pas de trier la liste des sessions
         // $sessions = $sessionRepository->findAll();
 
@@ -27,6 +36,7 @@ final class SessionController extends AbstractController
 
         return $this->render('session/index.html.twig', [
             'sessions' => $sessions,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
@@ -34,8 +44,20 @@ final class SessionController extends AbstractController
 
     #[Route('/accueil/creations/session/new', name: 'new_session')] // 'new_session' est un nom cohérent qui décrit bien la fonction
     #[Route('/accueil/creations/session/{id}/edit', name: 'edit_session')] // 'edit_session' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un session à notre BDD
+    public function new_edit(Session $session = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un session à notre BDD
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des sessions', 'route' => 'app_session'], 
+            ['label' => !$session ? "Créer une session" : "Modifier une session"], // Pas de route car c’est la page actuelle
+        ]);
+        // $variable = (condition) ? valeur_si_vrai : valeur_si_faux;
+        // Si condition est vraie → la valeur après ? est assignée.
+        // Si condition est fausse → la valeur après : est assignée.
+        
+        
         // 1. si pas de session, on crée une nouvelle session (un objet session est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$session) {
             $session = new Session();
@@ -169,6 +191,7 @@ final class SessionController extends AbstractController
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddSession' comme expliqué dans new.html.twig
             'formAddSession' => $form,
             'edit' => $session->getId(), // comportement booléen
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
 
     }
@@ -185,10 +208,20 @@ final class SessionController extends AbstractController
 
     
     #[Route('/accueil/creations/session/{id}', name: 'show_session')]
-    public function show(Session $session): Response
+    public function show(Session $session, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des sessions', 'route' => 'app_session'], 
+            ['label' => "Détails d'une session' #".$session->getId(), 'params' => ['id' => $session->getId()]], // Session spécifique // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         return $this->render('session/show.html.twig', [
             'session' => $session,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 }

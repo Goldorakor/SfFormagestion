@@ -4,12 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Representant;
 use App\Form\RepresentantType;
+use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 // use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -30,11 +31,19 @@ final class RepresentantController extends AbstractController
 
     // Route unique pour créer ou éditer le représentant (on fusionne les deux noms)
     #[Route('/representant/new_edit', name: 'new_edit_representant')] // 'new_edit_representant' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'un seul représentant au maximum !
-    public function newEdit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response // pour ajouter un représentant à notre BDD
+    public function newEdit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un représentant à notre BDD
     // attention : #[Autowire('%kernel.project_dir%/public/uploads/tampons')] => #[Autowire('%env(TAMPON_DIRECTORY)%')] : stockage en dehors de public - voir le fichier .env
 
     {
     
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres', 'route' => 'parametres'],
+            ['label' => 'Infos sur le représentant légal'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         $tamponsDirectory = $this->getParameter('tampons_directory'); // on récupère le bon chemin d'upload
         
         // dump($tamponsDirectory); die();  Vérification du chemin
@@ -120,7 +129,8 @@ final class RepresentantController extends AbstractController
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddRepresentant' comme expliqué dans new_edit.html.twig
             'formAddRepresentant' => $form,
             'edit' => $representant->getId() !== null, // comportement booléen -> si getId() retourne une valeur, on est en mode édition et si getId() est null, on est en mode création.
-            'representant' => $representant // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $representant n'existe pas
+            'representant' => $representant, // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $representant n'existe pas
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Responsable;
 use App\Form\ResponsableType;
+use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ResponsableRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,8 +15,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ResponsableController extends AbstractController
 {
     #[Route('/accueil/creations/responsable', name: 'app_responsable')]
-    public function index(ResponsableRepository $responsableRepository): Response
+    public function index(ResponsableRepository $responsableRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des responsables'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         // méthode choisie qui ne permet pas de trier la liste des responsables
         // $responsables = $responsableRepository->findAll();
 
@@ -23,6 +32,7 @@ final class ResponsableController extends AbstractController
 
         return $this->render('responsable/index.html.twig', [
             'responsables' => $responsables,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
@@ -31,8 +41,21 @@ final class ResponsableController extends AbstractController
 
     #[Route('/accueil/creations/responsable/new', name: 'new_responsable')] // 'new_responsable' est un nom cohérent qui décrit bien la fonction
     #[Route('/accueil/creations/responsable/{id}/edit', name: 'edit_responsable')] // 'edit_responsable' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Responsable $responsable = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un responsable à notre BDD
+    public function new_edit(Responsable $responsable = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un responsable à notre BDD
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des responsables', 'route' => 'app_responsable'], 
+            ['label' => !$responsable ? "Créer un responsable" : "Modifier un responsable"], // Pas de route car c’est la page actuelle
+        ]);
+        // $variable = (condition) ? valeur_si_vrai : valeur_si_faux;
+        // Si condition est vraie → la valeur après ? est assignée.
+        // Si condition est fausse → la valeur après : est assignée.
+        
+        
+        
         // 1. si pas de responsable, on crée un nouveau responsable (un objet responsable est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$responsable) {
             $responsable = new Responsable();
@@ -66,6 +89,7 @@ final class ResponsableController extends AbstractController
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddResponsable' comme expliqué dans new.html.twig
             'formAddResponsable' => $form,
             'edit' => $responsable->getId(), // comportement booléen
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
@@ -83,9 +107,18 @@ final class ResponsableController extends AbstractController
 
     
     #[Route('/accueil/creations/responsable/{id}', name: 'show_responsable')]
-    public function show(Responsable $responsable): Response
+    public function show(Responsable $responsable, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
        
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des responsables', 'route' => 'app_responsable'], 
+            ['label' => "Détails du responsable #".$responsable->getId(), 'params' => ['id' => $responsable->getId()]], // Responsable spécifique // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         // on crée un tableau vide, pour y ranger les responsabilités par société -> on ne veut pas une simple liste mais trier les responsabilités en fonction des sociétés (on fait des groupes)
         $responsabilitesParSociete = [];
 
@@ -102,6 +135,7 @@ final class ResponsableController extends AbstractController
         return $this->render('responsable/show.html.twig', [
             'responsable' => $responsable,
             'responsabilitesParSociete' => $responsabilitesParSociete, // besoin de passer cette variable -> pour afficher les responsabilités d'un responsable, organisées par société. Le tableau $responsabilitesParSociete contenant les responsabilités organisées par société.
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 }

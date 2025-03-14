@@ -6,6 +6,7 @@ use App\Entity\Societe;
 use App\Form\SocieteType;
 use App\Entity\Responsabilite;
 use App\Repository\SocieteRepository;
+use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class SocieteController extends AbstractController
 {
     #[Route('/accueil/creations/societe', name: 'app_societe')]
-    public function index(SocieteRepository $societeRepository): Response
+    public function index(SocieteRepository $societeRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des sociétés'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         // méthode choisie qui ne permet pas de trier la liste des sociétés
         // $societes = $societeRepository->findAll();
 
@@ -30,6 +39,7 @@ final class SocieteController extends AbstractController
 
         return $this->render('societe/index.html.twig', [
             'societes' => $societes,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
@@ -37,8 +47,20 @@ final class SocieteController extends AbstractController
 
     #[Route('/accueil/creations/societe/new', name: 'new_societe')] // 'new_societe' est un nom cohérent qui décrit bien la fonction
     #[Route('/accueil/creations/societe/{id}/edit', name: 'edit_societe')] // 'edit_societe' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Societe $societe = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un societe à notre BDD
+    public function new_edit(Societe $societe = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un societe à notre BDD
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des sociétés', 'route' => 'app_societe'], 
+            ['label' => !$societe ? "Créer une société" : "Modifier une société"], // Pas de route car c’est la page actuelle
+        ]);
+        // $variable = (condition) ? valeur_si_vrai : valeur_si_faux;
+        // Si condition est vraie → la valeur après ? est assignée.
+        // Si condition est fausse → la valeur après : est assignée.
+        
+        
         // 1. si pas de societe, on crée un nouveau societe (un objet societe est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$societe) {
             $societe = new Societe();
@@ -112,6 +134,7 @@ final class SocieteController extends AbstractController
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddSociete' comme expliqué dans new.html.twig
             'formAddSociete' => $form,
             'edit' => $societe->getId(), // comportement booléen
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
@@ -129,10 +152,20 @@ final class SocieteController extends AbstractController
 
     
     #[Route('/accueil/creations/societe/{id}', name: 'show_societe')]
-    public function show(Societe $societe): Response
+    public function show(Societe $societe, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des sociétés', 'route' => 'app_societe'], 
+            ['label' => "Détails d'une société' #".$societe->getId(), 'params' => ['id' => $societe->getId()]], // Société spécifique // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         return $this->render('societe/show.html.twig', [
             'societe' => $societe,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Formateur;
 use App\Form\FormateurType;
+use App\Service\BreadcrumbsGenerator;
 use App\Repository\FormateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,14 +16,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class FormateurController extends AbstractController
 {
     #[Route('/accueil/creations/formateur', name: 'app_formateur')]
-    public function index(FormateurRepository $formateurRepository): Response
+    public function index(FormateurRepository $formateurRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des formateurs'], // Pas de route car c’est la page actuelle
+        ]);
+
+        
         // méthode choisie qui ne permet pas de trier la liste des formateurs
         // $formateurs = $formateurRepository->findAll();
         
         $formateurs = $formateurRepository->findBy([], ["nom"=>"ASC"]);
         return $this->render('formateur/index.html.twig', [
             'formateurs' => $formateurs,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
@@ -31,8 +41,20 @@ final class FormateurController extends AbstractController
 
     #[Route('/accueil/creations/formateur/new', name: 'new_formateur')] // 'new_formateur' est un nom cohérent qui décrit bien la fonction
     #[Route('/accueil/creations/formateur/{id}/edit', name: 'edit_formateur')] // 'edit_formateur' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Formateur $formateur = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un formateur à notre BDD
+    public function new_edit(Formateur $formateur = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un formateur à notre BDD
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des formateurs', 'route' => 'app_formateur'], 
+            ['label' => !$formateur ? "Créer un formateur" : "Modifier un formateur"], // Pas de route car c’est la page actuelle
+        ]);
+        // $variable = (condition) ? valeur_si_vrai : valeur_si_faux;
+        // Si condition est vraie → la valeur après ? est assignée.
+        // Si condition est fausse → la valeur après : est assignée.
+        
+        
         // 1. si pas de formateur, on crée un nouveau formateur (un objet formateur est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$formateur) {
             $formateur = new Formateur();
@@ -65,7 +87,8 @@ final class FormateurController extends AbstractController
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddFormateur' comme expliqué dans new.html.twig
             'formAddFormateur' => $form,
-            'edit' => $formateur->getId() // comportement booléen
+            'edit' => $formateur->getId(), // comportement booléen
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
@@ -84,14 +107,26 @@ final class FormateurController extends AbstractController
 
     
     #[Route('/accueil/creations/formateur/{id}', name: 'show_formateur')]
-    public function show(Formateur $formateur): Response
+    public function show(Formateur $formateur, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        $now = new DateTime(); // on a besoin de créer cet objet DateTime pour savoir si une session est à venir, en cours ou terminée dans la vue de détails de l'apprenant (repère temporel)
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des formateurs', 'route' => 'app_formateur'], 
+            ['label' => "Détails du formateur #".$formateur->getId(), 'params' => ['id' => $formateur->getId()]], // Formateur spécifique // Pas de route car c’est la page actuelle
+        ]);
+        
+        
+        $now = new DateTime(); // on a besoin de créer cet objet DateTime pour savoir si une session est à venir, en cours ou terminée dans la vue de détails du formateur (repère temporel)
         
         return $this->render('formateur/show.html.twig', [
             'formateur' => $formateur,
             'now' => $now,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
 }
+
+

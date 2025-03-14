@@ -5,6 +5,7 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Apprenant;
 use App\Form\ApprenantType;
+use App\Service\BreadcrumbsGenerator;
 use App\Repository\ApprenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,8 +24,17 @@ final class ApprenantController extends AbstractController
     // public function index(EntityManagerInterface $entityManager): Response
 
     // méthode index (deuxième façon de faire)
-    public function index(ApprenantRepository $apprenantRepository): Response
+    public function index(ApprenantRepository $apprenantRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des apprenants'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        
+        
         // exemple du début -> désuet pour la suite
         $name = 'nom';
 
@@ -51,6 +61,7 @@ final class ApprenantController extends AbstractController
             // {{ controler_name }} dans apprenant/index.html.twig -> navigateur (http://127.0.0.1:8000/apprenant) affiche 'ApprenantController'
             'controller_name' => $name,
             'apprenants' => $apprenants,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
@@ -59,8 +70,20 @@ final class ApprenantController extends AbstractController
 
     #[Route('/accueil/creations/apprenant/new', name: 'new_apprenant')] // 'new_apprenant' est un nom cohérent qui décrit bien la fonction
     #[Route('/accueil/creations/apprenant/{id}/edit', name: 'edit_apprenant')] // 'edit_apprenant' est un nom cohérent qui décrit bien la fonction attendue
-    public function new_edit(Apprenant $apprenant = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un apprenant à notre BDD
+    public function new_edit(Apprenant $apprenant = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un apprenant à notre BDD
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des apprenants', 'route' => 'app_apprenant'], 
+            ['label' => !$apprenant ? "Créer un apprenant" : "Modifier un apprenant"], // Pas de route car c’est la page actuelle
+        ]);
+        // $variable = (condition) ? valeur_si_vrai : valeur_si_faux;
+        // Si condition est vraie → la valeur après ? est assignée.
+        // Si condition est fausse → la valeur après : est assignée.
+        
+        
         // 1. si pas de apprenant, on crée un nouveau apprenant (un objet apprenant est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$apprenant) {
             $apprenant = new Apprenant();
@@ -95,6 +118,7 @@ final class ApprenantController extends AbstractController
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddApprenant' comme expliqué dans new.html.twig
             'formAddApprenant' => $form,
             'edit' => $apprenant->getId(), // comportement booléen -> permet dans la vue de faire la diff entre création d'un apprenant et édition d'un apprenant
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
@@ -114,13 +138,23 @@ final class ApprenantController extends AbstractController
 
     
     #[Route('/accueil/creations/apprenant/{id}', name: 'show_apprenant')]
-    public function show(Apprenant $apprenant): Response
+    public function show(Apprenant $apprenant, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Créations', 'route' => 'creations'],
+            ['label' => 'Liste des apprenants', 'route' => 'app_apprenant'], 
+            ['label' => "Détails de l'apprenant #".$apprenant->getId(), 'params' => ['id' => $apprenant->getId()]], // Apprenant spécifique // Pas de route car c’est la page actuelle
+        ]);
+        
+        
         $now = new DateTime(); // on a besoin de créer cet objet DateTime pour savoir si une session est à venir, en cours ou terminée dans la vue de détails de l'apprenant (repère temporel)
         
         return $this->render('apprenant/show.html.twig', [
             'apprenant' => $apprenant, // au singulier puisqu'on ne passe qu'un seul objet 'apprenant' et pas une collection d'objets 'apprenant'
             'now' => $now,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 }
@@ -148,7 +182,7 @@ if (!$this->isGranted('ROLE_ADMIN')) {
     throw $this->createAccessDeniedException('Accès refusé.');
 }
 
-Comme ça, les deux rôles accèdent aux mêmes pages, mais avec des fonctionnalités adaptées ! 🎯
+Comme ça, les deux rôles accèdent aux mêmes pages, mais avec des fonctionnalités adaptées !
 */
 
 
