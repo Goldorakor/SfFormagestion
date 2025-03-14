@@ -151,10 +151,18 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 /* code css pour mon fil d'ariane (celui en orange) */
 
+.ariane {
+  display: flex;
+  align-items: center; /* Aligne le texte et la liste sur la même ligne */
+  gap: 5px; /* Ajoute un petit espace entre les éléments */
+}
+
 .fil-ariane {
   list-style: none; /* Supprime les puces des listes (<ol> ou <ul>) */
   display: flex; /* Affiche les éléments en ligne (horizontalement) */
   font-size: 14px; /* Définit la taille du texte */
+  padding: 0;
+  margin: 0;
 }
 
 .fil-ariane-texte {
@@ -164,7 +172,14 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 }
 
 .fil-ariane li {
-  margin-right: 5px; /* Ajoute un espace entre chaque élément du fil d'Ariane */
+  display: flex; /* Garde les éléments sur une ligne */
+  align-items: center;
+}
+
+.fil-ariane li:not(:last-child)::after {
+  content: " > "; /* Ajoute le séparateur automatique */
+  margin: 0 5px;
+  color: #dc6a17; /* Même couleur que les liens */
 }
 
 .fil-ariane li a {
