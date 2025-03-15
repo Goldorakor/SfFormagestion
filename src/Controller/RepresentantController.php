@@ -155,7 +155,7 @@ final class RepresentantController extends AbstractController
 /*
 Une fois cette route en place, pour afficher un tampon dans le template Twig, on peut faire :
 
-<img src="{{ path('tampon_display', { filename: entreprise.tamponFilename }) }}" alt="tampon du représentant">
+<img src="{{ path('tampon_display', { filename: entreprise.tamponFilename }) }}" alt="le tampon et la signature du représentant">
 
 Ça génère une URL comme /tampon/mon-tampon.png, qui affichera correctement l’image !
 */
