@@ -42,7 +42,7 @@
         </p>
         <ul>
             <li>
-                •	{% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
+                {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
             </li>
         </ul>
     </div>

@@ -184,6 +184,3 @@ if (!$this->isGranted('ROLE_ADMIN')) {
 
 Comme ça, les deux rôles accèdent aux mêmes pages, mais avec des fonctionnalités adaptées !
 */
-
-
-

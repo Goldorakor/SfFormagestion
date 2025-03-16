@@ -9,7 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class DocumentController extends AbstractController
 {
-    // cette méthode aurait pu servir à afficher la page "liste des modèles de documents" (comme le cas Apprenant par exemple) mais cette page est statique et elle est donc traitée par une méthode dans PageController.php : #[Route('/accueil/parametres/modeles_documents', name: 'modeles_documents')]
+    // cette méthode aurait pu servir à afficher la page "liste des modèles de documents" (comme le cas Apprenant par exemple)
+    // mais cette page est statique et elle est donc traitée par une méthode dans PageController.php :
+    // #[Route('/accueil/parametres/modeles_documents', name: 'modeles_documents')]
     #[Route('/document', name: 'app_document')]
     public function index(): Response
     {
@@ -233,6 +235,5 @@ final class DocumentController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
-
 
 }

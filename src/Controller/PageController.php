@@ -160,22 +160,39 @@ final class PageController extends AbstractController
         ]);
     }
 
+    
     // voie de garage pour les fonctionnalités en cours de développement ! 
     #[Route('/accueil/construction', name: 'construction')]
     public function construction(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'En construction'], // Pas de route car c’est la page actuelle
+        ]);
+        
         return $this->render('page/construction.html.twig',[
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
 
+
+    // voie de garage pour les tests d'affichage ! 
+    #[Route('/accueil/affichage', name: 'affichage')]
+    public function affichage(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Affichage'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('page/affichage.html.twig',[
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
+    }
+
 }
-
-
-
-
-
-
 
 
 /*
