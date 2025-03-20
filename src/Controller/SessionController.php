@@ -224,4 +224,57 @@ final class SessionController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
+
+    /*
+    on crée cette méthode pour la partie suivi de notre outil :
+    pour différencier la liste des sessions de la partie 'créations' de la liste des sessions de la partie 'suivis',
+    on ajoute un préfixe suivi à tous les nommages de la partie 'suivis'
+    */
+    #[Route('/accueil/suivis/session', name: 'suivi_app_session')]
+    public function suivi_index(SessionRepository $sessionRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Suivis', 'route' => 'suivis'],
+            ['label' => 'Liste de suivi des sessions'], // Pas de route car c’est la page actuelle
+        ]);
+        
+
+        $sessions = $sessionRepository->findBy([], ["titreSession"=>"ASC"]);
+
+        return $this->render('session/suivi_index.html.twig', [
+            'sessions' => $sessions,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
+    }
+
+
+    /*
+    on crée cette méthode pour afficher le détail d'une session dans la partie 'suivis' :
+    dans cette vue de détails, on pourra placer nos boutons pour générer chacun des documents administratifs nécessaires
+    */
+    #[Route('/accueil/suivis/session/{id}', name: 'suivi_show_session')]
+    public function suivi_show(Session $session, BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    {
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Suivis', 'route' => 'suivis'],
+            ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'], 
+            ['label' => "Détails de suivi d'une session' #".$session->getId(), 'params' => ['id' => $session->getId()]], // Session spécifique // Pas de route car c’est la page actuelle
+        ]);
+        
+        
+        return $this->render('session/suivi_show.html.twig', [
+            'session' => $session,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
+    }
+
+    /*
+    La partie 'suivis' ne nécessite pas de méthodes d'ajout ou de suppression de sessions :
+    ce travail ne s'effectue que dans la partie 'creations' -> 'suivis' communique avec la BDD pour vernir récupérer des infos, rien d'autre
+    */
 }

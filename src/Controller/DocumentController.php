@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\SocieteRepository;
 use App\Service\BreadcrumbsGenerator;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -76,8 +78,19 @@ final class DocumentController extends AbstractController
 
 
     #[Route('/accueil/parametres/modeles_documents/convention', name: 'convention')]
-    public function convention(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    public function convention(
+        BreadcrumbsGenerator $breadcrumbsGenerator,
+        SocieteRepository $societeRepository,
+        Request $request,
+    ): Response
     {
+        // Récupération des paramètres (remplacer les valeurs par de vrais 'id')
+        $sessionId = $request->query->get('sessionId', 1); // Remplacer 1 par une valeur dynamique
+        $societeId = $request->query->get('societeId', 1); // Remplacer 1 par une valeur dynamique
+
+        // Récupération du prix total payé par la société pour la session donnée
+        $prixTotal = $societeRepository->findPrixSociete($sessionId, $societeId);
+        
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
@@ -89,7 +102,13 @@ final class DocumentController extends AbstractController
         return $this->render('document/convention.html.twig', [
             'controller_name' => 'DocumentController',
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+            'prix_total' => $prixTotal, // on envoie le prix total à la vue
         ]);
+
+        /*
+        <p>Prix total payé par la société : {{ prix_total[0].totalPaye ?? 'Non disponible' }} €</p>
+        -> La requête retourne un tableau d'un seul élément (getResult()), donc on accède à la première ligne avec [0] et à la colonne totalPaye.
+        */
     }
 
 
