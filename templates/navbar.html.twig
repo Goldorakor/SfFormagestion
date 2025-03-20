@@ -16,9 +16,9 @@ ensuite, il sera incorporé au template base.html.twig, juste sous la balise <bo
                 Nouveau <i class="fa-solid fa-arrow-down"></i>
             </button>
             <div class="dropdown-content">
-                <a href="">Créer un module</a> {# lien non fonctionnel pour le moment #}
-                <a href="">Créer un programme</a> {# lien non fonctionnel pour le moment #}
-                <a href="">Créer une formation</a> {# lien non fonctionnel pour le moment #}
+                <a href="{{ path('construction') }}">Créer un module</a> {# lien non fonctionnel pour le moment #}
+                <a href="{{ path('construction') }}">Créer un programme</a> {# lien non fonctionnel pour le moment #}
+                <a href="{{ path('construction') }}">Créer une formation</a> {# lien non fonctionnel pour le moment #}
                 <a href="{{ path('new_session') }}">Créer une session</a>
                 <a href="{{ path('new_apprenant') }}">Créer un apprenant</a>
                 <a href="{{ path('new_formateur') }}">Créer un formateur</a>
@@ -57,7 +57,7 @@ ensuite, il sera incorporé au template base.html.twig, juste sous la balise <bo
             <a href="{{ path('construction') }}">Apprenants</a>
         </li>
         <li>
-            <a href="{{ path('construction') }}">Sessions</a>
+            <a href="{{ path('suivi_app_session') }}">Sessions</a>
         </li>
         <li>
             <a href="{{ path('construction') }}">Questionnaires</a>
@@ -66,10 +66,10 @@ ensuite, il sera incorporé au template base.html.twig, juste sous la balise <bo
             <a href="{{ path('construction') }}">Agenda</a>
         </li>
         <li>
-            <a href="{{ path('parametres') }}" class="princbtn">Paramètres</a>
+            <a href="{{ path('parametres') }}" class="princbtn">Paramètres</a> 
         </li>
         <li>
-            <a href="{{ path('creations') }}">Utilisateurs</a>
+            <a href="{{ path('construction') }}">Utilisateurs</a>
         </li>
         <li>
             <a href="{{ path('modeles_documents') }}">Modèles docs</a>

@@ -7,40 +7,53 @@
     <h1>Suivis</h1>
     <h3>Effectuez les suivis pédagogiques et administratifs des sessions</h3>
 
-    <div>
-        <h4>
-            Apprenants
-        </h4>
-        <p>
-            Suivre le parcours des apprenants
-        </p>
-    </div>
 
-    <div>
-        <h4>
-            Sessions
-        </h4>
-        <p>
-            Suivre la gestion administrative des sessions
-        </p>
-    </div>
+    <a href="{{ path('construction') }}" class="bandeau">
+        <div>
+            <h4>
+                Apprenants
+            </h4>
+            <p>
+                Suivre le parcours des apprenants
+            </p>
+        </div>
+    </a>
+    
 
-    <div>
-        <h4>
-            Questionnaires
-        </h4>
-        <p>
-            Evaluer le bon déroulement des sessions
-        </p>
-    </div>
+    <a href="{{ path('suivi_app_session') }}" class="bandeau">
+        <div>
+            <h4>
+                Sessions
+            </h4>
+            <p>
+                Suivre la gestion administrative des sessions
+            </p>
+        </div>
+    </a>
+    
 
-    <div>
-        <h4>
-            Agenda
-        </h4>
-        <p>
-            Organiser le temps, gérer les plannings
-        </p>
-    </div>
+    <a href="{{ path('construction') }}" class="bandeau">
+        <div>
+            <h4>
+                Questionnaires
+            </h4>
+            <p>
+                Evaluer le bon déroulement des sessions
+            </p>
+        </div>
+    </a>
+    
+
+    <a href="{{ path('construction') }}" class="bandeau">
+        <div>
+            <h4>
+                Agenda
+            </h4>
+            <p>
+                Organiser le temps, gérer les plannings
+            </p>
+        </div>
+    </a>
+    
 
 {% endblock %}

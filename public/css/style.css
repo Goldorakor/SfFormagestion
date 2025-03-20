@@ -71,3 +71,26 @@ h3 {
 }
 
 /* fin du code css pour mon fil d'ariane */
+
+
+
+
+
+
+/* code css pour les grands bandeaux cliquables (les pages des grandes sections : créations, suivis, paramètres) */
+
+.bandeau {
+  display: block;              /* Rend le <a> cliquable sur toute la largeur */
+  text-decoration: none;       /* Supprime le soulignement */
+  color: inherit;              /* Garde la couleur du texte */
+  padding: 15px;               /* Ajoute de l’espace intérieur entre le contenu (le texte) et la bordure du a */
+  border: 0px solid #ccc;    /* mettre une bordure éventuellement qui sera pleine et en gris clair*/
+  background-color: #ffffff; /* on souhaite un fond blanc */
+  border-radius: 10px;         /* pour les bords arrondis */
+}
+
+.bandeau:hover {
+  background-color: #CCCEFF; /* Petit effet 'violet clair' au survol */
+}
+
+/* fin du code css pour les grands bandeaux cliquables */

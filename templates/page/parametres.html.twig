@@ -7,58 +7,77 @@
     <h1>Paramètres</h1>
     <h3>Adaptez l'outil à vos besoins</h3>
 
-    <div>
-        <h4>
-            Comptes utilisateurs
-        </h4>
-        <p>
-            Gérer les comptes utilisateurs
-        </p>
-    </div>
 
-    <div>
-        <h4>
-            Modèles de documents
-        </h4>
-        <p>
-            Modifier les modèles de documents
-        </p>
-    </div>
+    <a href="{{ path('construction') }}" class="bandeau">
+        <div>
+            <h4>
+                Comptes utilisateurs
+            </h4>
+            <p>
+                Gérer les comptes utilisateurs
+            </p>
+        </div>
+    </a>
+    
 
-    <div>
-        <h4>
-            Infos sur la société
-        </h4>
-        <p>
-            Renseigner les informations administratives de la société
-        </p>
-    </div>
+    <a href="{{ path('modeles_documents') }}" class="bandeau">
+        <div>
+            <h4>
+                Modèles de documents
+            </h4>
+            <p>
+                Modifier les modèles de documents
+            </p>
+        </div>
+    </a>
+    
 
-    <div>
-        <h4>
-            Infos sur le représentant légal
-        </h4>
-        <p>
-            Renseigner les informations du représentant légal
-        </p>
-    </div>
+    <a href="{{ path('new_edit_entreprise') }}" class="bandeau">
+        <div>
+            <h4>
+                Infos sur la société
+            </h4>
+            <p>
+                Renseigner les informations administratives de la société
+            </p>
+        </div>
+    </a>
+    
 
-    <div>
-        <h4>
-            Lieux de formation
-        </h4>
-        <p>
-            Gérer les lieux de formation
-        </p>
-    </div>
+    <a href="{{ path('new_edit_representant') }}" class="bandeau">
+        <div>
+            <h4>
+                Infos sur le représentant légal
+            </h4>
+            <p>
+                Renseigner les informations du représentant légal
+            </p>
+        </div>
+    </a>
+    
 
-    <div>
-        <h4>
-            Termes publiables
-        </h4>
-        <p>
-            Configurer les CGU, les CGV et le Règlement Intérieur
-        </p>
-    </div>
+    <a href="{{ path('construction') }}" class="bandeau">
+        <div>
+            <h4>
+                Lieux de formation
+            </h4>
+            <p>
+                Gérer les lieux de formation
+            </p>
+        </div>
+    </a>
+    
+
+    <a href="{{ path('termes_publiables') }}" class="bandeau">
+        <div>
+            <h4>
+                Termes publiables
+            </h4>
+            <p>
+                Configurer les CGU, les CGV et le Règlement Intérieur
+            </p>
+        </div>
+    </a>
+    
 
 {% endblock %}
