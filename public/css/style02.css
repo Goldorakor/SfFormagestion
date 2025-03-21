@@ -71,5 +71,13 @@ h3 {
 }
    
 /* fin du code css pour mon fil d'ariane */
-  
+
+
+.signature img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+  border: 1px solid #a92b2b; /* Ajouter une bordure douce autour de l'image */
+  border-radius: 8px; /* Bordures arrondies */
+} 
   

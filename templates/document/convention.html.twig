@@ -25,7 +25,7 @@
 <p>
     la société {{ societe.raisonSociale }},<br>
     {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }},<br>
-    Représentée par {{ societe.responsabiliteLegal.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ societe.responsabiliteLegal.prenom|capitalize }} {{ societe.responsabiliteLegal.nom|upper }}<br>
+    Représentée par {{ responsableLegal.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ responsableLegal.prenom|capitalize }} {{ responsableLegal.nom|upper }}<br>
     (ci-après dénommée le bénéficiaire)
 </p>
 
@@ -71,7 +71,7 @@
 </h3>
 
 <p>
-    {{ session.formatteDuration }}.
+    {{ session.getFormattedDuration() }}. {# {{ session.FormattedDuration }} ne fonctionne pas #}
 </p>
 
 
@@ -81,7 +81,7 @@
 
 <div>
     {% for planification in session.planifications %}
-    {{ Planification.module.nomModule }}  : {{ Planification.datesModule }}<br> {% endfor %}
+    {{ planification.module.nomModule }}{{ planification.module.description }}  : {{ planification.datesModule }}<br> {% endfor %}
 
 </div>
 
@@ -199,7 +199,7 @@
     </h3>
 
     <p>
-        {% if session.formation.modalites =='présentiel' %}La feuille d'émargement atteste la réalisation de la formation.{% endif %}{% if session.formation.modalites =='présentiel' %}La copie d'écran lors de la formation et/ou l'émargement numérique attestent la réalisation de la formation.{% endif %}
+        {% if session.formation.modalites =='présentiel' %}La feuille d'émargement atteste la réalisation de la formation.{% endif %}{% if session.formation.modalites =='distanciel' %}La copie d'écran lors de la formation et/ou l'émargement numérique attestent la réalisation de la formation.{% endif %}
     </p>
 
     <h3>

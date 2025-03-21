@@ -8,6 +8,7 @@ use App\Repository\SocieteRepository;
 use App\Service\BreadcrumbsGenerator;
 use App\Repository\ApprenantRepository;
 use App\Repository\EntrepriseRepository;
+// use App\Repository\ResponsableRepository;
 use App\Repository\RepresentantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -122,6 +123,7 @@ final class DocumentController extends AbstractController
         $apprenantsSoc = $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId);
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
+        $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         
 
         // Récupération du prix total payé par la société pour la session donnée
@@ -147,6 +149,7 @@ final class DocumentController extends AbstractController
             'now' => $now,
             'entreprise' => $entreprise,
             'representant' => $representant,
+            'responsableLegal' => $responsableLegal
         ]);
 
         /*
