@@ -5,8 +5,103 @@
 {% block body %}
 
 
+<h3>Entre les soussignés :</h3>
 
-Effectif de la formation : {{ session.inscriptions|length }} {% if session.inscriptions|length == 1 %}participant {% else %}participants {% endif %}(pour un maximum de {{session.nbPlaces}}  participants).
+<p>
+    L'organisme de formation : {{ entreprise.raisonSociale }}, <br>
+    {{ entreprise.adresseSiege }} - {{ entreprise.codePostalSiege }} {{ entreprise.villeSiege|capitalize }},<br>
+    Représentée par {{ representant.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ representant.prenom|capitalize }} {{ representant.nom|upper }},<br>
+</p>
+<p>
+    Numéro de déclaration d'activité : {{ entreprise.numDeclaActivite }},<br>
+    Obtenu auprès de la préfecture de la {{ entreprise.prefectureRegion }},
+    N° SIRET : {{ entreprise.numSiret }},
+</p>
+
+<h3>
+    et
+</h3>
+
+<p>
+    la société {{ societe.raisonSociale }},<br>
+    {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }},<br>
+    Représentée par {{ societe.responsabiliteLegal.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ societe.responsabiliteLegal.prenom|capitalize }} {{ societe.responsabiliteLegal.nom|upper }}<br>
+    (ci-après dénommée le bénéficiaire)
+</p>
+
+<p>
+    L'organisme de formation {{ entreprise.raisonSociale }} s'engage à réaliser l'action de formation prévue par la présente convention dans les conditions fixées aux articles L.6353 2 et D.6353 1 du Code du travail.
+</p>
+
+
+<h3>
+    Intitulé de l'action de formation :
+</h3>
+<p>
+    {{ session.formation.nomFormation }}.
+</p>
+
+<h3>
+    Objectifs, programme et méthodes : 
+</h3>
+
+<p>
+    détaillés dans le programme de formation joint en document annexe de la convention.
+</p>
+
+
+<h3>
+    Intervenante : 
+</h3>
+
+<p>
+    formatrice confirmée (au moins 6 années d'expérience) dans le domaine de la nutrition et de l'hygiène alimentaire.
+</p>
+
+<h3>
+    Type d'action de formation : 
+</h3>
+
+<p>
+    action d'adaptation et de développement des compétences des salariés.
+</p>
+
+<h3>
+    Durée de la formation : 
+</h3>
+
+<p>
+    {{ session.formatteDuration }}.
+</p>
+
+
+<h3>
+    Dates et horaires de la session de formation : 
+</h3>
+
+<div>
+    {% for planification in session.planifications %}
+    {{ Planification.module.nomModule }}  : {{ Planification.datesModule }}<br> {% endfor %}
+
+</div>
+
+<h3>
+    Lieu de réalisation de la formation : 
+</h3>
+
+<p>
+    {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
+</p>
+
+<h3>
+    Effectif de la formation :
+</h3>
+
+<p>
+    {{ session.inscriptions|length }} {% if session.inscriptions|length == 1 %}participant {% else %}participants {% endif %}(pour un maximum de {{session.nbPlaces}}  participants).
+</p>
+
+ 
 
 {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
 
