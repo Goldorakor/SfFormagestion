@@ -6,6 +6,7 @@ use DateTime;
 use App\Repository\SessionRepository;
 use App\Repository\SocieteRepository;
 use App\Service\BreadcrumbsGenerator;
+use App\Service\PdfGenerator;
 use App\Repository\ApprenantRepository;
 use App\Repository\EntrepriseRepository;
 // use App\Repository\ResponsableRepository;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 final class DocumentController extends AbstractController
 {
@@ -117,6 +120,7 @@ final class DocumentController extends AbstractController
         BreadcrumbsGenerator $breadcrumbsGenerator,
     ): Response
     {
+        
         // on récupère la session, la société et 
         $session = $sessionRepo->find($sessionId);
         $societe = $societeRepo->find($societeId);
@@ -128,6 +132,7 @@ final class DocumentController extends AbstractController
 
         // Récupération du prix total payé par la société pour la session donnée
         $prixTotal = $societeRepo->findPrixSociete($sessionId, $societeId);
+
         
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -139,6 +144,7 @@ final class DocumentController extends AbstractController
 
 
         $now = new DateTime();
+
         
         return $this->render('document/convention.html.twig', [
             'session' => $session,
@@ -156,6 +162,81 @@ final class DocumentController extends AbstractController
         <p>Prix total payé par la société : {{ prix_total[0].totalPaye ?? 'Non disponible' }} €</p>
         -> La requête retourne un tableau d'un seul élément (getResult()), donc on accède à la première ligne avec [0] et à la colonne totalPaye.
         */
+    }
+
+
+    
+    // la troisième méthode sur le document "convention" : la génération d'un document au format pdf
+    #[Route('/accueil/suivis/session/{sessionId}/societe/{societeId}/convention_pdf', name: 'generer_convention_pdf')]
+     
+    public function genererConventionPdf(
+        int $sessionId,
+        int $societeId,
+        SessionRepository $sessionRepo,
+        SocieteRepository $societeRepo,
+        EntrepriseRepository $entrepriseRepo,
+        RepresentantRepository $representantRepo,
+        BreadcrumbsGenerator $breadcrumbsGenerator,
+        // PdfGenerator $pdfGenerator,
+        ): Response
+    {
+        
+        // Optionnel : configurer DomPDF
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+
+        $dompdf = new Dompdf($pdfOptions);
+
+
+        // on récupère la session, la société et  les variables nécessaires
+        $session = $sessionRepo->find($sessionId);
+        $societe = $societeRepo->find($societeId);
+        $apprenantsSoc = $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId);
+        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
+        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
+        $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
+        $prixTotal = $societeRepo->findPrixSociete($sessionId, $societeId); // Récupération du prix total payé par la société pour la session donnée
+
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres', 'route' => 'parametres'],
+            ['label' => 'Liste des modèles de documents', 'route' => 'modeles_documents'],
+            ['label' => 'Convention (PDF)'], // Pas de route car c’est la page actuelle
+        ]);
+
+
+        $now = new \DateTime();
+
+        
+        // Récupérer le contenu HTML du template Twig
+        $htmlContent = $this->renderView('document/convention.html.twig', [
+            'session' => $session,
+            'societe' => $societe,
+            'breadcrumbs' => $breadcrumbs,
+            'prix_total' => $prixTotal,
+            'apprenants_soc' => $apprenantsSoc,
+            'now' => $now,
+            'entreprise' => $entreprise,
+            'representant' => $representant,
+            'responsableLegal' => $responsableLegal,
+        ]);
+
+        // Chargement et génération du PDF
+        $dompdf->loadHtml($htmlContent);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Envoi du PDF au navigateur
+        return new Response(
+            $dompdf->output(),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="convention.pdf"',
+            ]
+        );
     }
 
 
