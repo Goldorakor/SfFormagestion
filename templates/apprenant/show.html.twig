@@ -3,6 +3,104 @@
 {% block title %}Détail d'un apprenant{% endblock %}
 
 {% block body %}
+<div class="container mt-5 d-flex flex-column align-items-center" style="max-width: 1200px; width: 100%;">
+    
+    <!-- Bloc 1 : Informations de l'apprenant -->
+    <div class="card shadow-sm border-0 w-100 mb-5">
+        <div class="card-body p-4">
+            <h3 class="text-center mb-3">{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</h3>
+            <p class="text-center text-muted">{{ apprenant.email|lower }}</p>
+            <hr>
+            <p><strong>Statut :</strong> {% if apprenant.sexe == 'F' %}Apprenante{% else %}Apprenant{% endif %}</p>
+            <p><strong>Adresse :</strong> {{ apprenant.adresse }}, {{ apprenant.codePostal }} {{ apprenant.ville|capitalize }}, {{ apprenant.pays|upper }}</p>
+            <p><strong>Téléphone :</strong> {% if apprenant.tel %} {{ apprenant.tel }} {% else %} Non renseigné {% endif %}</p>
+            <p><strong>Date de naissance :</strong> {{ apprenant.dateNaissance|date("d/m/Y") }}</p>
+            <p><strong>Sexe :</strong> {{ apprenant.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}</p>
+            <p><strong>Profession :</strong> {{ apprenant.metier|lower }}</p>
+            <p><strong>Statut :</strong> 
+                {% if apprenant.sexe == 'F' %}Salariée{% else %}Salarié{% endif %}
+                {% if apprenant.societe is not null %}
+                    de la société {{ apprenant.societe.raisonSociale }}
+                {% else %}
+                    (Non renseigné ou statut de particulier)
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <!-- Bloc 2 : Sessions -->
+    <div class="card shadow-sm border-0 w-100 mb-5">
+        <div class="card-body p-4">
+            {% set now = "now"|date %}
+            {% for type, sessions in {
+                '📅 Sessions à venir' : apprenant.inscriptions|filter(inscription => inscription.session.dateDebut > now and inscription.session.dateFin > now),
+                '🔥 Sessions en cours' : apprenant.inscriptions|filter(inscription => inscription.session.dateDebut <= now and inscription.session.dateFin >= now),
+                '🏁 Sessions terminées' : apprenant.inscriptions|filter(inscription => inscription.session.dateDebut < now and inscription.session.dateFin < now)
+            } %}
+                <div class="mb-4">
+                    <h2 class="text-center text-dark">{{ type }}</h2>
+                    {% if sessions|length > 0 %}
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Référence</th>
+                                        <th scope="col">Début</th>
+                                        <th scope="col">Fin</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Modalité</th>
+                                        <th scope="col">Prix (€)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for inscription in sessions %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('show_session', {'id': inscription.session.id}) }}" class="text-decoration-none">
+                                                    {{ inscription.session.titreSession }}<br>
+                                                    <small class="text-muted">{{ inscription.session.inscriptions|length }} inscrits / {{ inscription.session.nbPlaces }} places</small>
+                                                </a>
+                                            </td>
+                                            <td>{{ inscription.session.dateDebut|date("d/m/Y") }}</td>
+                                            <td>{{ inscription.session.dateFin|date("d/m/Y") }}</td>
+                                            <td>{{ inscription.session.formation.type|upper }}</td>
+                                            <td>{{ inscription.session.formation.modalites|capitalize }}</td>
+                                            <td>{{ inscription.prix }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-muted">Aucune session disponible.</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bloc 3 : Boutons actions bien en bas -->
+    <div class="card shadow-sm border-0 w-100 mb-5">
+        <div class="card-body p-4 text-center">
+            <a class="btn btn-outline-danger me-2" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}">Supprimer</a>
+            <a class="btn btn-outline-primary me-2" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}">Éditer</a>
+            <a class="btn btn-outline-secondary" href="{{ path('app_apprenant') }}">Quitter</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+
+{# DEBUT DE MA VERSION - DEBUT DE MA VERSION - DEBUT DE MA VERSION - DEBUT DE MA VERSION - DEBUT DE MA VERSION - DEBUT DE MA VERSION - DEBUT DE MA VERSION - DEBUT DE MA VERSION -
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un apprenant{% endblock %}
+
+{% block body %}
 
     <h1>{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</h1>
     <h3>{{ apprenant.email|lower }}</h3>
@@ -237,7 +335,12 @@
 
 
 
-{#
+
+FIN DE MA VERSION - FIN DE MA VERSION - FIN DE MA VERSION - FIN DE MA VERSION - FIN DE MA VERSION - FIN DE MA VERSION - FIN DE MA VERSION - FIN DE MA VERSION - FIN DE MA VERSION #}
+
+
+
+{# ANCIEN COMMENTAIRE - ANCIEN COMMENTAIRE - ANCIEN COMMENTAIRE - ANCIEN COMMENTAIRE - ANCIEN COMMENTAIRE - ANCIEN COMMENTAIRE - ANCIEN COMMENTAIRE -
 
 {% if sessions | length > 0 %}  : dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length
 

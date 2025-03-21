@@ -77,16 +77,42 @@ final class DocumentController extends AbstractController
     }
 
 
-    #[Route('/accueil/parametres/modeles_documents/convention', name: 'convention')]
-    public function convention(
+    // route pour la partie modèle de convention qu'on peut configurer (afficher ou modifier le modèle de convention)
+    #[Route('/accueil/parametres/modeles_documents/convention', name: 'modele_convention')]
+    public function voirModeleConvention(
         BreadcrumbsGenerator $breadcrumbsGenerator,
-        SocieteRepository $societeRepository,
-        Request $request,
     ): Response
     {
-        // Récupération des paramètres (remplacer les valeurs par de vrais 'id')
-        $sessionId = $request->query->get('sessionId', 1); // Remplacer 1 par une valeur dynamique
-        $societeId = $request->query->get('societeId', 1); // Remplacer 1 par une valeur dynamique
+        
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Paramètres', 'route' => 'parametres'],
+            ['label' => 'Liste des modèles de documents', 'route' => 'modeles_documents'],
+            ['label' => 'Convention'], // Pas de route car c’est la page actuelle
+        ]);
+        
+        return $this->render('document/convention.html.twig', [
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+        ]);
+
+    }
+
+
+    // route pour générer une convention spécifique à une session et une société (paramètres dynamiques dans l'url)
+    #[Route('/accueil/suivis/session/{sessionId}/societe/{societeId}/convention', name: 'generer_convention')]
+    public function genererConvention(
+        int $sessionId,
+        int $societeId,
+        SessionRepository $sessionRepo,
+        SocieteRepository $societeRepository,
+        BreadcrumbsGenerator $breadcrumbsGenerator,
+    ): Response
+    {
+        //
+        $session = $sessionRepo->find($sessionId);
+        $societe = $societeRepo->find($societeId);
+        $apprenantsSoc = $apprenantRepo->findApprenantsBySessionAndSociete($sessionId, $societeId); // $apprenantsSoc pour ne pas confondre avec l'ensemble des apprenants inscrits
 
         // Récupération du prix total payé par la société pour la session donnée
         $prixTotal = $societeRepository->findPrixSociete($sessionId, $societeId);
@@ -100,7 +126,9 @@ final class DocumentController extends AbstractController
         ]);
         
         return $this->render('document/convention.html.twig', [
-            'controller_name' => 'DocumentController',
+            'session' => $session,
+            'societe' => $societe,
+            'apprenants_soc' => $apprenantsSoc,
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
             'prix_total' => $prixTotal, // on envoie le prix total à la vue
         ]);
@@ -110,6 +138,8 @@ final class DocumentController extends AbstractController
         -> La requête retourne un tableau d'un seul élément (getResult()), donc on accède à la première ligne avec [0] et à la colonne totalPaye.
         */
     }
+
+
 
 
     #[Route('/accueil/parametres/modeles_documents/feuille_emargement', name: 'feuille_emargement')]

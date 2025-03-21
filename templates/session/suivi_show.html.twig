@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <h1>{{ session.formation.nomFormation }}</h1>
+    <h1>Suivi administratif : {{ session.formation.nomFormation }}</h1>
     <h3>du {{ session.dateDebut|date("d/m/Y") }} au {{ session.dateFin|date("d/m/Y") }}</h3>
 
     <div>
@@ -29,98 +29,48 @@
 
         {% endfor %}
     </div>
-    
-
-    <h2>
-        Apprenants inscrits à la session :  
-    </h2>
-
-    {#
-    {% for inscription in session.inscriptions %}
-
-        <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">{{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }} {{ inscription.apprenant.email }} {{ inscription.apprenant.tel }}{% if inscription.apprenant.societe is not null %} {{ inscription.apprenant.societe.raisonSociale }}{% else %} -{% endif %}</a><br>
-        
-    {% endfor %}
-    #}
 
 
-    {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
+    <h1>test tableau</h1>
 
-    {% for inscription in session.inscriptions %}
 
-        {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session #}
-            {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
-            <table>
-                <thead>
+    {% if societesEtApprenants is not empty %}
+        <table>
+            <tbody>
+                {% set current_societe = null %}
+                {% for ligne in societesEtApprenants %}
+                    {# Si on passe à une nouvelle société, on affiche la ligne de la société #}
+                    {% if current_societe != ligne.raisonSociale %}
+                        <tr>
+                            <td colspan="2">{{ ligne.raisonSociale }}</td>
+                            <td>{{ prixParSociete[ligne.societeId]|number_format(2, ',', ' ') }} €</td>
+                            <td><a href="{{ path('convention', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">Générer la convention</a></td>
+                        </tr>
+                        {% set current_societe = ligne.raisonSociale %}
+                    {% endif %}
+
+                    {# Ligne d'un apprenant #}
                     <tr>
-                        <th>
-                            Prénom, NOM
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
-                            Téléphone
-                        </th>
-                        <th>
-                            Société
-                        </th>
-                        <th>
-                            Prix (en euros)
-                        </th>
+                        <td>{{ ligne.prenom }}</td>
+                        <td colspan="2">{{ ligne.nom }}</td>
+                        <td>{{ ligne.email }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">{{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }} </a>
-                        </td>
-                        <td>
-                            {{ inscription.apprenant.email|lower }}
-                        </td>
-                        <td>
-                            {{ inscription.apprenant.tel }}
-                        </td>
-                        <td>
-                            {% if inscription.apprenant.societe is not null %} {{ inscription.apprenant.societe.raisonSociale }}{% else %} -{% endif %}
-                        </td>
-                        <td>
-                            {{ inscription.prix }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        {% endif %}
-        
-    {% endfor %}
 
-    {% if not apprenants_trouves %} {# Après la boucle for, on vérifie si la variable 'apprenants_trouves' est toujours false. Si c'est le cas, cela signifie qu'aucun apprenant (en réalité, aucune inscription) n'a été trouvé, et donc on affiche le message "Aucun apprenant de l'annuaire inscrit à cette session". #}
-        <div>Aucun apprenant de l'annuaire inscrit à cette session</div>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucune société n'a d'apprenants sur cette session.</p>
     {% endif %}
 
 
-
-    <h2>
-        Modules enseignés pendant la session : 
-    </h2>
-
-    {% for planification in session.planifications %}
-
-        <div>
-            <a href="{{ path('show_module', {'id' : planification.module.id}) }}">{{ planification.module.nomModule }}</a><br>
-            Desription : {{ planification.module.description }}<br>
-            Durée : {{ planification.formattedDuration02 }}<br>   
-            {{ planification.datesModule }}<br><br><br> {# ancienne méthode -> du {{ planification.dateDebut|date("d/m/Y") }} à {{ planification.dateDebut|date("H:i") }} au {{ planification.dateFin|date("d/m/Y") }} à {{ planification.dateFin|date("H:i") }}<br> #}
-        </div>
-        
-    {% endfor %}
-
+    
     <div>
-        <a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}">Supprimer</a> {# bouton pour supprimer la session #}
+        {# <a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}">Supprimer</a>  bouton pour supprimer la session : pas dans suivi administratif #}
 
-        <a class="btn btn-rose" href="{{ path('edit_session', {'id' : session.id}) }}">Editer</a> {# bouton pour éditer la session #}
+        {# <a class="btn btn-rose" href="{{ path('edit_session', {'id' : session.id}) }}">Editer</a>  bouton pour éditer la session : pas dans suivi administratif #}
 
-        <a class="btn btn-rose" href="{{ path('app_session') }}">Quitter</a> {# bouton pour retourner à la liste des sessions #}
+        <a class="btn btn-rose" href="{{ path('suivi_app_session') }}">Quitter</a> {# bouton pour retourner à la liste des sessions du suivi administratif #}
     </div>
 
 {% endblock %}
@@ -131,5 +81,14 @@ public function getFormattedDuration()
 #}
 
 
- {# #}
+ {#
+
+prixParSociete[ligne.societeId]
+
+Traduction en PHP : $prixParSociete[$ligne['societeId']]
+prixParSociete est un tableau PHP classique dans lequel la clé est l'id de la société.
+ligne.societeId récupère la valeur de la clé societeId dans $ligne
+Le résultat est le bon index utilisé pour accéder à la valeur dans prixParSociete.
+
+ #}
 

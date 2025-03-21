@@ -9,6 +9,7 @@ use App\Entity\Encadrement;
 use App\Entity\Inscription;
 use App\Entity\Planification;
 use App\Repository\SessionRepository;
+use App\Repository\SocieteRepository;
 use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -254,9 +255,10 @@ final class SessionController extends AbstractController
     /*
     on crée cette méthode pour afficher le détail d'une session dans la partie 'suivis' :
     dans cette vue de détails, on pourra placer nos boutons pour générer chacun des documents administratifs nécessaires
+    Avant la vue, il faut un contrôleur pour aller récupérer les données via mes méthodes de repository et les passer à Twig
     */
     #[Route('/accueil/suivis/session/{id}', name: 'suivi_show_session')]
-    public function suivi_show(Session $session, BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    public function suivi_show(Session $session, BreadcrumbsGenerator $breadcrumbsGenerator, SessionRepository $sessionRepo, SocieteRepository $societeRepo): Response
     {
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -265,11 +267,58 @@ final class SessionController extends AbstractController
             ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'], 
             ['label' => "Détails de suivi d'une session' #".$session->getId(), 'params' => ['id' => $session->getId()]], // Session spécifique // Pas de route car c’est la page actuelle
         ]);
+
+
+        // Récupérer les sociétés et les apprenants liés à la session
+        $societesEtApprenants = $sessionRepo->findSocietesEtApprenantsBySession($session->getId());
+
+        // Récupérer le total payé par chaque société
+        $prixParSociete = []; // On prépare un tableau associatif (societeId => total payé) qui contiendra la somme des paiements par société, pour le moment c'est vide
         
-        
+    
+        // On parcourt toutes les lignes récupérées par la DQL qui liste les sociétés et leurs apprenants
+        foreach ($societesEtApprenants as $ligne) {
+
+            /*
+            $ligne contient : 
+            - 'societeId' => l'ID de la société
+            - 'raisonSociale' => le nom de la société
+            - 'nom' => nom de l'apprenant
+            - 'prenom' => prénom de l'apprenant
+            - 'email' => email de l'apprenant
+            - 'metier' => métier de l'apprenant
+            */
+
+
+            // On vérifie si on n'a pas encore calculé le total payé pour cette société
+            if (!isset($prixParSociete[$ligne['societeId']])) {
+
+                // Si ce n’est pas encore fait, on récupère le total payé par cette société grâce à la méthode dans SocieteRepository
+                $prix = $societeRepo->findPrixSociete($session->getId(), $ligne['societeId']);
+
+                // On stocke ce total dans le tableau associatif en liant le total à l'ID de la société
+                // On sécurise avec l'opérateur "??" au cas où la requête ne retourne rien (NULL)
+                $prixParSociete[$ligne['societeId']] = $prix['totalPaye'] ?? 0;
+            }
+        }
+
+        /*
+
+        tableau associatif a cette forme :
+
+        [
+            1 => 5000,   // société Id 1 a payé 5000 euros
+            2 => 3500,   // société Id 2 a payé 3500 euros
+            // etc.
+        ]
+
+        */
+
         return $this->render('session/suivi_show.html.twig', [
             'session' => $session,
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+            'societesEtApprenants' => $societesEtApprenants, // on a besoin  de cette variable pour récupérer les sociétés (et la liste de leurs apprenants) qui participent à la session
+            'prixParSociete' => $prixParSociete, // on a besoin de cette variable pour le prix total de chaque société
         ]);
     }
 

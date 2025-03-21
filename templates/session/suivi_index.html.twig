@@ -38,10 +38,7 @@
                         Nb de places
                     </th>
                     <th>
-                        <!-- vide : colonne pour les icones édition -->
-                    </th>
-                    <th>
-                        <!-- vide : colonne pour les icones suppression -->
+                        Prix global de la session
                     </th>
                 </tr>
             </thead>
@@ -49,7 +46,7 @@
                 {% for session in sessions %}
                     <tr>
                         <td>
-                            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }}<br>
+                            <a href="{{ path('suivi_show_session', {'id' : session.id}) }}">{{ session.titreSession }}<br>
                             {{ session.inscriptions|length }} apprenants inscrits</a>
                         </td>
                         <td>
@@ -68,10 +65,7 @@
                             {{ session.nbPlaces }}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer la session #}
-                        </td>
-                        <td>
-                            <a class="btn btn-gris" href="{{ path('delete_session', {'id' : session.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer la session #}
+                            {{ session.totalPrice }} {# méthode function getTotalPrice() de Session.php #}
                         </td>
                     </tr>
                 {% endfor %}
