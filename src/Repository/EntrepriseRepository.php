@@ -40,4 +40,15 @@ class EntrepriseRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findUniqueEntreprise() // on veut récupérer l'organisme de formation et son représentant
+    {
+        return $this->getEntityManager()->createQuery("
+            SELECT e
+            FROM App\Entity\Entreprise e
+            WHERE e.id = 3   
+        ")
+        ->getOneOrNullResult();  // Retourne le seul résultat ou null si aucune société trouvée
+    }
+
 }

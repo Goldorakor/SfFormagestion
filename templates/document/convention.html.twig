@@ -1,4 +1,4 @@
-{% extends 'base03.html.twig' %}
+{% extends 'base02.html.twig' %}
 
 {% block title %}Document administratif : convention{% endblock %}
 
@@ -104,7 +104,7 @@ Effectif de la formation : {{ session.inscriptions|length }} {% if session.inscr
     </h3>
 
     <p>
-        {% if session.formation.modalites =='présentiel' %}La feuille d'émargement atteste la réalisation de la formation.{% endif %}{% endif %}{% if session['mode'] =='BLENDED' %}La copie d'écran lors de la formation et/ou l'émargement numérique attestent la réalisation de la formation.{% endif %}
+        {% if session.formation.modalites =='présentiel' %}La feuille d'émargement atteste la réalisation de la formation.{% endif %}{% if session.formation.modalites =='présentiel' %}La copie d'écran lors de la formation et/ou l'émargement numérique attestent la réalisation de la formation.{% endif %}
     </p>
 
     <h3>
@@ -141,19 +141,19 @@ Effectif de la formation : {{ session.inscriptions|length }} {% if session.inscr
 
     <ul>
         <li>
-            Prix de la formation : {{ session.prix|default('prix de la session') }} € HT par participant
+            Prix de la formation : {{ (prix_total.totalPaye/(apprenants_soc|length))|number_format(2, ',', ' ') }} € HT par participant
         </li>
         <li>
-            Nombre de participants : {{ session.participants|default('nombre de participants') }}
+            Nombre de participants de l'entreprise {{ societe.raisonSociale }} : {{ apprenants_soc|length }}
         </li>
         <li>
-            Total HT : {{ session.learners|default('prix total HT de la session') }} €
+            Total HT : {{ prix_total.totalPaye|number_format(2, ',', ' ') }} €
         </li>
         <li>
-            TVA 20% : {{ session.prixtva|default('TVA de la session') }} €
+            TVA 20% : {{ (prix_total.totalPaye*20/100)|number_format(2, ',', ' ') }} €
         </li>
         <li>
-            Total TTC : {{ session.prix|default('prix total TTC de la session') }} €
+            Total TTC : {{ (prix_total.totalPaye*120/100)|number_format(2, ',', ' ') }} € €
         </li>
     </ul>
 
@@ -175,7 +175,7 @@ Effectif de la formation : {{ session.inscriptions|length }} {% if session.inscr
 
     <div>
         Fait en double exemplaire<br>
-        À {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date(trad.translateFormatDate['date']) }}
+        À {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("m-d-Y") }}
     </div>
 
     <div class="signatures">

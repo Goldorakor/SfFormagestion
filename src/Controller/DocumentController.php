@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Repository\SessionRepository;
 use App\Repository\SocieteRepository;
 use App\Service\BreadcrumbsGenerator;
+use App\Repository\ApprenantRepository;
+use App\Repository\EntrepriseRepository;
+use App\Repository\RepresentantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -105,17 +110,22 @@ final class DocumentController extends AbstractController
         int $sessionId,
         int $societeId,
         SessionRepository $sessionRepo,
-        SocieteRepository $societeRepository,
+        SocieteRepository $societeRepo,
+        EntrepriseRepository $entrepriseRepo,
+        RepresentantRepository $representantRepo,
         BreadcrumbsGenerator $breadcrumbsGenerator,
     ): Response
     {
-        //
+        // on récupère la session, la société et 
         $session = $sessionRepo->find($sessionId);
         $societe = $societeRepo->find($societeId);
-        $apprenantsSoc = $apprenantRepo->findApprenantsBySessionAndSociete($sessionId, $societeId); // $apprenantsSoc pour ne pas confondre avec l'ensemble des apprenants inscrits
+        $apprenantsSoc = $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId);
+        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
+        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
+        
 
         // Récupération du prix total payé par la société pour la session donnée
-        $prixTotal = $societeRepository->findPrixSociete($sessionId, $societeId);
+        $prixTotal = $societeRepo->findPrixSociete($sessionId, $societeId);
         
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -124,13 +134,19 @@ final class DocumentController extends AbstractController
             ['label' => 'Liste des modèles de documents', 'route' => 'modeles_documents'],
             ['label' => 'Convention'], // Pas de route car c’est la page actuelle
         ]);
+
+
+        $now = new DateTime();
         
         return $this->render('document/convention.html.twig', [
             'session' => $session,
             'societe' => $societe,
-            'apprenants_soc' => $apprenantsSoc,
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
             'prix_total' => $prixTotal, // on envoie le prix total à la vue
+            'apprenants_soc' => $apprenantsSoc,
+            'now' => $now,
+            'entreprise' => $entreprise,
+            'representant' => $representant,
         ]);
 
         /*

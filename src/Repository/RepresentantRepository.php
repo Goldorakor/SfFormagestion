@@ -40,4 +40,15 @@ class RepresentantRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findUniqueRepresentant() // on veut récupérer l'organisme de formation et son représentant
+    {
+        return $this->getEntityManager()->createQuery("
+            SELECT r
+            FROM App\Entity\Representant r
+            WHERE r.id = 7  
+        ")
+        ->getOneOrNullResult();  // Retourne le seul résultat ou null si aucun représentant trouvé
+    }
+
 }

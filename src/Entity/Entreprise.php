@@ -57,7 +57,7 @@ class Entreprise
 
     #[ORM\Column(length: 255)]
     private ?string $logoFilename = null;
-    
+
 
     public function getId(): ?int
     {
