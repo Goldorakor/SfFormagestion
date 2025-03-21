@@ -46,9 +46,17 @@ class EntrepriseRepository extends ServiceEntityRepository
         return $this->getEntityManager()->createQuery("
             SELECT e
             FROM App\Entity\Entreprise e
-            WHERE e.id = 5   
+            WHERE e.id = 5
         ")
         ->getOneOrNullResult();  // Retourne le seul résultat ou null si aucune société trouvée
     }
 
 }
+
+/*
+
+SELECT e
+FROM App\Entity\Entreprise e
+            WHERE e.id = 5 
+
+*/

@@ -1,16 +1,16 @@
 /* 
-DOCUMENTS ADMINISTRATIFS
-DOCUMENTS ADMINISTRATIFS
-DOCUMENTS ADMINISTRATIFS
+DOCUMENTS ADMINISTRATIFS PDF
+DOCUMENTS ADMINISTRATIFS PDF
+DOCUMENTS ADMINISTRATIFS PDF
 */
 
 /* 
 Ce fichier servira à styliser les documents administratifs
-Il est souhaitable de ne pas afficher la navbar dans ces documents pour le moment 
+Il est souhaitable de ne pas afficher la navbar dans ces documents
 */
 
 h1 {
-    color :#bd1e73; /* Change la couleur du texte en bleu */
+    color :#bd1e73; /* Change la couleur du texte en rose */
     background-color: #ffffff; /* Fond noir */
     border-top: 3px solid #ff9944;   /* Ecriture abrégé : bordure en haut */
     border-bottom: 3px solid #ff9944; /* Ecriture abrégé : bordure en bas */
@@ -33,3 +33,11 @@ h2 {
     /* display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
     border-radius: 10px; /* on arrondit les coins */
 }
+
+.signature img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+    border: 1px solid #a92b2b; /* Ajouter une bordure douce autour de l'image */
+    border-radius: 8px; /* Bordures arrondies */
+  } 

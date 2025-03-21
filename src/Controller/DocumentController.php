@@ -221,6 +221,7 @@ final class DocumentController extends AbstractController
             'entreprise' => $entreprise,
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
+            'pdfMode' => true, // Ajout de ce flag pour pouvoir choisir de mettre certains éléments dans la vue classique mais pas dans le pdf
         ]);
 
         // Chargement et génération du PDF
