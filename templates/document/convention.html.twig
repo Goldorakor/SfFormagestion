@@ -105,35 +105,33 @@
 
 {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
 
-    {% for inscription in session.inscriptions %}
-
-        {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session #}
-            {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            Prénom et Nom du stagiaire
-                        </th>
-                        <th>
-                            Fonction du stagiaire
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            {{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }}
-                        </td>
-                        <td>
-                            {{ inscription.apprenant.metier|lower }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        {% endif %}
-        
-    {% endfor %}
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Prénom et Nom de l'apprenant
+                </th>
+                <th>
+                    Fonction de l'apprenant
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for inscription in session.inscriptions %}
+            {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session #}
+                {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
+                        <tr>
+                            <td>
+                                {{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }}
+                            </td>
+                            <td>
+                                {{ inscription.apprenant.metier|lower }}
+                            </td>
+                        </tr>
+            {% endif %} 
+        {% endfor %}
+        </tbody>
+    </table>
 
     {% if not apprenants_trouves %} {# Après la boucle for, on vérifie si la variable 'apprenants_trouves' est toujours false. Si c'est le cas, cela signifie qu'aucun apprenant (en réalité, aucune inscription) n'a été trouvé, et donc on affiche le message "Aucun apprenant de l'annuaire inscrit à cette session". #}
         <div>Aucun apprenant de l'annuaire inscrit à cette session</div>
@@ -248,7 +246,7 @@
             TVA 20% : {{ (prix_total.totalPaye*20/100)|number_format(2, ',', ' ') }} €
         </li>
         <li>
-            Total TTC : {{ (prix_total.totalPaye*120/100)|number_format(2, ',', ' ') }} € €
+            Total TTC : {{ (prix_total.totalPaye*120/100)|number_format(2, ',', ' ') }} €
         </li>
     </ul>
 
