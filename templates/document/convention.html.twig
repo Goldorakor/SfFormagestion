@@ -79,11 +79,43 @@
     Dates et horaires de la session de formation : 
 </h3>
 
-<div>
-    {% for planification in session.planifications %}
-    {{ planification.module.nomModule }}{{ planification.module.description }}  : {{ planification.datesModule }}<br> {% endfor %}
+<table>
+    <thead>
+        <tr>
+            <th>
+                Nom du module enseigné
+            </th>
+            <th>
+                Horaires
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for planification in session.planifications %}
+            <tr>
+                <td>
+                    {{ planification.module.nomModule }}{{ planification.module.description }}
+                </td>
+                <td>
+                    {{ planification.datesModule }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <h3>
     Lieu de réalisation de la formation : 
