@@ -86,7 +86,11 @@ final class DocumentController extends AbstractController
     }
 
 
-    // route pour la partie modèle de convention qu'on peut configurer (afficher ou modifier le modèle de convention)
+    /* 
+    
+    Je n'affiche pas le modèle convention en twig : AUCUN INTERET
+
+    route pour la partie modèle de convention qu'on peut configurer (afficher ou modifier le modèle de convention)
     #[Route('/accueil/parametres/modeles_documents/convention', name: 'modele_convention')]
     public function voirModeleConvention(
         BreadcrumbsGenerator $breadcrumbsGenerator,
@@ -106,6 +110,8 @@ final class DocumentController extends AbstractController
         ]);
 
     }
+    
+    */   
 
 
     // route pour générer une convention spécifique à une session et une société (paramètres dynamiques dans l'url)
@@ -143,7 +149,7 @@ final class DocumentController extends AbstractController
         ]);
 
 
-        $now = new DateTime();
+        $now = new \DateTime();
 
         
         return $this->render('document/convention.html.twig', [
@@ -211,7 +217,7 @@ final class DocumentController extends AbstractController
 
         
         // Récupérer le contenu HTML du template Twig
-        $htmlContent = $this->renderView('document/convention.html.twig', [
+        $htmlContent = $this->renderView('document/convention_pdf.html.twig', [
             'session' => $session,
             'societe' => $societe,
             'breadcrumbs' => $breadcrumbs,

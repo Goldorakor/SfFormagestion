@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- DOCUMENTS ADMINISTRATIFS -->
-<!-- DOCUMENTS ADMINISTRATIFS -->
-<!-- DOCUMENTS ADMINISTRATIFS -->
+<!-- DOCUMENTS PDF -->
+<!-- DOCUMENTS PDF -->
+<!-- DOCUMENTS PDF -->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -10,8 +10,7 @@
         {% block stylesheets %}
 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <link rel="stylesheet" href="{{ asset('css/navbar.css')}}">
-            <link rel="stylesheet" href="{{ asset('css/style03.css')}}">
+            <link rel="stylesheet" href="{{ asset('css/style04.css')}}">
 
         {% endblock %}
 
@@ -20,17 +19,17 @@
     <body>
 
         <div class="container">
-            <header>
-                {% include 'navbar.html.twig' %} {# Inclusion de la navbar #}
-            </header>
+            {# <header> on enlève la navbar pour le moment : pour avoir un rendu le plus proche possible d'un document pdf
+                {% include 'navbar.html.twig' %}  -> permet l'inclusion de la navbar
+            </header> #}
     
     
-            <main> {# ici, on affiche le contenu principal de la page. #}
+            <main> {# ici, on affiche le contenu de la page. #}
     
                 {# Inclusion du fil d'Ariane juste sous la navbar, en dehors du header #}
-                {% if breadcrumbs is defined %} {# on vérifie si la variable breadcrumbs existe avant d'afficher le fil d'Ariane #}
-                    {% include 'breadcrumb.html.twig' %} {# on appelle le fichier breadcrumb.html.twig pour afficher la barre de navigation #}
-                {% endif %}
+                {# {% if breadcrumbs is defined %}  on vérifie si la variable breadcrumbs existe avant d'afficher le fil d'Ariane #}
+                    {# {% include 'breadcrumb.html.twig' %} on appelle le fichier breadcrumb.html.twig pour afficher la barre de navigation #}
+                {# {% endif %} #}
     
                 {% block body %}{% endblock %}
             </main>
@@ -39,9 +38,9 @@
         
 
 
-        {% block javascripts %}
+        {#{% block javascripts %} pas de navbar, pas besoin de ce script !
             <script src="{{ asset('js/script.js') }}"></script>
-        {% endblock %}
+        {% endblock %}#}
 
     </body>
 </html>

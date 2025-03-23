@@ -1,11 +1,11 @@
-{% extends 'base03.html.twig' %}
+{% extends 'base04.html.twig' %}
 
 {% block title %}Document administratif : convention{% endblock %}
 
 {% block body %}
 
 
-{# logo du haut de la page #}
+<!-- logo du haut de la page -->
 <div class="header">
     {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
     <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
