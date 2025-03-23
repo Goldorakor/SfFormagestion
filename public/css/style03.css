@@ -11,12 +11,12 @@ Il est souhaitable de ne pas afficher la navbar dans ces documents
 
 .container {
     display : flex;
-    background-color: aqua;
 }
 
 h1 {
     color :#bd1e73; /* Change la couleur du texte en rose */
     background-color: #ffffff; /* Fond noir */
+    font-size: 46px; /* définit la taille de la police à 46 pixels */
     border-top: 3px solid #ff9944;   /* Ecriture abrégé : bordure en haut */
     border-bottom: 3px solid #ff9944; /* Ecriture abrégé : bordure en bas */
     border-left: none;  /* Pas de bordure à gauche */
@@ -30,6 +30,7 @@ h1 {
 h2 {
     color :#bd1e73; /* Change la couleur du texte en bleu */
     background-color: #ffffff; /* Fond noir */
+    font-size: 30px; /* définit la taille de la police à 30 pixels */
     /* border : 3px solid red; */
     /*border-width: 3px; /* Épaisseur */
     /*border-style: solid;  Style plein */
@@ -38,6 +39,20 @@ h2 {
     /*display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
     /*border-radius: 10px;  on arrondit les coins */
 }
+
+h3 {
+    color :#4449d5; /* Change la couleur du texte en bleu */
+    background-color: #ffffff; /* Fond noir */
+    /* border : 3px solid red; */
+    /*border-width: 3px; /* Épaisseur */
+    /*border-style: solid;  Style plein */
+    /*border-color: #bd1e73;  Change la couleur de la bordure en bleu */
+    /*padding: 10px;  Espace entre le texte et la bordure */
+    /*display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
+    /*border-radius: 10px;  on arrondit les coins */
+}
+
+
 
 
 /* code css pour mon fil d'ariane (celui en orange) */
@@ -98,11 +113,18 @@ style pour l'affichage du tampon et la signature du dirigeant de l'organisme de 
 
 */
 
+
+.signatures {
+    display : flex;
+    justify-content: space-around;
+}
+
+
 .signature img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
-    border: 1px solid #a92b2b; /* Ajouter une bordure douce autour de l'image */
+    /* border: 1px solid #a92b2b;  Ajouter une bordure douce autour de l'image */
     /* border-radius: 8px;  Bordures arrondies */
 } 
 
@@ -115,13 +137,13 @@ logo de haut de page du document PDF
   
 */
   
-.header {
+header {
     text-align : right;
     margin-top : 15px; /* on ne souhaite pas coller le logo en haut du docvument */
     margin-right : 30px; /* on ne souhaite pas coller le logo au bord du docvument */
 }
 
-.header img {
+header img {
     width: 300px;
     height: 100px;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
@@ -135,7 +157,7 @@ Pied de page du document PDF
 
 */
 
-.footer {
+footer {
     /*position : fixed;
     bottom : 0;
     left : 0;

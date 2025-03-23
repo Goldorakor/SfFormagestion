@@ -3,27 +3,23 @@ PAGES VIOLETTES
 PAGES VIOLETTES
 PAGES VIOLETTES
 
-#BD1E73;
-#4449D5;
-#E16FAB;
 */
 
 
 .container {
   display : flex;
-  background-color: aqua;
 }
 
 h1 {
-    color : #1ebd95;
+    color : #BD1E73;
 }
 
 h2 {
-    color : #44cbd5;
+    color : #4449D5;
 }
 
 h3 {
-    color : #6fe1a8;
+    color : #E16FAB;
 }
 
 

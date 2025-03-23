@@ -6,11 +6,11 @@
 
 
 {# logo du haut de la page #}
-<div class="header">
+<header>
     {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
     <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
     {% endif %}
-</div>
+</header>
 
 <h1>CONVENTION</h1>
 
@@ -301,7 +301,7 @@
 
 <div>
     Fait en double exemplaire<br>
-    À {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("m-d-Y") }}
+    À {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
 </div>
 
 <div class="signatures">
@@ -326,12 +326,12 @@
 
 
 <!-- pied de page -->
-<div class="footer">
+<footer>
     <p>
     {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
     Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
     </p>
-</div>
+</footer>
 
 
 {% endblock %}
