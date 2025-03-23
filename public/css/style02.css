@@ -6,7 +6,12 @@ PAGES ORANGES
 
 
 .container {
-  display : flex
+  display : flex;
+}
+
+main {
+  margin-left: 230px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
+  padding: 10px;
 }
 
 

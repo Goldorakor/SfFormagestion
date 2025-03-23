@@ -3,20 +3,21 @@
 namespace App\Controller;
 
 use DateTime;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Service\PdfGenerator;
 use App\Repository\SessionRepository;
 use App\Repository\SocieteRepository;
 use App\Service\BreadcrumbsGenerator;
-use App\Service\PdfGenerator;
+// use App\Repository\ResponsableRepository;
 use App\Repository\ApprenantRepository;
 use App\Repository\EntrepriseRepository;
-// use App\Repository\ResponsableRepository;
 use App\Repository\RepresentantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
 final class DocumentController extends AbstractController
 {
@@ -193,6 +194,9 @@ final class DocumentController extends AbstractController
 
         $dompdf = new Dompdf($pdfOptions);
 
+        // Dans la méthode genererConventionPdf
+        $logoUrl = $this->generateUrl('logo_display', ['filename' => 'logo-formatoque-67d018f6254f1.png'], UrlGeneratorInterface::ABSOLUTE_URL);
+
 
         // on récupère la session, la société et  les autres données nécessaires
         $session = $sessionRepo->find($sessionId);
@@ -224,6 +228,7 @@ final class DocumentController extends AbstractController
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
             'pdfMode' => true,
+            'logoUrl' => $logoUrl, // Pour passer l'URL du logo à la vue
         ]);
 
         // Chargement et génération du PDF

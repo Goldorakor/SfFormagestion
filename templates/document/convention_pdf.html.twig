@@ -1,20 +1,31 @@
 {% extends 'base04.html.twig' %}
 
-{% block title %}Document administratif : convention{% endblock %}
+{% block title %}Document administratif : convention de formation{% endblock %}
+
+
+{% block pdf_header %}
+    <img src="{{ logoUrl }}" class="logo" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+    <hr>
+{% endblock %}
 
 {% block body %}
 
-
 <!-- logo du haut de la page -->
-<div class="header">
-    {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
+
     {# <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}"> #}
-    <img src="{{ absolute_url(path('logo_display', { filename: entreprise.logoFilename })) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
-    {% endif %}
-</div>
+    {# <img src="{{ logoUrl }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}" style="width: 100px;" /> #}
+    {# <img src="http://127.0.0.1:8000/logo/logo-formatoque-67d018f6254f1.png" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}" style="width: 150px; height: 50px; object-fit: contain;" /> #}
+    {# <img src="https://formatoque.fr/wp-content/uploads/2020/04/Logo-formatoque.png" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}"/> #}
+    
 
-<h1>CONVENTION</h1>
+<h1>CONVENTION DE FORMATION PROFESSIONNELLE CONTINUE</h1>
 
+{#
+ancien test
+
+<p>Logo URL: {{ logoUrl }}</p>
+<img src="{{ logoUrl }}" alt="Logo de l'entreprise" style="width: 100px;" />
+#}
 
 <h3>Entre les soussignés :</h3>
 
@@ -44,7 +55,6 @@
     L'organisme de formation {{ entreprise.raisonSociale }} s'engage à réaliser l'action de formation prévue par la présente convention dans les conditions fixées aux articles L.6353 2 et D.6353 1 du Code du travail.
 </p>
 
-
 <h3>
     Intitulé de l'action de formation :
 </h3>
@@ -59,7 +69,6 @@
 <p>
     détaillés dans le programme de formation joint en document annexe de la convention.
 </p>
-
 
 <h3>
     Intervenante : 
@@ -84,7 +93,6 @@
 <p>
     {{ session.getFormattedDuration() }}. {# {{ session.FormattedDuration }} ne fonctionne pas #}
 </p>
-
 
 <h3>
     Dates et horaires de la session de formation : 
@@ -132,7 +140,6 @@
     {{ session.inscriptions|length }} {% if session.inscriptions|length == 1 %}participant {% else %}participants {% endif %}(pour un maximum de {{session.nbPlaces}}  participants).
 </p>
 
- 
 {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
 
     <table>
@@ -167,14 +174,10 @@
         <div>Aucun apprenant de l'annuaire inscrit à cette session</div>
     {% endif %}
 
-
-    
-
 <h2>Modalités de déroulement de la formation :</h2>
 
 <h3>Moyens pédagogiques</h3>
 <p>détaillés dans le programme de formation joint en annexe de la convention.</p>
-
 
 <h3>Moyens techniques</h3>{% if session.formation.modalites =='présentiel' %}
 <ul>
@@ -211,7 +214,6 @@
         Lien de connexion envoyé par mail quelques jours avant la formation
     </li>
 </ul>{% endif %}
-
 
 
 <h3>Moyens d'encadrement :</h3>
@@ -298,8 +300,6 @@
     L'organisme de formation s'engage à délivrer une prestation de formation de qualité, conformément au décret n° 2019-564 du 6 juin 2019 relatif à la qualité des actions de la formation professionnelle.
 </p>
 
-
-
 <div>
     Fait en double exemplaire<br>
     À {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("m-d-Y") }}
@@ -325,14 +325,13 @@
     </div>
 </div>
 
-
-<!-- pied de page -->
+{# pied de page 
 <div class="footer">
     <p>
     {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
     Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
     </p>
-</div>
+</div> #}
 
 
 {% endblock %}

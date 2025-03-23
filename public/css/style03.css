@@ -12,6 +12,12 @@ Il est souhaitable de ne pas afficher la navbar dans ces documents
 .container {
     display : flex;
 }
+  
+main {
+    margin-left: 230px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
+    padding: 10px;
+}
+
 
 h1 {
     color :#bd1e73; /* Change la couleur du texte en rose */

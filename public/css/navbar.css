@@ -13,13 +13,15 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 /* Add a black background color to the top navigation */
 .sidenav {
+    position: fixed;  /*  Fixe la position de la navbar sur le côté */
     background-color: #CCCEFF;
     display: flex;
     flex-direction: column; /* Met les éléments en colonne */
     align-items: center; /* Aligne les éléments au centre */
-    width: 160px; /* Largeur fixe pour la sidebar */
+    width: 200px; /* Largeur fixe pour la sidebar */
     padding: 10px 0px;
-    overflow: hidden; /* pour cacher ce qui déborde */
+    overflow-y: auto; /* Permet un défilement vertical */
+    height: 100vh; /* Utilise toute la hauteur de la fenêtre */
 }
 
 .sidenav ul {
@@ -30,7 +32,9 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 }
 
 .sidenav li {
-  width: 75%; /* on respecte les proportions de la maquette 120/160 */
+  width: 100%; /* Prend toute la largeur disponible */
+  display: flex;
+  justify-content: center; /* Centrer les éléments à l'intérieur du <li> */
 }
   
 /* Style the links inside the navigation bar */
@@ -39,7 +43,7 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 display: block;
 color: #f2f2f2;
 text-align: center;
-padding: 14px 16px;
+padding: 16px 16px;
 text-decoration: none;
 font-size: 14px;
 }
@@ -49,29 +53,62 @@ font-size: 14px;
     display: none;
 }
 
-.princbtn {
-  color : #282828 ;
-  font-size: 24px;
+/* Style des boutons "Créations", "Suivis" et "Paramètres"  => attention : .princbtn seul ne fonctionne pas */
+.sidenav .princbtn {
+  color: #282828; /* Couleur du texte */
+  font-size: 28px; /* Taille de police plus grande */
+  background-color: transparent; /* Pas de fond */
+  border: none; /* Pas de bordure */
+  padding: 16px 16px; /* Garder la même taille de padding que pour les autres boutons */
+  text-align: center; /* Centrer le texte */
+  width: 100%; /* Garder la largeur de ces éléments pour qu'ils prennent toute la largeur de la barre */
 }
+
+
+/* Style des autres boutons autres que  "Nouveau", Créations", "Suivis" et "Paramètres"  => attention : .princbtn seul ne fonctionne pas */
+.sidenav .btn-purple {
+    font-size: 16px; /* Taille de police plus grande */
+    border: none;
+    outline: none;
+    color: #ffffff; /* Couleur du texte */
+    padding: 12px 8px; /* Garder la même taille de padding que pour les autres boutons */
+    background-color: #4449d5; /* Pas de fond */
+    font-family: inherit;
+    margin: 8px 0; /* Centrer le bouton */
+    width: 150px; /* Largeur du bouton plus petite */
+    height: 10px;
+    text-align: center; /* Centrer le texte */
+    border-radius: 10px;
+    display: flex;
+    align-items: center; /* Centrer le texte verticalement */
+    justify-content: center; /* Centrer le texte horizontalement si nécessaire */
+}
+
 
   
 /* Dropdown container - needed to position the dropdown content */
 .dropdown {
     overflow: hidden;
-    background-color: #ff4300;
     border-radius: 10px;
 }
   
 /* Style the dropdown button to fit inside the sidenav */
 .dropdown .dropbtn {
-    font-size: 17px;
+    font-size: 22px;
     border: none;
     outline: none;
     color: white;
-    padding: 14px 16px;
-    background-color: inherit;
+    padding: 16px 16px;
+    background-color: #ff4300;
     font-family: inherit;
-    margin: 0;
+    margin: 0 auto; /* Centrer le bouton */
+    width: 150px; /* Largeur du bouton plus petite */
+    height: 30px;
+    text-align: center; /* Centrer le texte */
+    border-radius: 20px;
+    display: flex;
+    align-items: center; /* Centrer le texte verticalement */
+    justify-content: center; /* Centrer le texte horizontalement si nécessaire */
     
 }
   
@@ -80,7 +117,7 @@ font-size: 14px;
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 180px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
