@@ -8,7 +8,8 @@
 <!-- logo du haut de la page -->
 <div class="header">
     {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
-    <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+    {# <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}"> #}
+    <img src="{{ absolute_url(path('logo_display', { filename: entreprise.logoFilename })) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
     {% endif %}
 </div>
 
@@ -24,7 +25,7 @@
 </p>
 <p>
     Numéro de déclaration d'activité : {{ entreprise.numDeclaActivite }},<br>
-    Obtenu auprès de la préfecture de la {{ entreprise.prefectureRegion }},
+    Obtenu auprès de la préfecture de la {{ entreprise.prefectureRegion }},<br>
     N° SIRET : {{ entreprise.numSiret }},
 </p>
 

@@ -17,8 +17,8 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     display: flex;
     flex-direction: column; /* Met les éléments en colonne */
     align-items: center; /* Aligne les éléments au centre */
-    width: 250px; /* Largeur fixe pour la sidebar */
-    padding: 10px 0;
+    width: 160px; /* Largeur fixe pour la sidebar */
+    padding: 10px 0px;
     overflow: hidden; /* pour cacher ce qui déborde */
 }
 
@@ -41,17 +41,25 @@ color: #f2f2f2;
 text-align: center;
 padding: 14px 16px;
 text-decoration: none;
-font-size: 17px;
+font-size: 14px;
 }
 
 /* Hide the link that should open and close the sidenav on small screens */
 .sidenav .icon {
     display: none;
 }
+
+.princbtn {
+  color : #282828 ;
+  font-size: 24px;
+}
+
   
 /* Dropdown container - needed to position the dropdown content */
 .dropdown {
     overflow: hidden;
+    background-color: #ff4300;
+    border-radius: 10px;
 }
   
 /* Style the dropdown button to fit inside the sidenav */
@@ -64,6 +72,7 @@ font-size: 17px;
     background-color: inherit;
     font-family: inherit;
     margin: 0;
+    
 }
   
 /* Style the dropdown content (hidden by default) */

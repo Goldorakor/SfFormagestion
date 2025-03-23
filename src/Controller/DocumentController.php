@@ -183,7 +183,6 @@ final class DocumentController extends AbstractController
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
         BreadcrumbsGenerator $breadcrumbsGenerator,
-        // PdfGenerator $pdfGenerator,
         ): Response
     {
         
@@ -195,7 +194,7 @@ final class DocumentController extends AbstractController
         $dompdf = new Dompdf($pdfOptions);
 
 
-        // on récupère la session, la société et  les variables nécessaires
+        // on récupère la session, la société et  les autres données nécessaires
         $session = $sessionRepo->find($sessionId);
         $societe = $societeRepo->find($societeId);
         $apprenantsSoc = $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId);
@@ -203,6 +202,7 @@ final class DocumentController extends AbstractController
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         $prixTotal = $societeRepo->findPrixSociete($sessionId, $societeId); // Récupération du prix total payé par la société pour la session donnée
+        $now = new \DateTime();
 
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -212,10 +212,6 @@ final class DocumentController extends AbstractController
             ['label' => 'Convention (PDF)'], // Pas de route car c’est la page actuelle
         ]);
 
-
-        $now = new \DateTime();
-
-        
         // Récupérer le contenu HTML du template Twig
         $htmlContent = $this->renderView('document/convention_pdf.html.twig', [
             'session' => $session,
@@ -227,7 +223,7 @@ final class DocumentController extends AbstractController
             'entreprise' => $entreprise,
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
-            'pdfMode' => true, // Ajout de ce flag pour pouvoir choisir de mettre certains éléments dans la vue classique mais pas dans le pdf
+            'pdfMode' => true,
         ]);
 
         // Chargement et génération du PDF
@@ -241,7 +237,7 @@ final class DocumentController extends AbstractController
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="convention.pdf"',
+                'Content-Disposition' => 'inline; filename="convention.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
             ]
         );
     }
