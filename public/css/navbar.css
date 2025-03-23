@@ -14,12 +14,13 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 /* Add a black background color to the top navigation */
 .sidenav {
     position: fixed;  /*  Fixe la position de la navbar sur le côté */
+    top: 0; /* la navbar se colle bien au haut de la page ! */
     background-color: #CCCEFF;
     display: flex;
     flex-direction: column; /* Met les éléments en colonne */
     align-items: center; /* Aligne les éléments au centre */
     width: 200px; /* Largeur fixe pour la sidebar */
-    padding: 10px 0px;
+    padding: 10px 0 0 0;
     overflow-y: auto; /* Permet un défilement vertical */
     height: 100vh; /* Utilise toute la hauteur de la fenêtre */
 }
@@ -64,10 +65,15 @@ font-size: 14px;
   width: 100%; /* Garder la largeur de ces éléments pour qu'ils prennent toute la largeur de la barre */
 }
 
+.sidenav .princbtn:hover {
+  color: #000000; /* Couleur du texte plus foncé au survol */
+  font-weight: bold; /* écriture en gras */
+}
+
 
 /* Style des autres boutons autres que  "Nouveau", Créations", "Suivis" et "Paramètres"  => attention : .princbtn seul ne fonctionne pas */
 .sidenav .btn-purple {
-    font-size: 16px; /* Taille de police plus grande */
+    font-size: 18px; /* Taille de police plus grande */
     border: none;
     outline: none;
     color: #ffffff; /* Couleur du texte */
@@ -75,13 +81,18 @@ font-size: 14px;
     background-color: #4449d5; /* Pas de fond */
     font-family: inherit;
     margin: 8px 0; /* Centrer le bouton */
-    width: 150px; /* Largeur du bouton plus petite */
+    width: 140px; /* Largeur du bouton plus petite */
     height: 10px;
     text-align: center; /* Centrer le texte */
     border-radius: 10px;
     display: flex;
     align-items: center; /* Centrer le texte verticalement */
     justify-content: center; /* Centrer le texte horizontalement si nécessaire */
+}
+
+
+.sidenav .btn-purple:hover {
+  background-color: #2e32a6; /* Un violet plus foncé au survol */
 }
 
 
@@ -98,10 +109,11 @@ font-size: 14px;
     border: none;
     outline: none;
     color: white;
+    font-weight: bold; /* écriture en gras */
     padding: 16px 16px;
     background-color: #ff4300;
     font-family: inherit;
-    margin: 0 auto; /* Centrer le bouton */
+    margin: 20px 0 25px 0; /* Centrer le bouton */
     width: 150px; /* Largeur du bouton plus petite */
     height: 30px;
     text-align: center; /* Centrer le texte */

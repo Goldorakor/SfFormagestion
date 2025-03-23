@@ -10,8 +10,9 @@ PAGES ORANGES
 }
 
 main {
-  margin-left: 230px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
-  padding: 10px;
+  margin-left: 210px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
+  margin-right: 10px; /* Décale le contenu principal pour équilibrer entre droite et gauche */
+  padding: 15px 0 0 0;
 }
 
 
