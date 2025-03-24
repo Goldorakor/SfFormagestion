@@ -128,7 +128,7 @@ final class DocumentController extends AbstractController
     ): Response
     {
         
-        // on récupère la session, la société et 
+        // on récupère la session, la société et toutes les données nécessaires
         $session = $sessionRepo->find($sessionId);
         $societe = $societeRepo->find($societeId);
         $apprenantsSoc = $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId);

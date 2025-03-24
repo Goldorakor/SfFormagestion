@@ -40,6 +40,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isApproved = null;
 
+    
+
     public function getId(): ?int
     {
         return $this->id;

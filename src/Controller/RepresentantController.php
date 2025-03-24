@@ -29,7 +29,7 @@ final class RepresentantController extends AbstractController
 
     // https://symfony.com/doc/current/controller/upload_file.html -> on récupère la partie de code qui permet définir la méthode ci-dessous
 
-    // Route unique pour créer ou éditer le représentant (on fusionne les deux noms)
+    // Route unique pour créer ou éditer le représentant (on fusionne les deux noms) et afficher la vue de détails
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/representant/new_edit', name: 'new_edit_representant')] // 'new_edit_representant' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'un seul représentant au maximum !
     public function newEdit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un représentant à notre BDD

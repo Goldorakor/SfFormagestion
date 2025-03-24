@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+
+    <h1>Comptes utilisateurs</h1>
+    <h3>Liste de tous les comptes utilisateurs et du rôle de chacun</h3>
+
+    <div>
+        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_utilisateur') }}" class="btn btn-rose">Créer un utilisateur</a>{% endif %}
+    </div>
+
+    {% if users|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Login
+                    </th>
+                    <th>
+                        Nom
+                    </th>
+                    <th>
+                        Prénom
+                    </th>
+                    <th>
+                        Rôle
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                        <td>
+                            <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.email|lower }}</a>
+                        </td>
+                        <td>
+                            {{ user.nom|upper }}
+                        </td>
+                        <td>
+                            {{ user.prenom|capitalize }}
+                        </td>
+                        <td>
+                            {{ user.role }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <div>Aucun utilisateur n'est présent pour le moment.</div>
+
+    {% endif %}
+   
+{% endblock %}
+
+
+{# 
+dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length
+
+{{ apprenants | length }} équivalent à ce qui suit :
+Dans le contrôleur ApprenantController.php, on passe le nombre total d'apprenants au template :
+#[Route('/apprenants', name: 'liste_apprenants')]
+public function index(ApprenantRepository $apprenantRepository): Response
+{
+    $totalApprenants = $apprenantRepository->countApprenants();
+
+    return $this->render('apprenant/index.html.twig', [
+        'apprenants' => $apprenantRepository->findAll(),
+        'totalApprenants' => $totalApprenants
+    ]);
+}
+
+Dans le fichier index.html.twig qui affiche la liste des apprenants, on ajoute ceci :
+<h2>Nombre total d'apprenants : {{ totalApprenants }}</h2>
+
+#}
+

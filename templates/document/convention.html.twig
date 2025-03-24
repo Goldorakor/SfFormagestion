@@ -311,7 +311,9 @@
             {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|capitalize }}
         </p>
         <div class="signature">
+            {% if representant is not null and representant.tamponFilename is not empty %}
             <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
+            {% endif %}
         </div>
     </div>
     <div>
