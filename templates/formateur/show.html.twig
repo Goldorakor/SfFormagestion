@@ -217,13 +217,13 @@
 
 
     <div>
-        <a class="btn btn-rose" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">Supprimer</a> {# bouton pour supprimer le formateur' #}
+        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer le formateur' #}
 
-        <a class="btn btn-rose" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">Editer</a> {# bouton pour éditer le formateur #}
+        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">Editer</a>{% endif %} {# bouton pour éditer le formateur #}
 
         <a class="btn btn-rose" href="{{ path('app_formateur') }}">Quitter</a> {# bouton pour retourner à la liste des formateurs #}
     </div>
 
-  
 
 {% endblock %}
+

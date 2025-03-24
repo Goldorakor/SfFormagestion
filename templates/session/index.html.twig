@@ -8,7 +8,7 @@
     <h3>Récapitulatif des sessions en cours de traitement</h3>
 
     <div>
-        <a href="{{ path('new_session') }}" class="btn btn-rose">Créer une session</a><br><br>
+        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_session') }}" class="btn btn-rose">Créer une session</a>{% endif %}
     </div>
     
     {# {% for session in sessions %}
@@ -73,10 +73,10 @@
                             {{ session.nbPlaces }}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer la session #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer la session #}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('delete_session', {'id' : session.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer la session #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('delete_session', {'id' : session.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer la session #}
                         </td>
                     </tr>
                 {% endfor %}

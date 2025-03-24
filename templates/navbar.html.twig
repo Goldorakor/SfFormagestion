@@ -11,7 +11,7 @@ ensuite, il sera incorporé au template base.html.twig, juste sous la balise <bo
         <li>
             <a href="{{ path('creations') }}" class="princbtn">Créations</a> {# class="princbtn" dans la balise <li> </li> ? #}
         </li>
-        <li class="dropdown">
+        {% if is_granted('ROLE_ADMIN') %}<li class="dropdown">
             <button class="dropbtn">
                 Nouveau&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-down"></i>
             </button>
@@ -25,7 +25,7 @@ ensuite, il sera incorporé au template base.html.twig, juste sous la balise <bo
                 <a href="{{ path('new_responsable') }}">Créer un responsable</a>
                 <a href="{{ path('new_societe') }}">Créer une société</a>
             </div>
-        </li>
+        </li>{% endif %}
         <li>
             <a href="{{ path('app_module') }}" class="btn-purple">Modules</a>
         </li>
@@ -89,3 +89,4 @@ ensuite, il sera incorporé au template base.html.twig, juste sous la balise <bo
     </ul>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 </nav>
+

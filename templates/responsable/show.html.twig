@@ -58,9 +58,9 @@
 
 
     <div>
-        <a class="btn btn-rose" href="{{ path('delete_responsable', {'id' : responsable.id}) }}">Supprimer</a> {# bouton pour supprimer le responsable #}
+        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_responsable', {'id' : responsable.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer le responsable #}
 
-        <a class="btn btn-rose" href="{{ path('edit_responsable', {'id' : responsable.id}) }}">Editer</a> {# bouton pour éditer le responsable #}
+        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_responsable', {'id' : responsable.id}) }}">Editer</a>{% endif %} {# bouton pour éditer le responsable #}
 
         <a class="btn btn-rose" href="{{ path('app_responsable') }}">Quitter</a> {# bouton pour retourner à la liste des responsables #}
     </div>

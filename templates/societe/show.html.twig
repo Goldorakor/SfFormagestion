@@ -175,14 +175,14 @@
     {% endfor %}
 
     {% if not apprenants_trouves and not formateurs_trouves %} {# Après la boucle for, on vérifie si les variables 'apprenants_trouves' et 'formateurs_trouves' sont toujours false. Si c'est le cas, cela signifie qu'aucun employé (formateur ou apprenant) n'a été trouvée, et donc on affiche le message "Aucun salarié de l’entreprise dans l’annuaire". #}
-        <div>Aucun salarié de l’entreprise dans l’annuaire</div>
+        <div>Aucun salarié de l'entreprise dans l'annuaire</div>
     {% endif %}
 
 
     <div>
-        <a class="btn btn-rose" href="{{ path('delete_societe', {'id' : societe.id}) }}">Supprimer</a> {# bouton pour supprimer la société' #}
+        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_societe', {'id' : societe.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer la société' #}
 
-        <a class="btn btn-rose" href="{{ path('edit_societe', {'id' : societe.id}) }}">Editer</a> {# bouton pour éditer la société #}
+        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_societe', {'id' : societe.id}) }}">Editer</a>{% endif %} {# bouton pour éditer la société #}
 
         <a class="btn btn-rose" href="{{ path('app_societe') }}">Quitter</a> {# bouton pour retourner à la liste des sociétés #}
     </div>

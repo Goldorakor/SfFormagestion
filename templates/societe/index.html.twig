@@ -8,7 +8,7 @@
     <h3>Votre annuaire compte {{ societes|length }} sociétés répertoriées</h3>
 
     <div>
-        <a href="{{ path('new_societe') }}" class="btn btn-rose">Créer une société</a><br><br>
+        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_societe') }}" class="btn btn-rose">Créer une société</a>{% endif %}
     </div>
 
     {% if societes|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
@@ -46,10 +46,10 @@
                             {{ societe.tel }}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('edit_societe', {'id' : societe.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer la société #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('edit_societe', {'id' : societe.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer la société #}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('delete_societe', {'id' : societe.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer la société #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('delete_societe', {'id' : societe.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer la société #}
                         </td>
                     </tr>
                 {% endfor %}
@@ -63,6 +63,5 @@
     {% endif %}
 
 {% endblock %}
-
 
 

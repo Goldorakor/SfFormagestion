@@ -8,7 +8,7 @@
     <h3>Votre annuaire compte {{ formateurs|length }} formateurs répertoriés</h3>
 
     <div>
-        <a href="{{ path('new_formateur') }}" class="btn btn-rose">Créer un formateur</a><br><br>
+        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_formateur') }}" class="btn btn-rose">Créer un formateur</a>{% endif %}
     </div>
 
     {% if formateurs | length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
@@ -52,10 +52,10 @@
                             {% if formateur.societe is not null %}{{ formateur.societe.raisonSociale }}{% else %}{% if formateur.statut == 'salarié' %}Forma'Toque{% else %}-{% endif %}{% endif %}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('edit_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer le formateur #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('edit_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer le formateur #}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('delete_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer le formateur #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('delete_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer le formateur #}
                         </td>
                     </tr>
                 {% endfor %}
@@ -101,3 +101,4 @@ if (!$this->isGranted('ROLE_ADMIN')) {
 
 Comme ça, les deux rôles accèdent aux mêmes pages, mais avec des fonctionnalités adaptées ! 🎯
 #}
+

@@ -32,6 +32,7 @@ final class EntrepriseController extends AbstractController
     // https://symfony.com/doc/current/controller/upload_file.html -> on récupère la partie de code qui permet définir la méthode ci-dessous
 
     // Route unique pour créer ou éditer l'entreprise (on fusionne les deux noms)
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/entreprise/new_edit', name: 'new_edit_entreprise')] // 'new_edit_entreprise' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'une seule entreprise au maximum !
     public function newEdit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un représentant à notre BDD
     // attention : #[Autowire('%kernel.project_dir%/public/uploads/logos')] => #[Autowire('%env(LOGO_DIRECTORY)%')] : stockage en dehors de public - voir le fichier .env

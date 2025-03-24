@@ -41,6 +41,7 @@ final class FormateurController extends AbstractController
 
     #[Route('/accueil/creations/formateur/new', name: 'new_formateur')] // 'new_formateur' est un nom cohérent qui décrit bien la fonction
     #[Route('/accueil/creations/formateur/{id}/edit', name: 'edit_formateur')] // 'edit_formateur' est un nom cohérent qui décrit bien la fonction attendue
+    #[IsGranted('ROLE_ADMIN')]
     public function new_edit(Formateur $formateur = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un formateur à notre BDD
     {
         // pour construire notre fil d'Ariane
@@ -95,6 +96,7 @@ final class FormateurController extends AbstractController
 
     
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/accueil/creations/formateur/{id}/delete', name: 'delete_formateur')]
     public function delete(Formateur $formateur, EntityManagerInterface $entityManager): Response
     {

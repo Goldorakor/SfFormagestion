@@ -8,7 +8,7 @@
     <h3>Votre annuaire compte {{ apprenants|length }} apprenants répertoriés</h3>
 
     <div>
-        <a href="{{ path('new_apprenant') }}" class="btn btn-rose">Créer un apprenant</a><br><br>
+        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_apprenant') }}" class="btn btn-rose">Créer un apprenant</a>{% endif %}
     </div>
 
     {% if apprenants|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
@@ -52,10 +52,10 @@
                             {% if apprenant.societe is not null %}{{ apprenant.societe.raisonSociale }}{% else %}-{% endif %}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer l'apprenant' #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer l'apprenant' #}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer l'apprenant' #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer l'apprenant' #}
                         </td>
                     </tr>
                 {% endfor %}
@@ -91,3 +91,4 @@ Dans le fichier index.html.twig qui affiche la liste des apprenants, on ajoute c
 <h2>Nombre total d'apprenants : {{ totalApprenants }}</h2>
 
 #}
+

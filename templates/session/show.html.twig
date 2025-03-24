@@ -116,9 +116,9 @@
     {% endfor %}
 
     <div>
-        <a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}">Supprimer</a> {# bouton pour supprimer la session #}
+        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer la session #}
 
-        <a class="btn btn-rose" href="{{ path('edit_session', {'id' : session.id}) }}">Editer</a> {# bouton pour éditer la session #}
+        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_session', {'id' : session.id}) }}">Editer</a>{% endif %} {# bouton pour éditer la session #}
 
         <a class="btn btn-rose" href="{{ path('app_session') }}">Quitter</a> {# bouton pour retourner à la liste des sessions #}
     </div>
@@ -132,3 +132,5 @@ public function getFormattedDuration()
 
 
  {# #}
+
+

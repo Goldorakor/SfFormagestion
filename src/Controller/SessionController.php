@@ -45,6 +45,7 @@ final class SessionController extends AbstractController
 
     #[Route('/accueil/creations/session/new', name: 'new_session')] // 'new_session' est un nom cohérent qui décrit bien la fonction
     #[Route('/accueil/creations/session/{id}/edit', name: 'edit_session')] // 'edit_session' est un nom cohérent qui décrit bien la fonction attendue
+    #[IsGranted('ROLE_ADMIN')]
     public function new_edit(Session $session = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un session à notre BDD
     {
         // pour construire notre fil d'Ariane
@@ -198,6 +199,7 @@ final class SessionController extends AbstractController
     }
 
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/accueil/creations/session/{id}/delete', name: 'delete_session')]
     public function delete(Session $session, EntityManagerInterface $entityManager): Response
     {

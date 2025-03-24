@@ -8,7 +8,7 @@
     <h3>Votre annuaire compte {{ responsables|length }} intervenants répertoriés</h3>
 
     <div>
-        <a href="{{ path('new_responsable') }}" class="btn btn-rose">Créer un responsable</a><br><br>
+        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_responsable') }}" class="btn btn-rose">Créer un responsable</a>{% endif %}
     </div>
 
     {% if responsables|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
@@ -46,10 +46,10 @@
                             {{ responsable.tel }}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('edit_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> {# bouton pour éditer le responsable #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('edit_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer le responsable #}
                         </td>
                         <td>
-                            <a class="btn btn-gris" href="{{ path('delete_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-trash"></i></a> <br> {# bouton pour supprimer le responsable #}
+                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('delete_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer le responsable #}
                         </td>
                     </tr>
                 {% endfor %}

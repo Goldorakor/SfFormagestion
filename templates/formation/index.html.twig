@@ -8,7 +8,7 @@
     <h3>Récapitulatif des formations disponibles pour générer des sessions</h3>
 
     <div>
-        <a href="" class="btn btn-rose">Créer une formation - inactif</a><br><br> {# ce bouton n'est pas actif dans le MVP #}
+        {% if is_granted('ROLE_ADMIN') %}<a href="" class="btn btn-rose">Créer une formation - inactif</a>{% endif %} {# ce bouton n'est pas actif dans le MVP #}
     </div>
 
     {% if formations|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
@@ -45,3 +45,5 @@
     {% endif %}
 
 {% endblock %}
+
+

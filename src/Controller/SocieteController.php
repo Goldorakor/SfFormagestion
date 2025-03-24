@@ -47,6 +47,7 @@ final class SocieteController extends AbstractController
 
     #[Route('/accueil/creations/societe/new', name: 'new_societe')] // 'new_societe' est un nom cohérent qui décrit bien la fonction
     #[Route('/accueil/creations/societe/{id}/edit', name: 'edit_societe')] // 'edit_societe' est un nom cohérent qui décrit bien la fonction attendue
+    #[IsGranted('ROLE_ADMIN')]
     public function new_edit(Societe $societe = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un societe à notre BDD
     {
         // pour construire notre fil d'Ariane
@@ -140,6 +141,7 @@ final class SocieteController extends AbstractController
 
     
     
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/accueil/creations/societe/{id}/delete', name: 'delete_societe')]
     public function delete(Societe $societe, EntityManagerInterface $entityManager): Response
     {
