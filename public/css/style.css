@@ -15,7 +15,9 @@ PAGES VIOLETTES
 
 .container {
   display : flex;
+  background-color:#FFF0F5;
 }
+
 
 main {
   margin-left: 210px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
@@ -25,7 +27,7 @@ main {
 
 
 h1 {
-    color : #BD1E73;
+    color : #790945;
 }
 
 h2 {
@@ -33,7 +35,7 @@ h2 {
 }
 
 h3 {
-    color : #E16FAB;
+    color : #A2118A;
 }
 
 
@@ -54,7 +56,7 @@ h3 {
 }
 
 .fil-ariane-texte {
-  color: #BD1E73; /* Définit la couleur du texte en orange */
+  color: #790945; /* Définit la couleur du texte en orange */
   font-weight: bold; /* Met le texte d'introduction du fil d'ariane en gras */
   margin-right: 0px; /* Ajoute un espace entre le texte d'introduction et l'élément suivant : à 0 sinon trop d'espace */
 }
@@ -67,12 +69,12 @@ h3 {
 .fil-ariane li:not(:last-child)::after {
   content: " > "; /* Ajoute le séparateur automatique */
   margin: 0 5px;
-  color: #BD1E73; /* Même couleur que les liens */
+  color: #790945; /* Même couleur que les liens */
 }
 
 .fil-ariane li a {
   text-decoration: none; /* Supprime le soulignement des liens */
-  color: #BD1E73; /* Définit la couleur des liens en bleu */
+  color: #790945; /* Définit la couleur des liens en bleu */
 }
 
 .fil-ariane li a:hover {
@@ -117,9 +119,6 @@ h3 {
 
 
 
-
-
-
 /*
 
 PAGE D'ACCUEIL
@@ -131,15 +130,34 @@ PAGE D'ACCUEIL
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-width: 100vw; /* pour occuper toute la largeur */
 }
+
+
+.accueil-h1{
+  color :#790945; /* Change la couleur du texte en rose */
+  font-size: 50px; /* définit la taille de la police à 26 pixels */
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 5px;
+}
+
 
 .accueil-h2{
   color :#282828; /* Change la couleur du texte en rose */
-  font-size: 40px; /* définit la taille de la police à 26 pixels */
+  font-size: 50px; /* définit la taille de la police à 26 pixels */
   text-align: center;
   margin-top: 50px;
   margin-bottom: 50px;
+}
 
+
+.accueil-h3{
+  color :#a2118a; /* Change la couleur du texte en rose */
+  font-size: 20px; /* définit la taille de la police à 26 pixels */
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 

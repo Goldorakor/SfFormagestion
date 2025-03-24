@@ -159,7 +159,7 @@ final class SocieteController extends AbstractController
             ['label' => 'Accueil', 'route' => 'accueil'],
             ['label' => 'Créations', 'route' => 'creations'],
             ['label' => 'Liste des sociétés', 'route' => 'app_societe'], 
-            ['label' => "Détails d'une société' #".$societe->getId(), 'params' => ['id' => $societe->getId()]], // Société spécifique // Pas de route car c’est la page actuelle
+            ['label' => "Détails d'une société #".$societe->getId(), 'params' => ['id' => $societe->getId()]], // Société spécifique // Pas de route car c’est la page actuelle
         ]);
         
         

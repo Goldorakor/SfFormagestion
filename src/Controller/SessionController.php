@@ -216,7 +216,7 @@ final class SessionController extends AbstractController
             ['label' => 'Accueil', 'route' => 'accueil'],
             ['label' => 'Créations', 'route' => 'creations'],
             ['label' => 'Liste des sessions', 'route' => 'app_session'], 
-            ['label' => "Détails d'une session' #".$session->getId(), 'params' => ['id' => $session->getId()]], // Session spécifique // Pas de route car c’est la page actuelle
+            ['label' => "Détails d'une session #".$session->getId(), 'params' => ['id' => $session->getId()]], // Session spécifique // Pas de route car c’est la page actuelle
         ]);
         
         
@@ -265,7 +265,7 @@ final class SessionController extends AbstractController
             ['label' => 'Accueil', 'route' => 'accueil'],
             ['label' => 'Suivis', 'route' => 'suivis'],
             ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'], 
-            ['label' => "Détails de suivi d'une session' #".$session->getId(), 'params' => ['id' => $session->getId()]], // Session spécifique // Pas de route car c’est la page actuelle
+            ['label' => "Détails de suivi d'une session #".$session->getId(), 'params' => ['id' => $session->getId()]], // Session spécifique // Pas de route car c’est la page actuelle
         ]);
 
 
