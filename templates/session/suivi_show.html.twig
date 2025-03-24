@@ -34,12 +34,11 @@
     <h2>Tableau récapitulatif</h2>
 
 
-    {% if societesEtApprenants is not empty %}
         <table>
             <tbody>
                 {% set current_societe = null %}
                 {% for ligne in societesEtApprenants %}
-                
+
                     {# Si on passe à une nouvelle société, on affiche la ligne de la société #}
                     {% if current_societe != ligne.raisonSociale %}
                         <tr>
@@ -58,11 +57,37 @@
                     </tr>
 
                 {% endfor %}
+                
             </tbody>
         </table>
-    {% else %}
-        <p>Aucune société n'a d'apprenants sur cette session.</p>
-    {% endif %}
+        <table>
+            <thead>
+                <tr>
+                    Apprenants particuliers
+                </tr>
+            </thead>
+            <tbody>
+                {% for line in apprenantsParticuliers %}
+    
+                    <tr>
+                        <td>{{ line.prenom }}</td>
+                        <td colspan="2">{{ line.nom }}</td>
+                        <td>{{ line.email }}</td>
+                    </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
+
+    
+    
+
+
+
 
 
     

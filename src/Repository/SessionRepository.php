@@ -124,7 +124,6 @@ class SessionRepository extends ServiceEntityRepository
             ORDER BY a.nom, a.prenom
         ")
         ->setParameter('sessionId', $sessionId)
-        ->setParameter('societeId', $societeId)
         ->getResult();
     }
 
