@@ -1,10 +1,17 @@
-/* 
+/*
+
 PAGES VIOLETTES
 PAGES VIOLETTES
 PAGES VIOLETTES
 
 */
 
+
+* { /* on calibre notre page */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 .container {
   display : flex;
@@ -102,3 +109,68 @@ h3 {
 }
 
 /* fin du code css pour les grands bandeaux cliquables */
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+PAGE D'ACCUEIL
+
+*/
+
+.accueil-cont{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.accueil-h2{
+  color :#282828; /* Change la couleur du texte en rose */
+  font-size: 40px; /* définit la taille de la police à 26 pixels */
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+}
+
+
+.accueil-boite1{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.accueil-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+}
+
+.accueil-img img {  /* si je ne rajoute pas img, il ne peut pas sélectionner l'image de "Suivis" */
+  /* text-align : right; */
+  /*margin-top : 15px;  on ne souhaite pas coller le logo en haut du document */
+  /*margin-right : 30px;  on ne souhaite pas coller le logo au bord du document */
+  width: 400px;
+  height: 400px;
+  object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+}
+
+/*
+
+FIN PAGE D'ACCUEIL
+
+*/
+
+

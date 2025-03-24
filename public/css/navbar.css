@@ -77,11 +77,11 @@ font-size: 14px;
     border: none;
     outline: none;
     color: #ffffff; /* Couleur du texte */
-    padding: 12px 8px; /* Garder la même taille de padding que pour les autres boutons */
+    padding: 16px 16px; /* Garder la même taille de padding que pour les autres boutons */
     background-color: #4449d5; /* Pas de fond */
     font-family: inherit;
     margin: 8px 0; /* Centrer le bouton */
-    width: 140px; /* Largeur du bouton plus petite */
+    width: 150px; /* Largeur du bouton plus petite */
     height: 10px;
     text-align: center; /* Centrer le texte */
     border-radius: 10px;
@@ -138,6 +138,7 @@ font-size: 14px;
 .dropdown-content a {
     float: none;
     color: black;
+    font-size: 18px; /* taille écriture dans le menu déroulant nouveau */
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -202,3 +203,4 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 */
+
