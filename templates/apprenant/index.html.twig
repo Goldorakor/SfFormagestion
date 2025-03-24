@@ -7,6 +7,10 @@
     <h1>Liste des apprenants</h1>
     <h3>Votre annuaire compte {{ apprenants|length }} apprenants répertoriés</h3>
 
+    <div>
+        <a href="{{ path('new_apprenant') }}" class="btn btn-rose">Créer un apprenant</a><br><br>
+    </div>
+
     {% if apprenants|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
 
         <table>
@@ -63,11 +67,6 @@
         <div>Aucun apprenant n'est présent dans l'annuaire.</div>
 
     {% endif %}
-
-    
-    <div>
-        <a href="{{ path('new_apprenant') }}" class="btn btn-rose">Créer un apprenant</a><br><br>
-    </div>
    
 {% endblock %}
 

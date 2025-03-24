@@ -7,7 +7,9 @@
     <h1>Liste des formateurs</h1>
     <h3>Votre annuaire compte {{ formateurs|length }} formateurs répertoriés</h3>
 
-
+    <div>
+        <a href="{{ path('new_formateur') }}" class="btn btn-rose">Créer un formateur</a><br><br>
+    </div>
 
     {% if formateurs | length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
 
@@ -77,11 +79,6 @@
         
     {% endfor %}
     #}
-
-
-    <div>
-        <a href="{{ path('new_formateur') }}" class="btn btn-rose">Créer un formateur</a><br><br>
-    </div>
 
 {% endblock %}
 

@@ -7,6 +7,10 @@
     <h1>Liste des sociétés</h1>
     <h3>Votre annuaire compte {{ societes|length }} sociétés répertoriées</h3>
 
+    <div>
+        <a href="{{ path('new_societe') }}" class="btn btn-rose">Créer une société</a><br><br>
+    </div>
+
     {% if societes|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
 
         <table>
@@ -57,10 +61,6 @@
         <div>Aucune société n'est présente dans l'annuaire.</div>
 
     {% endif %}
-
-    <div>
-        <a href="{{ path('new_societe') }}" class="btn btn-rose">Créer une société</a><br><br>
-    </div>
 
 {% endblock %}
 

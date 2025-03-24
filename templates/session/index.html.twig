@@ -6,6 +6,11 @@
 
     <h1>Sessions</h1>
     <h3>Récapitulatif des sessions en cours de traitement</h3>
+
+    <div>
+        <a href="{{ path('new_session') }}" class="btn btn-rose">Créer une session</a><br><br>
+    </div>
+    
     {# {% for session in sessions %}
 
         <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }} nb actuel d'inscrits : {{ session.inscriptions | length }} {{ session.dateDebut | date("d/m/Y") }} {{ session.dateFin | date("d/m/Y") }} {{ session.formation.type }} {{ session.formation.modalites }} {{ session.nbPlaces }}</a>
@@ -83,11 +88,6 @@
         <div>Aucun session n'est présente dans la base de données.</div>
 
     {% endif %}
-
-
-    <div>
-        <a href="{{ path('new_session') }}" class="btn btn-rose">Créer une session</a><br><br>
-    </div>
 
 {% endblock %}
 

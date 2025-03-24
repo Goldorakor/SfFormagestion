@@ -7,6 +7,10 @@
     <h1>Programmes</h1>
     <h3>Récapitulatif des programmes qui fixent un cadre aux formations proposées</h3>
 
+    <div>
+        <a href="" class="btn btn-rose">Créer un programme - inactif</a><br><br> {# ce bouton n'est pas actif dans le MVP #}
+    </div>
+
     {% if programmes|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
 
         <table>
@@ -39,9 +43,5 @@
         <div>Aucun programme n'est présent dans la base de données.</div>
 
     {% endif %}
-
-    <div>
-        <a href="" class="btn btn-rose">Créer un programme - inactif</a><br><br> {# ce bouton n'est pas actif dans le MVP #}
-    </div>
 
 {% endblock %}
