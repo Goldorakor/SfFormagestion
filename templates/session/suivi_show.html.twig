@@ -39,6 +39,7 @@
             <tbody>
                 {% set current_societe = null %}
                 {% for ligne in societesEtApprenants %}
+                
                     {# Si on passe à une nouvelle société, on affiche la ligne de la société #}
                     {% if current_societe != ligne.raisonSociale %}
                         <tr>

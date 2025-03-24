@@ -269,8 +269,11 @@ final class SessionController extends AbstractController
         ]);
 
 
-        // Récupérer les sociétés et les apprenants liés à la session
+        // Récupérer les sociétés et les apprenants salariés liés à la session
         $societesEtApprenants = $sessionRepo->findSocietesEtApprenantsBySession($session->getId());
+
+        // Récupérer les apprenants non salariés liés à la session (les particuliers)
+        $apprenantsParticuliers = $sessionRepo->findApprenantsParticuliersBySession($session->getId());
 
         // Récupérer le total payé par chaque société
         $prixParSociete = []; // On prépare un tableau associatif (societeId => total payé) qui contiendra la somme des paiements par société, pour le moment c'est vide
@@ -319,11 +322,13 @@ final class SessionController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
             'societesEtApprenants' => $societesEtApprenants, // on a besoin  de cette variable pour récupérer les sociétés (et la liste de leurs apprenants) qui participent à la session
             'prixParSociete' => $prixParSociete, // on a besoin de cette variable pour le prix total de chaque société
+            'apprenantsParticuliers' => $apprenantsParticuliers // on a besoin de cette variable pour récupérer les particuliers qui participent à la session
         ]);
     }
 
     /*
     La partie 'suivis' ne nécessite pas de méthodes d'ajout ou de suppression de sessions :
-    ce travail ne s'effectue que dans la partie 'creations' -> 'suivis' communique avec la BDD pour vernir récupérer des infos, rien d'autre
+    ce travail ne s'effectue que dans la partie 'creations' -> 'suivis' communique avec la BDD pour venir récupérer des infos, rien d'autre
     */
+
 }
