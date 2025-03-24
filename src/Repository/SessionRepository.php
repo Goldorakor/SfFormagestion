@@ -42,6 +42,8 @@ class SessionRepository extends ServiceEntityRepository
     //    }
 
 
+
+
     // méthode pour récupérer la liste des apprenants de chaque société ayant participé à une session déterminée (nom de la société suivi de la liste des salariés qui ont participé)
     // utile dans la vue de détails d'une session dans le suivi administratif
     public function findSocietesEtApprenantsBySession($sessionId)
@@ -74,7 +76,8 @@ class SessionRepository extends ServiceEntityRepository
 
 
 
-    // méthode pour récupérer la liste des apprenants d'une' société ayant participé à une session déterminée (liste des salariés qui ont participé)
+
+    // méthode pour récupérer la liste des apprenants d'une société ayant participé à une session déterminée (liste des salariés qui ont participé)
     // utile dans la vue de détails d'une session dans le suivi administratif
     public function findApprenantsBySocieteBySession($sessionId, $societeId)
     {
@@ -103,6 +106,39 @@ class SessionRepository extends ServiceEntityRepository
     JOIN societe ON apprenant.societe_id = societe.id                                           jointure en cascade entre apprenant et societe
     WHERE inscription.session_id = :sessionId                                                   filtre sur la session concernée
     ORDER BY societe.raison_sociale, apprenant.nom;                                             trie par raison sociale puis par nom d’apprenant
+
+    */
+
+
+
+    // méthode pour récupérer la liste des apprenants non salariés d'une société ayant participé à une session déterminée (liste des "particuliers" qui ont participé)
+    // utile dans la vue de détails d'une session dans le suivi administratif
+    public function findApprenantsParticuliersBySession($sessionId)
+    {
+        return $this->getEntityManager()->createQuery("
+            SELECT a.id, a.nom, a.prenom, a.email, a.metier
+            FROM App\Entity\Inscription i
+            JOIN i.apprenant a
+            WHERE i.session = :sessionId
+            AND a.societe IS NULL
+            ORDER BY a.nom, a.prenom
+        ")
+        ->setParameter('sessionId', $sessionId)
+        ->setParameter('societeId', $societeId)
+        ->getResult();
+    }
+
+
+    /*
+
+    requête SQL liée à function findApprenantsParticuliersBySession($sessionId)
+
+    SELECT apprenant.nom, apprenant.prenom
+    FROM inscription                                                                            inscription fait le lien entre la session et l’apprenant
+    JOIN apprenant ON inscription.apprenant_id = apprenant.id                                   jointure entre inscription et apprenant
+    WHERE inscription.session_id = :sessionId                                                   filtre sur la session concernée
+    AND apprenant.societe_id IS NULL                                                      pour les apprenants sans société
+    ORDER BY apprenant.nom, apprenant.prenom;                                                   trie par raison sociale puis par nom d’apprenant
 
     */
 

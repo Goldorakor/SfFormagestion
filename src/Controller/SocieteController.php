@@ -139,7 +139,7 @@ final class SocieteController extends AbstractController
     }
 
     
-
+    
     #[Route('/accueil/creations/societe/{id}/delete', name: 'delete_societe')]
     public function delete(Societe $societe, EntityManagerInterface $entityManager): Response
     {
