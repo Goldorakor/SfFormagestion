@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un responsable{% endblock %}
+{% block title %}{% if edit %}Editer un responsable{% else %}Ajouter un responsable{% endif %}{% endblock %}
 
 {% block body %}
 

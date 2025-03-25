@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une session{% endblock %}
+{% block title %}{% if edit %}Editer une session{% else %}Ajouter une session{% endif %}{% endblock %}
 
 {% block body %}
 

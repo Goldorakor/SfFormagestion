@@ -11,8 +11,17 @@ Ce fichier servira à styliser les documents administratifs
 Il est souhaitable de ne pas afficher la navbar dans ces documents
 */
 
+
+
+* { /* on calibre notre page => important au moins pour la navbar */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .container {
     display : flex;
+    background-color:#ffffff;
 }
   
 main {

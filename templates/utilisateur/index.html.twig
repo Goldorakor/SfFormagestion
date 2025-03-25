@@ -32,9 +32,9 @@
             </thead>
             <tbody>
                 {% for user in users %}
-                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}"><tr>
+                    <tr>
                         <td>
-                            {{ user.email|lower }}
+                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.email|lower }}</a>{% endif %}
                         </td>
                         <td>
                             {{ user.nom|upper }}
@@ -43,9 +43,9 @@
                             {{ user.prenom|capitalize }}
                         </td>
                         <td>
-                            {{ user.roles[0] }} {# c'est stocké sous forme de tableau - à un seul élément auquel j'accède avec [0] #}
+                            {{ user.roles[0] }} {# c'est stocké sous forme de tableau, à un seul élément auquel j'accède avec [0] #}
                         </td>
-                    </tr></a>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

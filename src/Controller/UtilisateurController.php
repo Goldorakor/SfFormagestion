@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,7 +50,13 @@ final class UtilisateurController extends AbstractController
     #[Route('/accueil/parametres/utilisateur/new', name: 'new_utilisateur')] // 'new_utilisateur' est un nom cohérent qui décrit bien la fonction
     #[Route('/accueil/parametres/utilisateur/{id}/edit', name: 'edit_utilisateur')] // 'edit_utilisateur' est un nom cohérent qui décrit bien la fonction attendue
     #[IsGranted('ROLE_ADMIN')]
-    public function new_edit(User $user = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un apprenant à notre BDD
+    public function new_edit(
+        User $user = null, 
+        Request $request, 
+        EntityManagerInterface $entityManager, 
+        BreadcrumbsGenerator $breadcrumbsGenerator, 
+        UserPasswordHasherInterface $passwordHasher
+        ): Response // pour ajouter un apprenant à notre BDD
     {
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -81,7 +88,7 @@ final class UtilisateurController extends AbstractController
 
 
             // Hash du mot de passe
-            $hashedPassword = $this->get('security.password_encoder')->encodePassword($user, 'motdepasse12345678');
+            $hashedPassword = $passwordHasher->hashPassword($user, 'motdepasse12345678');
             $user->setPassword($hashedPassword);
             // avant de persister l'utilisateur, on hash le mot de passe pour garantir la sécurité. Cela permet de ne jamais stocker un mot de passe en clair dans la base de données
             // encodePassword() : Cette méthode génère un mot de passe haché à partir du mot de passe brut (ici, 'motdepasse12345678')
@@ -96,15 +103,6 @@ final class UtilisateurController extends AbstractController
 
             
             // $user = $form->getData();  on récupère les données du formulaire dans notre objet utilisateur
-            $entityManager = $this->getDoctrine()->getManager();
-            // Pourquoi getDoctrine()->getManager() ici ?
-            // Dans cet exemple, l’objet $user existe déjà avant l’appel du persist().
-            // On n’utilise pas le $user = $form->getData(); car :
-            // 1. Soit l’objet $user a déjà été injecté dans le formulaire via $form = $this->createForm(UserType::class, $user);
-            // 2. Soit tu travailles sur un objet $user déjà instancié ou récupéré, puis modifié avant d’être persisté.
-            // IMPORTANT :
-            // getDoctrine()->getManager() sert uniquement à récupérer l’EntityManager, peu importe la méthode utilisée pour obtenir l’objet à persister
-            // On pourrait très bien l’utiliser dans l’exemple 1 aussi si ton $entityManager n’était pas injecté dans le contrôleur
             
             $entityManager->persist($user); // équivaut à la méthode prepare() en PDO
 
@@ -123,6 +121,7 @@ final class UtilisateurController extends AbstractController
             'formAddUtilisateur' => $form->createView(), // => $form,
             'edit' => $user->getId(), // comportement booléen -> permet dans la vue de faire la diff entre création d'un utilisateur et édition d'un utilisateur
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+            'user' => $user, // pour pouvoir bénéficier de la méthode "delete_utilisateur" dans la vue utilisateur/new.html.twig
         ]);
     }
 

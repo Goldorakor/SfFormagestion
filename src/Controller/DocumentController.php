@@ -195,7 +195,7 @@ final class DocumentController extends AbstractController
         $dompdf = new Dompdf($pdfOptions);
 
         // Dans la méthode genererConventionPdf
-        $logoUrl = $this->generateUrl('logo_display', ['filename' => 'logo-formatoque-67d018f6254f1.png'], UrlGeneratorInterface::ABSOLUTE_URL);
+        $logoUrl = $this->generateUrl('logo_display', ['filename' => 'Logo-formatoque-vectorise-1024x288-67cf099d2a84e.png'], UrlGeneratorInterface::ABSOLUTE_URL);
 
 
         // on récupère la session, la société et  les autres données nécessaires

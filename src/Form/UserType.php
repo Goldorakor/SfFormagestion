@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserType extends AbstractType
 {
@@ -29,14 +30,18 @@ class UserType extends AbstractType
             ])
 
             ->add('roles', ChoiceType::class, [
+                'label' => 'Rôle',
                 'choices' => [
                     'Utilisateur' => 'ROLE_USER',
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
                 'placeholder' => 'Sélectionner un rôle',
-                //'multiple' => true,  permet à un utilisateur d'avoir plusieurs rôles  =>  $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-                //'expanded' => true,   Si on veut des boutons radio plutôt qu'une liste déroulante  =>  nécessaire si un utilisateur peut avoir plusieurs rôles
-            ]);
+                'multiple' => true,  // permet à un utilisateur d'avoir plusieurs rôles  =>  $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);  ==>  OBLIGATOIRE
+                'expanded' => true,  // Si on veut des boutons radio plutôt qu'une liste déroulante  =>  nécessaire si un utilisateur peut avoir plusieurs rôles
+            ])
+
+            ->add('enregistrer', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
