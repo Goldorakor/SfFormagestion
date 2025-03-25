@@ -36,8 +36,15 @@ class UserType extends AbstractType
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
                 'placeholder' => 'Sélectionner un rôle',
-                'multiple' => true,  // permet à un utilisateur d'avoir plusieurs rôles  =>  $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);  ==>  OBLIGATOIRE
-                'expanded' => true,  // Si on veut des boutons radio plutôt qu'une liste déroulante  =>  nécessaire si un utilisateur peut avoir plusieurs rôles
+                'expanded' => false,
+                'required' => true, // Un rôle doit être sélectionné
+                'choice_attr' => function($choice, $key, $value) {
+                    // Si c'est ROLE_ADMIN, ajouter l'attribut de sélection de ROLE_USER par défaut
+                    if ($value === 'ROLE_ADMIN') {
+                        return ['data-role' => 'admin']; // Tu peux ajouter un attribut personnalisé si nécessaire
+                    }
+                    return [];
+                }
             ])
 
             ->add('enregistrer', SubmitType::class)
