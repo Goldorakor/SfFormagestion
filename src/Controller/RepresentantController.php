@@ -31,7 +31,7 @@ final class RepresentantController extends AbstractController
 
     // Route unique pour créer ou éditer le représentant (on fusionne les deux noms) et afficher la vue de détails
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/representant/new_edit', name: 'new_edit_representant')] // 'new_edit_representant' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'un seul représentant au maximum !
+    #[Route('/admin/representant/new_edit', name: 'new_edit_representant')] // 'new_edit_representant' est un nom cohérent qui décrit bien la fonction attendue -> plus besoin d'injecter un id : on ne veut qu'un seul représentant au maximum !
     public function newEdit(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un représentant à notre BDD
     // attention : #[Autowire('%kernel.project_dir%/public/uploads/tampons')] => #[Autowire('%env(TAMPON_DIRECTORY)%')] : stockage en dehors de public - voir le fichier .env
 

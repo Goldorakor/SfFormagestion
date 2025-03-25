@@ -39,8 +39,8 @@ final class ResponsableController extends AbstractController
 
     
 
-    #[Route('/accueil/creations/responsable/new', name: 'new_responsable')] // 'new_responsable' est un nom cohérent qui décrit bien la fonction
-    #[Route('/accueil/creations/responsable/{id}/edit', name: 'edit_responsable')] // 'edit_responsable' est un nom cohérent qui décrit bien la fonction attendue
+    #[Route('/admin/accueil/creations/responsable/new', name: 'new_responsable')] // 'new_responsable' est un nom cohérent qui décrit bien la fonction
+    #[Route('/admin/accueil/creations/responsable/{id}/edit', name: 'edit_responsable')] // 'edit_responsable' est un nom cohérent qui décrit bien la fonction attendue
     #[IsGranted('ROLE_ADMIN')]
     public function new_edit(Responsable $responsable = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un responsable à notre BDD
     {
@@ -97,7 +97,7 @@ final class ResponsableController extends AbstractController
 
 
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/accueil/creations/responsable/{id}/delete', name: 'delete_responsable')]
+    #[Route('/admin/accueil/creations/responsable/{id}/delete', name: 'delete_responsable')]
     public function delete(Responsable $responsable, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($responsable); // on enlève le responsable ciblé de la collection des responsables

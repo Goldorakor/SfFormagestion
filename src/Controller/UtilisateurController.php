@@ -47,8 +47,8 @@ final class UtilisateurController extends AbstractController
 
 
 
-    #[Route('/accueil/parametres/utilisateur/new', name: 'new_utilisateur')] // 'new_utilisateur' est un nom cohérent qui décrit bien la fonction
-    #[Route('/accueil/parametres/utilisateur/{id}/edit', name: 'edit_utilisateur')] // 'edit_utilisateur' est un nom cohérent qui décrit bien la fonction attendue
+    #[Route('/admin/accueil/parametres/utilisateur/new', name: 'new_utilisateur')] // 'new_utilisateur' est un nom cohérent qui décrit bien la fonction
+    #[Route('/admin/accueil/parametres/utilisateur/{id}/edit', name: 'edit_utilisateur')] // 'edit_utilisateur' est un nom cohérent qui décrit bien la fonction attendue
     #[IsGranted('ROLE_ADMIN')]
     public function new_edit(
         User $user = null, 
@@ -134,7 +134,7 @@ final class UtilisateurController extends AbstractController
 
 
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/accueil/parametres/utilisateur/{id}/delete', name: 'delete_utilisateur')]
+    #[Route('/admin/accueil/parametres/utilisateur/{id}/delete', name: 'delete_utilisateur')]
     public function delete(User $user, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($user); // on enlève l'utilisateur ciblé de la collection des utilisateurs
@@ -150,8 +150,9 @@ final class UtilisateurController extends AbstractController
 
 
 
-    // méthode provisoire pour ajouter un utilisateur 01 avec rôle ADMIN
-    #[Route('/ajout-user', name: 'app_ajout_user')]
+    // méthode provisoire pour ajouter un utilisateur 01 avec rôle ADMIN (on sécurise mais le mieux est de supprimer cette méthode après utilisation)
+    #[Route('/admin/ajout-user', name: 'app_ajout_user')]
+    #[IsGranted('ROLE_ADMIN')]
     public function addUser(EntityManagerInterface $em, UserPasswordHasherInterface $hasher)
     {
         $user = new User();
@@ -193,8 +194,9 @@ final class UtilisateurController extends AbstractController
 
 
 
-    // méthode provisoire pour ajouter un utilisateur 02 avec rôle USER
-    #[Route('/ajout-user02', name: 'app_ajout_user02')]
+    // méthode provisoire pour ajouter un utilisateur 02 avec rôle USER (on sécurise mais le mieux est de supprimer cette méthode après utilisation)
+    #[Route('/admin/ajout-user02', name: 'app_ajout_user02')]
+    #[IsGranted('ROLE_ADMIN')]
     public function addUser02(EntityManagerInterface $em, UserPasswordHasherInterface $hasher)
     {
         $user = new User();

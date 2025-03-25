@@ -68,8 +68,8 @@ final class ApprenantController extends AbstractController
 
 
 
-    #[Route('/accueil/creations/apprenant/new', name: 'new_apprenant')] // 'new_apprenant' est un nom cohérent qui décrit bien la fonction
-    #[Route('/accueil/creations/apprenant/{id}/edit', name: 'edit_apprenant')] // 'edit_apprenant' est un nom cohérent qui décrit bien la fonction attendue
+    #[Route('/admin/accueil/creations/apprenant/new', name: 'new_apprenant')] // 'new_apprenant' est un nom cohérent qui décrit bien la fonction
+    #[Route('/admin/accueil/creations/apprenant/{id}/edit', name: 'edit_apprenant')] // 'edit_apprenant' est un nom cohérent qui décrit bien la fonction attendue
     #[IsGranted('ROLE_ADMIN')]
     public function new_edit(Apprenant $apprenant = null, Request $request, EntityManagerInterface $entityManager, BreadcrumbsGenerator $breadcrumbsGenerator): Response // pour ajouter un apprenant à notre BDD
     {
@@ -135,7 +135,7 @@ final class ApprenantController extends AbstractController
 
 
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/accueil/creations/apprenant/{id}/delete', name: 'delete_apprenant')]
+    #[Route('/admin/accueil/creations/apprenant/{id}/delete', name: 'delete_apprenant')]
     public function delete(Apprenant $apprenant, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($apprenant); // on enlève l'apprenant ciblé de la collection des apprenants
