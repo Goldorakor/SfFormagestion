@@ -7,9 +7,17 @@ PAGES ORANGES
 */
 
 
+* { /* on calibre notre page => important au moins pour la navbar */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container {
   display : flex;
+  background-color:#ffffff;
 }
+
 
 main {
   margin-left: 210px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
@@ -19,15 +27,15 @@ main {
 
 
 h1 {
-  color : #BD1E73;
+  color : #DC6A17;
 }
   
 h2 {
-  color : #4449D5;
+  color : #FF4300;
 }
   
 h3 {
-  color : #E16FAB;
+  color : #FF9944;
 }
 
 

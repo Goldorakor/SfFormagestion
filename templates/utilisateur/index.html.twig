@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base02.html.twig' %}
 
 {% block title %}Liste des utilisateurs{% endblock %}
 
@@ -32,9 +32,9 @@
             </thead>
             <tbody>
                 {% for user in users %}
-                <tr>
+                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}"><tr>
                         <td>
-                            <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.email|lower }}</a>
+                            {{ user.email|lower }}
                         </td>
                         <td>
                             {{ user.nom|upper }}
@@ -43,9 +43,9 @@
                             {{ user.prenom|capitalize }}
                         </td>
                         <td>
-                            {{ user.role }}
+                            {{ user.roles[0] }} {# c'est stocké sous forme de tableau - à un seul élément auquel j'accède avec [0] #}
                         </td>
-                    </tr>
+                    </tr></a>
                 {% endfor %}
             </tbody>
         </table>
@@ -59,24 +59,4 @@
 {% endblock %}
 
 
-{# 
-dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length
-
-{{ apprenants | length }} équivalent à ce qui suit :
-Dans le contrôleur ApprenantController.php, on passe le nombre total d'apprenants au template :
-#[Route('/apprenants', name: 'liste_apprenants')]
-public function index(ApprenantRepository $apprenantRepository): Response
-{
-    $totalApprenants = $apprenantRepository->countApprenants();
-
-    return $this->render('apprenant/index.html.twig', [
-        'apprenants' => $apprenantRepository->findAll(),
-        'totalApprenants' => $totalApprenants
-    ]);
-}
-
-Dans le fichier index.html.twig qui affiche la liste des apprenants, on ajoute ceci :
-<h2>Nombre total d'apprenants : {{ totalApprenants }}</h2>
-
-#}
 
