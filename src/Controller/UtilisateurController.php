@@ -15,6 +15,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class UtilisateurController extends AbstractController
 {
+    
+    
+    
+    
+    
+    
     #[Route('/accueil/parametres/utilisateur', name: 'app_utilisateur')]
     public function index(UserRepository $userRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -126,6 +132,8 @@ final class UtilisateurController extends AbstractController
 
 
 
+
+
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/accueil/parametres/utilisateur/{id}/delete', name: 'delete_utilisateur')]
     public function delete(User $user, EntityManagerInterface $entityManager): Response
@@ -135,6 +143,8 @@ final class UtilisateurController extends AbstractController
 
         return $this->redirectToRoute('app_utilisateur'); // après une suppression, on redirige vers la liste des utilisateurs
     }
+
+
 
 
 
@@ -179,6 +189,8 @@ final class UtilisateurController extends AbstractController
 
 
 
+
+    
 
 
 
