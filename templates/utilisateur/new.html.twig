@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un apprenant{% endblock %}
+
+{% block body %}
+
+    {% if not edit %}<h1>Créer un utilisateur</h1>{% else %}<h1>{{ user.prenom }} {{ user.nom }}</h1>{% endif %} {# dans ApprenantController, on a bien passé la vriable : 'apprenants' => $apprenants #}
+    {% if not edit %}<h3>Saisissez les informations essentielles du nouvel utilisateur</h3>{% else %}<h3>{{ user.email }}</h3>{% endif %}
+    
+    {# {{ form(formAddApprenant) }} #}
+
+    {{ form_start(formAddApprenant) }}
+
+        <h2>Identité de l'utilisateur</h2>
+
+        <div>
+            <div>
+                {{ form_label(formAddUtilisateur.nom) }}
+                {{ form_widget(formAddUtilisateur.nom) }}
+                {{ form_errors(formAddUtilisateur.nom) }}
+            </div>
+    
+            <div>
+                {{ form_label(formAddUtilisateur.prenom) }}
+                {{ form_widget(formAddUtilisateur.prenom) }}
+                {{ form_errors(formAddUtilisateur.prenom) }}
+            </div>
+        </div>
+        
+
+        <div>
+            {{ form_label(formAddUtilisateur.email) }}
+            {{ form_widget(formAddUtilisateur.email) }}
+            {{ form_errors(formAddUtilisateur.email) }}
+        </div>
+
+
+        <div>
+            {{ form_label(formAddUtilisateur.roles) }}
+            {{ form_widget(formAddUtilisateur.roles) }}
+            {{ form_errors(formAddUtilisateur.roles) }}
+        </div>
+
+
+        <div>
+            {{ form_end(formAddApprenant) }}
+            <a class="btn btn-rose" href="{{ path('delete_utilisateur') }}">Quitter</a> {# bouton pour supprimer l'utilisateur #}
+            <a class="btn btn-rose" href="{{ path('app_utilisateur') }}">Quitter</a> {# bouton pour retourner à la liste des utilisateurs #}
+        </div>
+
+{% endblock %}
+

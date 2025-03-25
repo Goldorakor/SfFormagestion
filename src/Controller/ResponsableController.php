@@ -88,7 +88,7 @@ final class ResponsableController extends AbstractController
         return $this->render('responsable/new.html.twig', [ // 'responsable/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier responsable
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddResponsable' comme expliqué dans new.html.twig
-            'formAddResponsable' => $form,
+            'formAddResponsable' => $form->createView(),
             'edit' => $responsable->getId(), // comportement booléen
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);

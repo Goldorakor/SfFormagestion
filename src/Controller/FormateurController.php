@@ -87,7 +87,7 @@ final class FormateurController extends AbstractController
         return $this->render('formateur/new.html.twig', [ // 'formateur/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier formateur
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddFormateur' comme expliqué dans new.html.twig
-            'formAddFormateur' => $form,
+            'formAddFormateur' => $form->createView(),
             'edit' => $formateur->getId(), // comportement booléen
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);

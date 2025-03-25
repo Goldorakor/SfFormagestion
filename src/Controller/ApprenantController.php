@@ -99,13 +99,21 @@ final class ApprenantController extends AbstractController
         
 
         // bloc qui concerne la soumission
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) { // vérifie si le formulaire a bien été soumis et vérifie que le formulaire est valide, c'est-à-dire que les données soumises respectent les contraintes définies dans l'entité (par exemple, des champs requis ou des formats valides)
             
             $apprenant = $form->getData(); // on récupère les données du formulaire dans notre objet apprenant
-            
+            // Cette méthode récupère les données soumises dans le formulaire et les stocke dans l'entité liée, ici dans l'objet $apprenant. Cela signifie que toutes les valeurs saisies dans le formulaire sont maintenant dans l'objet apprenant, qui est une instance de l'entité correspondante
+            // Pourquoi getData() ?
+            // l’objet $apprenant n’existe pas encore. Il est créé automatiquement par le formulaire au moment de la soumission.
+            // getData() récupère cet objet Apprenant complet et rempli à partir des données du formulaire.
+            // C’est grâce au data_class dans le FormType que Symfony sait quelle entité remplir.
+            // pas besoin d’appeler getDoctrine() ici, car on récupère directement l’objet généré et rempli par le formulaire..
+
             $entityManager->persist($apprenant); // équivaut à la méthode prepare() en PDO
+            // indique à Doctrine que l'entité apprenant doit être persistée, c'est-à-dire qu'elle doit être ajoutée à la session de Doctrine pour qu'elle soit enregistrée dans la base de données lorsque l'opération de flush() sera effectuée
 
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
+            // Cette méthode exécute réellement la requête SQL pour persister les modifications (ici, l'ajout ou la mise à jour de l'entité apprenant dans la base de données). flush() va enregistrer toutes les entités persistées dans la base de données à ce moment-là.
 
             // redirection vers la liste des apprenants (si formulaire soumis et formulaire valide)
             return $this->redirectToRoute('app_apprenant');
@@ -117,7 +125,7 @@ final class ApprenantController extends AbstractController
         return $this->render('apprenant/new.html.twig', [ // 'apprenant/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier apprenant
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddApprenant' comme expliqué dans new.html.twig
-            'formAddApprenant' => $form,
+            'formAddApprenant' => $form->createView(), // dans la vue Twig, Symfony attend toujours l’objet FormView (celui renvoyé par createView()), pas l’objet Form lui-même
             'edit' => $apprenant->getId(), // comportement booléen -> permet dans la vue de faire la diff entre création d'un apprenant et édition d'un apprenant
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);

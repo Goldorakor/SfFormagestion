@@ -69,7 +69,7 @@ final class ModuleController extends AbstractController
         return $this->render('module/new.html.twig', [ // 'module/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier module
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddModule' comme expliqué dans new.html.twig
-            'formAddModule' => $form,
+            'formAddModule' => $form->createView(),
             'edit' => $module->getId(), // comportement booléen
         ]);
     }

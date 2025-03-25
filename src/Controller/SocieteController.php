@@ -133,7 +133,7 @@ final class SocieteController extends AbstractController
         return $this->render('societe/new.html.twig', [ // 'societe/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier societe
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddSociete' comme expliqué dans new.html.twig
-            'formAddSociete' => $form,
+            'formAddSociete' => $form->createView(),
             'edit' => $societe->getId(), // comportement booléen
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);

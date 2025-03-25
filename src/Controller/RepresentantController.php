@@ -128,7 +128,7 @@ final class RepresentantController extends AbstractController
         return $this->render('representant/new_edit.html.twig', [ // 'representant/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier representant
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddRepresentant' comme expliqué dans new_edit.html.twig
-            'formAddRepresentant' => $form,
+            'formAddRepresentant' => $form->createView(),
             'edit' => $representant->getId() !== null, // comportement booléen -> si getId() retourne une valeur, on est en mode édition et si getId() est null, on est en mode création.
             'representant' => $representant, // ?? null,  rajout suite à un message d'erreur où il prétend que la variable $representant n'existe pas
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
