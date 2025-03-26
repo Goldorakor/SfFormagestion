@@ -38,10 +38,9 @@ class UserType extends AbstractType
                 'placeholder' => 'Sélectionner un rôle',
                 'expanded' => false,
                 'required' => true, // Un rôle doit être sélectionné
-                'choice_attr' => function($choice, $key, $value) {
-                    // Si c'est ROLE_ADMIN, ajouter l'attribut de sélection de ROLE_USER par défaut
-                    if ($value === 'ROLE_ADMIN') {
-                        return ['data-role' => 'admin']; // Tu peux ajouter un attribut personnalisé si nécessaire
+                'choice_attr' => function($choice, $key, $index) {
+                    if ($choice === 'ROLE_ADMIN') {
+                        return ['data-role' => 'admin'];
                     }
                     return [];
                 }
@@ -57,4 +56,58 @@ class UserType extends AbstractType
             'data_class' => User::class,
         ]);
     }
+
 }
+
+/*
+
+'choice_attr' => function($choice, $key, $index)
+
+
+1 . $choice : Ce paramètre contient la valeur réelle que Symfony va soumettre si l’option est sélectionnée.
+
+Label : Utilisateur	=> $choice : 'ROLE_USER'
+Label : Administrateur	=> $choice : 'ROLE_ADMIN'
+
+on peut donc tester $choice === 'ROLE_ADMIN' ou $choice === 'ROLE_USER'.
+
+
+2. $key : C’est le texte affiché dans la liste déroulante ou à côté du bouton radio/checkbox.
+Avec le tableau choices, ça donne :
+
+$key : Utilisateur => $choice : 'ROLE_USER'
+$key : Administrateur => $choice : 'ROLE_ADMIN'
+
+Exemple : si on veut styliser l’option avec le texte "Administrateur", on peut faire :
+
+if ($key === 'Administrateur') { ... }
+
+
+3. $index : Il représente l’index numérique ou la clé de l’élément dans la liste de choix. Dans ton exemple, comme choices est un tableau associatif simple, $index sera :
+
+$key : Utilisateur => $choice : 'ROLE_USER' =>	$index : 0
+$key : Administrateur => $choice : 'ROLE_ADMIN' =>	$index : 1
+
+
+
+
+Avec ton choice_attr, si on écrit :
+
+'choice_attr' => function($choice, $key, $index) {
+    if ($choice === 'ROLE_ADMIN') {
+        return ['data-role' => 'admin'];
+    }
+    return [];
+}
+
+Symfony va générer :
+
+<option value="ROLE_USER">Utilisateur</option>
+<option value="ROLE_ADMIN" data-role="admin">Administrateur</option>
+
+UTILE pour :
+ajouter des classes CSS ciblées : return ['class' => 'text-danger'];
+
+utiliser data-* dans ton JavaScript : document.querySelector('[data-role="admin"]').style.fontWeight = 'bold';
+
+*/
