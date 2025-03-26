@@ -75,16 +75,28 @@ final class UtilisateurController extends AbstractController
             $user = new User();
         }
 
+
+
         // 2. on crée le formulaire à partir de UtilisateurType (on veut ce modèle là bien entendu)
-        $form = $this->createForm(UserType::class, $user); // c'est bien la méthode createForm() qui permet de créer le formulaire
+        // $form = $this->createForm(UserType::class, $user);  c'est bien la méthode createForm() qui permet de créer le formulaire
+
+        // On clone l'utilisateur uniquement pour le formulaire (pour avoir un utilisateur qui n'a pas de rôle attribué par défaut)
+        $userForm = clone $user; // une copie de l'utilisateur SANS ajouter le 'ROLE_USER'
+        $userForm->setRoles($user->getRawRoles()); // la méthode getRawRoles() ajoutée dans User.php
+        $form = $this->createForm(UserType::class, $userForm); // Création du formulaire sans polluer avec le ROLE_USER injecté par défaut
 
         
+
         // 4. le traitement s'effectue ici ! si le formulaire soumis est correct, on fera l'insertion en BDD
         $form->handleRequest($request);
         
 
         // bloc qui concerne la soumission
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            // Récupère les data depuis le formulaire (pas l'ancien $user)
+            $user = $form->getData();
 
 
             // Hash du mot de passe

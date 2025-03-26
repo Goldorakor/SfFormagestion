@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,6 +38,7 @@ class UserType extends AbstractType
                 ],
                 'placeholder' => 'Sélectionner un rôle',
                 'expanded' => false,
+                'multiple' => false, // true sinon message "Warning: Array to string conversion" ('roles' est un tableau) => ok car le CallbackTransformer gère la conversion vers array
                 'required' => true, // Un rôle doit être sélectionné
                 'choice_attr' => function($choice, $key, $index) {
                     if ($choice === 'ROLE_ADMIN') {
@@ -48,6 +50,23 @@ class UserType extends AbstractType
 
             ->add('enregistrer', SubmitType::class)
         ;
+
+        // Transformer la string en array pour la BDD => 'multiple' => false, désormais possible 
+        $builder->get('roles')
+        ->addModelTransformer(new CallbackTransformer(
+            function ($rolesArray)
+            {
+                // Transforme l'array en string (à l'affichage)
+                return $rolesArray[0] ?? null;
+            },
+
+            function ($roleString)
+            {
+                // Transforme la string en array (à la soumission)
+                return [$roleString];
+            }
+        ));
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

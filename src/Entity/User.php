@@ -154,4 +154,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    // méthode ajoutée pour régler le problème d'affichage du menu déroulant du choix de rôle du formulaire utilisateur
+    // comme on garantit à chaque utilisateur un rôle USER, le 'placeholder' => 'Sélectionner un rôle', ne s'affiche pas
+    // à la place s'affiche le choix par défaut "Utilisateur"
+    // cette méthode n'attribue pas de rôle USER par défaut (donc pas de souci d'affichage dans le formulaire)
+    public function getRawRoles(): array
+    {
+        return $this->roles;
+    }
+
 }
