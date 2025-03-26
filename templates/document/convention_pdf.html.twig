@@ -309,7 +309,7 @@ ancien test
     <div>
         <p>
             Pour l'organisme de formation<br>
-            {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|capitalize }}
+            {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %} {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|capitalize }}
         </p>
         <div class="signature">
             <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">

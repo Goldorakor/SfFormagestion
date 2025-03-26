@@ -56,6 +56,8 @@ h2 {
     /*padding: 10px;  Espace entre le texte et la bordure */
     /*display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
     /*border-radius: 10px;  on arrondit les coins */
+    margin-top: 18px;
+    margin-bottom: 6px;
 }
 
 h3 {
@@ -68,6 +70,8 @@ h3 {
     /*padding: 10px;  Espace entre le texte et la bordure */
     /*display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
     /*border-radius: 10px;  on arrondit les coins */
+    margin-top: 12px;
+    margin-bottom: 6px;
 }
 
 
