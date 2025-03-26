@@ -81,7 +81,7 @@ final class UtilisateurController extends AbstractController
         // On clone l'utilisateur uniquement pour le formulaire (pour avoir un utilisateur qui n'a pas de rôle attribué par défaut)
         $userForm = clone $user; // une copie de l'utilisateur SANS ajouter le 'ROLE_USER'
         // $userForm->setRoles($user->getRawRoles());  la méthode getRawRoles() ajoutée dans User.php
-        $userForm->setRoles($user->getRawRoles());
+        $userForm->setRoles([]);  // Pas de rôle par défaut => on veut en être sûr
 
         // On garde en mémoire l'email d'origine
         $originalEmail = $user->getEmail();
