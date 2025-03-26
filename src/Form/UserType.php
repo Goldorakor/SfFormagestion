@@ -11,14 +11,31 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class UserType extends AbstractType
 {
+    // Ajoute la contrainte UniqueEntity pour l'email mais ignore la validation si l'email n'a pas changé
+    /**
+     * @UniqueEntity(
+     *     "email",
+     *     message="Cette adresse email est déjà utilisée.",
+     *     groups={"Creation", "Edition"}, // Si tu utilises des groupes de validation
+     *     errorPath="email",
+     *     ignoreNull=true // Ignore les emails null
+     * )
+     */
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // On ajoute uniquement les champs que l'on veut afficher
         $builder
             ->add('email', EmailType::class, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Email(),
+                ],
                 'label' => 'Adresse e-mail', // texte qui s'affiche devant le rectangle de saisie
             ])
 

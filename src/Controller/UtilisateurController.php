@@ -19,9 +19,6 @@ final class UtilisateurController extends AbstractController
     
     
     
-    
-    
-    
     #[Route('/accueil/parametres/utilisateur', name: 'app_utilisateur')]
     public function index(UserRepository $userRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -56,7 +53,7 @@ final class UtilisateurController extends AbstractController
         EntityManagerInterface $entityManager, 
         BreadcrumbsGenerator $breadcrumbsGenerator, 
         UserPasswordHasherInterface $passwordHasher
-        ): Response // pour ajouter un apprenant à notre BDD
+        ): Response
     {
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -68,6 +65,9 @@ final class UtilisateurController extends AbstractController
         // $variable = (condition) ? valeur_si_vrai : valeur_si_faux;
         // Si condition est vraie → la valeur après ? est assignée.
         // Si condition est fausse → la valeur après : est assignée.
+
+
+        $isEdit = $user !== null;
         
         
         // 1. si pas de utilisateur, on crée un nouveau utilisateur (un objet utilisateur est bien créé ici) - s'il existe déjà, pas besoin de le créer
@@ -75,14 +75,17 @@ final class UtilisateurController extends AbstractController
             $user = new User();
         }
 
-
-
         // 2. on crée le formulaire à partir de UtilisateurType (on veut ce modèle là bien entendu)
         // $form = $this->createForm(UserType::class, $user);  c'est bien la méthode createForm() qui permet de créer le formulaire
 
         // On clone l'utilisateur uniquement pour le formulaire (pour avoir un utilisateur qui n'a pas de rôle attribué par défaut)
         $userForm = clone $user; // une copie de l'utilisateur SANS ajouter le 'ROLE_USER'
-        $userForm->setRoles($user->getRawRoles()); // la méthode getRawRoles() ajoutée dans User.php
+        // $userForm->setRoles($user->getRawRoles());  la méthode getRawRoles() ajoutée dans User.php
+        $userForm->setRoles($user->getRawRoles());
+
+        // On garde en mémoire l'email d'origine
+        $originalEmail = $user->getEmail();
+
         $form = $this->createForm(UserType::class, $userForm); // Création du formulaire sans polluer avec le ROLE_USER injecté par défaut
 
         
@@ -96,16 +99,32 @@ final class UtilisateurController extends AbstractController
 
 
             // Récupère les data depuis le formulaire (pas l'ancien $user)
-            $user = $form->getData();
+            $submitUser = $form->getData();
 
 
-            // Hash du mot de passe
-            $hashedPassword = $passwordHasher->hashPassword($user, 'motdepasse12345678');
-            $user->setPassword($hashedPassword);
-            // avant de persister l'utilisateur, on hash le mot de passe pour garantir la sécurité. Cela permet de ne jamais stocker un mot de passe en clair dans la base de données
-            // encodePassword() : Cette méthode génère un mot de passe haché à partir du mot de passe brut (ici, 'motdepasse12345678')
-            // $user->setPassword($hashedPassword); : Ensuite, on attribue ce mot de passe haché à l'objet user
+            // Vérification de l'unicité de l'email uniquement si modification
+            if ($isEdit && $submitUser->getEmail() !== $originalEmail) {
+                $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $submitUser->getEmail()]);
+                if ($existingUser) {
+                    $this->addFlash('error', 'Cette adresse email est déjà utilisée.');
+                    return $this->redirectToRoute('edit_utilisateur', ['id' => $user->getId()]);
+                }
+            }
 
+            // Mise à jour des données dans l'objet d'origine (car $userForm est un clone)
+            $user->setNom($submitUser->getNom());
+            $user->setPrenom($submitUser->getPrenom());
+            $user->setEmail($submitUser->getEmail());
+            $user->setRoles($submitUser->getRoles());
+            // Ajoute d'autres setters si tu as d'autres champs...
+
+            // Hash du mot de passe si c'est une création
+            if (!$isEdit) {
+                $hashedPassword = $passwordHasher->hashPassword($user, 'motdepasse12345678');
+                $user->setPassword($hashedPassword);
+            }
+
+            
             // On peut définir une valeur par défaut pour isApproved
             $user->setIsApproved(1);
             // On suppose que isApproved est une sorte de champ booléen ou de flag qui peut indiquer si l'utilisateur est approuvé ou non 
