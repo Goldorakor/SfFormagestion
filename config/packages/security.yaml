@@ -44,9 +44,9 @@ security:
          # Seuls les ADMIN accèdent à l'espace admin
          - { path: ^/admin, roles: ROLE_ADMIN }
          # Tout le monde accède à la page login
-         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          # Toute autre page nécessite au minimum d'être USER
-         - { path: ^/, roles: ROLE_USER }
+         - { path: ^/accueil, roles: ROLE_USER }
 
 when@test:
     security:

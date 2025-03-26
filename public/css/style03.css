@@ -187,6 +187,7 @@ footer {
     text-align: center; /* centre horizontalement le texte dans le bloc .footer */
     margin-top: 30px; /* ajoute un espace vide de 30 pixels au-dessus de .footer => séparer le pied de page du contenu qui le précède */
     padding-top: 10px; /* ajoute un espace intérieur de 10 pixels en haut du bloc .footer => il donne de l'air après la bordure (qui sera ajoutée juste en dessous) pour que le texte ne soit pas collé */
+    padding-bottom: 10px; /* ne pas coller le footer au bas de la page mais laisser un petit espace */
     border-top: 1px solid #d8d8d8; /* ajoute une bordure supérieure (1 pixel d'épaisseur, trait plein (solid), gris clair (#d8d8d8)) => séparer visuellement le pied de page du reste du contenu avec un trait discret */
     line-height: 1.4; /* définit l’espacement vertical entre les lignes de texte (hauteur de ligne) à 1.4 fois la taille de la police => améliore la lisibilité */
 }

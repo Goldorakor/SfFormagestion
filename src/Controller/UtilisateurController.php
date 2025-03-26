@@ -150,9 +150,8 @@ final class UtilisateurController extends AbstractController
 
 
 
-    // méthode provisoire pour ajouter un utilisateur 01 avec rôle ADMIN (on sécurise mais le mieux est de supprimer cette méthode après utilisation)
-    #[Route('/admin/ajout-user', name: 'app_ajout_user')]
-    #[IsGranted('ROLE_ADMIN')]
+    // méthode provisoire pour ajouter un utilisateur 01 avec rôle ADMIN (on ne sécurise pas => le mieux est de supprimer cette méthode après utilisation)
+    #[Route('/ajout-user', name: 'app_ajout_user')]
     public function addUser(EntityManagerInterface $em, UserPasswordHasherInterface $hasher)
     {
         $user = new User();
@@ -194,9 +193,8 @@ final class UtilisateurController extends AbstractController
 
 
 
-    // méthode provisoire pour ajouter un utilisateur 02 avec rôle USER (on sécurise mais le mieux est de supprimer cette méthode après utilisation)
-    #[Route('/admin/ajout-user02', name: 'app_ajout_user02')]
-    #[IsGranted('ROLE_ADMIN')]
+    // méthode provisoire pour ajouter un utilisateur 02 avec rôle USER (on ne sécurise pas => le mieux est de supprimer cette méthode après utilisation)
+    #[Route('/ajout-user02', name: 'app_ajout_user02')]
     public function addUser02(EntityManagerInterface $em, UserPasswordHasherInterface $hasher)
     {
         $user = new User();
