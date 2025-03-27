@@ -1,0 +1,164 @@
+/* stockage ancienne version de navbar02
+
+le bouton de navigation rond ne change pas sur l'ensemble du projet, que les pages soient violettes ou oranges :
+on va donc créer un seul fichier pour éviter de devoir appliquer des modifications en double
+-> ce fichier sera appelé dans les fichiers base.html.twig, base02.html.twig et base03.html.twig
+
+https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+
+*/
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+    position: fixed;  /*  Fixe la position de la navbar sur le côté */
+    top: 0; /* la navbar se colle bien au haut de la page ! */
+    background-color: #CCCEFF;
+    display: flex;
+    flex-direction: column; /* Met les éléments en colonne */
+    align-items: center; /* Aligne les éléments au centre */
+    width: 200px; /* Largeur fixe pour la sidebar */
+    padding: 10px 0 0 0;
+    overflow-y: auto; /* Permet un défilement vertical */
+    height: 100vh; /* Utilise toute la hauteur de la fenêtre */
+}
+
+.topnav ul {
+    list-style: none; /* on cache les listes à puces */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.topnav li {
+  width: 100%; /* Prend toute la largeur disponible */
+  display: flex;
+  justify-content: center; /* Centrer les éléments à l'intérieur du <li> */
+}
+  
+/* Style the links inside the navigation bar */
+.topnav a {
+/* float: left; propriété qui empêche un affichage vertical */
+display: block;
+color: #f2f2f2;
+text-align: center;
+padding: 16px 16px;
+text-decoration: none;
+font-size: 14px;
+}
+
+/* Hide the link that should open and close the sidenav on small screens */
+.topnav .icon {
+    display: none;
+}
+
+  
+/* Dropdown container - needed to position the dropdown content */
+.dropdown02 {
+    overflow: hidden;
+    border-radius: 10px;
+}
+  
+/* Style the dropdown button to fit inside the sidenav */
+.dropdown02 .dropbtn02 {
+    font-size: 20px;
+    border: none;
+    outline: none;
+    color: #ffffff; /* couleur du texte du bouton 'nouveau' */
+    font-weight: bold; /* écriture en gras */
+    padding: 18px; /* change la hauteur du bouton orange 'nouveau' */
+    background-color: #5b5b5b; /* couleur de fond du bouton 'rond' */
+    font-family: inherit;
+    margin: 20px 0 25px 0; /* Centrer le bouton */
+    width: 150px; /* Largeur du bouton plus petite */
+    height: 30px; /* change la hauteur du bouton orange 'nouveau' */
+    text-align: center; /* Centrer le texte */
+    border-radius: 20px; /* bouton orange aux bords arrondis */
+    display: flex; /* pour bénéficier des pptés 'align-items' et 'justify-content' */
+    align-items: center; /* Centrer le texte verticalement */
+    justify-content: center; /* Centrer le texte horizontalement si nécessaire */
+    
+}
+  
+/* Style the dropdown content (hidden by default) */
+.dropdown-content02 {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9; /* couleur de fond du rectangle de menu déroulant */
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /*  ombre que projette le rectangle du menu déroulant */
+    z-index: 1;
+}
+  
+/* Style the links inside the dropdown */
+.dropdown-content02 a {
+    float: none;
+    color: #000000; /* couleur du texte dans le rectangle du menu déroulant */
+    font-size: 18px; /* taille écriture dans le menu déroulant nouveau */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+  
+/* Add a dark background on topnav links and the dropdown button on hover */
+.topnav a:hover, .dropdown02:hover .dropbtn02 {
+    background-color: #CCCEFF; /* effet hover : change la couleur de fond des boutons Créations, Suivis et Paramètres */
+    color: #ffffff; /* effet hover : change la couleur de texte des boutons violets */
+}
+  
+/* Add a grey background to dropdown links on hover */
+.dropdown-content02 a:hover {
+    background-color: #dddddd; /* effet hover : couleur de fond dans le rectangle du menu déroulant */
+    color: #000000; /* effet hover : couleur du texte dans le rectangle du menu déroulant */
+}
+  
+/* Show the dropdown menu when the user moves the mouse over the dropdown button */
+.dropdown02:hover .dropdown-content02 {
+    display: block;
+}
+  
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the sidenav (.icon) */
+@media screen and (max-width: 600px) {
+    .topnav a:not(:first-child), .dropdown02 .dropbtn02 {
+      display: none;
+    }
+    .topnav a.icon {
+      float: right;
+      display: block;
+    }
+}
+  
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 600px) {
+    .topnav.responsive {position: relative;}
+    .topnav.responsive a.icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .topnav.responsive a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+    .topnav.responsive .dropdown02 {float: none;}
+    .topnav.responsive .dropdown-content02 {position: relative;}
+    .topnav.responsive .dropdown02 .dropbtn02 {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+}
+
+
+/* FIN
+
+https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
+
+*/
+

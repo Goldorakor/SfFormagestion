@@ -7,6 +7,12 @@ PAGES VIOLETTES
 */
 
 
+html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
+  width: 100%;
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+}
+
+
 * { /* on calibre notre page => important au moins pour la navbar */
   margin: 0;
   padding: 0;
@@ -15,7 +21,10 @@ PAGES VIOLETTES
 
 .container {
   display : flex;
-  background-color:#FFF0F5;
+  background-color:#fcf2f5; /* #fff0f5 */
+  margin: 0;
+  min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
+  min-width: 100vw;
 }
 
 
@@ -23,6 +32,8 @@ main {
   margin-left: 210px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
   margin-right: 10px; /* Décale le contenu principal pour équilibrer entre droite et gauche */
   padding: 15px 0 0 0;
+  min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
+  min-width: 100vw;
 }
 
 
@@ -39,7 +50,7 @@ h3 {
 }
 
 
-/* code css pour mon fil d'ariane (celui en orange) */
+/* code css pour mon fil d'ariane (celui en violet) */
 
 .ariane {
   display: flex;
@@ -125,6 +136,7 @@ PAGE D'ACCUEIL
 
 */
 
+
 .accueil-cont{
   display: flex;
   flex-direction: column;
@@ -168,6 +180,7 @@ PAGE D'ACCUEIL
   align-items: center;
 }
 
+
 .accueil-card{
   display: flex;
   flex-direction: column;
@@ -175,6 +188,7 @@ PAGE D'ACCUEIL
   align-items: center;
   margin: 30px;
 }
+
 
 .accueil-img img {  /* si je ne rajoute pas img, il ne peut pas sélectionner l'image de "Suivis" */
   /* text-align : right; */
@@ -184,6 +198,13 @@ PAGE D'ACCUEIL
   height: 400px;
   object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
+
+
+.accueil-boite1 a, /* pour que les liens de la page d'accueil ne soient pas soulignés */
+a.accueil-card {
+    text-decoration: none;
+}
+
 
 /*
 

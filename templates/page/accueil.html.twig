@@ -10,7 +10,7 @@
     
     <div class="accueil-boite1">
 
-        <div class="accueil-card">
+        <a href="{{ path('creations') }}"><div class="accueil-card">
             <h1 class="accueil-h1">
                 Créations
             </h1>
@@ -21,9 +21,9 @@
             <div class="accueil-img">
                 <img src="/images/image_creations.svg" alt="une femme assise en lotus, en phase de méditation, entourée de feuilles volantes">
             </div>
-        </div>
+        </div></a>
     
-        <div class="accueil-card">
+        <a href="{{ path('suivis') }}" class="princbtn"><div class="accueil-card">
             <h1 class="accueil-h1">
                 Suivis
             </h1>
@@ -34,21 +34,26 @@
             <div class="accueil-img">
                 <img src="/images/image_suivis.svg" alt="une femme assise près du sol, qui réalise un graphique dans un document plus vaste">
             </div>
-        </div>
+        </div></a>
 
     </div>
     
 
-    <div class="accueil-card">
-        <h1 class="accueil-h1">
-            Paramètres
-        </h1>
-        <h3 class="accueil-h3">
-            Paramétrez l'outil à votre convenance
-        </h3>
-        <div class="accueil-img">
-            <img src="/images/image_parametres.svg" alt="une femme assise à un bureau, qui travaille sur un ordinateur portable">
-        </div>
+    <div class="accueil-boite1">
+
+        <a href="{{ path('parametres') }}"><div class="accueil-card">
+            <h1 class="accueil-h1">
+                Paramètres
+            </h1>
+            <h3 class="accueil-h3">
+                Paramétrez l'outil à votre convenance
+            </h3>
+            <div class="accueil-img">
+                <img src="/images/image_parametres02.svg" alt="une femme assise à un bureau, qui travaille sur un ordinateur portable">
+            </div>
+        </div></a>
+
     </div>
+    
 
 {% endblock %}
