@@ -132,6 +132,12 @@ PAGE D'ACCUEIL
   align-items: center;
 }
 
+.accueil-lien{
+  display: block; /* Permet à <a> de se comporter comme un bloc : on n'a pas envie qu'un élément en ligne puisse contenir un bloc */
+  text-decoration: none; /* Supprime le soulignement du lien */
+  color: inherit; /* Hérite la couleur du texte du parent */
+}
+
 
 .accueil-card{
   display: flex;

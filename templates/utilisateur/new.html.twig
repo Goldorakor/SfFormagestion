@@ -34,6 +34,8 @@
             {{ form_errors(formAddUtilisateur.email) }}
         </div>
 
+        {% if not edit %}<p>Cette adresse constituera l'identifiant de connexion de l'utilisateur. Un courriel sera envoyé à cette adresse pour confirmer la création du profil et inviter l'utilisateur à modifier son mot de passe.</p>{% endif %}
+
 
         <div>
             {{ form_label(formAddUtilisateur.roles) }}
