@@ -29,7 +29,7 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 
 
 main {
-  margin-left: 210px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
+  margin-left: 10px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
   margin-right: 10px; /* Décale le contenu principal pour équilibrer entre droite et gauche */
   padding: 15px 0 0 0;
   min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
@@ -50,55 +50,7 @@ h3 {
 }
 
 
-/* code css pour mon fil d'ariane (celui en violet) */
 
-.ariane {
-  display: flex;
-  align-items: center; /* Aligne le texte et la liste sur la même ligne */
-  gap: 5px; /* Ajoute un petit espace entre les éléments */
-}
-
-.fil-ariane {
-  list-style: none; /* Supprime les puces des listes (<ol> ou <ul>) */
-  display: flex; /* Affiche les éléments en ligne (horizontalement) */
-  font-size: 14px; /* Définit la taille du texte */
-  padding: 0;
-  margin: 0;
-}
-
-.fil-ariane-texte {
-  color: #790945; /* Définit la couleur du texte en orange */
-  font-weight: bold; /* Met le texte d'introduction du fil d'ariane en gras */
-  margin-right: 0px; /* Ajoute un espace entre le texte d'introduction et l'élément suivant : à 0 sinon trop d'espace */
-}
-
-.fil-ariane li {
-  display: flex; /* Garde les éléments sur une ligne */
-  align-items: center;
-}
-
-.fil-ariane li:not(:last-child)::after {
-  content: " > "; /* Ajoute le séparateur automatique */
-  margin: 0 5px;
-  color: #790945; /* Même couleur que les liens */
-}
-
-.fil-ariane li a {
-  text-decoration: none; /* Supprime le soulignement des liens */
-  color: #790945; /* Définit la couleur des liens en bleu */
-}
-
-.fil-ariane li a:hover {
-  text-decoration: underline; /* Ajoute un soulignement au survol des liens */
-  color: #A2118A; /* Définit la couleur au survol de la souris */
-}
-
-.fil-ariane .dernier {
-  font-style: italic; /* Met le dernier élément du fil d'Ariane en italic -> font-weight: bold; */
-  color: #A2118A; /* Change la couleur du dernier élément en noir */
-}
-
-/* fin du code css pour mon fil d'ariane */
 
 
 
@@ -186,7 +138,10 @@ PAGE D'ACCUEIL
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 150px;
+  margin-right: 150px;
 }
 
 

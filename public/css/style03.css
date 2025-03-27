@@ -13,21 +13,33 @@ Il est souhaitable de ne pas afficher la navbar dans ces documents
 
 
 
-* { /* on calibre notre page => important au moins pour la navbar */
+html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
+    width: 100%;
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+  }
+  
+  
+  * { /* on calibre notre page => important au moins pour la navbar */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-.container {
-    display : flex;
-    background-color:#ffffff;
-}
+  }
   
-main {
-    margin-left: 210px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
+  .container {
+    display : flex;
+    background-color:#ffffff; /*  */
+    margin: 0;
+    min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
+    min-width: 100vw;
+  }
+  
+  
+  main {
+    margin-left: 10px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar 110 */
     margin-right: 10px; /* Décale le contenu principal pour équilibrer entre droite et gauche */
     padding: 15px 0 0 0;
+    min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
+    min-width: 100vw;
   }
 
 
@@ -74,58 +86,6 @@ h3 {
     margin-bottom: 6px;
 }
 
-
-
-
-/* code css pour mon fil d'ariane (celui en orange) */
-  
-.ariane {
-    display: flex;
-    align-items: center; /* Aligne le texte et la liste sur la même ligne */
-    gap: 5px; /* Ajoute un petit espace entre les éléments */
-}
-    
-.fil-ariane {
-    list-style: none; /* Supprime les puces des listes (<ol> ou <ul>) */
-    display: flex; /* Affiche les éléments en ligne (horizontalement) */
-    font-size: 14px; /* Définit la taille du texte */
-    padding: 0;
-    margin: 0;
-}
-    
-.fil-ariane-texte {
-    color: #dc6a17; /* Définit la couleur du texte en orange terne */
-    font-weight: bold; /* Met le texte d'introduction du fil d'ariane en gras */
-    margin-right: 0px; /* Ajoute un espace entre le texte d'introduction et l'élément suivant : à 0 sinon trop d'espace */
-}
-    
-.fil-ariane li {
-    display: flex; /* Garde les éléments sur une ligne */
-    align-items: center;
-}
-    
-.fil-ariane li:not(:last-child)::after {
-    content: " > "; /* Ajoute le séparateur automatique */
-    margin: 0 5px;
-    color: #dc6a17; /* Même couleur que les liens en orange terne */
-}
-    
-.fil-ariane li a {
-    text-decoration: none; /* Supprime le soulignement des liens */
-    color: #dc6a17; /* Définit la couleur des liens en orange terne */
-}
-    
-.fil-ariane li a:hover {
-    text-decoration: underline; /* Ajoute un soulignement au survol des liens */
-    color: #ff4300; /* Définit la couleur au survol de la souris en orange flashy */
-}
-    
-.fil-ariane .dernier {
-    font-style: bold; /* Met le dernier élément du fil d'Ariane en italic -> font-weight: bold; */
-    color: #ff4300; /* Change la couleur du dernier élément en orange flashy */
-}
-     
-/* fin du code css pour mon fil d'ariane */
 
 
 
