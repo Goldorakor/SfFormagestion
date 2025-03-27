@@ -1,0 +1,24 @@
+<!-- 
+on crée ce template pour la mise en place du bouton de navigation rond
+ensuite, il sera incorporé au template base.html.twig, sous la balise <body>
+-->
+
+{# dans cette vue 'base.html.twig', il faudra mettre notre navbar02 -> au dessus du block body ! #}
+{# https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp excellent tutoriel pour construire le dropdown du bouton "nouveau" #}
+{# Balise sémantique <nav> avec l'attribut aria-label pour indiquer aux lecteurs d'écran qu'il s'agit d'une barre de navigation -> meilleure accessibilité #}
+    <nav class="topnav" id="myTopnav" aria-label="navbar">
+        <ul>
+            <li class="dropdown02">
+                <button class="dropbtn02">
+                    {{ user.prenom|first|upper }} {{ user.nom|first|upper }}
+                </button>
+                <div class="dropdown-content02">
+                    <a href="{{ path('construction') }}">Mon compte</a>
+                    <a href="{{ path('app_logout') }}">Me déconnecter</a>
+                </div>
+            </li>
+        </ul>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+    </nav>
+    
+    
