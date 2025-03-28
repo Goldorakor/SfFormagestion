@@ -1,0 +1,140 @@
+/*
+
+PAGE LOGIN
+PAGE LOGIN
+PAGE LOGIN
+
+*/
+
+
+html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
+    width: 100%;
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+}
+  
+  
+* { /* on calibre notre page => important au moins pour la navbar */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+
+.login-wrap {
+    display : flex;
+    flex-direction: row;
+    margin: 0;
+    min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
+    width: 100vw;
+}
+  
+
+#login-cont01, #login-cont02{
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+}
+ 
+
+#login-cont01{
+    background-color:#ffffff;  /* fcf2f5 */
+}
+
+
+#login-cont02{
+    background-color:#F7BED7;  /* fcf2f5 */
+}
+
+
+.login-logofg img{
+    width: 400px;
+    height: 400px;
+    object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+}
+
+
+.login-img img{
+    width: 400px;
+    height: 400px;
+    object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+}
+
+
+.login-logoft img{
+    width: 400px;
+    height: 400px;
+    object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+}
+
+
+h1 {
+    color :#282828; /* Change la couleur du texte en rose */
+    font-size: 70px; /* définit la taille de la police à 50 pixels */
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+  
+
+h2 {
+      color : #4449D5;
+      font-size: 36px; /* définit la taille de la police à 50 pixels */
+      text-align: left;
+      margin-top: 50px;
+      margin-bottom: 20px;
+}
+  
+
+h3 {
+    color :#a2118a; /* Change la couleur du texte en rose */
+    font-size: 20px; /* définit la taille de la police à 20 pixels */
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 50px;
+}
+  
+
+h4 {
+    color: #790945;
+    font-size: 20px; /* définit la taille de la police à 50 pixels */
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+
+#login-cont01 p {
+    color: #5b5b5b;
+    font-size: 40px;
+    text-align: center;
+    font-style: italic;
+}
+  
+#login-cont02 p {
+    color: #282828;
+    font-size: 30px;
+}
+
+#login-cont02 a {
+    color: #282828;
+    font-size: 20px;
+    text-decoration: none;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn-purple {
+    background-color: #4449D5;
+    color: #ffffff;
+    font-size: 24px;
+    border-radius: 30%;
+    width: 200px;
+    height: 60px;
+}
+  
+  
+
+  

@@ -21,10 +21,21 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 
 .container {
   display : flex;
-  background-color:#fcf2f5; /* #fff0f5 */
-  margin: 0;
+  background-color:#fcf2f5; /* #fcf2f5 */
+  margin-left: 0;
   min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
   min-width: 100vw;
+}
+
+.sous-cont{
+  display : flex;
+  margin-left : 230px;
+  margin-right: 30px;
+  margin-bottom: 80px;
+  width: 80vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 
@@ -38,35 +49,64 @@ main {
 
 
 h1 {
-    color : #790945;
+  color :#790945; /* Change la couleur du texte en rose */
+  font-size: 70px; /* définit la taille de la police à 50 pixels */
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 5px;
 }
 
 h2 {
     color : #4449D5;
+    font-size: 36px; /* définit la taille de la police à 50 pixels */
+    text-align: left;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
 
 h3 {
-    color : #A2118A;
+  color :#a2118a; /* Change la couleur du texte en rose */
+  font-size: 24px; /* définit la taille de la police à 24 pixels */
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 50px;
+}
+
+h4 {
+  color: #790945;
+  font-size: 28px; /* définit la taille de la police à 28 pixels */
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 
-
-
-
-
+p {
+  font-size: 26px;
+}
 
 
 
 /* code css pour les grands bandeaux cliquables (les pages des grandes sections : créations, suivis, paramètres) */
 
+
+.lot-bandeau{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .bandeau {
-  display: block;              /* Rend le <a> cliquable sur toute la largeur */
-  text-decoration: none;       /* Supprime le soulignement */
-  color: inherit;              /* Garde la couleur du texte */
-  padding: 15px;               /* Ajoute de l’espace intérieur entre le contenu (le texte) et la bordure du a */
-  border: 0px solid #ccc;    /* mettre une bordure éventuellement qui sera pleine et en gris clair*/
-  background-color: #ffffff; /* on souhaite un fond blanc */
-  border-radius: 10px;         /* pour les bords arrondis */
+  display: block;                  /* Rend le <a> cliquable sur toute la largeur */
+  text-decoration: none;           /* Supprime le soulignement */
+  color: #282828;                /* Garde la couleur du texte */
+  padding: 5px 15px 15px 10px;     /* Ajoute de l’espace intérieur entre le contenu (le texte) et la bordure du a */
+  margin-top: 15px;                /* Ajoute de l’espace au dessus des bandeaux */
+  margin-bottom: 15px;             /* Ajoute de l’espace en dessous des bandeaux */
+  border: 0px solid #ccc;        /* mettre une bordure éventuellement qui sera pleine et en gris clair*/
+  background-color: #ffffff;     /* on souhaite un fond blanc */
+  border-radius: 10px;             /* pour les bords arrondis */
+  width: 100%;
 }
 
 .bandeau:hover {
@@ -74,9 +114,6 @@ h3 {
 }
 
 /* fin du code css pour les grands bandeaux cliquables */
-
-
-
 
 
 
@@ -100,7 +137,7 @@ PAGE D'ACCUEIL
 
 .accueil-h1{
   color :#790945; /* Change la couleur du texte en rose */
-  font-size: 50px; /* définit la taille de la police à 26 pixels */
+  font-size: 50px; /* définit la taille de la police à 50 pixels */
   text-align: center;
   margin-top: 50px;
   margin-bottom: 5px;
@@ -109,7 +146,7 @@ PAGE D'ACCUEIL
 
 .accueil-h2{
   color :#282828; /* Change la couleur du texte en rose */
-  font-size: 50px; /* définit la taille de la police à 26 pixels */
+  font-size: 50px; /* définit la taille de la police à 50 pixels */
   text-align: center;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -118,7 +155,7 @@ PAGE D'ACCUEIL
 
 .accueil-h3{
   color :#a2118a; /* Change la couleur du texte en rose */
-  font-size: 20px; /* définit la taille de la police à 26 pixels */
+  font-size: 20px; /* définit la taille de la police à 20 pixels */
   text-align: center;
   margin-top: 0px;
   margin-bottom: 0px;
