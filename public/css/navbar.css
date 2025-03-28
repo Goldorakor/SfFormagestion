@@ -15,12 +15,13 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 .sidenav {
     position: fixed;  /*  Fixe la position de la navbar sur le côté */
     top: 0; /* la navbar se colle bien au haut de la page ! */
+    left: 0; /* la navbar se colle bien à gauche de la page ! */
     background-color: #CCCEFF;
     display: flex;
     flex-direction: column; /* Met les éléments en colonne */
     align-items: center; /* Aligne les éléments au centre */
     width: 200px; /* Largeur fixe pour la sidebar */
-    padding: 10px 0 0 0;
+    padding: 10px 0 0 0; /* on évite que le premier bouton soit trop collé au haut de la page */
     overflow-y: auto; /* Permet un défilement vertical */
     height: 100vh; /* Utilise toute la hauteur de la fenêtre */
 }
@@ -49,10 +50,6 @@ text-decoration: none;
 font-size: 14px;
 }
 
-/* Hide the link that should open and close the sidenav on small screens */
-.sidenav .icon {
-    display: none;
-}
 
 /* Style des boutons "Créations", "Suivis" et "Paramètres"  => attention : .princbtn seul ne fonctionne pas */
 .sidenav .princbtn {
@@ -100,7 +97,7 @@ font-size: 14px;
 /* Dropdown container - needed to position the dropdown content */
 .dropdown {
     overflow: hidden;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
   
 /* Style the dropdown button to fit inside the sidenav */
@@ -113,7 +110,7 @@ font-size: 14px;
     padding: 18px; /* change la hauteur du bouton orange 'nouveau' */
     background-color: #ff4300; /* couleur de fond du bouton 'nouveau' */
     font-family: inherit;
-    margin: 20px 0 25px 0; /* Centrer le bouton */
+    margin: 20px 0 25px 0; /* Centrer le bouton 20px 0 25px 0*/
     width: 150px; /* Largeur du bouton plus petite */
     height: 30px; /* change la hauteur du bouton orange 'nouveau' */
     text-align: center; /* Centrer le texte */
@@ -123,20 +120,27 @@ font-size: 14px;
     justify-content: center; /* Centrer le texte horizontalement si nécessaire */
     
 }
+
   
 /* Style the dropdown content (hidden by default) */
 .dropdown-content {
-    display: none;
+    display: block;  /* Changer de 'none' à 'block' pour travailler avec opacity */
     position: absolute;
+    top: 138px;
+    left: 8px;
     background-color: #f9f9f9; /* couleur de fond du rectangle de menu déroulant */
     min-width: 180px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /*  ombre que projette le rectangle du menu déroulant */
-    z-index: 1;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3); /*  ombre que projette le rectangle du menu déroulant */
+    overflow: hidden;
+    opacity: 0;          /* Initialement invisible */
+    visibility: hidden;  /* Masquer le menu */
+    transition: opacity 0.3s ease, visibility 0s 0.3s;  /* Transition fluide */
 }
   
 /* Style the links inside the dropdown */
 .dropdown-content a {
-    float: none;
+    /* float: none; */
     color: #000000; /* couleur du texte dans le rectangle du menu déroulant */
     font-size: 18px; /* taille écriture dans le menu déroulant nouveau */
     padding: 12px 16px;
@@ -144,13 +148,18 @@ font-size: 14px;
     display: block;
     text-align: left;
 }
-  
-/* Add a dark background on topnav links and the dropdown button on hover */
-.sidenav a:hover, .dropdown:hover .dropbtn {
-    background-color: #CCCEFF; /* effet hover : change la couleur de fond des boutons Créations, Suivis et Paramètres */
-    color: #ffffff; /* effet hover : change la couleur de texte des boutons violets */
+
+.sidenav a:hover {
+  background-color: #CCCEFF; /* effet hover pour les boutons violets */
+  color: #ffffff; 
 }
-  
+
+.dropdown:hover .dropbtn {
+  background-color: #ff4300; /* Conserver l'orange sur le bouton 'Nouveau' */
+  color: #ffffff;
+}
+
+
 /* Add a grey background to dropdown links on hover */
 .dropdown-content a:hover {
     background-color: #dddddd; /* effet hover : couleur de fond dans le rectangle du menu déroulant */
@@ -159,41 +168,13 @@ font-size: 14px;
   
 /* Show the dropdown menu when the user moves the mouse over the dropdown button */
 .dropdown:hover .dropdown-content {
-    display: block;
+  opacity: 1;          /* Rendre le menu visible */
+  visibility: visible; /* Le rendre visible */
+  transition: opacity 0.3s ease, visibility 0s 0s;  /* Supprimer le délai de visibilité */
 }
   
-/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the sidenav (.icon) */
-@media screen and (max-width: 600px) {
-    .sidenav a:not(:first-child), .dropdown .dropbtn {
-      display: none;
-    }
-    .sidenav a.icon {
-      float: right;
-      display: block;
-    }
-}
   
-/* The "responsive" class is added to the sidenav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
-@media screen and (max-width: 600px) {
-    .sidenav.responsive {position: relative;}
-    .sidenav.responsive a.icon {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    .sidenav.responsive a {
-      float: none;
-      display: block;
-      text-align: left;
-    }
-    .sidenav.responsive .dropdown {float: none;}
-    .sidenav.responsive .dropdown-content {position: relative;}
-    .sidenav.responsive .dropdown .dropbtn {
-      display: block;
-      width: 100%;
-      text-align: left;
-    }
-}
+
 
 
 /* FIN
