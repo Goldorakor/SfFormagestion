@@ -12,14 +12,18 @@ ensuite, il sera incorporé au template base.html.twig, sous la balise <body>
     <nav class="navbar" aria-label="Navigation profil">
         {% if user %}
             <button class="nav-button">
-                {{ user.prenom|first|upper }}.{{ user.nom|first|upper }}.
+                {{ user.prenom|first|upper }}{{ user.nom|first|upper }}
             </button>
         {% else %}
             <button class="nav-button">?</button>
         {% endif %}
         <div class="dropdown-menu">
+            <p>
+                <span id="identite-bouton">{{ user.prenom|capitalize }} {{ user.nom|upper }}</span><br>
+                <span id="email-bouton">{{ user.email|lower }}</span>
+            </p>
             <a href="{{ path('construction') }}">Mon compte</a>
-            <a href="{{ path('app_logout') }}">Me déconnecter</a>
+            <a href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Me déconnecter</a>
         </div>
     </nav>
 
