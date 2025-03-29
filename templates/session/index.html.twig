@@ -10,7 +10,7 @@
     <div class="sous-cont">
 
         <div class="postion-purple">
-            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_session') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>&nbsp;&nbsp;&nbsp;Créer une session</a>{% endif %}
+            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_session') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer une session</a>{% endif %}
         </div>
         
         {# {% for session in sessions %}

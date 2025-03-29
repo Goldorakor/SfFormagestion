@@ -233,15 +233,6 @@ TABLEAUX DES VUES D'ENSEMBLE
 */
 
 
-/*
-.sous-cont {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-*/
-
-
 .apprenants-table {
   width: 100%;
   border-collapse: collapse;
@@ -271,7 +262,7 @@ thead tr:hover {
 }
 
 .clickable-row {
-  cursor: pointer;
+  cursor: pointer; /* le curseur de la souris change */
 }
 
 .clickable-row a {
@@ -297,15 +288,21 @@ thead tr:hover {
 
 /* Styliser le bouton "Créer un apprenant" */
 .btn.btn-rose {
-  display: inline-block;
+  display: inline-flex; /* Permet d'aligner l'icône et le texte correctement */
+  align-items: center; /* Centre verticalement le contenu */
   background-color: #4449D5; /* Violet */
-  color: white; /* Écriture blanche */
-  padding: 15px 25px 17px 25px;
+  color: #ffffff; /* Écriture blanche */
+  padding: 8px 25px 12px 25px;
   border-radius: 30px;
   text-decoration: none;
   font-size: 26px;
-  font-weight: bold;
+  /* font-weight: bold; */
   transition: background-color 0.3s ease-in-out;
+}
+
+.btn.btn-rose i {
+  font-size: 36px; /* l'icone n'est pas assez grande */
+  margin-right: 12px; /* Espacement entre l'icône et le texte */
 }
 
 .btn.btn-rose:hover {

@@ -10,7 +10,7 @@
     <div class="sous-cont">
         
         <div class="postion-purple">
-            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_formateur') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>&nbsp;&nbsp;&nbsp;Créer un formateur</a>{% endif %}
+            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_formateur') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer un formateur</a>{% endif %}
         </div>
     
         {% if formateurs | length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
