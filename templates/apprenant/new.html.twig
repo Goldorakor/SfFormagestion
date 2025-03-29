@@ -5,12 +5,15 @@
     
 {% block body %}
 
+
     {% if not edit %}<h1>Créer un apprenant</h1>{% else %}<h1>Modifier un apprenant</h1>{% endif %} {# dans ApprenantController, on a bien passé la vriable : 'apprenants' => $apprenants #}
     {% if not edit %}<h3>Saisissez les informations essentielles du nouvel apprenant</h3>{% else %}<h3>Modifiez les informations essentielles de l'apprenant</h3>{% endif %}
-    
-    {# {{ form(formAddApprenant) }} #}
 
-    {{ form_start(formAddApprenant) }}
+    <div class="sous-cont">
+        
+        {# {{ form(formAddApprenant) }} #}
+
+        {{ form_start(formAddApprenant) }}
 
         <h2>Identité de l'apprenant</h2>
 
@@ -103,6 +106,9 @@
             <a class="btn btn-rose" href="{{ path('app_apprenant') }}">Quitter</a> {# bouton pour retourner à la liste des apprenants #}
         </div>
 
+    </div>
+    
+    
 {% endblock %}
 
 {# {{ form(form) }} -> la fonction form permet de récup le formulaire, le deuxième form est le nom qui provient du controleur : on change ce nom pour éviter les confusions #}

@@ -4,70 +4,75 @@
 
 {% block body %}
 
+
     <h1>Liste des apprenants</h1>
     <h3>Votre annuaire compte {{ apprenants|length }} apprenants répertoriés</h3>
 
-    <div>
-        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_apprenant') }}" class="btn btn-rose">Créer un apprenant</a>{% endif %}
+    <div class="sous-cont">
+
+        <div class="postion-purple">
+            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_apprenant') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>&nbsp;&nbsp;&nbsp;Créer un apprenant</a>{% endif %}
+        </div>
+    
+        {% if apprenants|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+    
+            <table class="apprenants-table">
+                <thead>
+                    <tr>
+                        <th>
+                            Prénom, Nom
+                        </th>
+                        <th>
+                            E-mail
+                        </th>
+                        <th>
+                            Téléphone
+                        </th>
+                        <th>
+                            Nom de la société
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones édition -->
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones suppression -->
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for apprenant in apprenants %}
+                    <tr>
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}"> {# https://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link #}
+                                <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.email|lower }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.tel }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{% if apprenant.societe is not null %}{{ apprenant.societe.raisonSociale }}{% else %}-{% endif %}</a>
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer l'apprenant' #}
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer l'apprenant' #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+        {% else %}
+    
+            <div>Aucun apprenant n'est présent dans l'annuaire.</div>
+    
+        {% endif %}
     </div>
 
-    {% if apprenants|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
-
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Prénom, Nom
-                    </th>
-                    <th>
-                        E-mail
-                    </th>
-                    <th>
-                        Téléphone
-                    </th>
-                    <th>
-                        Nom de la société
-                    </th>
-                    <th>
-                        <!-- vide : colonne pour les icones édition -->
-                    </th>
-                    <th>
-                        <!-- vide : colonne pour les icones suppression -->
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for apprenant in apprenants %}
-                <tr>
-                        <td>
-                            <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</a>
-                        </td>
-                        <td>
-                            {{ apprenant.email|lower }}
-                        </td>
-                        <td>
-                            {{ apprenant.tel }}
-                        </td>
-                        <td>
-                            {% if apprenant.societe is not null %}{{ apprenant.societe.raisonSociale }}{% else %}-{% endif %}
-                        </td>
-                        <td>
-                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer l'apprenant' #}
-                        </td>
-                        <td>
-                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer l'apprenant' #}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    {% else %}
-
-        <div>Aucun apprenant n'est présent dans l'annuaire.</div>
-
-    {% endif %}
-   
+    
 {% endblock %}
 
 
@@ -91,4 +96,3 @@ Dans le fichier index.html.twig qui affiche la liste des apprenants, on ajoute c
 <h2>Nombre total d'apprenants : {{ totalApprenants }}</h2>
 
 #}
-

@@ -7,60 +7,65 @@
     <h1>Liste des responsables</h1>
     <h3>Votre annuaire compte {{ responsables|length }} intervenants répertoriés</h3>
 
-    <div>
-        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_responsable') }}" class="btn btn-rose">Créer un responsable</a>{% endif %}
+    <div class="sous-cont">
+
+        <div class="postion-purple">
+            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_responsable') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>&nbsp;&nbsp;&nbsp;Créer un responsable</a>{% endif %}
+        </div>
+    
+        {% if responsables|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+    
+            <table class="apprenants-table">
+                <thead>
+                    <tr>
+                        <th>
+                            Prénom, Nom
+                        </th>
+                        <th>
+                            E-mail
+                        </th>
+                        <th>
+                            Téléphone
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones édition -->
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones suppression -->
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for responsable in responsables %}
+                        <tr>
+                            <td class="clickable-row" data-href="{{ path('show_responsable', {'id' : responsable.id}) }}">
+                                <a href="{{ path('show_responsable', {'id' : responsable.id}) }}">{{ responsable.prenom|capitalize }} {{ responsable.nom|upper }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_responsable', {'id' : responsable.id}) }}">
+                                <a href="{{ path('show_responsable', {'id' : responsable.id}) }}">{{ responsable.email|lower }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_responsable', {'id' : responsable.id}) }}">
+                                <a href="{{ path('show_responsable', {'id' : responsable.id}) }}">{{ responsable.tel }}</a>
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('edit_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer le responsable #}
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('delete_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer le responsable #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+        {% else %}
+    
+            <div>Aucun responsable n'est présent dans l'annuaire.</div>
+    
+        {% endif %}
     </div>
 
-    {% if responsables|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
-
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Prénom, Nom
-                    </th>
-                    <th>
-                        E-mail
-                    </th>
-                    <th>
-                        Téléphone
-                    </th>
-                    <th>
-                        <!-- vide : colonne pour les icones édition -->
-                    </th>
-                    <th>
-                        <!-- vide : colonne pour les icones suppression -->
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for responsable in responsables %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('show_responsable', {'id' : responsable.id}) }}">{{ responsable.prenom|capitalize }} {{ responsable.nom|upper }}</a>
-                        </td>
-                        <td>
-                            {{ responsable.email|lower }}
-                        </td>
-                        <td>
-                            {{ responsable.tel }}
-                        </td>
-                        <td>
-                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('edit_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer le responsable #}
-                        </td>
-                        <td>
-                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('delete_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer le responsable #}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    {% else %}
-
-        <div>Aucun responsable n'est présent dans l'annuaire.</div>
-
-    {% endif %}
+    
 
 {% endblock %}
 

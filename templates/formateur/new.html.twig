@@ -4,12 +4,15 @@
 
 {% block body %}
 
+
     {% if not edit %}<h1>Créer un formateur</h1>{% else %}<h1>Modifier un formateur</h1>{% endif %}
     {% if not edit %}<h3>Saisissez les informations essentielles du nouveau formateur</h3>{% else %}<h3>Modifiez les informations essentielles du formateur</h3>{% endif %}
 
-    {# {{ form(formAddFormateur) }} #}
+    <div class="sous-cont">
 
-    {{ form_start(formAddFormateur) }}
+        {# {{ form(formAddFormateur) }} #}
+
+        {{ form_start(formAddFormateur) }}
 
         <h2>Identité du formateur</h2>
 
@@ -65,6 +68,9 @@
             <a class="btn btn-rose" href="{{ path('app_formateur') }}">Quitter</a> {# bouton pour retourner à la liste des formateurs #}
         </div>
 
+    </div>
+
+    
 {% endblock %}
 
 {# {{ form(form) }} -> la fonction form permet de récup le formulaire, le deuxième form est le nom qui provient du controleur : on change ce nom pour éviter les confusions #}

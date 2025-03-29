@@ -4,65 +4,70 @@
 
 {% block body %}
 
+
     <h1>{{ responsable.prenom|capitalize }} {{ responsable.nom|upper }}</h1>
     <h3>{{ responsable.email|lower }}</h3>
 
-    <div>
-        Statut : responsable<br>
-        Fonction : {{ responsable.fonction|lower }}
-    </div>
-
-    <div>
-        Téléphone : {{ responsable.tel }}<br>
-        Sexe : {{ responsable.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}
-    </div>
-
-    <h2>Responsabilités :</h2>
-
-    {% set responsabilites_du_responsable = false %}
-
-    {% for groupe in responsabilitesParSociete %} {# on parcourt la collection de groupes de responsabilités de ce responsable (chaque groupe contient entre 1 et 3 responsabilités-légal/administratif/RH d'une même société) #}
-        {% if groupe %} {# condition : on s'assure qu'au moins une responsabilité existe pour ce responsable (au moins un groupe de responsabilité doit être trouvé, sachant qu'un groupe contient au minimum une responsabilité et au maximum 3 responsabilités de la même société) #}
-            {% set responsabilites_du_responsable = true %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            {{ groupe.societe.raisonSociale }}
-                        </th>
-                        <th>
-                            {{ groupe.societe.email|lower }}
-                        </th>
-                        <th>
-                            {{ groupe.societe.tel }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for responsabilite in groupe.responsabilites %}
+    <div class="sous-cont">
+        
+        <div>
+            Statut : responsable<br>
+            Fonction : {{ responsable.fonction|lower }}
+        </div>
+    
+        <div>
+            Téléphone : {{ responsable.tel }}<br>
+            Sexe : {{ responsable.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}
+        </div>
+    
+        <h2>Responsabilités :</h2>
+    
+        {% set responsabilites_du_responsable = false %}
+    
+        {% for groupe in responsabilitesParSociete %} {# on parcourt la collection de groupes de responsabilités de ce responsable (chaque groupe contient entre 1 et 3 responsabilités-légal/administratif/RH d'une même société) #}
+            {% if groupe %} {# condition : on s'assure qu'au moins une responsabilité existe pour ce responsable (au moins un groupe de responsabilité doit être trouvé, sachant qu'un groupe contient au minimum une responsabilité et au maximum 3 responsabilités de la même société) #}
+                {% set responsabilites_du_responsable = true %}
+                <table>
+                    <thead>
                         <tr>
-                            <td>
-                                Responsable {{ responsabilite.typeResponsable|lower }}
-                            </td>
+                            <th>
+                                {{ groupe.societe.raisonSociale }}
+                            </th>
+                            <th>
+                                {{ groupe.societe.email|lower }}
+                            </th>
+                            <th>
+                                {{ groupe.societe.tel }}
+                            </th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for responsabilite in groupe.responsabilites %}
+                            <tr>
+                                <td>
+                                    Responsable {{ responsabilite.typeResponsable|lower }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+     
+        {% endfor %}
+    
+        {% if not responsabilites_du_responsable %} {# Après la boucle for, on vérifie si la variable responsabilites_du_responsable est toujours false. Si c'est le cas, cela signifie qu'aucune responsabilité n'a été trouvée, et donc on affiche le message "Aucune responsabilité en cours". #}
+            <div>Aucune responsabilité dans une entreprise</div>
         {% endif %}
- 
-    {% endfor %}
+    
+    
+        <div>
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_responsable', {'id' : responsable.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer le responsable #}
+    
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_responsable', {'id' : responsable.id}) }}">Editer</a>{% endif %} {# bouton pour éditer le responsable #}
+    
+            <a class="btn btn-rose" href="{{ path('app_responsable') }}">Quitter</a> {# bouton pour retourner à la liste des responsables #}
+        </div>
 
-    {% if not responsabilites_du_responsable %} {# Après la boucle for, on vérifie si la variable responsabilites_du_responsable est toujours false. Si c'est le cas, cela signifie qu'aucune responsabilité n'a été trouvée, et donc on affiche le message "Aucune responsabilité en cours". #}
-        <div>Aucune responsabilité dans une entreprise</div>
-    {% endif %}
-
-
-    <div>
-        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_responsable', {'id' : responsable.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer le responsable #}
-
-        {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_responsable', {'id' : responsable.id}) }}">Editer</a>{% endif %} {# bouton pour éditer le responsable #}
-
-        <a class="btn btn-rose" href="{{ path('app_responsable') }}">Quitter</a> {# bouton pour retourner à la liste des responsables #}
     </div>
 
 

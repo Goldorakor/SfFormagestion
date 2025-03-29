@@ -7,66 +7,71 @@
     <h1>Liste des formateurs</h1>
     <h3>Votre annuaire compte {{ formateurs|length }} formateurs répertoriés</h3>
 
-    <div>
-        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_formateur') }}" class="btn btn-rose">Créer un formateur</a>{% endif %}
+    <div class="sous-cont">
+        
+        <div class="postion-purple">
+            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_formateur') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>&nbsp;&nbsp;&nbsp;Créer un formateur</a>{% endif %}
+        </div>
+    
+        {% if formateurs | length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+    
+            <table class="apprenants-table">
+                <thead>
+                    <tr>
+                        <th>
+                            Prénom, Nom
+                        </th>
+                        <th>
+                            E-mail
+                        </th>
+                        <th>
+                            Téléphone
+                        </th>
+                        <th>
+                            Nom de la société
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones édition -->
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones suppression -->
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for formateur in formateurs %}
+                        <tr>
+                            <td class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
+                                <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom|capitalize }} {{ formateur.nom|upper }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
+                                <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.email|lower }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
+                                <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.tel }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
+                                <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{% if formateur.societe is not null %}{{ formateur.societe.raisonSociale }}{% else %}{% if formateur.statut == 'salarié' %}Forma'Toque{% else %}-{% endif %}{% endif %}</a>
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('edit_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer le formateur #}
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('delete_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer le formateur #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+        {% else %}
+    
+            <div>Aucun formateur n'est présent dans l'annuaire.</div>
+    
+        {% endif %}
     </div>
 
-    {% if formateurs | length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
-
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Prénom, Nom
-                    </th>
-                    <th>
-                        E-mail
-                    </th>
-                    <th>
-                        Téléphone
-                    </th>
-                    <th>
-                        Nom de la société
-                    </th>
-                    <th>
-                        <!-- vide : colonne pour les icones édition -->
-                    </th>
-                    <th>
-                        <!-- vide : colonne pour les icones suppression -->
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for formateur in formateurs %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom|capitalize }} {{ formateur.nom|upper }}</a>
-                        </td>
-                        <td>
-                            {{ formateur.email|lower }}
-                        </td>
-                        <td>
-                            {{ formateur.tel }}
-                        </td>
-                        <td>
-                            {% if formateur.societe is not null %}{{ formateur.societe.raisonSociale }}{% else %}{% if formateur.statut == 'salarié' %}Forma'Toque{% else %}-{% endif %}{% endif %}
-                        </td>
-                        <td>
-                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('edit_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer le formateur #}
-                        </td>
-                        <td>
-                            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-gris" href="{{ path('delete_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer le formateur #}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    {% else %}
-
-        <div>Aucun formateur n'est présent dans l'annuaire.</div>
-
-    {% endif %}
+    
 
 
     {# 

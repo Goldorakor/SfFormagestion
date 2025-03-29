@@ -7,42 +7,59 @@
     <h1>Formations</h1>
     <h3>Récapitulatif des formations disponibles pour générer des sessions</h3>
 
-    <div>
-        {% if is_granted('ROLE_ADMIN') %}<a href="" class="btn btn-rose">Créer une formation - inactif</a>{% endif %} {# ce bouton n'est pas actif dans le MVP #}
+    <div class="sous-cont">
+
+        <div class="postion-purple">
+            {% if is_granted('ROLE_ADMIN') %}<a href="" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>&nbsp;&nbsp;&nbsp;Créer une formation</a>{% endif %} {# ce bouton n'est pas actif dans le MVP #}
+        </div>
+    
+        {% if formations|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+    
+            <table class="apprenants-table">
+                <thead>
+                    <tr>
+                        <th>
+                            Nom ou référence de la formation
+                        </th>
+                        <th>
+                            Date de mise à jour
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones édition -->
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones édition -->
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for formation in formations %}
+                        <tr>
+                            <td class="clickable-row" data-href="{{ path('construction') }}">
+                                <a href="{{ path('construction') }}">{{ formation.nomFormation }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('construction') }}">
+                                <a href="{{ path('construction') }}">{{ formation.dateMaj|date("d/m/Y") }}</a>
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer l'apprenant' #}
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer l'apprenant' #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+        {% else %}
+    
+            <div>Aucune formation n'est présente dans la base de données.</div>
+    
+        {% endif %}
     </div>
 
-    {% if formations|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
-
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Nom ou référence de la formation
-                    </th>
-                    <th>
-                        Date de mise à jour
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for formation in formations %}
-                    <tr>
-                        <td>
-                            {{ formation.nomFormation }}
-                        </td>
-                        <td>
-                            {{ formation.dateMaj|date("d/m/Y") }}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    {% else %}
-
-        <div>Aucune formation n'est présente dans la base de données.</div>
-
-    {% endif %}
+    
 
 {% endblock %}
 
