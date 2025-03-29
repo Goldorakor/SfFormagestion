@@ -30,9 +30,9 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 .sous-cont{
   display : flex;
   margin-left : 230px;
-  margin-right: 30px;
+  margin-right: 60px;
   margin-bottom: 80px;
-  width: 80vw;
+  width: 85%;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
