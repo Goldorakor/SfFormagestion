@@ -45,25 +45,26 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 
 #login-cont02{
     background-color:#F7BED7;  /* fcf2f5 */
+    padding-top: 0px; /* Ajuste cette valeur pour remonter plus */
 }
 
 
 .login-logofg img{
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 300px;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
 
 .login-img img{
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 500px;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
 
 .login-logoft img{
-    width: 400px;
+    width: 600px;
     height: 400px;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
@@ -71,7 +72,7 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 
 h1 {
     color :#282828; /* Change la couleur du texte en rose */
-    font-size: 70px; /* définit la taille de la police à 50 pixels */
+    font-size: 70px; /* définit la taille de la police à 70 pixels */
     text-align: center;
     margin-top: 0;
     margin-bottom: 20px;
@@ -126,14 +127,105 @@ h4 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.tubes-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.identifiant, .mot-passe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.identifiant label, .mot-passe label{
+    color: #282828;
+    font-size: 36px;
+    margin-left: 25px; /* écriture sur la partie droite du tube oblong et non pas sur la partie arrondie */
+}
+
+
+/*
+#username {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+#password {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+*/
+
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;
+    /* border: 2px solid #ccc; */
+    border-radius: 30px;
+    background-color: #ffffff;
+    outline: none;
+}
+
+/*
+
+CODE SPECIAL
+POUR SUPPRIMER UNE FONCTIONNALITE DE REMPLISSAGE AUTOMATIQUE DU NAVIGATEUR 
+
+*/
+
+input[type="email"], input[type="password"] {
+    background-color: white !important;
+    box-shadow: none !important; /* Désactive toute ombre */
+    -webkit-box-shadow: none !important; /* Désactive l'ombre spécifique à Chrome */
+    border: none !important; /* Supprime la bordure */
+    transition: background-color 0s; /* Évite le clignotement à l'auto-remplissage */
+}
+
+input:-webkit-autofill {
+    background-color: white !important;
+    -webkit-text-fill-color: black !important; /* Force la couleur du texte */
+    box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+/*
+
+FIN DU CODE SPECIAL
+
+*/
+
+.purple {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
 .btn-purple {
     background-color: #4449D5;
     color: #ffffff;
     font-size: 24px;
-    border-radius: 30%;
-    width: 200px;
+    border-radius: 30px;
+    width: 220px;
     height: 60px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
+
+.btn-purple:hover {
+    background-color: #363cb5;
+}
+
   
   
 
