@@ -45,7 +45,7 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 
 #login-cont02{
     background-color:#F7BED7;  /* fcf2f5 */
-    padding-top: 0px; /* Ajuste cette valeur pour remonter plus */
+    padding-bottom: 100px; /* Ajuster cette valeur pour remonter plus */
 }
 
 
@@ -176,8 +176,9 @@ input[type="email"], input[type="password"] {
 
 /*
 
-CODE SPECIAL
-POUR SUPPRIMER UNE FONCTIONNALITE DE REMPLISSAGE AUTOMATIQUE DU NAVIGATEUR 
+CODE SPECIAL vu sur Stack Overflow
+https://developer.mozilla.org/fr/docs/Web/CSS/WebKit_Extensions
+gestion de l'auto-remplissage et des ombres par les navigateurs
 
 */
 
