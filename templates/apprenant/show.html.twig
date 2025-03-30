@@ -11,22 +11,28 @@
 
     <div class="sous-cont">
 
-        <div>
-            Statut : {% if apprenant.sexe == 'F' %}apprenante{% else %}apprenant{% endif %}<br>
-            Adresse : <div>
-                {{ apprenant.adresse }}<br>
-                {{ apprenant.codePostal }} {{ apprenant.ville|capitalize }}<br>
-                {{ apprenant.pays|upper }}
+        <div class="details-fiches">
+            <div class="fiche-gauche">
+                <span class="fiche-violet">Statut :</span>&nbsp;{% if apprenant.sexe == 'F' %}apprenante{% else %}apprenant{% endif %}<br>
+                <div class="fiche-adresse">
+                    <span class="fiche-violet">Adresse :</span>&nbsp;<div>
+                        {{ apprenant.adresse }}<br>
+                        {{ apprenant.codePostal }} {{ apprenant.ville|capitalize }}<br>
+                        {{ apprenant.pays|upper }}
+                    </div>
+                </div>
+                <span class="fiche-violet">Téléphone :</span>{% if apprenant.tel %}&nbsp;{{ apprenant.tel }}{% else %}&nbsp;numéro non renseigné{% endif %}
             </div>
-            Téléphone :{% if apprenant.tel %} {{ apprenant.tel }}{% else %} numéro non renseigné{% endif %}
+        
+            <div class="fiche-droite">
+                <span class="fiche-violet">Date de naissance :</span>&nbsp;{{ apprenant.dateNaissance|date("d/m/Y") }}<br>
+                <span class="fiche-violet">Sexe :</span>&nbsp;{{ apprenant.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}<br>
+                <span class="fiche-violet">Profession :</span>&nbsp;{{ apprenant.metier|lower }}<br>
+                {% if apprenant.sexe == 'F' %}<span class="fiche-violet">Salariée</span>{% else %}<span class="fiche-violet">Salarié</span>{% endif %}<span class="fiche-violet">&nbsp;de la société :</span>{% if apprenant.societe is not null %} {{ apprenant.societe.raisonSociale }}{% else %} non renseigné ou statut de particulier{% endif %}
+            </div>
         </div>
-    
-        <div>
-            Date de naissance : {{ apprenant.dateNaissance|date("d/m/Y") }}<br>
-            Sexe : {{ apprenant.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}<br>
-            Profession : {{ apprenant.metier|lower }}<br>
-            {% if apprenant.sexe == 'F' %}Salariée{% else %}Salarié{% endif %} de la société :{% if apprenant.societe is not null %} {{ apprenant.societe.raisonSociale }}{% else %} non renseigné ou statut de particulier{% endif %}
-        </div>
+
+        
     
         <h2>Sessions à venir :</h2> <!-- pour les 3 sections suivantes, il faut penser à passer la variable $now = new DateTime dans la méthode show_apprenant de l'ApprenantController -->
     
@@ -36,49 +42,49 @@
     
             {% if inscription.session.dateDebut > now and inscription.session.dateFin > now %}
                 {% set sessions_a_venir = true %} {# On met la variable à true dès qu'on trouve une session #}
-                <table>
+                <table class="app-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                Référence de la session
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}"> {# curseur en forme de main #}
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Référence de la session</a> {# on permet d'ouvrir un lien #}
                             </th>
-                            <th>
-                                Date de début
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Date de début</a>
                             </th>
-                            <th>
-                                Date de fin
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Date de fin</a>
                             </th>
-                            <th>
-                                Type
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Type</a>
                             </th>
-                            <th>
-                                Modalité
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Modalité</a>
                             </th>
-                            <th>
-                                Prix en euros
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Prix (€)</a>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.titreSession }}<br>
-                                {{ inscription.session.inscriptions|length }} apprenants inscrits sur {{ inscription.session.nbPlaces }} places</a>
+                                <span class="mini-rose">{{ inscription.session.inscriptions | length }} apprenants inscrits sur {{ inscription.session.nbPlaces }} places</span></a>
                             </td>
-                            <td>
-                                {{ inscription.session.dateDebut|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.dateDebut|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ inscription.session.dateFin|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.dateFin|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ inscription.session.formation.type|upper }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.formation.type|upper }}</a>
                             </td>
-                            <td>
-                                {{ inscription.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.formation.modalites|capitalize }}</a> <!-- |capitalize pour avoir la première lettre en majuscule -->
                             </td>
-                            <td>
-                                {{ inscription.prix }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.prix }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -88,7 +94,7 @@
         {% endfor %}
     
         {% if not sessions_a_venir %} {# Après la boucle for, on vérifie si la variable sessions_a_venir est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session à venir". #}
-            <div>Aucune session à venir</div>
+            <div class="msg-vide">Aucune session à venir</div>
         {% endif %}
     
     
@@ -102,49 +108,49 @@
     
             {% if inscription.session.dateDebut <= now and inscription.session.dateFin >= now %}
                 {% set sessions_en_cours = true %} {# On met la variable à true dès qu'on trouve une session #}
-                <table>
+                <table class="app-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                Référence de la session
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}"> {# curseur en forme de main #}
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Référence de la session</a> {# on permet d'ouvrir un lien #}
                             </th>
-                            <th>
-                                Date de début
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Date de début</a>
                             </th>
-                            <th>
-                                Date de fin
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Date de fin</a>
                             </th>
-                            <th>
-                                Type
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Type</a>
                             </th>
-                            <th>
-                                Modalité
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Modalité</a>
                             </th>
-                            <th>
-                                Prix en euros
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Prix (€)</a>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.titreSession }}<br>
-                                {{ inscription.session.inscriptions | length }} apprenants inscrits sur {{ inscription.session.nbPlaces }} places</a>
+                                <span class="mini-rose">{{ inscription.session.inscriptions | length }} apprenants inscrits sur {{ inscription.session.nbPlaces }} places</span></a>
                             </td>
-                            <td>
-                                {{ inscription.session.dateDebut|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.dateDebut|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ inscription.session.dateFin|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.dateFin|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ inscription.session.formation.type|upper }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.formation.type|upper }}</a>
                             </td>
-                            <td>
-                                {{ inscription.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.formation.modalites|capitalize }}</a> <!-- |capitalize pour avoir la première lettre en majuscule -->
                             </td>
-                            <td>
-                                {{ inscription.prix }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.prix }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -154,7 +160,7 @@
         {% endfor %}
     
         {% if not sessions_en_cours %} {# Après la boucle for, on vérifie si la variable sessions_en_cours est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session en cours". #}
-            <div>Aucune session en cours</div>
+            <div class="msg-vide">Aucune session en cours</div>
         {% endif %}
     
     
@@ -168,49 +174,49 @@
     
             {% if inscription.session.dateDebut < now and inscription.session.dateFin < now %}
                 {% set sessions_terminees = true %} {# On met la variable à true dès qu'on trouve une session #}
-                <table>
+                <table class="app-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                Référence de la session
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}"> {# curseur en forme de main #}
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Référence de la session</a> {# on permet d'ouvrir un lien #}
                             </th>
-                            <th>
-                                Date de début
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Date de début</a>
                             </th>
-                            <th>
-                                Date de fin
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Date de fin</a>
                             </th>
-                            <th>
-                                Type
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Type</a>
                             </th>
-                            <th>
-                                Modalité
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Modalité</a>
                             </th>
-                            <th>
-                                Prix en euros
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">Prix (€)</a>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.titreSession }}<br>
-                                {{ inscription.session.inscriptions | length }} apprenants inscrits sur {{ inscription.session.nbPlaces }} places</a>
+                                <span class="mini-rose">{{ inscription.session.inscriptions | length }} apprenants inscrits sur {{ inscription.session.nbPlaces }} places</span></a>
                             </td>
-                            <td>
-                                {{ inscription.session.dateDebut|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.dateDebut|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ inscription.session.dateFin|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.dateFin|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ inscription.session.formation.type|upper }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.formation.type|upper }}</a>
                             </td>
-                            <td>
-                                {{ inscription.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.session.formation.modalites|capitalize }}</a> <!-- |capitalize pour avoir la première lettre en majuscule -->
                             </td>
-                            <td>
-                                {{ inscription.prix }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : inscription.session.id}) }}">{{ inscription.prix }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -220,16 +226,16 @@
         {% endfor %}
     
         {% if not sessions_terminees %} {# Après la boucle for, on vérifie si la variable sessions_terminees est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session terminée". #}
-            <div>Aucune session terminée</div>
+            <div class="msg-vide">Aucune session terminée</div>
         {% endif %}
     
     
-        <div>
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer l'apprenant' #}
+        <div class="postion-rose">
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-trash"></i>Supprimer</a>{% endif %} {# bouton pour supprimer l'apprenant' #}
     
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}">Editer</a>{% endif %} {# bouton pour éditer l'apprenant #}
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-pen-to-square"></i>Editer</a>{% endif %} {# bouton pour éditer l'apprenant #}
     
-            <a class="btn btn-rose" href="{{ path('app_apprenant') }}">Quitter</a> {# bouton pour retourner à la liste des apprenants #}
+            <a class="btn btn-rose" href="{{ path('app_apprenant') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des apprenants #}
         </div>
 
     </div>

@@ -228,7 +228,7 @@ FIN PAGE D'ACCUEIL
 
 /*
 
-TABLEAUX DES VUES D'ENSEMBLE
+VUES D'ENSEMBLE
 
 */
 
@@ -242,14 +242,14 @@ TABLEAUX DES VUES D'ENSEMBLE
 .apprenants-table th {
   font-size: 22px;
   color: #4449D5;
-  padding: 18px 0px 22px 16px;
+  padding: 18px 0px 22px 18px; /* 18px 0px 22px 16px */
   text-align: left;
 }
 
 .apprenants-table td {
   font-size: 22px;
   color: #282828;
-  padding: 10px;
+  padding: 10px 10px 10px 10px; /* 10px 10px 10px 10px */
   border-bottom: 1px solid #ddd;
 }
 
@@ -320,7 +320,116 @@ thead tr:hover {
 
 /*
 
-FIN TABLEAUX DES VUES D'ENSEMBLE
+FIN DES VUES D'ENSEMBLE
+
+*/
+
+
+
+/*
+
+VUES DE DETAILS
+
+*/
+
+.details-fiches {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  gap: 20px
+}
+
+.fiche-gauche, .fiche-droite {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  color: #282828;
+  background-color: #ffffff;
+  border-radius: 30px;
+  font-size: 26px;
+  padding: 20px;
+}
+
+.fiche-adresse {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: flex-start;
+  margin: 0px;
+}
+
+
+.app-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.app-details-table th {
+  font-size: 26px;
+  color: #4449D5;
+  padding: 18px 0px 0px 0px;
+  text-align: left;
+}
+
+.app-details-table td {
+  font-size: 26px;
+  color: #282828;
+  padding: 0px 0px 10px 0px;
+  border-bottom: 1px solid #ddd;
+  text-align: left; /* pour voir si l'alignement s'effectue correctement */
+}
+
+.app-details-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.mini-rose{
+  font-size: 22px;
+  color: #E16FAB;
+}
+
+/* ligne pour que la première ligne du tableau des vues globales ne devienne pas grise au survol de la souris 
+thead tr:hover {
+  background-color: #f5f5f5 !important;
+}
+*/
+
+
+/* Aligner le bouton à droite */
+.postion-rose {
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Assure que le div prend toute la largeur disponible */
+  margin-top: 60px;
+  gap: 60px;
+}
+
+.msg-vide{
+  width: 100%;
+  /*border-collapse: collapse;*/
+  background-color: white;
+  padding: 30px 0px 30px 22px;
+  font-size: 30px;
+  color: #282828;
+  margin: 0;
+  font-weight: bold;
+}
+
+
+.fiche-violet{
+  display: inline;
+  color: #4449D5;
+  font-weight: bold;
+}
+
+/*
+
+FIN DES VUES DE DETAILS
 
 */
 

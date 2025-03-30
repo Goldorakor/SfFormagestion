@@ -85,7 +85,7 @@ class EntrepriseType extends AbstractType
                 'constraints' => [ // pour s'assurer que l'utilisateur n'upload que des fichiers conformes.
                     new File([
                         'maxSize' => '2M', // Limite la taille du fichier à 2 mégaoctets.
-                        'mimeTypes' => ['image/png', 'image/jpeg'], // Accepte uniquement les fichiers PNG et JPG.
+                        'mimeTypes' => ['image/png', 'image/jpeg'], // Accepte uniquement les fichiers PNG et JPG. => serveur analyse le fichier uploadé pour contrer la faille upload
                         'mimeTypesMessage' => 'Veuillez uploader une image PNG ou JPG', //  Affiche ce message si le fichier n'est pas du bon type.
                     ]),
                 ],
