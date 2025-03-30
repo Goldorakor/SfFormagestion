@@ -133,15 +133,15 @@
             <a href="{{ path('show_module', {'id' : planification.module.id}) }}" class="clickable-div">
                 <div class="fiche-module">
                     <div class="fiche-champ">
-                        <span class="fiche-violet">Module {{ loop.index }} :</span>&nbsp;<div>{{ planification.module.nomModule }}</div>
+                        <span class="fiche-violet">Module {{ loop.index }}&nbsp;:</span>&nbsp;<div>{{ planification.module.nomModule }}</div>
                     </div>
     
                     <div class="fiche-champ">
-                        <span class="fiche-violet-mini">Description :</span>&nbsp;<div class="fiche-gris-mini">{{ planification.module.description }}</div>
+                        <span class="fiche-violet-mini">Description&nbsp;:</span>&nbsp;<div class="fiche-gris-mini">{{ planification.module.description }}</div>
                     </div>
     
                     <div class="fiche-champ">
-                        <span class="fiche-violet">Durée :</span>&nbsp;<div>{{ planification.formattedDuration02 }}</div>
+                        <span class="fiche-violet">Durée&nbsp;:</span>&nbsp;<div>{{ planification.formattedDuration02 }}</div>
                     </div>
                     <div class="fiche-champ">
                         <span class="fiche-violet"></span>&nbsp;<div class="fiche-gris-maxi">{{ planification.datesModule }}</div> {# ancienne méthode -> du {{ planification.dateDebut|date("d/m/Y") }} à {{ planification.dateDebut|date("H:i") }} au {{ planification.dateFin|date("d/m/Y") }} à {{ planification.dateFin|date("H:i") }}<br> #}

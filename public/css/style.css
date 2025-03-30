@@ -465,13 +465,13 @@ VUES DE DETAILS
   display: inline;
   color: #4449D5;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .fiche-gris-mini {
   display: inline;
   /* color: #4449D5; */
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .fiche-gris-maxi {
