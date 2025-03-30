@@ -10,16 +10,35 @@
 
     <div class="sous-cont">
 
-        <div>
-            Statut : {% if formateur.sexe == 'F' %}formatrice {{ formateur.statut|lower }}e{% else %}formateur {{ formateur.statut|lower }}{% endif %}<br>
-            {% if formateur.statut == 'salarié' %}{% if formateur.sexe == 'F' %}Salariée{% else %}Salarié{% endif %} de la société :{% if formateur.societe is not null %} {{ formateur.societe.raisonSociale }}{% else %} Forma'Toque{% endif %}{% endif %}
+
+        <div class="details-fiches">
+
+            <div class="fiche-gauche">
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Statut :</span>&nbsp;<div>{% if formateur.sexe == 'F' %}formatrice {{ formateur.statut|lower }}e{% else %}formateur {{ formateur.statut|lower }}{% endif %}</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">{% if formateur.statut == 'salarié' %}{% if formateur.sexe == 'F' %}Salariée{% else %}Salarié{% endif %} de la société :</span>&nbsp;<div>{% if formateur.societe is not null %} {{ formateur.societe.raisonSociale }}{% else %} Forma'Toque{% endif %}{% endif %}</div>
+                </div>
+
+            </div>
+        
+            <div class="fiche-droite">
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Téléphone :</span>&nbsp;<div>{{ formateur.tel }}</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Sexe :</span>&nbsp;<div>{{ formateur.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}</div>
+                </div>
+                
+            </div>
+
         </div>
-    
-    
-        <div>
-            Téléphone : {{ formateur.tel }}<br>
-            Sexe : {{ formateur.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}
-        </div>
+
     
         <h2>Sessions à venir :</h2> <!-- pour les 3 sections suivantes, il faut penser à passer la variable $now = new DateTime dans la méthode show_formateur du FormateurController -->
     
@@ -29,49 +48,49 @@
     
             {% if encadrement.session.dateDebut > now and encadrement.session.dateFin > now %}
                 {% set sessions_a_venir = true %} {# On met la variable à true dès qu'on trouve une session à venir #}
-                <table>
+                <table class="formateur-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                Référence de la session
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">Référence de la session</a>
                             </th>
-                            <th>
-                                Date de début
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Date de début
                             </th>
-                            <th>
-                                Date de fin
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Date de fin
                             </th>
-                            <th>
-                                Type
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Type
                             </th>
-                            <th>
-                                Modalité
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Modalité
                             </th>
-                            <th>
-                                Référent
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Référent
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.titreSession }}<br>
-                                {{ encadrement.session.inscriptions | length }} apprenants inscrits sur {{ encadrement.session.nbPlaces }} places</a>
+                                <span class="mini-rose">{{ encadrement.session.inscriptions | length }} apprenants inscrits sur {{ encadrement.session.nbPlaces }} places</span></a>
                             </td>
-                            <td>
-                                {{ encadrement.session.dateDebut|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.dateDebut|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ encadrement.session.dateFin|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.dateFin|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ encadrement.session.formation.type|upper }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.formation.type|upper }}</a>
                             </td>
-                            <td>
-                                {{ encadrement.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.formation.modalites|capitalize }}</a> <!-- |capitalize pour avoir la première lettre en majuscule -->
                             </td>
-                            <td>
-                                {{ encadrement.typeReferent|capitalize }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.typeReferent|capitalize }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -81,7 +100,7 @@
         {% endfor %}
     
         {% if not sessions_a_venir %} {# Après la boucle for, on vérifie si la variable sessions_a_venir est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session à venir". #}
-            <div>Aucune session à venir</div>
+            <div class="msg-vide">Aucune session à venir</div>
         {% endif %}
     
     
@@ -95,49 +114,49 @@
     
             {% if encadrement.session.dateDebut <= now and encadrement.session.dateFin >= now %} {# on vérifie qu'on trouve au moins un encadrement de ce formateur, avec les bonnes dates de début et de fin #}
                 {% set sessions_en_cours = true %} {# On met la variable à true dès qu'on trouve une session en cours #}
-                <table>
+                <table class="formateur-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                Référence de la session
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">Référence de la session</a>
                             </th>
-                            <th>
-                                Date de début
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Date de début
                             </th>
-                            <th>
-                                Date de fin
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Date de fin
                             </th>
-                            <th>
-                                Type
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Type
                             </th>
-                            <th>
-                                Modalité
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Modalité
                             </th>
-                            <th>
-                                Référent
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Référent
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.titreSession }}<br>
-                                {{ encadrement.session.inscriptions | length }} apprenants inscrits sur {{ encadrement.session.nbPlaces }} places</a>
+                                <span class="mini-rose">{{ encadrement.session.inscriptions | length }} apprenants inscrits sur {{ encadrement.session.nbPlaces }} places</span></a>
                             </td>
-                            <td>
-                                {{ encadrement.session.dateDebut|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.dateDebut|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ encadrement.session.dateFin|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.dateFin|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ encadrement.session.formation.type|upper }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.formation.type|upper }}</a>
                             </td>
-                            <td>
-                                {{ encadrement.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.formation.modalites|capitalize }}</a> <!-- |capitalize pour avoir la première lettre en majuscule -->
                             </td>
-                            <td>
-                                {{ encadrement.typeReferent|capitalize }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.typeReferent|capitalize }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -147,7 +166,7 @@
         {% endfor %}
     
         {% if not sessions_en_cours %} {# Après la boucle for, on vérifie si la variable sessions_en_cours est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session en cours". #}
-            <div>Aucune session en cours</div>
+            <div class="msg-vide">Aucune session en cours</div>
         {% endif %}
     
     
@@ -161,49 +180,49 @@
     
             {% if encadrement.session.dateDebut < now and encadrement.session.dateFin < now %}
                 {% set sessions_terminees = true %} {# On met la variable à true dès qu'on trouve une session terminée #}
-                <table>
+                <table class="formateur-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                Référence de la session
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">Référence de la session</a>
                             </th>
-                            <th>
-                                Date de début
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Date de début
                             </th>
-                            <th>
-                                Date de fin
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Date de fin
                             </th>
-                            <th>
-                                Type
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Type
                             </th>
-                            <th>
-                                Modalité
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Modalité
                             </th>
-                            <th>
-                                Référent
+                            <th class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}"></a>Référent
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.titreSession }}<br>
-                                {{ encadrement.session.inscriptions | length }} apprenants inscrits sur {{ encadrement.session.nbPlaces }} places</a>
+                                <span class="mini-rose">{{ encadrement.session.inscriptions | length }} apprenants inscrits sur {{ encadrement.session.nbPlaces }} places</span></a>
                             </td>
-                            <td>
-                                {{ encadrement.session.dateDebut|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.dateDebut|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ encadrement.session.dateFin|date("d/m/Y") }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.dateFin|date("d/m/Y") }}</a>
                             </td>
-                            <td>
-                                {{ encadrement.session.formation.type|upper }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.formation.type|upper }}</a>
                             </td>
-                            <td>
-                                {{ encadrement.session.formation.modalites|capitalize }} <!-- |capitalize pour avoir la première lettre en majuscule -->
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.session.formation.modalites|capitalize }}</a> <!-- |capitalize pour avoir la première lettre en majuscule -->
                             </td>
-                            <td>
-                                {{ encadrement.typeReferent|capitalize }}
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : encadrement.session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : encadrement.session.id}) }}">{{ encadrement.typeReferent|capitalize }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -213,17 +232,17 @@
         {% endfor %}
     
         {% if not sessions_terminees %} {# Après la boucle for, on vérifie si la variable sessions_terminees est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session terminée". #}
-            <div>Aucune session terminée</div>
+            <div class="msg-vide">Aucune session terminée</div>
         {% endif %}
     
     
     
-        <div>
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer le formateur' #}
+        <div class="postion-rose">
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-trash"></i>Supprimer</a>{% endif %} {# bouton pour supprimer le formateur' #}
     
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">Editer</a>{% endif %} {# bouton pour éditer le formateur #}
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-pen-to-square"></i>Editer</a>{% endif %} {# bouton pour éditer le formateur #}
     
-            <a class="btn btn-rose" href="{{ path('app_formateur') }}">Quitter</a> {# bouton pour retourner à la liste des formateurs #}
+            <a class="btn btn-rose" href="{{ path('app_formateur') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des formateurs #}
         </div>
 
     </div>

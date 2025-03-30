@@ -12,24 +12,47 @@
     <div class="sous-cont">
 
         <div class="details-fiches">
+
             <div class="fiche-gauche">
-                <span class="fiche-violet">Statut :</span>&nbsp;{% if apprenant.sexe == 'F' %}apprenante{% else %}apprenant{% endif %}<br>
-                <div class="fiche-adresse">
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Statut :</span>&nbsp;<div>{% if apprenant.sexe == 'F' %}apprenante{% else %}apprenant{% endif %}</div>
+                </div>
+                
+                <div class="fiche-champ">
                     <span class="fiche-violet">Adresse :</span>&nbsp;<div>
                         {{ apprenant.adresse }}<br>
                         {{ apprenant.codePostal }} {{ apprenant.ville|capitalize }}<br>
                         {{ apprenant.pays|upper }}
                     </div>
                 </div>
-                <span class="fiche-violet">Téléphone :</span>{% if apprenant.tel %}&nbsp;{{ apprenant.tel }}{% else %}&nbsp;numéro non renseigné{% endif %}
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Téléphone :</span>&nbsp;<div>{% if apprenant.tel %}{{ apprenant.tel }}{% else %}numéro non renseigné{% endif %}</div>
+                </div>
+
             </div>
         
             <div class="fiche-droite">
-                <span class="fiche-violet">Date de naissance :</span>&nbsp;{{ apprenant.dateNaissance|date("d/m/Y") }}<br>
-                <span class="fiche-violet">Sexe :</span>&nbsp;{{ apprenant.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}<br>
-                <span class="fiche-violet">Profession :</span>&nbsp;{{ apprenant.metier|lower }}<br>
-                {% if apprenant.sexe == 'F' %}<span class="fiche-violet">Salariée</span>{% else %}<span class="fiche-violet">Salarié</span>{% endif %}<span class="fiche-violet">&nbsp;de la société :</span>{% if apprenant.societe is not null %} {{ apprenant.societe.raisonSociale }}{% else %} non renseigné ou statut de particulier{% endif %}
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Date de naissance :</span>&nbsp;<div>{{ apprenant.dateNaissance|date("d/m/Y") }}</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Sexe :</span>&nbsp;<div>{{ apprenant.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Profession :</span>&nbsp;<div>{{ apprenant.metier|lower }}</div>
+                </div>
+
+                <div class="fiche-champ">
+                    {% if apprenant.sexe == 'F' %}<span class="fiche-violet">Salariée</span>{% else %}<span class="fiche-violet">Salarié</span>{% endif %}<span class="fiche-violet">&nbsp;de la société :</span>&nbsp;<div>{% if apprenant.societe is not null %}{{ apprenant.societe.raisonSociale }}{% else %}non renseigné ou statut de particulier{% endif %}</div>
+                </div>
+                
             </div>
+
         </div>
 
         
@@ -42,7 +65,7 @@
     
             {% if inscription.session.dateDebut > now and inscription.session.dateFin > now %}
                 {% set sessions_a_venir = true %} {# On met la variable à true dès qu'on trouve une session #}
-                <table class="app-details-table">
+                <table class="apprenant-details-table">
                     <thead>
                         <tr>
                             <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}"> {# curseur en forme de main #}
@@ -108,7 +131,7 @@
     
             {% if inscription.session.dateDebut <= now and inscription.session.dateFin >= now %}
                 {% set sessions_en_cours = true %} {# On met la variable à true dès qu'on trouve une session #}
-                <table class="app-details-table">
+                <table class="apprenant-details-table">
                     <thead>
                         <tr>
                             <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}"> {# curseur en forme de main #}
@@ -174,7 +197,7 @@
     
             {% if inscription.session.dateDebut < now and inscription.session.dateFin < now %}
                 {% set sessions_terminees = true %} {# On met la variable à true dès qu'on trouve une session #}
-                <table class="app-details-table">
+                <table class="apprenant-details-table">
                     <thead>
                         <tr>
                             <th class="clickable-row" data-href="{{ path('show_session', {'id' : inscription.session.id}) }}"> {# curseur en forme de main #}

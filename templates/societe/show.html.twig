@@ -10,27 +10,49 @@
 
 
     <div class="sous-cont">
+
+
+        <div class="details-fiches">
+
+            <div class="fiche-gauche">
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Statut :</span>&nbsp;<div>société</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Téléphone :</span>&nbsp;<div>{% if societe.tel %}{{ societe.tel }}{% else %}N° de téléphone non renseigné{% endif %}</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">N° SIRET :</span>&nbsp;<div>{% if societe.numSiret %}{{ societe.numSiret }}{% else %}N° SIRET non renseigné{% endif %}</div>
+                </div>
+
+            </div>
         
-        <div>
-            Statut : société<br>
-            Téléphone : {{ societe.tel }}<br>
-            N° SIRET : {{ societe.numSiret }}
-        </div><br>
-    
-        <div>
-            Adresse du siègle social: <div>
-                {{ societe.adresseSiege }}<br>
-                {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }}<br>
-                {{ societe.paysSiege|upper }}
-            </div><br>
-            
-            Adresse de facturation : <div>
-                {{ societe.adresseFac }}<br>
-                {{ societe.codePostalFac }} {{ societe.villeFac|capitalize }}<br>
-                {{ societe.paysFac|upper }}
-            </div> 
+            <div class="fiche-droite">
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Adresse du siègle social :</span>&nbsp;<div>
+                        {{ societe.adresseSiege }}<br>
+                        {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }}<br>
+                        {{ societe.paysSiege|upper }}
+                    </div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Adresse de facturation :</span>&nbsp;<div>
+                        {{ societe.adresseFac }}<br>
+                        {{ societe.codePostalFac }} {{ societe.villeFac|capitalize }}<br>
+                        {{ societe.paysFac|upper }}
+                    </div>
+                </div>
+                
+            </div>
+
         </div>
-    
+        
+
         {#
         <div>
             Responsable légal : <div>
@@ -58,16 +80,28 @@
         #}
     
         <h2>Responsables de l'entreprise :</h2>
+
+        <div class="details-responsables">  {# beaucoup de div mais j'ai repris la même organisation qu'au dessus #}
     
-        {% for responsabilite in societe.responsabilites %}
-    
-        Responsable {{ responsabilite.typeResponsable }}<br>
-        <a href="{{ path('show_responsable', {'id' : responsabilite.responsable.id}) }}">{{ responsabilite.responsable.prenom|capitalize }} {{ responsabilite.responsable.nom|upper }}</a><br>
-        {{ responsabilite.responsable.email|lower }}<br>
-        {{ responsabilite.responsable.tel }}<br>
-            
-        {% endfor %}
-    
+            {% for responsabilite in societe.responsabilites %}
+
+            <a href="{{ path('show_responsable', {'id' : responsabilite.responsable.id}) }}" class="clickable-div">
+                <div class="fiche-responsable">
+                    <div class="fiche-champ">
+                        <span class="fiche-violet">Responsable {{ responsabilite.typeResponsable }} :</span>&nbsp;<div>
+                            {{ responsabilite.responsable.prenom|capitalize }} {{ responsabilite.responsable.nom|upper }}<br>
+                            {{ responsabilite.responsable.email|lower }}<br>
+                            {{ responsabilite.responsable.tel }}
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            {% endfor %}
+
+        </div>
+
+
         <h2>Salariés de l'entreprise :</h2>
     
         {# on peut avoir nos 3 conditions puisque en réalité, une société possède soit des apprenants, soit des formateurs, soit personne mais jamais des formateurs et des apprenants mélangés 
@@ -105,31 +139,31 @@
     
             {% if apprenant %} {# on vérifie qu'on trouve au moins un apprenant dans la collection d'apprenants de la société #}
                 {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
-                <table>
+                <table class="societe-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                Prénom, NOM
+                            <th class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">Prénom, NOM</a>
                             </th>
-                            <th>
-                                Email
+                            <th class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">Email</a>
                             </th>
-                            <th>
-                                Téléphone
+                            <th class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">Téléphone</a>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">
                                 <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}<br>
-                                Apprenant</a>
+                                <span class="mini-rose">Apprenant</span></a>
                             </td>
-                            <td>
-                                {{ apprenant.email|lower }}
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.email|capitalize }}</a>
                             </td>
-                            <td>
-                                {{ apprenant.tel }}
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.tel }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -144,31 +178,31 @@
     
             {% if formateur %} {# on vérifie qu'on trouve au moins un formateur dans la collection de formateurs de la société #}
                 {% set formateurs_trouves = true %} {# On met la variable à true dès qu'on trouve un formateur #}
-                <table>
+                <table class="societe-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                Prénom, NOM
+                            <th class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
+                                <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">Prénom, NOM</a>
                             </th>
-                            <th>
-                                Email
+                            <th class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
+                                <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">Email</a>
                             </th>
-                            <th>
-                                Téléphone
+                            <th class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
+                                <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">Téléphone</a>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
                                 <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom|capitalize }} {{ formateur.nom|upper }}<br>
-                                Formateur</a>
+                                <span class="mini-rose">Formateur</span></a>
                             </td>
-                            <td>
-                                {{ formateur.email|capitalize }}
+                            <td class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
+                                <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.email|capitalize }}</a>
                             </td>
-                            <td>
-                                {{ formateur.tel }}
+                            <td class="clickable-row" data-href="{{ path('show_formateur', {'id' : formateur.id}) }}">
+                                <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.tel }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -178,16 +212,16 @@
         {% endfor %}
     
         {% if not apprenants_trouves and not formateurs_trouves %} {# Après la boucle for, on vérifie si les variables 'apprenants_trouves' et 'formateurs_trouves' sont toujours false. Si c'est le cas, cela signifie qu'aucun employé (formateur ou apprenant) n'a été trouvée, et donc on affiche le message "Aucun salarié de l’entreprise dans l’annuaire". #}
-            <div>Aucun salarié de l'entreprise dans l'annuaire</div>
+            <div class="msg-vide">Aucun salarié de l'entreprise dans l'annuaire</div>
         {% endif %}
     
     
-        <div>
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_societe', {'id' : societe.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer la société' #}
+        <div class="postion-rose">
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_societe', {'id' : societe.id}) }}"><i class="fa-solid fa-trash"></i>Supprimer</a>{% endif %} {# bouton pour supprimer la société' #}
     
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_societe', {'id' : societe.id}) }}">Editer</a>{% endif %} {# bouton pour éditer la société #}
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_societe', {'id' : societe.id}) }}"><i class="fa-solid fa-pen-to-square"></i>Editer</a>{% endif %} {# bouton pour éditer la société #}
     
-            <a class="btn btn-rose" href="{{ path('app_societe') }}">Quitter</a> {# bouton pour retourner à la liste des sociétés #}
+            <a class="btn btn-rose" href="{{ path('app_societe') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des sociétés #}
         </div>
 
     </div>

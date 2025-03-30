@@ -27,7 +27,7 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   min-width: 100vw;
 }
 
-.sous-cont{
+.sous-cont {
   display : flex;
   margin-left : 230px;
   margin-right: 60px;
@@ -46,7 +46,6 @@ main {
   min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
   min-width: 100vw;
 }
-
 
 h1 {
   color :#790945; /* Change la couleur du texte en rose */
@@ -94,7 +93,7 @@ code css pour les grands bandeaux cliquables (les pages des grandes sections : c
 */
 
 
-.lot-bandeau{
+.lot-bandeau {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -137,7 +136,7 @@ PAGE D'ACCUEIL
 */
 
 
-.accueil-cont{
+.accueil-cont {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -146,7 +145,7 @@ PAGE D'ACCUEIL
 }
 
 
-.accueil-h1{
+.accueil-h1 {
   color :#790945; /* Change la couleur du texte en rose */
   font-size: 50px; /* définit la taille de la police à 50 pixels */
   text-align: center;
@@ -155,7 +154,7 @@ PAGE D'ACCUEIL
 }
 
 
-.accueil-h2{
+.accueil-h2 {
   color :#282828; /* Change la couleur du texte en rose */
   font-size: 50px; /* définit la taille de la police à 50 pixels */
   text-align: center;
@@ -164,7 +163,7 @@ PAGE D'ACCUEIL
 }
 
 
-.accueil-h3{
+.accueil-h3 {
   color :#a2118a; /* Change la couleur du texte en rose */
   font-size: 20px; /* définit la taille de la police à 20 pixels */
   text-align: center;
@@ -173,21 +172,21 @@ PAGE D'ACCUEIL
 }
 
 
-.accueil-boite1{
+.accueil-boite1 {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 }
 
-.accueil-lien{
+.accueil-lien {
   display: block; /* Permet à <a> de se comporter comme un bloc : on n'a pas envie qu'un élément en ligne puisse contenir un bloc */
   text-decoration: none; /* Supprime le soulignement du lien */
   color: inherit; /* Hérite la couleur du texte du parent */
 }
 
 
-.accueil-card{
+.accueil-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -271,7 +270,7 @@ thead tr:hover {
   height: 100%;
   text-decoration: none;
   color: inherit;
-  padding: 10px;
+  padding: 0px 0px 0px 10px; /* la hauteur du rectangle doit rester assez petite : on veut juste un décalage du bord gauche */
 }
 
 
@@ -337,68 +336,101 @@ VUES DE DETAILS
   flex-direction: row;
   width: 100%;
   justify-content: center;
-  align-items: center;
+  align-items: stretch; /* center => stretch : force les div à avoir la même hauteur */
   margin: 0px;
   gap: 20px
 }
 
 .fiche-gauche, .fiche-droite {
-  display: flex;
+  display: flex; /* flex */
   flex-direction: column;
   width: 50%;
   color: #282828;
-  background-color: #ffffff;
-  border-radius: 30px;
+  background-color: #ffffff; /* ffffff */
+  border-radius: 20px;
   font-size: 26px;
   padding: 20px;
 }
 
-.fiche-adresse {
+
+.details-responsables {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: left; /* center pose des soucis */
+  align-items: stretch; /* center => stretch : force les div à avoir la même hauteur */
+  margin: 0px;
+  gap: 20px;
+  flex-wrap: wrap; /* pour que le 3eme rectangle se place correctement en dessous aligné à gauche */
+}
+
+.fiche-responsable {
+  display: flex; /* flex */
+  flex-direction: column; /* on veut des colonnes pour empiler les champs : un seul champ ici donc pas important */
+  width: 100%;  /* 50% pose problème */
+  color: #282828;
+  background-color: #ffffff; /* ffffff */
+  border-radius: 20px;
+  font-size: 26px;
+  padding: 20px;
+  transition: background-color 0.3s;
+}
+
+
+.details-modules {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: left; /* center pose des soucis */
+  align-items: stretch; /* center => stretch : force les div à avoir la même hauteur */
+  margin: 0px;
+  gap: 20px;
+  flex-wrap: wrap; /* pour que le 3eme rectangle se place correctement en dessous aligné à gauche */
+}
+
+.fiche-module {
+  display: flex; /* flex */
+  flex-direction: column; /* on veut des colonnes pour empiler les champs : un seul champ ici donc pas important */
+  width: 100%;  /* 50% pose problème */
+  color: #282828;
+  background-color: #ffffff; /* ffffff */
+  border-radius: 20px;
+  font-size: 26px;
+  padding: 20px;
+  transition: background-color 0.3s;
+}
+
+
+.clickable-div {
+  display: block;
+  flex-direction: row;
+  text-decoration: none; /* Enlève le soulignement du lien */
+  color: inherit; /* Garde la couleur du texte */
+  width: 50%;
+}
+
+.clickable-div:hover .fiche-responsable {
+  background-color: #dedfff; /* Effet au survol */
+}
+
+
+.fiche-champ {
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: flex-start;
   margin: 0px;
+  flex-grow: 1; /* assure un espacement uniforme */
 }
 
-
-.app-details-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  margin-bottom: 20px;
+.fiche-champ a {
+  text-decoration: none;
 }
 
-.app-details-table th {
-  font-size: 26px;
-  color: #4449D5;
-  padding: 18px 0px 0px 0px;
-  text-align: left;
-}
-
-.app-details-table td {
-  font-size: 26px;
-  color: #282828;
-  padding: 0px 0px 10px 0px;
-  border-bottom: 1px solid #ddd;
-  text-align: left; /* pour voir si l'alignement s'effectue correctement */
-}
-
-.app-details-table tr:hover {
-  background-color: #f5f5f5;
-}
-
-.mini-rose{
+.mini-rose {
   font-size: 22px;
   color: #E16FAB;
 }
-
-/* ligne pour que la première ligne du tableau des vues globales ne devienne pas grise au survol de la souris 
-thead tr:hover {
-  background-color: #f5f5f5 !important;
-}
-*/
-
 
 /* Aligner le bouton à droite */
 .postion-rose {
@@ -409,7 +441,7 @@ thead tr:hover {
   gap: 60px;
 }
 
-.msg-vide{
+.msg-vide {
   width: 100%;
   /*border-collapse: collapse;*/
   background-color: white;
@@ -418,13 +450,364 @@ thead tr:hover {
   color: #282828;
   margin: 0;
   font-weight: bold;
+  border-radius: 20px;
 }
 
 
-.fiche-violet{
+
+.fiche-violet {
   display: inline;
   color: #4449D5;
   font-weight: bold;
+}
+
+.fiche-violet-mini {
+  display: inline;
+  color: #4449D5;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.fiche-gris-mini {
+  display: inline;
+  /* color: #4449D5; */
+  font-size: 20px;
+}
+
+.fiche-gris-maxi {
+  display: inline;
+  /* color: #4449D5; */
+  font-weight: bold;
+  font-size: 24px;
+}
+
+
+.session-h1 {
+  color :#790945; /* Change la couleur du texte en rose */
+  font-size: 60px; /* définit la taille de la police à 50 pixels */
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.session-h3 {
+  color :#a2118a; /* Change la couleur du texte en rose */
+  font-size: 24px; /* définit la taille de la police à 24 pixels */
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+
+
+
+/* 
+TABLEAU SHOW-APPRENANT
+*/
+.apprenant-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  table-layout: fixed; /* force le respect des largeurs définies */
+}
+
+/* Définition des largeurs des colonnes */
+.apprenant-details-table th:nth-child(1),
+.apprenant-details-table td:nth-child(1) {
+    width: 25%;
+}
+
+.apprenant-details-table th:nth-child(2),
+.apprenant-details-table td:nth-child(2) {
+    width: 18%;
+}
+
+.apprenant-details-table th:nth-child(3),
+.apprenant-details-table td:nth-child(3) {
+    width: 18%;
+}
+
+.apprenant-details-table th:nth-child(4),
+.apprenant-details-table td:nth-child(4) {
+    width: 14%;
+}
+
+.apprenant-details-table th:nth-child(5),
+.apprenant-details-table td:nth-child(5) {
+    width: 15%;
+}
+
+.apprenant-details-table th:nth-child(6),
+.apprenant-details-table td:nth-child(6) {
+    width: 10%;
+}
+
+.apprenant-details-table th {
+  font-size: 26px;
+  color: #4449D5;
+  padding: 18px 0px 0px 0px;
+  text-align: left;
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.apprenant-details-table td {
+  font-size: 26px;
+  color: #282828;
+  padding: 0px 0px 10px 0px;
+  /* border-bottom: 1px solid #ddd; */
+  text-align: left; /* pour voir si l'alignement s'effectue correctement */
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.apprenant-details-table tr:hover {
+  background-color: #ffffff; /* je ne veux plus que la ligne change de couleur ! #f5f5f5 */
+}
+
+
+/* 
+TABLEAU SHOW-FORMATEUR
+*/
+.formateur-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  table-layout: fixed; /* force le respect des largeurs définies */
+}
+
+/* Définition des largeurs des colonnes */
+.formateur-details-table th:nth-child(1),
+.formateur-details-table td:nth-child(1) {
+    width: 25%;
+}
+
+.formateur-details-table th:nth-child(2),
+.formateur-details-table td:nth-child(2) {
+    width: 18%;
+}
+
+.formateur-details-table th:nth-child(3),
+.formateur-details-table td:nth-child(3) {
+    width: 18%;
+}
+
+.formateur-details-table th:nth-child(4),
+.formateur-details-table td:nth-child(4) {
+    width: 14%;
+}
+
+.formateur-details-table th:nth-child(5),
+.formateur-details-table td:nth-child(5) {
+    width: 15%;
+}
+
+.formateur-details-table th:nth-child(6),
+.formateur-details-table td:nth-child(6) {
+    width: 10%;
+}
+
+.formateur-details-table th {
+  font-size: 26px;
+  color: #4449D5;
+  padding: 18px 0px 0px 0px;
+  text-align: left;
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.formateur-details-table td {
+  font-size: 26px;
+  color: #282828;
+  padding: 0px 0px 10px 0px;
+  /* border-bottom: 1px solid #ddd; */
+  text-align: left; /* pour voir si l'alignement s'effectue correctement */
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.formateur-details-table tr:hover {
+  background-color: #ffffff; /* je ne veux plus que la ligne change de couleur ! #f5f5f5 */
+}
+
+
+/* 
+TABLEAU SHOW-RESPONSABLE
+*/
+.responsable-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  table-layout: fixed; /* force le respect des largeurs définies */
+}
+
+/* Définition des largeurs des colonnes */
+.responsable-details-table th:nth-child(1),
+.responsable-details-table td:nth-child(1) {
+    width: 40%;
+}
+
+.responsable-details-table th:nth-child(2),
+.responsable-details-table td:nth-child(2) {
+    width: 40%;
+}
+
+.responsable-details-table th:nth-child(3),
+.responsable-details-table td:nth-child(3) {
+    width: 20%;
+}
+
+.responsable-details-table th {
+  font-size: 26px;
+  color: #4449D5;
+  padding: 18px 0px 0px 0px;
+  text-align: left;
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.responsable-details-table td {
+  font-size: 26px;
+  color: #282828;
+  padding: 0px 0px 10px 0px;
+  /* border-bottom: 1px solid #ddd; */
+  text-align: left; /* pour voir si l'alignement s'effectue correctement */
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.responsable-details-table tr:hover {
+  background-color: #ffffff; /* je ne veux plus que la ligne change de couleur ! #f5f5f5 */
+}
+
+
+/* 
+TABLEAU SHOW-SOCIETE
+*/
+.societe-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  table-layout: fixed; /* force le respect des largeurs définies */
+}
+
+/* Définition des largeurs des colonnes */
+.societe-details-table th:nth-child(1),
+.societe-details-table td:nth-child(1) {
+    width: 40%;
+}
+
+.societe-details-table th:nth-child(2),
+.societe-details-table td:nth-child(2) {
+    width: 40%;
+}
+
+.societe-details-table th:nth-child(3),
+.societe-details-table td:nth-child(3) {
+    width: 20%;
+}
+
+.societe-details-table th {
+  font-size: 26px;
+  color: #4449D5;
+  padding: 18px 0px 0px 0px;
+  text-align: left;
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.societe-details-table td {
+  font-size: 26px;
+  color: #282828;
+  padding: 0px 0px 10px 0px;
+  /* border-bottom: 1px solid #ddd; */
+  text-align: left; /* pour voir si l'alignement s'effectue correctement */
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.societe-details-table tr:hover {
+  background-color: #ffffff; /* je ne veux plus que la ligne change de couleur ! #f5f5f5 */
+}
+
+
+
+/* 
+TABLEAU SHOW-SESSION
+*/
+.session-details-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  table-layout: fixed; /* force le respect des largeurs définies */
+}
+
+/* Définition des largeurs des colonnes */
+.session-details-table th:nth-child(1),
+.session-details-table td:nth-child(1) {
+    width: 22%;
+}
+
+.session-details-table th:nth-child(2),
+.session-details-table td:nth-child(2) {
+    width: 28%;
+}
+
+.session-details-table th:nth-child(3),
+.session-details-table td:nth-child(3) {
+    width: 15%;
+}
+
+.session-details-table th:nth-child(4),
+.session-details-table td:nth-child(4) {
+    width: 20%;
+}
+
+.session-details-table th:nth-child(5),
+.session-details-table td:nth-child(5) {
+    width: 15%;
+}
+
+.session-details-table th {
+  font-size: 26px;
+  color: #4449D5;
+  padding: 18px 0px 0px 0px;
+  text-align: left;
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.session-details-table td {
+  font-size: 26px;
+  color: #282828;
+  padding: 0px 0px 10px 0px;
+  /* border-bottom: 1px solid #ddd; */
+  text-align: left; /* pour voir si l'alignement s'effectue correctement */
+  vertical-align: middle; /* Aligner les contenus verticalement */
+}
+
+.session-details-table tr:hover {
+  background-color: #ffffff; /* je ne veux plus que la ligne change de couleur ! #f5f5f5 */
+}
+
+.fiche-orange {
+  display: inline;
+  color :#ff4300;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.fiche-orange:hover {
+  color :#ff9944;
+  font-style: italic;
+}
+
+.fiche-orange i {
+  /*font-size: 36px;  pas besoin d'agrandir l'icone */
+  margin-right: 12px; /* Espacement entre l'icône et le nom du référent */
 }
 
 /*

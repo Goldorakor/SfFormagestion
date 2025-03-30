@@ -9,16 +9,36 @@
     <h3>{{ responsable.email|lower }}</h3>
 
     <div class="sous-cont">
+
+
+        <div class="details-fiches">
+
+            <div class="fiche-gauche">
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Statut :</span>&nbsp;<div>responsable</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Fonction :</span>&nbsp;<div>{{ responsable.fonction|lower }}</div>
+                </div>
+
+            </div>
         
-        <div>
-            Statut : responsable<br>
-            Fonction : {{ responsable.fonction|lower }}
+            <div class="fiche-droite">
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Téléphone :</span>&nbsp;<div>{{ responsable.tel }}</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Sexe :</span>&nbsp;<div>{{ responsable.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}</div>
+                </div>
+                
+            </div>
+
         </div>
-    
-        <div>
-            Téléphone : {{ responsable.tel }}<br>
-            Sexe : {{ responsable.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}
-        </div>
+
     
         <h2>Responsabilités :</h2>
     
@@ -27,25 +47,31 @@
         {% for groupe in responsabilitesParSociete %} {# on parcourt la collection de groupes de responsabilités de ce responsable (chaque groupe contient entre 1 et 3 responsabilités-légal/administratif/RH d'une même société) #}
             {% if groupe %} {# condition : on s'assure qu'au moins une responsabilité existe pour ce responsable (au moins un groupe de responsabilité doit être trouvé, sachant qu'un groupe contient au minimum une responsabilité et au maximum 3 responsabilités de la même société) #}
                 {% set responsabilites_du_responsable = true %}
-                <table>
+                <table class="responsable-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                {{ groupe.societe.raisonSociale }}
+                            <th class="clickable-row" data-href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">
+                                <a href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">{{ groupe.societe.raisonSociale }}</a>
                             </th>
-                            <th>
-                                {{ groupe.societe.email|lower }}
+                            <th class="clickable-row" data-href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">
+                                <a href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">{{ groupe.societe.email|lower }}</a>
                             </th>
-                            <th>
-                                {{ groupe.societe.tel }}
+                            <th class="clickable-row" data-href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">
+                                <a href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">{{ groupe.societe.tel }}</a>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for responsabilite in groupe.responsabilites %}
                             <tr>
-                                <td>
-                                    Responsable {{ responsabilite.typeResponsable|lower }}
+                                <td class="clickable-row" data-href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">
+                                    <a href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">Responsable {{ responsabilite.typeResponsable }}</a>
+                                </td>
+                                <td class="clickable-row" data-href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">
+                                    <a href="{{ path('show_societe', {'id' : groupe.societe.id}) }}"></a><!-- vide -->
+                                </td>
+                                <td class="clickable-row" data-href="{{ path('show_societe', {'id' : groupe.societe.id}) }}">
+                                    <a href="{{ path('show_societe', {'id' : groupe.societe.id}) }}"></a><!-- vide -->
                                 </td>
                             </tr>
                         {% endfor %}
@@ -56,16 +82,16 @@
         {% endfor %}
     
         {% if not responsabilites_du_responsable %} {# Après la boucle for, on vérifie si la variable responsabilites_du_responsable est toujours false. Si c'est le cas, cela signifie qu'aucune responsabilité n'a été trouvée, et donc on affiche le message "Aucune responsabilité en cours". #}
-            <div>Aucune responsabilité dans une entreprise</div>
+            <div class="msg-vide">Aucune responsabilité dans une entreprise</div>
         {% endif %}
     
     
-        <div>
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_responsable', {'id' : responsable.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer le responsable #}
+        <div class="postion-rose">
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-trash"></i>Supprimer</a>{% endif %} {# bouton pour supprimer le responsable #}
     
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_responsable', {'id' : responsable.id}) }}">Editer</a>{% endif %} {# bouton pour éditer le responsable #}
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_responsable', {'id' : responsable.id}) }}"><i class="fa-solid fa-pen-to-square"></i>Editer</a>{% endif %} {# bouton pour éditer le responsable #}
     
-            <a class="btn btn-rose" href="{{ path('app_responsable') }}">Quitter</a> {# bouton pour retourner à la liste des responsables #}
+            <a class="btn btn-rose" href="{{ path('app_responsable') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des responsables #}
         </div>
 
     </div>

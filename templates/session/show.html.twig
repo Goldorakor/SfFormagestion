@@ -4,34 +4,55 @@
 
 {% block body %}
 
-
-    <h1>Session : {{ session.formation.nomFormation }}</h1>
-    <h3>du {{ session.dateDebut|date("d/m/Y") }} au {{ session.dateFin|date("d/m/Y") }}</h3>
-
-
     <div class="sous-cont">
 
-        <div>
-            Type : {{ session.formation.type|upper }}<br>
-            Modalité : en {{ session.formation.modalites|lower }}<br>
-            Durée totale : {{ session.formattedDuration }}<br>
-            Prix total : {{ session.totalPrice }}<br>{# autre méthode possible : {% set somme = 0 %} {% for inscription in session.inscriptions %}{% set somme = somme + inscription.prix %}{% endfor %}{{ somme }} euros<br> #}
-            Nb de places restantes : {{ session.nbPlaces  -  session.inscriptions|length }}<br>
-        </div>
-    
-        <h2>
-            Formateurs référents de la session :  
-        </h2>
-    
-        <div>
-            {% for encadrement in session.encadrements %}
-    
-                référent {{ encadrement.typeReferent }}<br>
-                <a href="{{ path('show_formateur', {'id' : encadrement.formateur.id}) }}">{{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }}</a><br>
-                {{ encadrement.formateur.email }}<br>
-                {{ encadrement.formateur.tel }}<br>
-    
-            {% endfor %}
+        <h1 class="session-h1">Session : {{ session.formation.nomFormation }}</h1>
+        <h3 class="session-h3">du {{ session.dateDebut|date("d/m/Y") }} au {{ session.dateFin|date("d/m/Y") }}</h3>
+
+
+        <div class="details-fiches">
+
+            <div class="fiche-gauche">
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Type :</span>&nbsp;<div>{{ session.formation.type|upper }}</div>
+                </div>
+                
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Modalités :</span>&nbsp;<div>en {{ session.formation.modalites|lower }}</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Durée totale :</span>&nbsp;<div>{{ session.formattedDuration }}</div>
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Prix total :</span>&nbsp;<div>{{ session.totalPrice }}</div> {# autre méthode possible : {% set somme = 0 %} {% for inscription in session.inscriptions %}{% set somme = somme + inscription.prix %}{% endfor %}{{ somme }} euros<br> #}
+                </div>
+
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Nb de places restantes :</span>&nbsp;<div>{{ session.nbPlaces  -  session.inscriptions|length }}</div>
+                </div>
+
+            </div>
+        
+            <div class="fiche-droite">
+
+                {% for encadrement in session.encadrements %}
+
+                    <div class="fiche-champ">
+                        <span class="fiche-violet">référent {{ encadrement.typeReferent }} :</span>&nbsp;<div>
+                            <a href="{{ path('show_formateur', {'id' : encadrement.formateur.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }}</span></a><br>
+                            {{ encadrement.formateur.email }}<br>
+                            {{ encadrement.formateur.tel }}
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+                
+            </div>
+
         </div>
         
     
@@ -54,42 +75,42 @@
     
             {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session #}
                 {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
-                <table>
+                <table class="session-details-table">
                     <thead>
                         <tr>
-                            <th>
-                                Prénom, NOM
+                            <th class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">Prénom, NOM</a>
                             </th>
-                            <th>
-                                Email
+                            <th class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">Email</a>
                             </th>
-                            <th>
-                                Téléphone
+                            <th class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">Téléphone</a>
                             </th>
-                            <th>
-                                Société
+                            <th class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">Société</a>
                             </th>
-                            <th>
-                                Prix (en euros)
+                            <th class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">Prix (en euros)</a>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
-                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">{{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }} </a>
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">{{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }}</a>
                             </td>
-                            <td>
-                                {{ inscription.apprenant.email|lower }}
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">{{ inscription.apprenant.email|lower }}</a>
                             </td>
-                            <td>
-                                {{ inscription.apprenant.tel }}
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">{{ inscription.apprenant.tel }}</a>
                             </td>
-                            <td>
-                                {% if inscription.apprenant.societe is not null %} {{ inscription.apprenant.societe.raisonSociale }}{% else %} -{% endif %}
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">{% if inscription.apprenant.societe is not null %} {{ inscription.apprenant.societe.raisonSociale }}{% else %} -{% endif %}</a>
                             </td>
-                            <td>
-                                {{ inscription.prix }}
+                            <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">
+                                <a href="{{ path('show_apprenant', {'id' : inscription.apprenant.id}) }}">{{ inscription.prix }}</a>
                             </td>
                         </tr>
                     </tbody>
@@ -102,29 +123,43 @@
             <div>Aucun apprenant de l'annuaire inscrit à cette session</div>
         {% endif %}
     
+
+        <h2>Modules enseignés pendant la session :</h2>
+
+        <div class="details-modules">
     
+            {% for planification in session.planifications %}
+
+            <a href="{{ path('show_module', {'id' : planification.module.id}) }}" class="clickable-div">
+                <div class="fiche-module">
+                    <div class="fiche-champ">
+                        <span class="fiche-violet">Module {{ loop.index }} :</span>&nbsp;<div>{{ planification.module.nomModule }}</div>
+                    </div>
     
-        <h2>
-            Modules enseignés pendant la session : 
-        </h2>
+                    <div class="fiche-champ">
+                        <span class="fiche-violet-mini">Description :</span>&nbsp;<div class="fiche-gris-mini">{{ planification.module.description }}</div>
+                    </div>
     
-        {% for planification in session.planifications %}
+                    <div class="fiche-champ">
+                        <span class="fiche-violet">Durée :</span>&nbsp;<div>{{ planification.formattedDuration02 }}</div>
+                    </div>
+                    <div class="fiche-champ">
+                        <span class="fiche-violet"></span>&nbsp;<div class="fiche-gris-maxi">{{ planification.datesModule }}</div> {# ancienne méthode -> du {{ planification.dateDebut|date("d/m/Y") }} à {{ planification.dateDebut|date("H:i") }} au {{ planification.dateFin|date("d/m/Y") }} à {{ planification.dateFin|date("H:i") }}<br> #}
+                    </div>
+                </div>
+            </a>
+
+            {% endfor %}
+
+        </div>
+
     
-            <div>
-                <a href="{{ path('show_module', {'id' : planification.module.id}) }}">{{ planification.module.nomModule }}</a><br>
-                Desription : {{ planification.module.description }}<br>
-                Durée : {{ planification.formattedDuration02 }}<br>   
-                {{ planification.datesModule }}<br><br><br> {# ancienne méthode -> du {{ planification.dateDebut|date("d/m/Y") }} à {{ planification.dateDebut|date("H:i") }} au {{ planification.dateFin|date("d/m/Y") }} à {{ planification.dateFin|date("H:i") }}<br> #}
-            </div>
-            
-        {% endfor %}
+        <div class="postion-rose">
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}"><i class="fa-solid fa-trash"></i>Supprimer</a>{% endif %} {# bouton pour supprimer la session #}
     
-        <div>
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}">Supprimer</a>{% endif %} {# bouton pour supprimer la session #}
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i>Editer</a>{% endif %} {# bouton pour éditer la session #}
     
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_session', {'id' : session.id}) }}">Editer</a>{% endif %} {# bouton pour éditer la session #}
-    
-            <a class="btn btn-rose" href="{{ path('app_session') }}">Quitter</a> {# bouton pour retourner à la liste des sessions #}
+            <a class="btn btn-rose" href="{{ path('app_session') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des sessions #}
         </div>
 
     </div>
@@ -135,4 +170,8 @@
 
 {#
 public function getFormattedDuration()
+
+Twig fournit un objet loop dans les boucles for, avec plusieurs propriétés utiles :
+loop.index0 : commence à 0 et s'incrémente à chaque itération.
+loop.index : commence à 1 et s'incrémente aussi à chaque itération.
 #}
