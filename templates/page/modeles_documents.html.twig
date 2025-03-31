@@ -4,10 +4,13 @@
 
 {% block body %}
 
+
+<div class="sous-cont">
+
     <h1>Liste des modèles de documents</h1>
     <h3>Cette liste contient 12 modèles de documents administratifs à fournir à divers intervenants</h3>
 
-        <table>
+        <table class="documents-table">
             <thead>
                 <tr>
                     <th>
@@ -26,174 +29,177 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>
-                        <a href="">Programme</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Programme</a>
                     </td>
-                    <td>
-                        Apprenant, responsables
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Apprenant, responsables</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Contrat formateur</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Contrat formateur</a>
                     </td>
-                    <td>
-                        Formateur
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Formateur</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Convocation</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Convocation</a>
                     </td>
-                    <td>
-                        Apprenant, responsables
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Apprenant, responsables</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Convention</a>
+                    <td class="clickable-row" data-href="{{ path('generer_convention', {'sessionId': 1, 'societeId': 1}) }}">
+                        <a href="{{ path('generer_convention', {'sessionId': 1, 'societeId': 1}) }}">Convention</a>
                     </td>
-                    <td>
-                        Société
+                    <td class="clickable-row" data-href="{{ path('generer_convention', {'sessionId': 1, 'societeId': 1}) }}">
+                        <a href="{{ path('generer_convention', {'sessionId': 1, 'societeId': 1}) }}">Société</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('generer_convention', {'sessionId': 1, 'societeId': 1}) }}">
+                        <a href="{{ path('generer_convention', {'sessionId': 1, 'societeId': 1}) }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('generer_convention', {'sessionId': 1, 'societeId': 1}) }}">
+                        <a href="{{ path('generer_convention', {'sessionId': 1, 'societeId': 1}) }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Feuille d'émargement</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Feuille d'émargement</a>
                     </td>
-                    <td>
-                        Société
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Société</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Attestation de fin de formation</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Attestation de fin de formation</a>
                     </td>
-                    <td>
-                        Apprenant
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Apprenant</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Attestation de présence</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Attestation de présence</a>
                     </td>
-                    <td>
-                        Apprenant
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Apprenant</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Relevé de connexion</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Relevé de connexion</a>
                     </td>
-                    <td>
-                        Apprenant
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Apprenant</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Relevé d'évaluation</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Relevé d'évaluation</a>
                     </td>
-                    <td>
-                        Apprenant
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Apprenant</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Attestation d'assiduité</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Attestation d'assiduité</a>
                     </td>
-                    <td>
-                        Apprenant
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Apprenant</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Certificat de réalisation</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Certificat de réalisation</a>
                     </td>
-                    <td>
-                        Apprenant
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Apprenant</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
-                        <a href="">Contrat client particulier</a>
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Contrat client particulier</a>
                     </td>
-                    <td>
-                        Apprenant
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Apprenant</a>
                     </td>
-                    <td>
-                        Manuel
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Manuel</a>
                     </td>
-                    <td>
-                        Oui
+                    <td class="clickable-row" data-href="{{ path('construction') }}">
+                        <a href="{{ path('construction') }}">Oui</a>
                     </td>   
                 </tr>
             </tbody>
-        </table> 
+        </table>
+
+</div>
+
 
 {% endblock %}

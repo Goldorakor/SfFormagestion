@@ -4,16 +4,19 @@
 
 {% block body %}
 
+
+<div class="sous-cont">
+
     <h1>Comptes utilisateurs</h1>
     <h3>Liste de tous les comptes utilisateurs et du rôle de chacun</h3>
 
-    <div>
-        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_utilisateur') }}" class="btn btn-rose">Créer un utilisateur</a>{% endif %}
+    <div class="postion-purple">
+        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_utilisateur') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer un utilisateur</a>{% endif %}
     </div>
 
     {% if users|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
 
-        <table>
+        <table class="documents-table">
             <thead>
                 <tr>
                     <th>
@@ -33,17 +36,17 @@
             <tbody>
                 {% for user in users %}
                     <tr>
-                        <td>
+                        <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
                             {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.email|lower }}</a>{% endif %}
                         </td>
-                        <td>
-                            {{ user.nom|upper }}
+                        <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.nom|upper }}</a>{% endif %}
                         </td>
-                        <td>
-                            {{ user.prenom|capitalize }}
+                        <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.prenom|capitalize }}</a>{% endif %}
                         </td>
-                        <td>
-                            {{ user.roles[0] }} {# c'est stocké sous forme de tableau, à un seul élément auquel j'accède avec [0] #}
+                        <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.roles[0] }}</a>{% endif %} {# c'est stocké sous forme de tableau, à un seul élément auquel j'accède avec [0] #}
                         </td>
                     </tr>
                 {% endfor %}
@@ -55,7 +58,10 @@
         <div>Aucun utilisateur n'est présent pour le moment.</div>
 
     {% endif %}
-   
+
+</div>
+
+    
 {% endblock %}
 
 

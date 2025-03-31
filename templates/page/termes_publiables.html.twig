@@ -4,10 +4,13 @@
 
 {% block body %}
 
+
+<div class="sous-cont">
+
     <h1>Termes publiables</h1>
     <h3>Les termes publiables sont des textes juridiques qui informent des droits des utilisateurs</h3>
 
-        <table>
+        <table class="documents-table">
             <thead>
                 <tr>
                     <th>
@@ -20,30 +23,33 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>
+                    <td class="clickable-row" data-href="{{ path('reglement_interieur_page') }}">
                         <a href="{{ path('reglement_interieur_page') }}">Règlement intérieur</a>
                     </td>
-                    <td>
-                        12/02/2023
+                    <td class="clickable-row" data-href="{{ path('reglement_interieur_page') }}">
+                        <a href="{{ path('reglement_interieur_page') }}">12/02/2023</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="clickable-row" data-href="{{ path('conditions_generales_utilisation_page') }}">
                         <a href="{{ path('conditions_generales_utilisation_page') }}">Conditions générales d'utilisation</a>
                     </td>
-                    <td>
-                        18/06/2023
+                    <td class="clickable-row" data-href="{{ path('conditions_generales_utilisation_page') }}">
+                        <a href="{{ path('conditions_generales_utilisation_page') }}">18/06/2023</a>
                     </td>   
                 </tr>
                 <tr>
-                    <td>
+                    <td class="clickable-row" data-href="{{ path('conditions_generales_vente_page') }}">
                         <a href="{{ path('conditions_generales_vente_page') }}">Conditions générales de vente</a>
                     </td>
-                    <td>
-                        15/02/2023
+                    <td class="clickable-row" data-href="{{ path('conditions_generales_vente_page') }}">
+                        <a href="{{ path('conditions_generales_vente_page') }}">15/02/2023</a>
                     </td>
                 </tr>
             </tbody>
-        </table> 
+        </table>
+
+</div>
+
 
 {% endblock %}

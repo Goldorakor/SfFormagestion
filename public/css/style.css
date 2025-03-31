@@ -9,7 +9,7 @@ PAGES VIOLETTES
 
 html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   width: 100%;
-  overflow-x: hidden; /* Empêche le défilement horizontal */
+  overflow-x: hidden; /* empêche le défilement horizontal */
 }
 
 
@@ -23,7 +23,7 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   display : flex;
   background-color:#fcf2f5; /* #fcf2f5 */
   margin-left: 0;
-  min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
+  min-height: 100vh; /* assure que le fond prend au moins toute la hauteur de l'écran */
   min-width: 100vw;
 }
 
@@ -40,15 +40,15 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 
 
 main {
-  margin-left: 10px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar */
-  margin-right: 10px; /* Décale le contenu principal pour équilibrer entre droite et gauche */
+  margin-left: 10px; /* décale le contenu principal pour éviter qu'il soit sous la navbar */
+  margin-right: 10px; /* décale le contenu principal pour équilibrer entre droite et gauche */
   padding: 15px 0 0 0;
-  min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
+  min-height: 100vh; /* assure que le fond prend au moins toute la hauteur de l'écran */
   min-width: 100vw;
 }
 
 h1 {
-  color :#790945; /* Change la couleur du texte en rose */
+  color :#790945; /* change la couleur du texte en rose */
   font-size: 70px; /* définit la taille de la police à 50 pixels */
   text-align: center;
   margin-top: 50px;
@@ -66,7 +66,7 @@ h2 {
 }
 
 h3 {
-  color :#a2118a; /* Change la couleur du texte en rose */
+  color :#a2118a; /* change la couleur du texte en rose */
   font-size: 24px; /* définit la taille de la police à 24 pixels */
   text-align: center;
   margin-top: 0px;
@@ -104,12 +104,12 @@ code css pour les grands bandeaux cliquables (les pages des grandes sections : c
 }
 
 .bandeau {
-  display: block;                  /* Rend le <a> cliquable sur toute la largeur */
-  text-decoration: none;           /* Supprime le soulignement */
-  color: #282828;                /* Garde la couleur du texte */
-  padding: 5px 15px 15px 10px;     /* Ajoute de l’espace intérieur entre le contenu (le texte) et la bordure du a */
-  margin-top: 15px;                /* Ajoute de l’espace au dessus des bandeaux */
-  margin-bottom: 15px;             /* Ajoute de l’espace en dessous des bandeaux */
+  display: block;                  /* rend le <a> cliquable sur toute la largeur */
+  text-decoration: none;           /* supprime le soulignement */
+  color: #282828;                /* garde la couleur du texte */
+  padding: 5px 15px 15px 10px;     /* ajoute de l’espace intérieur entre le contenu (le texte) et la bordure du a */
+  margin-top: 15px;                /* ajoute de l’espace au dessus des bandeaux */
+  margin-bottom: 15px;             /* ajoute de l’espace en dessous des bandeaux */
   border: 0px solid #ccc;        /* mettre une bordure éventuellement qui sera pleine et en gris clair*/
   background-color: #ffffff;     /* on souhaite un fond blanc */
   border-radius: 10px;             /* pour les bords arrondis */
@@ -117,7 +117,7 @@ code css pour les grands bandeaux cliquables (les pages des grandes sections : c
 }
 
 .bandeau:hover {
-  background-color: #efefff; /* Petit effet 'violet clair' au survol */
+  background-color: #efefff; /* petit effet 'violet clair' au survol */
 }
 
 
@@ -150,7 +150,7 @@ PAGE D'ACCUEIL
 
 
 .accueil-h1 {
-  color :#790945; /* Change la couleur du texte en rose */
+  color :#790945; /* change la couleur du texte en rose */
   font-size: 50px; /* définit la taille de la police à 50 pixels */
   text-align: center;
   margin-top: 50px;
@@ -159,7 +159,7 @@ PAGE D'ACCUEIL
 
 
 .accueil-h2 {
-  color :#282828; /* Change la couleur du texte en rose */
+  color :#282828; /* change la couleur du texte en rose */
   font-size: 50px; /* définit la taille de la police à 50 pixels */
   text-align: center;
   margin-top: 50px;
@@ -168,7 +168,7 @@ PAGE D'ACCUEIL
 
 
 .accueil-h3 {
-  color :#a2118a; /* Change la couleur du texte en rose */
+  color :#a2118a; /* change la couleur du texte en rose */
   font-size: 20px; /* définit la taille de la police à 20 pixels */
   text-align: center;
   margin-top: 0px;
@@ -184,9 +184,9 @@ PAGE D'ACCUEIL
 }
 
 .accueil-lien {
-  display: block; /* Permet à <a> de se comporter comme un bloc : on n'a pas envie qu'un élément en ligne puisse contenir un bloc */
-  text-decoration: none; /* Supprime le soulignement du lien */
-  color: inherit; /* Hérite la couleur du texte du parent */
+  display: block; /* permet à <a> de se comporter comme un bloc : on n'a pas envie qu'un élément en ligne puisse contenir un bloc */
+  text-decoration: none; /* supprime le soulignement du lien */
+  color: inherit; /* hérite la couleur du texte du parent */
 }
 
 
@@ -208,7 +208,7 @@ PAGE D'ACCUEIL
   /*margin-right : 30px;  on ne souhaite pas coller le logo au bord du document */
   width: 400px;
   height: 400px;
-  object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+  object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
 
@@ -280,19 +280,19 @@ thead tr:hover {
 
 /* Styliser les icônes d'édition et de suppression */
 .icon-btn-gris i {
-  font-size: 1.3em; /* Agrandit légèrement les icônes */
-  color: #5b5b5b; /* Gris foncé */
+  font-size: 1.3em; /* agrandit légèrement les icônes */
+  color: #5b5b5b; /* gris foncé */
 }
 
 .icon-btn-gris:hover i {
-  color: red; /* Rouge au survol */
+  color: red; /* rouge au survol */
 }
 
 
 /* Styliser le bouton "Créer un apprenant" */
 .btn.btn-rose {
-  display: inline-flex; /* Permet d'aligner l'icône et le texte correctement */
-  align-items: center; /* Centre verticalement le contenu */
+  display: inline-flex; /* permet d'aligner l'icône et le texte correctement */
+  align-items: center; /* centre verticalement le contenu */
   background-color: #4449D5; /* Violet */
   color: #ffffff; /* Écriture blanche */
   padding: 8px 25px 12px 25px;
@@ -305,7 +305,7 @@ thead tr:hover {
 
 .btn.btn-rose i {
   font-size: 36px; /* l'icone n'est pas assez grande */
-  margin-right: 12px; /* Espacement entre l'icône et le texte */
+  margin-right: 12px; /* espacement entre l'icône et le texte */
 }
 
 .btn.btn-rose:hover {
@@ -316,7 +316,7 @@ thead tr:hover {
 .postion-purple {
   display: flex;
   justify-content: flex-end;
-  width: 100%; /* Assure que le div prend toute la largeur disponible */
+  width: 100%; /* assure que le div prend toute la largeur disponible */
   margin-bottom: 20px;
 }
 
@@ -409,12 +409,12 @@ VUES DE DETAILS
   display: block;
   flex-direction: row;
   text-decoration: none; /* Enlève le soulignement du lien */
-  color: inherit; /* Garde la couleur du texte */
+  color: inherit; /* garde la couleur du texte */
   width: 50%;
 }
 
 .clickable-div:hover .fiche-responsable {
-  background-color: #dedfff; /* Effet au survol */
+  background-color: #dedfff; /* effet au survol */
 }
 
 
@@ -436,11 +436,11 @@ VUES DE DETAILS
   color: #E16FAB;
 }
 
-/* Aligner le bouton à droite */
+/* aligner le bouton à droite */
 .postion-rose {
   display: flex;
   justify-content: center;
-  width: 100%; /* Assure que le div prend toute la largeur disponible */
+  width: 100%; /* assure que le div prend toute la largeur disponible */
   margin-top: 60px;
   gap: 60px;
 }
@@ -487,7 +487,7 @@ VUES DE DETAILS
 
 
 .session-h1 {
-  color :#790945; /* Change la couleur du texte en rose */
+  color :#790945; /* change la couleur du texte en rose */
   font-size: 60px; /* définit la taille de la police à 50 pixels */
   text-align: center;
   margin-top: 50px;
@@ -496,7 +496,7 @@ VUES DE DETAILS
 }
 
 .session-h3 {
-  color :#a2118a; /* Change la couleur du texte en rose */
+  color :#a2118a; /* change la couleur du texte en rose */
   font-size: 24px; /* définit la taille de la police à 24 pixels */
   text-align: center;
   margin-top: 0px;
@@ -555,7 +555,7 @@ TABLEAU SHOW-APPRENANT
   color: #4449D5;
   padding: 18px 0px 0px 0px;
   text-align: left;
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .apprenant-details-table td {
@@ -564,7 +564,7 @@ TABLEAU SHOW-APPRENANT
   padding: 0px 0px 10px 0px;
   /* border-bottom: 1px solid #ddd; */
   text-align: left; /* pour voir si l'alignement s'effectue correctement */
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .apprenant-details-table tr:hover {
@@ -620,7 +620,7 @@ TABLEAU SHOW-FORMATEUR
   color: #4449D5;
   padding: 18px 0px 0px 0px;
   text-align: left;
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .formateur-details-table td {
@@ -629,7 +629,7 @@ TABLEAU SHOW-FORMATEUR
   padding: 0px 0px 10px 0px;
   /* border-bottom: 1px solid #ddd; */
   text-align: left; /* pour voir si l'alignement s'effectue correctement */
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .formateur-details-table tr:hover {
@@ -649,7 +649,7 @@ TABLEAU SHOW-RESPONSABLE
   table-layout: fixed; /* force le respect des largeurs définies */
 }
 
-/* Définition des largeurs des colonnes */
+/* définition des largeurs des colonnes */
 .responsable-details-table th:nth-child(1),
 .responsable-details-table td:nth-child(1) {
     width: 40%;
@@ -670,7 +670,7 @@ TABLEAU SHOW-RESPONSABLE
   color: #4449D5;
   padding: 18px 0px 0px 0px;
   text-align: left;
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .responsable-details-table td {
@@ -679,7 +679,7 @@ TABLEAU SHOW-RESPONSABLE
   padding: 0px 0px 10px 0px;
   /* border-bottom: 1px solid #ddd; */
   text-align: left; /* pour voir si l'alignement s'effectue correctement */
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .responsable-details-table tr:hover {
@@ -699,7 +699,7 @@ TABLEAU SHOW-SOCIETE
   table-layout: fixed; /* force le respect des largeurs définies */
 }
 
-/* Définition des largeurs des colonnes */
+/* définition des largeurs des colonnes */
 .societe-details-table th:nth-child(1),
 .societe-details-table td:nth-child(1) {
     width: 40%;
@@ -720,7 +720,7 @@ TABLEAU SHOW-SOCIETE
   color: #4449D5;
   padding: 18px 0px 0px 0px;
   text-align: left;
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .societe-details-table td {
@@ -729,7 +729,7 @@ TABLEAU SHOW-SOCIETE
   padding: 0px 0px 10px 0px;
   /* border-bottom: 1px solid #ddd; */
   text-align: left; /* pour voir si l'alignement s'effectue correctement */
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .societe-details-table tr:hover {
@@ -750,7 +750,7 @@ TABLEAU SHOW-SESSION
   table-layout: fixed; /* force le respect des largeurs définies */
 }
 
-/* Définition des largeurs des colonnes */
+/* définition des largeurs des colonnes */
 .session-details-table th:nth-child(1),
 .session-details-table td:nth-child(1) {
     width: 22%;
@@ -781,7 +781,7 @@ TABLEAU SHOW-SESSION
   color: #4449D5;
   padding: 18px 0px 0px 0px;
   text-align: left;
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .session-details-table td {
@@ -790,7 +790,7 @@ TABLEAU SHOW-SESSION
   padding: 0px 0px 10px 0px;
   /* border-bottom: 1px solid #ddd; */
   text-align: left; /* pour voir si l'alignement s'effectue correctement */
-  vertical-align: middle; /* Aligner les contenus verticalement */
+  vertical-align: middle; /* aligner les contenus verticalement */
 }
 
 .session-details-table tr:hover {
@@ -811,7 +811,7 @@ TABLEAU SHOW-SESSION
 
 .fiche-orange i {
   /*font-size: 36px;  pas besoin d'agrandir l'icone */
-  margin-right: 12px; /* Espacement entre l'icône et le nom du référent */
+  margin-right: 12px; /* espacement entre l'icône et le nom du référent */
 }
 
 /*
@@ -873,7 +873,7 @@ Tableau de suivi administratif d'une' session
 }
 
 
-/* Définition des largeurs des colonnes du tableau récapitulatif */
+/* définition des largeurs des colonnes du tableau récapitulatif */
 .recap-table th:nth-child(1),
 .recap-table td:nth-child(1) {
     width: 20%;
