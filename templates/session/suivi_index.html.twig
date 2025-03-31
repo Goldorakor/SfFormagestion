@@ -4,6 +4,9 @@
 
 {% block body %}
 
+<div class="sous-cont">
+
+
     <h1>Sessions</h1>
     <h3>Suivi administratif des sessions en cours de traitement</h3>
     {# {% for session in sessions %}
@@ -16,7 +19,7 @@
 
     {% if sessions|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
 
-        <table>
+        <table class="apprenants-table">
             <thead>
                 <tr>
                     <th>
@@ -45,27 +48,27 @@
             <tbody>
                 {% for session in sessions %}
                     <tr>
-                        <td>
+                        <td class="clickable-row" data-href="{{ path('suivi_show_session', {'id' : session.id}) }}">
                             <a href="{{ path('suivi_show_session', {'id' : session.id}) }}">{{ session.titreSession }}<br>
-                            {{ session.inscriptions|length }} apprenants inscrits</a>
+                            <span class="mini-rose">{{ session.inscriptions|length }} apprenants inscrits</span></a>
                         </td>
-                        <td>
-                            {{ session.dateDebut|date("d/m/Y") }}
+                        <td class="clickable-row" data-href="{{ path('suivi_show_session', {'id' : session.id}) }}">
+                            <a href="{{ path('suivi_show_session', {'id' : session.id}) }}">{{ session.dateDebut|date("d/m/Y") }}</a>
                         </td>
-                        <td>
-                            {{ session.dateFin|date("d/m/Y") }}
+                        <td class="clickable-row" data-href="{{ path('suivi_show_session', {'id' : session.id}) }}">
+                            <a href="{{ path('suivi_show_session', {'id' : session.id}) }}">{{ session.dateFin|date("d/m/Y") }}</a>
                         </td>
-                        <td>
-                            {{ session.formation.type|upper }}
+                        <td class="clickable-row" data-href="{{ path('suivi_show_session', {'id' : session.id}) }}">
+                            <a href="{{ path('suivi_show_session', {'id' : session.id}) }}">{{ session.formation.type|upper }}</a>
                         </td>
-                        <td>
-                            {{ session.formation.modalites|capitalize }}
+                        <td class="clickable-row" data-href="{{ path('suivi_show_session', {'id' : session.id}) }}">
+                            <a href="{{ path('suivi_show_session', {'id' : session.id}) }}">{{ session.formation.modalites|capitalize }}</a>
                         </td>
-                        <td>
-                            {{ session.nbPlaces }}
+                        <td class="clickable-row" data-href="{{ path('suivi_show_session', {'id' : session.id}) }}">
+                            <a href="{{ path('suivi_show_session', {'id' : session.id}) }}">{{ session.nbPlaces }}</a>
                         </td>
-                        <td>
-                            {{ session.totalPrice }} {# méthode function getTotalPrice() de Session.php #}
+                        <td class="clickable-row" data-href="{{ path('suivi_show_session', {'id' : session.id}) }}">
+                            <a href="{{ path('suivi_show_session', {'id' : session.id}) }}">{{ session.totalPrice }}</a> {# méthode function getTotalPrice() de Session.php #}
                         </td>
                     </tr>
                 {% endfor %}
@@ -78,10 +81,8 @@
 
     {% endif %}
 
+</div>
 
-    <div>
-        <a href="{{ path('new_session') }}" class="btn btn-rose">Créer une session</a><br><br>
-    </div>
 
 {% endblock %}
 

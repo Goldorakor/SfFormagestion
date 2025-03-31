@@ -4,10 +4,10 @@
 
 {% block body %}
 
-    <h1>Liste des responsables</h1>
-    <h3>Votre annuaire compte {{ responsables|length }} intervenants répertoriés</h3>
-
     <div class="sous-cont">
+
+        <h1>Liste des responsables</h1>
+        <h3>Votre annuaire compte {{ responsables|length }} intervenants répertoriés</h3>
 
         <div class="postion-purple">
             {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_responsable') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer un responsable</a>{% endif %}

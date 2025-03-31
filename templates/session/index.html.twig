@@ -4,10 +4,11 @@
 
 {% block body %}
 
-    <h1>Sessions</h1>
-    <h3>Récapitulatif des sessions en cours de traitement</h3>
-
     <div class="sous-cont">
+
+        <h1>Sessions</h1>
+        <h3>Récapitulatif des sessions en cours de traitement</h3>
+
 
         <div class="postion-purple">
             {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_session') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer une session</a>{% endif %}
@@ -57,7 +58,7 @@
                         <tr>
                             <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }}<br>
-                                {{ session.inscriptions|length }} apprenants inscrits</a>
+                                <span class="mini-rose">{{ session.inscriptions|length }} apprenants inscrits</span></a>
                             </td>
                             <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.dateDebut|date("d/m/Y") }}</a>

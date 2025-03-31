@@ -4,10 +4,11 @@
 
 {% block body %}
 
-    <h1>Formations</h1>
-    <h3>Récapitulatif des formations disponibles pour générer des sessions</h3>
-
     <div class="sous-cont">
+
+        <h1>Formations</h1>
+        <h3>Récapitulatif des formations disponibles pour générer des sessions</h3>
+
 
         <div class="postion-purple">
             {% if is_granted('ROLE_ADMIN') %}<a href="" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer une formation</a>{% endif %} {# ce bouton n'est pas actif dans le MVP #}
