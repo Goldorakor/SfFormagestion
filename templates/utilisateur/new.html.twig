@@ -4,6 +4,8 @@
 
 {% block body %}
 
+<div class="sous-cont">
+
     {% if not edit %}<h1>Créer un utilisateur</h1>{% else %}<h1>{{ user.prenom }} {{ user.nom }}</h1>{% endif %} {# dans UtilisateurController, on a bien passé la vriable : 'apprenants' => $apprenants #}
     {% if not edit %}<h3>Saisissez les informations essentielles du nouvel utilisateur</h3>{% else %}<h3>{{ user.email }}</h3>{% endif %}
     
@@ -44,11 +46,14 @@
         </div>
 
 
-        <div>
+        <div class="postion-rose">
             {{ form_end(formAddUtilisateur) }}
             {% if is_granted('ROLE_ADMIN') %}{% if edit %}<a class="btn btn-rose" href="{{ path('delete_utilisateur', {'id' : user.id}) }}">Supprimer</a>{% endif %}{% endif %} {# bouton pour supprimer l'utilisateur ==> si on est en création, le bouton Supprimer ne s’affichera pas (logique, car l’utilisateur n’existe pas encore) #}
             <a class="btn btn-rose" href="{{ path('app_utilisateur') }}">Quitter</a> {# bouton pour retourner à la liste des utilisateurs #}
         </div>
+
+
+</div>
 
 {% endblock %}
 

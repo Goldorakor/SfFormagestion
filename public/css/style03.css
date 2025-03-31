@@ -182,7 +182,7 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 
 
 .convention-horraires {
-  width: 70%;
+  width: 60%;
   border-collapse: collapse;
   margin: 20px 0;
   font-size: 16px;
@@ -217,7 +217,7 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 
 /* Styles généraux pour les tableaux */
 .convention-effectif {
-  width: 50%;
+  width: 40%;
   border-collapse: collapse;
   margin: 20px 0;
   font-size: 16px;

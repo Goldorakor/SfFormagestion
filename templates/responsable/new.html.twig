@@ -4,11 +4,13 @@
 
 {% block body %}
 
+<div class="sous-cont">
+
 
     {% if not edit %}<h1>Créer un responsable</h1>{% else %}<h1>Modifier un responsable</h1>{% endif %}
     {% if not edit %}<h3>Saisissez les informations essentielles du nouveau responsable</h3>{% else %}<h3>Modifiez les informations essentielles du responsable</h3>{% endif %}
 
-    <div class="sous-cont">
+    
 
         {# {{ form(formAddResponsable) }} #}
 
@@ -57,13 +59,13 @@
             {{ form_errors(formAddResponsable.fonction) }}
         </div>
 
-        <div>
+        <div class="postion-rose">
             {{ form_end(formAddResponsable) }}
             <a class="btn btn-rose" href="{{ path('app_responsable') }}">Quitter</a> {# bouton pour retourner à la liste des responsables #}
         </div>
 
-    </div>
 
+</div>
 
 {% endblock %}
 
