@@ -909,6 +909,131 @@ Tableau de suivi administratif d'une' session
     width: 15%;
 }
 
+/*
+
+Fin tableau de suivi administratif d'une' session
+
+*/
+
+
+
+
+
+/*
+
+FORMULAIRES
+
+*/
+
+
+.form-cell{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Style global du formulaire */
+form {
+  max-width: 1000px; /* Ajuste la largeur max selon ton besoin */
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9; /* Couleur de fond */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des labels */
+label {
+  color: #444444; /* Gris foncé */
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 22px;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #b83d3d;
+}
+
+/* Alignement des divs sur une seule ligne */
+.form-ligne01 {
+  display: flex;
+  gap: 15px; /* Espacement entre les champs */
+  margin-bottom: 15px; /* Espacement entre les lignes */
+}
+
+.form-ligne01.sexe{
+  width: 20%;
+}
+
+.form-ligne01.nom{
+  width: 40%;
+}
+
+.form-ligne01.prenom{
+  width: 40%;
+}
+
+.form-ligne01.tel{
+  width: 20%;
+}
+
+.form-ligne01.email{
+  width: 80%;
+}
+
+.form-ligne01.adresse{
+  width: 30%;
+}
+
+.form-ligne01.codePostal{
+  width: 10%;
+}
+
+.form-ligne01.ville{
+  width: 30%;
+}
+
+.form-ligne01.pays{
+  width: 30%;
+}
+
+.form-ligne01.societe{
+  width: 20%;
+}
+
+.form-ligne01.dateNaissance{
+  width: 20%;
+}
+
+.form-ligne01.metier{
+  width: 20%;
+}
+
+/* Style des champs de formulaire */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select {
+  width: 100%; /* Prend toute la largeur de son conteneur */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Bords arrondis */
+  background-color: #fff; /* Fond blanc */
+  font-size: 16px;
+  height: 40px; /* Hauteur ajustable */
+  box-sizing: border-box; /* Évite que le padding change la taille du champ */
+}
+
+
+/*
+
+FIN FORMULAIRES
+
+*/
+
 
 
 
@@ -949,5 +1074,3 @@ BOUTONS "ENREGISTRER" DES FORMULAIRES
 FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
 
 */
-
-

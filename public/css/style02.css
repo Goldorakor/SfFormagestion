@@ -192,6 +192,28 @@ FIN DES VUES D'ENSEMBLE
 
 
 
+/*
+
+FORMULAIRES
+
+*/
+
+
+.form-cell{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/*
+
+FIN FORMULAIRES
+
+*/
+
+
+
 
 
 /*
