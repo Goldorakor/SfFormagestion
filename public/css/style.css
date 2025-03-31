@@ -840,6 +840,7 @@ Tableau de suivi administratif d'une' session
   color: #ffffff;
   /* width: 100%; */
   height: 80px;
+  font-weight: bold;
 }
 
 .suivi-bande-couleur td a {
@@ -848,9 +849,10 @@ Tableau de suivi administratif d'une' session
 }
 
 .boutondocu {
-  border: 3px solid #fabd17;
+  border: 3px solid #b68a11;
   border-radius: 30px;
-  padding: 5px;
+  padding: 5px 10px;
+  background-color: #b68a11;
 }
 
 
@@ -860,12 +862,6 @@ Tableau de suivi administratif d'une' session
   background-color: white;
 }
 
-.recap-table th {
-  font-size: 22px;
-  color: #ffffff;
-  padding: 18px 0px 22px 18px; /* 18px 0px 22px 16px */
-  text-align: left;
-}
 
 .recap-table td {
   font-size: 22px;
