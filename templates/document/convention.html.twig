@@ -4,336 +4,340 @@
 
 {% block body %}
 
-
-{# logo du haut de la page #}
-<header>
-    {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
-    <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
-    {% endif %}
-</header>
-
-<h1>CONVENTION DE FORMATION PROFESSIONNELLE CONTINUE</h1>
+<div class="sous-cont">
 
 
-<h3>Entre les soussignés :</h3>
+    {# logo du haut de la page #}
+    <header>
+        {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
+        <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+        {% endif %}
+    </header>
 
-<p>
-    L'organisme de formation : {{ entreprise.raisonSociale }}, <br>
-    {{ entreprise.adresseSiege }} - {{ entreprise.codePostalSiege }} {{ entreprise.villeSiege|capitalize }},<br>
-    Représentée par {{ representant.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ representant.prenom|capitalize }} {{ representant.nom|upper }},<br>
-</p>
-<p>
-    Numéro de déclaration d'activité : {{ entreprise.numDeclaActivite }},<br>
-    Obtenu auprès de la préfecture de la {{ entreprise.prefectureRegion }},<br>
-    N° SIRET : {{ entreprise.numSiret }},
-</p>
-
-<h3>
-    et
-</h3>
-
-<p>
-    la société {{ societe.raisonSociale }},<br>
-    {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }},<br>
-    Représentée par {{ responsableLegal.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ responsableLegal.prenom|capitalize }} {{ responsableLegal.nom|upper }}<br>
-    (ci-après dénommée le bénéficiaire)
-</p>
-
-<p>
-    L'organisme de formation {{ entreprise.raisonSociale }} s'engage à réaliser l'action de formation prévue par la présente convention dans les conditions fixées aux articles L.6353 2 et D.6353 1 du Code du travail.
-</p>
+    <h1>CONVENTION DE FORMATION PROFESSIONNELLE CONTINUE</h1>
 
 
-<h3>
-    Intitulé de l'action de formation :
-</h3>
-<p>
-    {{ session.formation.nomFormation }}.
-</p>
+    <h3>Entre les soussignés :</h3>
 
-<h3>
-    Objectifs, programme et méthodes : 
-</h3>
+    <p>
+        L'organisme de formation : {{ entreprise.raisonSociale }}, <br>
+        {{ entreprise.adresseSiege }} - {{ entreprise.codePostalSiege }} {{ entreprise.villeSiege|capitalize }},<br>
+        Représentée par {{ representant.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ representant.prenom|capitalize }} {{ representant.nom|upper }},<br>
+    </p>
+    <p>
+        Numéro de déclaration d'activité : {{ entreprise.numDeclaActivite }},<br>
+        Obtenu auprès de la préfecture de la {{ entreprise.prefectureRegion }},<br>
+        N° SIRET : {{ entreprise.numSiret }},
+    </p>
 
-<p>
-    détaillés dans le programme de formation joint en document annexe de la convention.
-</p>
+    <h3>
+        et
+    </h3>
 
+    <p>
+        la société {{ societe.raisonSociale }},<br>
+        {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }},<br>
+        Représentée par {{ responsableLegal.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ responsableLegal.prenom|capitalize }} {{ responsableLegal.nom|upper }}<br>
+        (ci-après dénommée le bénéficiaire)
+    </p>
 
-<h3>
-    Intervenante : 
-</h3>
-
-<p>
-    formatrice confirmée (au moins 6 années d'expérience) dans le domaine de la nutrition et de l'hygiène alimentaire.
-</p>
-
-<h3>
-    Type d'action de formation : 
-</h3>
-
-<p>
-    action d'adaptation et de développement des compétences des salariés.
-</p>
-
-<h3>
-    Durée de la formation : 
-</h3>
-
-<p>
-    {{ session.getFormattedDuration() }}. {# {{ session.FormattedDuration }} ne fonctionne pas #}
-</p>
+    <p>
+        L'organisme de formation {{ entreprise.raisonSociale }} s'engage à réaliser l'action de formation prévue par la présente convention dans les conditions fixées aux articles L.6353 2 et D.6353 1 du Code du travail.
+    </p>
 
 
-<h3>
-    Dates et horaires de la session de formation : 
-</h3>
+    <h3>
+        Intitulé de l'action de formation :
+    </h3>
+    <p>
+        {{ session.formation.nomFormation }}.
+    </p>
 
-<table>
-    <thead>
-        <tr>
-            <th>
-                Nom du module enseigné
-            </th>
-            <th>
-                Horaires
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for planification in session.planifications %}
-            <tr>
-                <td>
-                    {{ planification.module.nomModule }}{{ planification.module.description }}
-                </td>
-                <td>
-                    {{ planification.datesModule }}
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <h3>
+        Objectifs, programme et méthodes : 
+    </h3>
+
+    <p>
+        détaillés dans le programme de formation joint en document annexe de la convention.
+    </p>
 
 
-<h3>
-    Lieu de réalisation de la formation : 
-</h3>
+    <h3>
+        Intervenante : 
+    </h3>
 
-<p>
-    {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
-</p>
+    <p>
+        formatrice confirmée (au moins 6 années d'expérience) dans le domaine de la nutrition et de l'hygiène alimentaire.
+    </p>
 
-<h3>
-    Effectif de la formation :
-</h3>
+    <h3>
+        Type d'action de formation : 
+    </h3>
 
-<p>
-    {{ session.inscriptions|length }} {% if session.inscriptions|length == 1 %}participant {% else %}participants {% endif %}(pour un maximum de {{session.nbPlaces}}  participants).
-</p>
+    <p>
+        action d'adaptation et de développement des compétences des salariés.
+    </p>
 
- 
-{% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
+    <h3>
+        Durée de la formation : 
+    </h3>
+
+    <p>
+        {{ session.getFormattedDuration() }}. {# {{ session.FormattedDuration }} ne fonctionne pas #}
+    </p>
+
+
+    <h3>
+        Dates et horaires de la session de formation : 
+    </h3>
 
     <table>
         <thead>
             <tr>
                 <th>
-                    Prénom et Nom de l'apprenant
+                    Nom du module enseigné
                 </th>
                 <th>
-                    Fonction de l'apprenant
+                    Horaires
                 </th>
             </tr>
         </thead>
         <tbody>
-        {% for inscription in session.inscriptions %}
-            {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session #}
-                {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
-                        <tr>
-                            <td>
-                                {{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }}
-                            </td>
-                            <td>
-                                {{ inscription.apprenant.metier|lower }}
-                            </td>
-                        </tr>
-            {% endif %} 
-        {% endfor %}
+            {% for planification in session.planifications %}
+                <tr>
+                    <td>
+                        {{ planification.module.nomModule }}{{ planification.module.description }}
+                    </td>
+                    <td>
+                        {{ planification.datesModule }}
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-    {% if not apprenants_trouves %} {# Après la boucle for, on vérifie si la variable 'apprenants_trouves' est toujours false. Si c'est le cas, cela signifie qu'aucun apprenant (en réalité, aucune inscription) n'a été trouvé, et donc on affiche le message "Aucun apprenant de l'annuaire inscrit à cette session". #}
-        <div>Aucun apprenant de l'annuaire inscrit à cette session</div>
-    {% endif %}
 
+    <h3>
+        Lieu de réalisation de la formation : 
+    </h3>
+
+    <p>
+        {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
+    </p>
+
+    <h3>
+        Effectif de la formation :
+    </h3>
+
+    <p>
+        {{ session.inscriptions|length }} {% if session.inscriptions|length == 1 %}participant {% else %}participants {% endif %}(pour un maximum de {{session.nbPlaces}}  participants).
+    </p>
 
     
+    {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
 
-<h2>Modalités de déroulement de la formation :</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Prénom et Nom de l'apprenant
+                    </th>
+                    <th>
+                        Fonction de l'apprenant
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for inscription in session.inscriptions %}
+                {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session #}
+                    {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
+                            <tr>
+                                <td>
+                                    {{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }}
+                                </td>
+                                <td>
+                                    {{ inscription.apprenant.metier|lower }}
+                                </td>
+                            </tr>
+                {% endif %} 
+            {% endfor %}
+            </tbody>
+        </table>
 
-<h3>Moyens pédagogiques</h3>
-<p>détaillés dans le programme de formation joint en annexe de la convention.</p>
-
-
-<h3>Moyens techniques</h3>{% if session.formation.modalites =='présentiel' %}
-<ul>
-    <li>
-        Salle de formation et /ou cuisine
-    </li>
-    <li>
-        Vidéoprojecteur et écran (ou mur blanc)
-    </li>
-    <li>
-        Tableau ou paperboard
-    </li>
-    <li>
-        Tables et chaises
-    </li>
-    <li>
-        Matériel nécessaire à la prise de notes
-    </li>
-</ul>{% else %}
-<ul>
-    <li>
-        Ordinateur équipé d'une webcam, d'un microphone et d'un système audio
-    </li>
-    <li>
-        Connexion internet de bonne qualité
-    </li>
-    <li>
-        Téléphone portable ou smartphone
-    </li>
-    <li>
-        Matériel nécessaire à la prise de notes
-    </li>
-    <li>
-        Lien de connexion envoyé par mail quelques jours avant la formation
-    </li>
-</ul>{% endif %}
+        {% if not apprenants_trouves %} {# Après la boucle for, on vérifie si la variable 'apprenants_trouves' est toujours false. Si c'est le cas, cela signifie qu'aucun apprenant (en réalité, aucune inscription) n'a été trouvé, et donc on affiche le message "Aucun apprenant de l'annuaire inscrit à cette session". #}
+            <div>Aucun apprenant de l'annuaire inscrit à cette session</div>
+        {% endif %}
 
 
+        
 
-<h3>Moyens d'encadrement :</h3>
-<p>{{ session.formation.programme.moyensEnca }}</p>
+    <h2>Modalités de déroulement de la formation :</h2>
 
-<p>
-    Lorsque la formation se déroule dans les locaux du bénéficiaire ou mis à disposition par le bénéficiaire, celui-ci atteste que lesdits locaux sont correctement entretenus et conformes à l'accueil du public et qu'ils sont équipés de manière à assurer le parfait déroulement de la formation.
-</p>
-
-<p>
-    Le règlement intérieur de l'entreprise bénéficiaire est applicable concernant les mesures de santé et de sécurité lorsque la formation se déroule dans ses locaux.
-</p>
+    <h3>Moyens pédagogiques</h3>
+    <p>détaillés dans le programme de formation joint en annexe de la convention.</p>
 
 
-<h3>
-    Moyens permettant de suivre l'exécution de l'action :
-</h3>
-
-<p>
-    {% if session.formation.modalites =='présentiel' %}La feuille d'émargement atteste la réalisation de la formation.{% endif %}{% if session.formation.modalites =='distanciel' %}La copie d'écran lors de la formation et/ou l'émargement numérique attestent la réalisation de la formation.{% endif %}
-</p>
-
-<h3>
-    Moyens permettant d'apprécier les résultats de l'action (par une procédure d'évaluation) :
-</h3>
-
-<p>
-    Les apprenants bénéficient de tests d'évaluation des connaissances sous la forme de travaux dirigés et/ou de mise en situation et d'un questionnement tout au long de la formation. Un questionnaire d'évaluation en fin de formation permet d'évaluer les connaissances acquises.
-</p>
-
-<h3>
-    Modalités de contrôle de l'assiduité :
-</h3>
-
-<p>
-    {% if session.formation.modalites =='présentiel' %} Le certificat de réalisation atteste l'assiduité durant la formation.{% else %} Le certificat de réalisation atteste l'assiduité durant la formation.{% endif %}
-</p>
-
-<h3>
-    Sanction de la formation :
-</h3>
-
-<p>
-    À l'issue de la formation, une attestation de formation mentionnant les objectifs, la nature et la durée de l'action est envoyée par mail au stagiaire.
-</p>
-
-<h3>
-    Coût de la prestation :
-</h3>
-
-<p>
-    Le coût de la formation, objet de la présente, s'élève à :
-</p>
-
-<ul>
-    <li>
-        Prix de la formation : {{ (prix_total.totalPaye/(apprenants_soc|length))|number_format(2, ',', ' ') }} € HT par participant
-    </li>
-    <li>
-        Nombre de participants de l'entreprise {{ societe.raisonSociale }} : {{ apprenants_soc|length }}
-    </li>
-    <li>
-        Total HT : {{ prix_total.totalPaye|number_format(2, ',', ' ') }} €
-    </li>
-    <li>
-        TVA 20% : {{ (prix_total.totalPaye*20/100)|number_format(2, ',', ' ') }} €
-    </li>
-    <li>
-        Total TTC : {{ (prix_total.totalPaye*120/100)|number_format(2, ',', ' ') }} €
-    </li>
-</ul>
-
-<p>
-    Cette somme couvre l'intégralité des frais engagés par l'organisme de formation pour cette session.
-</p>
-
-<h3>Modalités de règlement :</h3>
-
-<p>
-    Le paiement sera dû après réalisation de la formation, à réception de la facture.
-</p>
-
-<p>
-    L'organisme de formation s'engage à délivrer une prestation de formation de qualité, conformément au décret n° 2019-564 du 6 juin 2019 relatif à la qualité des actions de la formation professionnelle.
-</p>
+    <h3>Moyens techniques</h3>{% if session.formation.modalites =='présentiel' %}
+    <ul>
+        <li>
+            Salle de formation et /ou cuisine
+        </li>
+        <li>
+            Vidéoprojecteur et écran (ou mur blanc)
+        </li>
+        <li>
+            Tableau ou paperboard
+        </li>
+        <li>
+            Tables et chaises
+        </li>
+        <li>
+            Matériel nécessaire à la prise de notes
+        </li>
+    </ul>{% else %}
+    <ul>
+        <li>
+            Ordinateur équipé d'une webcam, d'un microphone et d'un système audio
+        </li>
+        <li>
+            Connexion internet de bonne qualité
+        </li>
+        <li>
+            Téléphone portable ou smartphone
+        </li>
+        <li>
+            Matériel nécessaire à la prise de notes
+        </li>
+        <li>
+            Lien de connexion envoyé par mail quelques jours avant la formation
+        </li>
+    </ul>{% endif %}
 
 
 
-<div>
-    Fait en double exemplaire<br>
-    À {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
-</div>
+    <h3>Moyens d'encadrement :</h3>
+    <p>{{ session.formation.programme.moyensEnca }}</p>
 
-<div class="signatures">
+    <p>
+        Lorsque la formation se déroule dans les locaux du bénéficiaire ou mis à disposition par le bénéficiaire, celui-ci atteste que lesdits locaux sont correctement entretenus et conformes à l'accueil du public et qu'ils sont équipés de manière à assurer le parfait déroulement de la formation.
+    </p>
+
+    <p>
+        Le règlement intérieur de l'entreprise bénéficiaire est applicable concernant les mesures de santé et de sécurité lorsque la formation se déroule dans ses locaux.
+    </p>
+
+
+    <h3>
+        Moyens permettant de suivre l'exécution de l'action :
+    </h3>
+
+    <p>
+        {% if session.formation.modalites =='présentiel' %}La feuille d'émargement atteste la réalisation de la formation.{% endif %}{% if session.formation.modalites =='distanciel' %}La copie d'écran lors de la formation et/ou l'émargement numérique attestent la réalisation de la formation.{% endif %}
+    </p>
+
+    <h3>
+        Moyens permettant d'apprécier les résultats de l'action (par une procédure d'évaluation) :
+    </h3>
+
+    <p>
+        Les apprenants bénéficient de tests d'évaluation des connaissances sous la forme de travaux dirigés et/ou de mise en situation et d'un questionnement tout au long de la formation. Un questionnaire d'évaluation en fin de formation permet d'évaluer les connaissances acquises.
+    </p>
+
+    <h3>
+        Modalités de contrôle de l'assiduité :
+    </h3>
+
+    <p>
+        {% if session.formation.modalites =='présentiel' %} Le certificat de réalisation atteste l'assiduité durant la formation.{% else %} Le certificat de réalisation atteste l'assiduité durant la formation.{% endif %}
+    </p>
+
+    <h3>
+        Sanction de la formation :
+    </h3>
+
+    <p>
+        À l'issue de la formation, une attestation de formation mentionnant les objectifs, la nature et la durée de l'action est envoyée par mail au stagiaire.
+    </p>
+
+    <h3>
+        Coût de la prestation :
+    </h3>
+
+    <p>
+        Le coût de la formation, objet de la présente, s'élève à :
+    </p>
+
+    <ul>
+        <li>
+            Prix de la formation : {{ (prix_total.totalPaye/(apprenants_soc|length))|number_format(2, ',', ' ') }} € HT par participant
+        </li>
+        <li>
+            Nombre de participants de l'entreprise {{ societe.raisonSociale }} : {{ apprenants_soc|length }}
+        </li>
+        <li>
+            Total HT : {{ prix_total.totalPaye|number_format(2, ',', ' ') }} €
+        </li>
+        <li>
+            TVA 20% : {{ (prix_total.totalPaye*20/100)|number_format(2, ',', ' ') }} €
+        </li>
+        <li>
+            Total TTC : {{ (prix_total.totalPaye*120/100)|number_format(2, ',', ' ') }} €
+        </li>
+    </ul>
+
+    <p>
+        Cette somme couvre l'intégralité des frais engagés par l'organisme de formation pour cette session.
+    </p>
+
+    <h3>Modalités de règlement :</h3>
+
+    <p>
+        Le paiement sera dû après réalisation de la formation, à réception de la facture.
+    </p>
+
+    <p>
+        L'organisme de formation s'engage à délivrer une prestation de formation de qualité, conformément au décret n° 2019-564 du 6 juin 2019 relatif à la qualité des actions de la formation professionnelle.
+    </p>
+
+
+
     <div>
-        <p>
-            Pour l'organisme de formation<br>
-            {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|capitalize }}
-        </p>
-        <div class="signature">
-            {% if representant is not null and representant.tamponFilename is not empty %}
-            <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
-            {% endif %}
+        Fait en double exemplaire<br>
+        À {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
+    </div>
+
+    <div class="signatures">
+        <div>
+            <p>
+                Pour l'organisme de formation<br>
+                {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|capitalize }}
+            </p>
+            <div class="signature">
+                {% if representant is not null and representant.tamponFilename is not empty %}
+                <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <p>
+                Pour l'entreprise bénéficiaire<br>
+                (Signature, Nom et Qualité du signataire)<br>
+                Cachet de l'entreprise                 
+            </p>
+            <div class="signature"></div>
         </div>
     </div>
-    <div>
+
+
+    <!-- pied de page -->
+    <footer>
         <p>
-            Pour l'entreprise bénéficiaire<br>
-            (Signature, Nom et Qualité du signataire)<br>
-            Cachet de l'entreprise                 
+        {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
+        Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
         </p>
-        <div class="signature"></div>
-    </div>
+    </footer>
+
+
 </div>
-
-
-<!-- pied de page -->
-<footer>
-    <p>
-    {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
-    Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
-    </p>
-</footer>
-
 
 {% endblock %}

@@ -32,12 +32,23 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
     min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
     min-width: 100vw;
   }
+
+
+  .sous-cont {
+    display : flex;
+    margin-left : 230px;
+    margin-bottom: 80px;
+    width: 80%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
   
   
   main {
-    margin-left: 10px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar 110 */
-    margin-right: 10px; /* Décale le contenu principal pour équilibrer entre droite et gauche */
-    padding: 15px 0 0 0;
+    margin-left: 0px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar 110 */
+    margin-right: 0px; /* Décale le contenu principal pour équilibrer entre droite et gauche */
+    padding: 0px 0 0 0;
     min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
     min-width: 100vw;
   }
@@ -54,6 +65,7 @@ h1 {
     padding: 10px; /* Espace entre le texte et la bordure */
     /* display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
     /* border-radius: 10px;  on arrondit les coins => c'est moche en fait !  */
+    width: 100%;
 }
 
 
@@ -99,6 +111,7 @@ style pour l'affichage du tampon et la signature du dirigeant de l'organisme de 
 .signatures {
     display : flex;
     justify-content: space-around;
+    width: 100%;
 }
 
 
@@ -123,6 +136,7 @@ header {
     text-align : right;
     margin-top : 15px; /* on ne souhaite pas coller le logo en haut du docvument */
     margin-right : 30px; /* on ne souhaite pas coller le logo au bord du docvument */
+    width: 100%;
 }
 
 header img {
@@ -154,4 +168,5 @@ footer {
     padding-bottom: 10px; /* ne pas coller le footer au bas de la page mais laisser un petit espace */
     border-top: 1px solid #d8d8d8; /* ajoute une bordure supérieure (1 pixel d'épaisseur, trait plein (solid), gris clair (#d8d8d8)) => séparer visuellement le pied de page du reste du contenu avec un trait discret */
     line-height: 1.4; /* définit l’espacement vertical entre les lignes de texte (hauteur de ligne) à 1.4 fois la taille de la police => améliore la lisibilité */
+    width: 100%;
 }

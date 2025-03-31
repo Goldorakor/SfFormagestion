@@ -27,6 +27,17 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   min-width: 100vw;
 }
 
+.sous-cont {
+  display : flex;
+  margin-left : 230px;
+  margin-right: 60px;
+  margin-bottom: 80px;
+  width: 85%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 
 main {
   margin-left: 10px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar 110 */
