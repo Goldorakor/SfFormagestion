@@ -986,6 +986,74 @@ Chaque ligne est un flex container */
 .form-cell.metier { flex-basis: 20%; }
 
 
+
+
+/* Style des champs de formulaire */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select {
+  width: 100%; /* Prend toute la largeur de son conteneur */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Bords arrondis */
+  background-color: #fff; /* Fond blanc */
+  font-size: 16px;
+  height: 40px; /* Hauteur ajustable */
+  box-sizing: border-box; /* Évite que le padding change la taille du champ */
+}
+
+
+/*
+
+FIN FORMULAIRES
+
+*/
+
+
+
+
+
+/*
+
+BOUTONS "ENREGISTRER" DES FORMULAIRES
+
+INUTILES => dans les Types, je passe la classe souhaitée directement (les boutons violets)
+
+
+.sous-cont button {
+  display: inline-flex; /* permet d'aligner l'icône et le texte correctement
+  align-items: center; /* centre verticalement le contenu
+  background-color: #4449D5; /* Violet
+  color: #ffffff; /* Écriture blanche
+  padding: 8px 25px 12px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 26px;
+  /* font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.sous-cont button i {
+  font-size: 36px; /* l'icone n'est pas assez grande
+  margin-right: 12px; /* espacement entre l'icône et le texte
+}
+
+
+.sous-cont button:hover {
+  background-color: #2e32a6; /* Violet foncé au survol
+}
+
+
+/*
+
+FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
+
+*/
+
+
+
 /*
 .form-ligne01.sexe{
   width: 20%;
@@ -1034,68 +1102,4 @@ Chaque ligne est un flex container */
 .form-ligne01.metier{
   width: 20%;
 }
-*/
-
-/* Style des champs de formulaire */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="date"],
-select {
-  width: 100%; /* Prend toute la largeur de son conteneur */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px; /* Bords arrondis */
-  background-color: #fff; /* Fond blanc */
-  font-size: 16px;
-  height: 40px; /* Hauteur ajustable */
-  box-sizing: border-box; /* Évite que le padding change la taille du champ */
-}
-
-
-/*
-
-FIN FORMULAIRES
-
-*/
-
-
-
-
-
-/*
-
-BOUTONS "ENREGISTRER" DES FORMULAIRES
-
-
-
-
-.sous-cont button {
-  display: inline-flex; /* permet d'aligner l'icône et le texte correctement
-  align-items: center; /* centre verticalement le contenu
-  background-color: #4449D5; /* Violet
-  color: #ffffff; /* Écriture blanche
-  padding: 8px 25px 12px 25px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-size: 26px;
-  /* font-weight: bold;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.sous-cont button i {
-  font-size: 36px; /* l'icone n'est pas assez grande
-  margin-right: 12px; /* espacement entre l'icône et le texte
-}
-
-
-.sous-cont button:hover {
-  background-color: #2e32a6; /* Violet foncé au survol
-}
-
-
-/*
-
-FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
-
 */

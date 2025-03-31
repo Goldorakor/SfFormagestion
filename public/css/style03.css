@@ -168,3 +168,105 @@ footer {
     line-height: 1.4; /* définit l’espacement vertical entre les lignes de texte (hauteur de ligne) à 1.4 fois la taille de la police => améliore la lisibilité */
     width: 100%;
 }
+
+
+
+/*
+
+TABLEAUX DU DOCUMENT "CONVENTION"
+
+*/
+
+
+/* Styles généraux pour les tableaux */
+
+
+.convention-horraires {
+  width: 70%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+/* Styles pour les en-têtes des tableaux */
+.convention-horraires th {
+  background-color: #cafafc;
+  color: #282828;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Styles pour les cellules */
+.convention-horraires td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Alternance des couleurs pour les lignes */
+.convention-horraires tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.convention-horraires tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+
+
+
+/* Styles généraux pour les tableaux */
+.convention-effectif {
+  width: 50%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+/* Styles pour les en-têtes des tableaux */
+.convention-effectif th {
+  background-color: #cafafc;
+  color: #282828;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Styles pour les cellules */
+.convention-effectif td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Alternance des couleurs pour les lignes */
+.convention-effectif tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.convention-effectif tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+
+
+
+/* Ajustement des tableaux spécifiques */
+.convention-horraires th, .convention-effectif th {
+  font-weight: bold;
+}
+
+.convention-horraires td, .convention-effectif td {
+  text-align: center;
+}
+
+/* Ajout d'un peu d'espace autour des tableaux */
+.convention-horraires, .convention-effectif {
+  margin-bottom: 30px;
+}
+
+
+/*
+
+FIN TABLEAUX DU DOCUMENT "CONVENTION"
+
+*/

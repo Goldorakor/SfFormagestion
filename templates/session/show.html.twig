@@ -130,7 +130,7 @@
     
             {% for planification in session.planifications %}
 
-            <a href="{{ path('show_module', {'id' : planification.module.id}) }}" class="clickable-div">
+            <a href="{{ path('construction') }}" class="clickable-div"> {# <a href="{{ path('show_module', {'id' : planification.module.id}) }}" class="clickable-div"></a> #}
                 <div class="fiche-module">
                     <div class="fiche-champ">
                         <span class="fiche-violet">Module {{ loop.index }}&nbsp;:</span>&nbsp;<div>{{ planification.module.nomModule }}</div>

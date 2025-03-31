@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="fiche-champ">
-                    <span class="fiche-violet">{% if formateur.statut == 'salarié' %}{% if formateur.sexe == 'F' %}Salariée{% else %}Salarié{% endif %} de la société :</span>&nbsp;<div>{% if formateur.societe is not null %} {{ formateur.societe.raisonSociale }}{% else %} Forma'Toque{% endif %}{% endif %}</div>
+                    <span class="fiche-violet">{% if formateur.statut == 'salarié' %}{% if formateur.sexe == 'F' %}Salariée{% else %}Salarié{% endif %} de la société :</span>&nbsp;<div>{% if formateur.societe is not null %}<a href="{{ path('show_societe', {'id' : formateur.societe.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ formateur.societe.raisonSociale }}</span></a>{% else %}Forma'Toque{% endif %}{% endif %}</div>
                 </div>
 
             </div>
