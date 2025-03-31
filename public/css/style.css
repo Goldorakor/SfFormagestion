@@ -21,8 +21,8 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 
 .container {
   display : flex;
-  background-color:#fcf2f5; /* #fcf2f5 */
-  margin-left: 0;
+  background-color:#fcf2f5;
+  margin: 0;
   min-height: 100vh; /* assure que le fond prend au moins toute la hauteur de l'écran */
   min-width: 100vw;
 }
@@ -38,6 +38,9 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   align-items: flex-start;
 }
 
+.sous-cont form {
+  width: 100%;
+}
 
 main {
   margin-left: 10px; /* décale le contenu principal pour éviter qu'il soit sous la navbar */
@@ -436,7 +439,7 @@ VUES DE DETAILS
   color: #E16FAB;
 }
 
-/* aligner le bouton à droite */
+/* aligner les boutons au centre */
 .postion-rose {
   display: flex;
   justify-content: center;
@@ -903,3 +906,46 @@ Tableau de suivi administratif d'une' session
 .recap-table td:nth-child(6) {
     width: 15%;
 }
+
+
+
+
+
+/*
+
+BOUTONS "ENREGISTRER" DES FORMULAIRES
+
+
+
+
+.sous-cont button {
+  display: inline-flex; /* permet d'aligner l'icône et le texte correctement
+  align-items: center; /* centre verticalement le contenu
+  background-color: #4449D5; /* Violet
+  color: #ffffff; /* Écriture blanche
+  padding: 8px 25px 12px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 26px;
+  /* font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.sous-cont button i {
+  font-size: 36px; /* l'icone n'est pas assez grande
+  margin-right: 12px; /* espacement entre l'icône et le texte
+}
+
+
+.sous-cont button:hover {
+  background-color: #2e32a6; /* Violet foncé au survol
+}
+
+
+/*
+
+FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
+
+*/
+
+

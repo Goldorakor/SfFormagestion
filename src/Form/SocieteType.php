@@ -99,7 +99,11 @@ class SocieteType extends AbstractType
                 'required' => false, // Rendre le champ optionnel car parfois le resp RH n'est pas exigé
             ])
 
-            ->add('enregistrer', SubmitType::class)
+            ->add('enregistrer', SubmitType::class, [
+                'label' => '<i class="fa-solid fa-download"></i> Enregistrer',
+                'label_html' => true,
+                'attr' => ['class' => 'btn btn-rose'],
+            ])
         ;
     }
 

@@ -27,25 +27,22 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   
   .container {
     display : flex;
-    background-color:#ffffff; /*  */
+    background-color:#ffffff;
     margin: 0;
     min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
     min-width: 100vw;
   }
-
-
 
   .sous-cont {
     display : flex;
     margin-left : 230px;
     margin-right: 60px;
     margin-bottom: 80px;
-    width: 85%;
+    width: 80%;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
   }
-  
   
   main {
     margin-left: 10px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar 110 */
@@ -55,7 +52,6 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
     min-width: 100vw;
   }
 
-
 h1 {
     color :#bd1e73; /* Change la couleur du texte en rose */
     background-color: #ffffff; /* Fond noir */
@@ -64,7 +60,7 @@ h1 {
     border-bottom: 3px solid #ff9944; /* Ecriture abrégé : bordure en bas */
     border-left: none;  /* Pas de bordure à gauche */
     border-right: none; /* Pas de bordure à droite */
-    padding: 10px; /* Espace entre le texte et la bordure */
+    padding: 10px; /* Espace entre le texte et ls bordures oranges */
     /* display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
     /* border-radius: 10px;  on arrondit les coins => c'est moche en fait !  */
     width: 100%;

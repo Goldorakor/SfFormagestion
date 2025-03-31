@@ -99,7 +99,11 @@ class EntrepriseType extends AbstractType
                 //'required' => false,  Rendre le champ optionnel : pas ici car on exige que le représentant légal soit défini pour l'entreprise
             ])*/
 
-            ->add('enregistrer', SubmitType::class)
+            ->add('enregistrer', SubmitType::class, [
+                'label' => '<i class="fa-solid fa-download"></i> Enregistrer',
+                'label_html' => true,
+                'attr' => ['class' => 'btn btn-rose'],
+            ])
         ;
     }
 

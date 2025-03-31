@@ -42,7 +42,11 @@ class FormateurType extends AbstractType
                 'label' => 'Société',
                 'required' => false, // Rendre le champ optionnel car parfois la société n'est pas exigée
             ])
-            ->add('enregistrer', SubmitType::class)
+            ->add('enregistrer', SubmitType::class, [
+                'label' => '<i class="fa-solid fa-download"></i> Enregistrer',
+                'label_html' => true,
+                'attr' => ['class' => 'btn btn-rose'],
+            ])
         ;
     }
 

@@ -4,6 +4,9 @@
 
 {% block body %}
 
+
+<div class="sous-cont">
+    
     <h1>Infos sur la société</h1>
     <h3>Saisissez l'ensemble des informations de votre société</h3>
     
@@ -122,11 +125,14 @@
         </div>
 
 
-        <div>
+        <div class="postion-rose">
             {{ form_end(formAddEntreprise) }}
-            {# <a class="btn btn-rose" href="{{ path('edit_entreprise', {'id' : entreprise.id}) }}">Quitter</a>#} {# bouton pour retourner au formulaire d'édition #}
+            <a class="btn btn-rose" href="{{ path('parametres') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la page principale "paramètres" #}
         </div>
 
+</div>
+
+    
 {% endblock %}
 
 

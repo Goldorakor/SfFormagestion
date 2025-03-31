@@ -4,6 +4,9 @@
 
 {% block body %}
 
+
+<div class="sous-cont">
+    
     <h1>Infos sur le représentant légal</h1> {# dans RepresentantController, on a bien passé la variable : 'formAddRepresentant' => $form #}
     <h3>Saisissez l'ensemble des informations du représentant légal de votre société</h3>
     
@@ -52,10 +55,13 @@
             {{ form_row(form.brochure) }}
             {{ form_end(form) }} #}
              
-        <div>
+        <div class="postion-rose">
             {{ form_end(formAddRepresentant) }}
-            {# <a class="btn btn-rose" href="{{ path('edit_representant', {'id' : representant.id}) }}">Quitter</a>  bouton pour retourner au formulaire d'édition #}
+            <a class="btn btn-rose" href="{{ path('parametres') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a>  {# bouton pour retourner à la page principale "paramètres" #}
         </div>
+
+</div>
+
 
 {% endblock %}
 

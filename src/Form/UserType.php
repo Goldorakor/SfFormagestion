@@ -65,7 +65,11 @@ class UserType extends AbstractType
                 }
             ])
 
-            ->add('enregistrer', SubmitType::class)
+            ->add('enregistrer', SubmitType::class, [
+                'label' => '<i class="fa-solid fa-download"></i> Enregistrer',
+                'label_html' => true,
+                'attr' => ['class' => 'btn btn-rose'],
+            ])
         ;
 
         // Transformer la string en array pour la BDD => 'multiple' => false, désormais possible 

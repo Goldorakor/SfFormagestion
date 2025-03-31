@@ -33,7 +33,11 @@ class ResponsableType extends AbstractType
             ->add('fonction', TextType::class, [
                 'label' => 'Fonction', // texte qui s'affiche devant le rectangle de saisie
             ])
-            ->add('enregistrer', SubmitType::class)
+            ->add('enregistrer', SubmitType::class, [
+                'label' => '<i class="fa-solid fa-download"></i> Enregistrer',
+                'label_html' => true,
+                'attr' => ['class' => 'btn btn-rose'],
+            ])
         ;
     }
 

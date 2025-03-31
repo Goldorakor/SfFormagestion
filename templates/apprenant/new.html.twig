@@ -6,11 +6,11 @@
 {% block body %}
 
 
+<div class="sous-cont">
+
     {% if not edit %}<h1>Créer un apprenant</h1>{% else %}<h1>Modifier un apprenant</h1>{% endif %} {# dans ApprenantController, on a bien passé la vriable : 'apprenants' => $apprenants #}
     {% if not edit %}<h3>Saisissez les informations essentielles du nouvel apprenant</h3>{% else %}<h3>Modifiez les informations essentielles de l'apprenant</h3>{% endif %}
-
-    <div class="sous-cont">
-        
+ 
         {# {{ form(formAddApprenant) }} #}
 
         {{ form_start(formAddApprenant) }}
@@ -101,12 +101,12 @@
             {{ form_errors(formAddApprenant.metier) }}
         </div>
 
-        <div>
+        <div class="postion-rose">
             {{ form_end(formAddApprenant) }}
-            <a class="btn btn-rose" href="{{ path('app_apprenant') }}">Quitter</a> {# bouton pour retourner à la liste des apprenants #}
+            <a class="btn btn-rose" href="{{ path('app_apprenant') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des apprenants #}
         </div>
 
-    </div>
+</div>
     
     
 {% endblock %}
