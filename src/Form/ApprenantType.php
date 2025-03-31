@@ -34,7 +34,7 @@ class ApprenantType extends AbstractType
                     'Féminin' => 'F',
                     'Masculin' => 'M',
                 ],
-                'placeholder' => 'Sélectionner la civilité',
+                'placeholder' => '---',
                 'expanded' => false,
                 'multiple' => false, // true sinon message "Warning: Array to string conversion" ('roles' est un tableau) => ok car le CallbackTransformer gère la conversion vers array
                 'required' => true, // Un rôle doit être sélectionné
