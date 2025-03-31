@@ -13,7 +13,7 @@ ensuite, il sera incorporé au template base.html.twig, juste sous la balise <bo
         </li>
         {% if is_granted('ROLE_ADMIN') %}<li class="dropdown">
             <button class="dropbtn">
-                Nouveau&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-down"></i>
+                Nouveau<i class="fa-solid fa-arrow-down"></i>
             </button>
             <div class="dropdown-content">
                 <a href="{{ path('construction') }}">Créer un module</a>

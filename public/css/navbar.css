@@ -74,17 +74,18 @@ font-size: 14px;
     border: none;
     outline: none;
     color: #ffffff; /* Couleur du texte */
-    padding: 18px; /* Garder la même taille de padding que pour les autres boutons */
+    padding: 9px 18px 9px 18px; /* Garder la même taille de padding que pour les autres boutons => 20px pour équilibrer 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif */
     background-color: #4449d5; /* Pas de fond */
     font-family: inherit;
     margin: 8px 0; /* Centrer le bouton */
-    width: 154px; /* Largeur du bouton plus petite */
-    height: 10px;
+    width: 162px; /* Largeur du bouton plus petite */
+    height: auto;
     text-align: center; /* Centrer le texte */
     border-radius: 10px;
     display: flex;
     align-items: center; /* Centrer le texte verticalement */
     justify-content: center; /* Centrer le texte horizontalement si nécessaire */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* boutons violets de la barre beaucoup plus lisibles avec cette police */
 }
 
 
@@ -102,23 +103,28 @@ font-size: 14px;
   
 /* Style the dropdown button to fit inside the sidenav */
 .dropdown .dropbtn {
+    display: flex; /* permet d'aligner l'icône et le texte correctement */
+    align-items: center; /* centre verticalement le contenu */
+    justify-content: center; /* Centrer le texte horizontalement si nécessaire */
     font-size: 20px;
     border: none;
     outline: none;
     color: #ffffff; /* couleur du texte du bouton 'nouveau' */
-    font-weight: bold; /* écriture en gras */
-    padding: 18px; /* change la hauteur du bouton orange 'nouveau' */
+    padding: 8px 18px 10px 18px; /* change la hauteur du bouton orange 'nouveau' */
     background-color: #ff4300; /* couleur de fond du bouton 'nouveau' */
     font-family: inherit;
-    margin: 20px 0 25px 0; /* Centrer le bouton 20px 0 25px 0*/
+    margin: 15px 0 20px 0; /* Centrer le bouton 20px 0 25px 0*/
     width: 150px; /* Largeur du bouton plus petite */
-    height: 30px; /* change la hauteur du bouton orange 'nouveau' */
+    height: auto; /* change la hauteur du bouton orange 'nouveau' */
     text-align: center; /* Centrer le texte */
     border-radius: 20px; /* bouton orange aux bords arrondis */
-    display: flex; /* pour bénéficier des pptés 'align-items' et 'justify-content' */
-    align-items: center; /* Centrer le texte verticalement */
-    justify-content: center; /* Centrer le texte horizontalement si nécessaire */
-    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer; /* Indique que c'est cliquable */
+}
+
+
+.dropbtn i {
+  margin-left: 10px; /* Espace entre l'icône et le texte du bouton orange */
 }
 
   
@@ -126,7 +132,7 @@ font-size: 14px;
 .dropdown-content {
     display: block;  /* Changer de 'none' à 'block' pour travailler avec opacity */
     position: absolute;
-    top: 138px;
+    top: 140px;
     left: 8px;
     background-color: #f9f9f9; /* couleur de fond du rectangle de menu déroulant */
     min-width: 180px;

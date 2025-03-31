@@ -977,10 +977,10 @@ Chaque ligne est un flex container */
 .form-cell.prenom { flex-basis: 40%; }
 .form-cell.tel { flex-basis: 20%; }
 .form-cell.email { flex-basis: 80%; }
-.form-cell.adresse { flex-basis: 30%; }
+.form-cell.adresse { flex-basis: 40%; }
 .form-cell.codePostal { flex-basis: 10%; }
 .form-cell.ville { flex-basis: 30%; }
-.form-cell.pays { flex-basis: 30%; }
+.form-cell.pays { flex-basis: 20%; }
 .form-cell.societe { flex-basis: 20%; }
 .form-cell.dateNaissance { flex-basis: 20%; }
 .form-cell.metier { flex-basis: 20%; }
