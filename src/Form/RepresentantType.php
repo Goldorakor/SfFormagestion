@@ -16,6 +16,7 @@ class RepresentantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        
             ->add('nom', TextType::class, [
                 'label' => 'Nom', // texte qui s'affiche devant le rectangle de saisie
             ])
@@ -24,8 +25,16 @@ class RepresentantType extends AbstractType
                 'label' => 'Prénom', // texte qui s'affiche devant le rectangle de saisie
             ])
 
-            ->add('sexe', TextType::class, [
+            ->add('sexe', ChoiceType::class, [
                 'label' => 'Civilité', // texte qui s'affiche devant le rectangle de saisie
+                'choices' => [
+                    'Féminin' => 'F',
+                    'Masculin' => 'M',
+                ],
+                'placeholder' => 'Sélectionner la civilité',
+                'expanded' => false,
+                'multiple' => false, // true sinon message "Warning: Array to string conversion" ('roles' est un tableau) => ok car le CallbackTransformer gère la conversion vers array
+                'required' => true, // Un rôle doit être sélectionné
             ])
             
             ->add('fonction', TextType::class, [
