@@ -15,41 +15,39 @@
 
         <h2>Identité de l'utilisateur</h2>
 
-        <div>
-            <div>
+        <div class="form-ligne01">
+            <div class="form-cell tel">
                 {{ form_label(formAddUtilisateur.nom) }}
                 {{ form_widget(formAddUtilisateur.nom) }}
                 {{ form_errors(formAddUtilisateur.nom) }}
             </div>
     
-            <div>
+            <div class="form-cell email">
                 {{ form_label(formAddUtilisateur.prenom) }}
                 {{ form_widget(formAddUtilisateur.prenom) }}
                 {{ form_errors(formAddUtilisateur.prenom) }}
             </div>
         </div>
-        
 
-        <div>
-            {{ form_label(formAddUtilisateur.email) }}
-            {{ form_widget(formAddUtilisateur.email) }}
-            {{ form_errors(formAddUtilisateur.email) }}
+        <div class="form-ligne01">
+            <div class="form-cell user-role">
+                {{ form_label(formAddUtilisateur.roles) }}
+                {{ form_widget(formAddUtilisateur.roles) }}
+                {{ form_errors(formAddUtilisateur.roles) }}
+            </div>
+    
+            <div class="form-cell user-email">
+                {{ form_label(formAddUtilisateur.email) }}
+                {{ form_widget(formAddUtilisateur.email) }}
+                {{ form_errors(formAddUtilisateur.email) }}
+                {% if not edit %}<p class="user-comment">Cette adresse constituera l'identifiant de connexion de l'utilisateur. Un courriel sera envoyé à cette adresse pour confirmer la création du profil et inviter l'utilisateur à modifier son mot de passe.</p>{% endif %}
+            </div>
         </div>
-
-        {% if not edit %}<p>Cette adresse constituera l'identifiant de connexion de l'utilisateur. Un courriel sera envoyé à cette adresse pour confirmer la création du profil et inviter l'utilisateur à modifier son mot de passe.</p>{% endif %}
-
-
-        <div>
-            {{ form_label(formAddUtilisateur.roles) }}
-            {{ form_widget(formAddUtilisateur.roles) }}
-            {{ form_errors(formAddUtilisateur.roles) }}
-        </div>
-
 
         <div class="postion-rose">
             {{ form_end(formAddUtilisateur) }}
             {% if is_granted('ROLE_ADMIN') %}{% if edit %}<a class="btn btn-rose" href="{{ path('delete_utilisateur', {'id' : user.id}) }}">Supprimer</a>{% endif %}{% endif %} {# bouton pour supprimer l'utilisateur ==> si on est en création, le bouton Supprimer ne s’affichera pas (logique, car l’utilisateur n’existe pas encore) #}
-            <a class="btn btn-rose" href="{{ path('app_utilisateur') }}">Quitter</a> {# bouton pour retourner à la liste des utilisateurs #}
+            <a class="btn btn-rose" href="{{ path('app_utilisateur') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des utilisateurs #}
         </div>
 
 
