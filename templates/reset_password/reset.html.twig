@@ -11,12 +11,37 @@
     <h1 class="h1-sans-h3">Réinitialiser votre mot de passe</h1>
 
 
-    <div class="position-rose">
         {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-rose">Réinitialisation du mot de passe</button>
+
+        <h2>Choisissez un nouveau mot de passe</h2>
+
+        
+        <div id="form-cell-plain-password"></div>
+        <div class="form-ligne02">
+            
+                {{ form_row(resetForm.plainPassword, {'attr': {'id': 'form-cell-plain-password'}}) }}
+            
+        </div>
+
+
+        {#<div class="form-ligne01">
+            <div class="form-cell plain-password">
+                {{ form_label(resetForm.plainPassword) }}
+                {{ form_widget(resetForm.plainPassword, {'attr': {'id': 'plain-password-field'}}) }}
+                {{ form_errors(resetForm.plainPassword) }}
+            </div>
+        </div>#}
+
+
+        {# {{ form_label(resetForm.plainPassword) }}
+        {{ form_widget(resetForm.plainPassword) }}
+        {{ form_errors(resetForm.plainPassword) }} #}
+
+        <div class="position-rose">
+            <button class="btn btn-rose"><i class="fa-solid fa-square-check"></i>Valider</button>
+        </div>
+
         {{ form_end(resetForm) }}
-    </div>
 
 
 </div>

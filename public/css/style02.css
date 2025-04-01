@@ -229,7 +229,7 @@ form {
 
 /* Style des labels */
 label {
-  color: #444444; /* Gris foncé */
+  color: #282828; /* Gris foncé */
   font-weight: bold;
   display: block;
   margin-bottom: 5px;
@@ -291,6 +291,20 @@ Chaque ligne est un flex container */
 .form-cell.user-email { flex-basis: 75%; }
 
 
+#form-cell-plain-password{
+  flex-grow: 1;
+  flex-basis: 30%;
+}
+
+.form-ligne02 {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Espacement entre les champs */
+  margin-top: 60px; /* Espacement entre les lignes */
+  margin-bottom: 60px; /* Espacement entre les lignes */
+}
+
+*/
 
 
 

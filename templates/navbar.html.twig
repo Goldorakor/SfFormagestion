@@ -75,10 +75,10 @@ ensuite, il sera incorporé au template base.html.twig, juste sous la balise <bo
             <a href="{{ path('modeles_documents') }}" class="btn-purple">Modèles docs</a>
         </li>
         <li>
-            <a href="{{ path('new_edit_entreprise') }}" class="btn-purple">Infos société</a>
+            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_edit_entreprise') }}" class="btn-purple">Infos société</a>{% endif %}
         </li>
         <li>
-            <a href="{{ path('new_edit_representant') }}" class="btn-purple">Infos rep. légal</a>
+            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_edit_representant') }}" class="btn-purple">Infos rep. légal</a>{% endif %}
         </li>
         <li>
             <a href="{{ path('construction') }}" class="btn-purple">Lieux formation</a>

@@ -35,20 +35,37 @@
             </thead>
             <tbody>
                 {% for user in users %}
-                    <tr>
-                        <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
-                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.email|lower }}</a>{% endif %}
-                        </td>
-                        <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
-                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.nom|upper }}</a>{% endif %}
-                        </td>
-                        <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
-                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.prenom|capitalize }}</a>{% endif %}
-                        </td>
-                        <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
-                            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.roles[0] }}</a>{% endif %} {# c'est stocké sous forme de tableau, à un seul élément auquel j'accède avec [0] #}
-                        </td>
-                    </tr>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.email|lower }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.nom|upper }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.prenom|capitalize }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.roles[0] }}</a> {# c'est stocké sous forme de tableau, à un seul élément auquel j'accède avec [0] #}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>
+                                {{ user.email|lower }}
+                            </td>
+                            <td>
+                                {{ user.nom|upper }}
+                            </td>
+                            <td>
+                                {{ user.prenom|capitalize }}
+                            </td>
+                            <td>
+                                {{ user.roles[0] }}
+                            </td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             </tbody>
         </table>
@@ -61,8 +78,4 @@
 
 </div>
 
-    
 {% endblock %}
-
-
-

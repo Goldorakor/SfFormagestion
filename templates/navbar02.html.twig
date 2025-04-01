@@ -17,6 +17,7 @@ ensuite, il sera incorporé au template base.html.twig, sous la balise <body>
         {% else %}
             <button class="nav-button">?</button>
         {% endif %}
+        {% if user %}
         <div class="dropdown-menu">
             <p>
                 <span id="identite-bouton">{{ user.prenom|capitalize }} {{ user.nom|upper }}</span><br>
@@ -25,6 +26,7 @@ ensuite, il sera incorporé au template base.html.twig, sous la balise <body>
             <a href="{{ path('construction') }}">Mon compte</a>
             <a href="{{ path('app_logout') }}"><span class="fiche-grise"><i class="fa-solid fa-right-from-bracket"></i>Me déconnecter</span></a>
         </div>
+        {% endif %}
     </nav>
 
 
