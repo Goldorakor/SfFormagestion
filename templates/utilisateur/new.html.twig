@@ -16,13 +16,13 @@
         <h2>Identité de l'utilisateur</h2>
 
         <div class="form-ligne01">
-            <div class="form-cell tel">
+            <div class="form-cell user-nom">
                 {{ form_label(formAddUtilisateur.nom) }}
                 {{ form_widget(formAddUtilisateur.nom) }}
                 {{ form_errors(formAddUtilisateur.nom) }}
             </div>
     
-            <div class="form-cell email">
+            <div class="form-cell user-prenom">
                 {{ form_label(formAddUtilisateur.prenom) }}
                 {{ form_widget(formAddUtilisateur.prenom) }}
                 {{ form_errors(formAddUtilisateur.prenom) }}
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="postion-rose">
+        <div class="position-rose">
             {{ form_end(formAddUtilisateur) }}
             {% if is_granted('ROLE_ADMIN') %}{% if edit %}<a class="btn btn-rose" href="{{ path('delete_utilisateur', {'id' : user.id}) }}">Supprimer</a>{% endif %}{% endif %} {# bouton pour supprimer l'utilisateur ==> si on est en création, le bouton Supprimer ne s’affichera pas (logique, car l’utilisateur n’existe pas encore) #}
             <a class="btn btn-rose" href="{{ path('app_utilisateur') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des utilisateurs #}

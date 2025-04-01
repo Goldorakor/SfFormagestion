@@ -17,19 +17,19 @@
         <h2>Identité de la société</h2>
 
         <div class="form-ligne01">
-            <div class="form-cell statujuri">
+            <div class="form-cell soc-statu-juri">
                 {{ form_label(formAddSociete.statutJuri) }}
                 {{ form_widget(formAddSociete.statutJuri) }}
                 {{ form_errors(formAddSociete.statutJuri) }}
             </div>
     
-            <div class="form-cell raisonsociale">
+            <div class="form-cell soc-raison-sociale">
                 {{ form_label(formAddSociete.raisonSociale) }}
                 {{ form_widget(formAddSociete.raisonSociale) }}
                 {{ form_errors(formAddSociete.raisonSociale) }}
             </div>
 
-            <div class="form-cell siret2">
+            <div class="form-cell soc-siret">
                 {{ form_label(formAddSociete.numSiret) }}
                 {{ form_widget(formAddSociete.numSiret) }}
                 {{ form_errors(formAddSociete.numSiret) }}
@@ -132,7 +132,7 @@
     
         {# <button type="submit" class="btn btn-primary">Enregistrer</button>   -> doublon car dans SocieteType, on a déjà "->add('enregistrer', SubmitType::class)"" qui est un champ "submit" #}
    
-        <div class="postion-rose">
+        <div class="position-rose">
             {{ form_end(formAddSociete) }}
             <a class="btn btn-rose" href="{{ path('app_societe') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des sociétés #}
         </div>

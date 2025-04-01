@@ -57,14 +57,14 @@
         <h2>Informations complémentaires</h2>
 
         <div class="form-ligne01">
-            <div class="form-cell fonction">
+            <div class="form-cell fonc-resp">
                 {{ form_label(formAddResponsable.fonction) }}
                 {{ form_widget(formAddResponsable.fonction) }}
                 {{ form_errors(formAddResponsable.fonction) }}
             </div>
         </div>
 
-        <div class="postion-rose">
+        <div class="position-rose">
             {{ form_end(formAddResponsable) }}
             <a class="btn btn-rose" href="{{ path('app_responsable') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des responsables #}
         </div>

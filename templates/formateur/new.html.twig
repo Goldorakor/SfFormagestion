@@ -55,20 +55,20 @@
         <h2>Statut du formateur</h2>
 
         <div class="form-ligne01">
-            <div class="form-cell societe2">
+            <div class="form-cell forma-societe">
                 {{ form_label(formAddFormateur.societe) }}
                 {{ form_widget(formAddFormateur.societe) }}
                 {{ form_errors(formAddFormateur.societe) }}
             </div>
     
-            <div class="form-cell statut2">
+            <div class="form-cell forma-statut">
                 {{ form_label(formAddFormateur.statut) }}
                 {{ form_widget(formAddFormateur.statut) }}
                 {{ form_errors(formAddFormateur.statut) }}
             </div>
         </div>
 
-        <div class="postion-rose">
+        <div class="position-rose">
             {{ form_end(formAddFormateur) }}
             <a class="btn btn-rose" href="{{ path('app_formateur') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des formateurs #}
         </div>

@@ -318,7 +318,7 @@ thead tr:hover {
 }
 
 /* Aligner le bouton à droite */
-.postion-purple {
+.position-purple {
   display: flex;
   justify-content: flex-end;
   width: 100%; /* assure que le div prend toute la largeur disponible */
@@ -442,7 +442,7 @@ VUES DE DETAILS
 }
 
 /* aligner les boutons au centre */
-.postion-rose {
+.position-rose {
   display: flex;
   justify-content: center;
   width: 100%; /* assure que le div prend toute la largeur disponible */
@@ -984,26 +984,46 @@ Chaque ligne est un flex container */
 .form-cell.ville { flex-basis: 28%; }
 .form-cell.pays { flex-basis: 20%; }
 
-.form-cell.societe { flex-basis: 35%; }
-.form-cell.dateNaissance { flex-basis: 30%; }
-.form-cell.metier { flex-basis: 35%; }
+.form-cell.appre-societe { flex-basis: 35%; }
+.form-cell.appre-dateNaissance { flex-basis: 30%; }
+.form-cell.appre-metier { flex-basis: 35%; }
 
+.form-cell.forma-societe { flex-basis: 50%; }
+.form-cell.forma-statut { flex-basis: 50%; }
+
+.form-cell.fonc-resp { flex-basis: 100%; }
+
+.form-cell.soc-statu-juri { flex-basis: 20%; }
+.form-cell.soc-raison-sociale { flex-basis: 40%; }
+.form-cell.soc-siret { flex-basis: 40%; }
+
+.form-cell.resp-legal { flex-basis: 33%; }
+.form-cell.resp-admin { flex-basis: 34%; }
+.form-cell.resp-rh { flex-basis: 33%; }
+
+/* deux classes définies dans notre sous-formulaire ApprenantInscritType */
 .form-cell.apprenant-inscrit { flex-basis: 80%; }
 .form-cell.apprenant-prix { flex-basis: 20%; }
 
-.form-cell.nbPlaces { flex-basis: 25%; }
+.form-cell.ses-titre { flex-basis: 50%; }
+
+.form-cell.ses-accroche { flex-basis: 50%; }
+
+.form-cell.ses-formation { flex-basis: 50%; }
+
+.form-cell.nbplaces { flex-basis: 25%; }
 .form-cell.nbmodules { flex-basis: 25%; }
-.form-cell.datedebut-session { flex-basis: 25%; }
-.form-cell.datefin-session { flex-basis: 25%; }
+.form-cell.ses-date-debut { flex-basis: 25%; }
+.form-cell.ses-date-fin { flex-basis: 25%; }
 
 .form-cell.ref-peda { flex-basis: 50%; }
 .form-cell.ref-admin { flex-basis: 50%; }
 
-.form-cell.question { flex-basis: 33%; }
+.form-cell.ques-prefor { flex-basis: 34%; }
+.form-cell.ques-chaud { flex-basis: 33%; }
+.form-cell.ques-froid { flex-basis: 33%; }
 
-.form-cell.resp-legal { flex-basis: 33%; }
-.form-cell.resp-admin { flex-basis: 33%; }
-.form-cell.resp-rh { flex-basis: 33%; }
+
 
 
 

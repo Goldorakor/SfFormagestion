@@ -174,7 +174,7 @@ thead tr:hover {
 }
 
 /* Aligner le bouton à droite */
-.postion-purple {
+.position-purple {
   display: flex;
   justify-content: flex-end;
   width: 100%; /* assure que le div prend toute la largeur disponible */
@@ -248,25 +248,38 @@ Chaque ligne est un flex container */
 .form-cell.sexe { flex-basis: 20%; }
 .form-cell.nom { flex-basis: 40%; }
 .form-cell.prenom { flex-basis: 40%; }
+
 .form-cell.tel { flex-basis: 20%; }
 .form-cell.email { flex-basis: 80%; }
+
 .form-cell.adresse { flex-basis: 38%; }
 .form-cell.codePostal { flex-basis: 14%; }
 .form-cell.ville { flex-basis: 28%; }
 .form-cell.pays { flex-basis: 20%; }
-.form-cell.societe { flex-basis: 20%; }
+
+/* .form-cell.societe { flex-basis: 20%; }
 .form-cell.dateNaissance { flex-basis: 20%; }
-.form-cell.metier { flex-basis: 20%; }
-.form-cell.foncrep { flex-basis: 30%; }
+.form-cell.metier { flex-basis: 20%; } */
+
+.form-cell.fonc-rep { flex-basis: 30%; }
 .form-cell.tampon { flex-basis: 70%; }
-.form-cell.statujuri { flex-basis: 20%; }
-.form-cell.raisonsociale { flex-basis: 30%; }
+
+.form-cell.statu-juri { flex-basis: 20%; }
+.form-cell.raison-sociale { flex-basis: 30%; }
 .form-cell.logo { flex-basis: 50%; }
-.form-cell.siret { flex-basis: 25%; }
-.form-cell.rcs { flex-basis: 25%; }
-.form-cell.tvaintra { flex-basis: 50%; }  
-.form-cell.declara { flex-basis: 50%; }
+
+.form-cell.num-siret { flex-basis: 25%; }
+.form-cell.num-rcs { flex-basis: 25%; }
+.form-cell.num-tva-intra { flex-basis: 50%; } 
+
+.form-cell.num-declara { flex-basis: 50%; }
 .form-cell.prefet { flex-basis: 50%; }
+
+.form-cell.tribunal { flex-basis: 100%; } 
+
+.form-cell.user-nom { flex-basis: 50%; }
+.form-cell.user-prenom { flex-basis: 50%; }
+
 .form-cell.user-role { flex-basis: 25%; }
 .form-cell.user-email { flex-basis: 75%; }
 
@@ -340,7 +353,7 @@ FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
 */
 
 /* aligner les boutons au centre */
-.postion-rose {
+.position-rose {
   display: flex;
   justify-content: center;
   width: 100%; /* assure que le div prend toute la largeur disponible */

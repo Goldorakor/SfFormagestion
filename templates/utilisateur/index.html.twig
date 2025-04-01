@@ -10,7 +10,7 @@
     <h1>Comptes utilisateurs</h1>
     <h3>Liste de tous les comptes utilisateurs et du rôle de chacun</h3>
 
-    <div class="postion-purple">
+    <div class="position-purple">
         {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_utilisateur') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer un utilisateur</a>{% endif %}
     </div>
 

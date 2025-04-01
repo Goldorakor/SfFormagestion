@@ -17,13 +17,13 @@
         <h2>Identité de la société</h2>
 
         <div class="form-ligne01">
-            <div class="form-cell statujuri">
+            <div class="form-cell statu-juri">
                 {{ form_label(formAddEntreprise.statutJuri) }}
                 {{ form_widget(formAddEntreprise.statutJuri) }}
                 {{ form_errors(formAddEntreprise.statutJuri) }}
             </div>
     
-            <div class="form-cell raisonsociale">
+            <div class="form-cell raison-sociale">
                 {{ form_label(formAddEntreprise.raisonSociale) }}
                 {{ form_widget(formAddEntreprise.raisonSociale) }}
                 {{ form_errors(formAddEntreprise.raisonSociale) }}
@@ -93,19 +93,19 @@
         <h2>Informations légales</h2>
 
         <div class="form-ligne01">
-            <div class="form-cell siret">
+            <div class="form-cell num-siret">
                 {{ form_label(formAddEntreprise.numSiret) }}
                 {{ form_widget(formAddEntreprise.numSiret) }}
                 {{ form_errors(formAddEntreprise.numSiret) }}
             </div>
     
-            <div class="form-cell rcs">
+            <div class="form-cell num-rcs">
                 {{ form_label(formAddEntreprise.numRCS) }}
                 {{ form_widget(formAddEntreprise.numRCS) }}
                 {{ form_errors(formAddEntreprise.numRCS) }}
             </div>
 
-            <div class="form-cell tvaintra">
+            <div class="form-cell num-tva-intra">
                 {{ form_label(formAddEntreprise.numTVA) }}
                 {{ form_widget(formAddEntreprise.numTVA) }}
                 {{ form_errors(formAddEntreprise.numTVA) }}
@@ -113,7 +113,7 @@
         </div>
 
         <div class="form-ligne01">
-            <div class="form-cell declara">
+            <div class="form-cell num-declara">
                 {{ form_label(formAddEntreprise.numDeclaActivite) }}
             {{ form_widget(formAddEntreprise.numDeclaActivite) }}
             {{ form_errors(formAddEntreprise.numDeclaActivite) }}
@@ -134,7 +134,7 @@
             </div>
         </div>
 
-        <div class="postion-rose">
+        <div class="position-rose">
             {{ form_end(formAddEntreprise) }}
             <a class="btn btn-rose" href="{{ path('parametres') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la page principale "paramètres" #}
         </div>

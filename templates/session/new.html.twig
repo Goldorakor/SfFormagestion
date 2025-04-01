@@ -16,7 +16,7 @@
         <h2>Présentation de la session</h2>
 
         <div class="form-ligne01">
-            <div class="form-cell titre">
+            <div class="form-cell ses-titre">
                 {{ form_label(formAddSession.titreSession) }}
                 {{ form_widget(formAddSession.titreSession) }}
                 {{ form_errors(formAddSession.titreSession) }}
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-ligne01">
-            <div class="form-cell accroche">
+            <div class="form-cell ses-accroche">
                 {{ form_label(formAddSession.accroche) }}
                 {{ form_widget(formAddSession.accroche) }}
                 {{ form_errors(formAddSession.accroche) }}
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-ligne01">
-            <div class="form-cell formation">
+            <div class="form-cell ses-formation">
                 {{ form_label(formAddSession.formation) }}
                 {{ form_widget(formAddSession.formation) }}
                 {{ form_errors(formAddSession.formation) }}
@@ -56,13 +56,13 @@
                 {{ form_errors(formAddSession.nbModules) }}
             </div>
 
-            <div class="form-cell datedebut-session">
+            <div class="form-cell ses-date-debut">
                 {{ form_label(formAddSession.dateDebut) }}
                 {{ form_widget(formAddSession.dateDebut) }}
                 {{ form_errors(formAddSession.dateDebut) }}
             </div>
     
-            <div class="form-cell datefin-session">
+            <div class="form-cell ses-date-fin">
                 {{ form_label(formAddSession.dateFin) }}
                 {{ form_widget(formAddSession.dateFin) }}
                 {{ form_errors(formAddSession.dateFin) }}
@@ -77,9 +77,7 @@
                 {{ form_widget(formAddSession.referentPedagogique) }}
                 {{ form_errors(formAddSession.referentPedagogique) }}
             </div>
-        </div>
 
-        <div class="form-ligne01">
             <div class="form-cell ref-admin">
                 {{ form_label(formAddSession.referentAdministratif) }}
                 {{ form_widget(formAddSession.referentAdministratif) }}
@@ -90,23 +88,19 @@
         <h2>Questionnaires</h2>
 
         <div class="form-ligne01">
-            <div class="form-cell question">
+            <div class="form-cell ques-prefor">
                 {{ form_label(formAddSession.questionnairePrefor) }}
                 {{ form_widget(formAddSession.questionnairePrefor) }}
                 {{ form_errors(formAddSession.questionnairePrefor) }}
             </div>
-        </div>
 
-        <div class="form-ligne01">
-            <div class="form-cell question">
+            <div class="form-cell ques-chaud">
                 {{ form_label(formAddSession.questionnaireChaud) }}
                 {{ form_widget(formAddSession.questionnaireChaud) }}
                 {{ form_errors(formAddSession.questionnaireChaud) }}
             </div>
-        </div>
 
-        <div class="form-ligne01">
-            <div class="form-cell question">
+            <div class="form-cell ques-froid">
                 {{ form_label(formAddSession.questionnaireFroid) }}
                 {{ form_widget(formAddSession.questionnaireFroid) }}
                 {{ form_errors(formAddSession.questionnaireFroid) }}
@@ -135,7 +129,7 @@
 
 
         <!-- Fin du formulaire -->
-        <div class="postion-rose">
+        <div class="position-rose">
             {{ form_end(formAddSession) }}
             <a class="btn btn-rose" href="{{ path('app_session') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {#--------- bouton pour retourner à la liste des sessions -------#}
         </div>

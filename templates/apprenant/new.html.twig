@@ -87,26 +87,26 @@
         <h2>Informations complémentaires</h2>
 
         <div class="form-ligne01">
-            <div class="form-cell societe">
+            <div class="form-cell appre-societe">
                 {{ form_label(formAddApprenant.societe) }}
                 {{ form_widget(formAddApprenant.societe) }}
                 {{ form_errors(formAddApprenant.societe) }}
             </div>
     
-            <div class="form-cell dateNaissance">
+            <div class="form-cell appre-dateNaissance">
                 {{ form_label(formAddApprenant.dateNaissance) }}
                 {{ form_widget(formAddApprenant.dateNaissance) }}
                 {{ form_errors(formAddApprenant.dateNaissance) }}
             </div>
     
-            <div class="form-cell metier">
+            <div class="form-cell appre-metier">
                 {{ form_label(formAddApprenant.metier) }}
                 {{ form_widget(formAddApprenant.metier) }}
                 {{ form_errors(formAddApprenant.metier) }}
             </div>
         </div>
 
-        <div class="postion-rose">
+        <div class="position-rose">
             {{ form_end(formAddApprenant) }}
             <a class="btn btn-rose" href="{{ path('app_apprenant') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des apprenants #}
         </div>

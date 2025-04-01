@@ -38,7 +38,7 @@
         </div>
 
         <div class="form-ligne01">
-            <div class="form-cell foncrep">
+            <div class="form-cell fonc-rep">
                 {{ form_label(formAddRepresentant.fonction) }}
                 {{ form_widget(formAddRepresentant.fonction) }}
                 {{ form_errors(formAddRepresentant.fonction) }}
@@ -59,7 +59,7 @@
             {{ form_row(form.brochure) }}
             {{ form_end(form) }} #}
              
-        <div class="postion-rose">
+        <div class="position-rose">
             {{ form_end(formAddRepresentant) }}
             <a class="btn btn-rose" href="{{ path('parametres') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a>  {# bouton pour retourner à la page principale "paramètres" #}
         </div>

@@ -9,7 +9,7 @@
         <h1>Liste des apprenants</h1>
         <h3>Votre annuaire compte {{ apprenants|length }} apprenants répertoriés</h3>
 
-        <div class="postion-purple">
+        <div class="position-purple">
             {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_apprenant') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer un apprenant</a>{% endif %}
         </div>
     
