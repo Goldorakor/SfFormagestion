@@ -50,7 +50,7 @@ final class UtilisateurController extends AbstractController
     #[Route('/admin/accueil/parametres/utilisateur/{id}/edit', name: 'edit_utilisateur')] // 'edit_utilisateur' est un nom cohérent qui décrit bien la fonction attendue
     #[IsGranted('ROLE_ADMIN')]
     public function new_edit(
-        User $user = null, 
+        User $user02 = null, 
         Request $request, 
         EntityManagerInterface $entityManager, 
         BreadcrumbsGenerator $breadcrumbsGenerator, 
@@ -63,31 +63,31 @@ final class UtilisateurController extends AbstractController
             ['label' => 'Accueil', 'route' => 'accueil'],
             ['label' => 'Paramètres', 'route' => 'parametres'],
             ['label' => 'Liste des utilisateurs', 'route' => 'app_utilisateur'], 
-            ['label' => !$user ? "Créer un utilisateur" : "Détailler et éditer un utilisateur"], // Pas de route car c’est la page actuelle
+            ['label' => !$user02 ? "Créer un utilisateur" : "Détailler et éditer un utilisateur"], // Pas de route car c’est la page actuelle
         ]);
         // $variable = (condition) ? valeur_si_vrai : valeur_si_faux;
         // Si condition est vraie → la valeur après ? est assignée.
         // Si condition est fausse → la valeur après : est assignée.
 
 
-        $isEdit = $user !== null;
+        $isEdit = $user02 !== null;
         
         
         // 1. si pas de utilisateur, on crée un nouveau utilisateur (un objet utilisateur est bien créé ici) - s'il existe déjà, pas besoin de le créer
-        if(!$user) {
-            $user = new User();
+        if(!$user02) {
+            $user02 = new User();
         }
 
         // 2. on crée le formulaire à partir de UtilisateurType (on veut ce modèle là bien entendu)
-        // $form = $this->createForm(UserType::class, $user);  c'est bien la méthode createForm() qui permet de créer le formulaire
+        // $form = $this->createForm(UserType::class, $user02);  c'est bien la méthode createForm() qui permet de créer le formulaire
 
         // On clone l'utilisateur uniquement pour le formulaire (pour avoir un utilisateur qui n'a pas de rôle attribué par défaut)
-        $userForm = clone $user; // une copie de l'utilisateur SANS ajouter le 'ROLE_USER'
+        $userForm = clone $user02; // une copie de l'utilisateur SANS ajouter le 'ROLE_USER'
         // $userForm->setRoles($user->getRawRoles());  la méthode getRawRoles() ajoutée dans User.php
         $userForm->setRoles([]);  // Pas de rôle par défaut => on veut en être sûr
 
         // On garde en mémoire l'email d'origine
-        $originalEmail = $user->getEmail();
+        $originalEmail = $user02->getEmail();
 
         $form = $this->createForm(UserType::class, $userForm); // Création du formulaire sans polluer avec le ROLE_USER injecté par défaut
 
@@ -110,26 +110,26 @@ final class UtilisateurController extends AbstractController
                 $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $submitUser->getEmail()]);
                 if ($existingUser) {
                     $this->addFlash('error', 'Cette adresse email est déjà utilisée.');
-                    return $this->redirectToRoute('edit_utilisateur', ['id' => $user->getId()]);
+                    return $this->redirectToRoute('edit_utilisateur', ['id' => $user02->getId()]);
                 }
             }
 
             // Mise à jour des données dans l'objet d'origine (car $userForm est un clone)
-            $user->setNom($submitUser->getNom());
-            $user->setPrenom($submitUser->getPrenom());
-            $user->setEmail($submitUser->getEmail());
-            $user->setRoles($submitUser->getRoles());
+            $user02->setNom($submitUser->getNom());
+            $user02->setPrenom($submitUser->getPrenom());
+            $user02->setEmail($submitUser->getEmail());
+            $user02->setRoles($submitUser->getRoles());
             // Ajoute d'autres setters si tu as d'autres champs...
 
             // Hash du mot de passe si c'est une création
             if (!$isEdit) {
-                $hashedPassword = $passwordHasher->hashPassword($user, 'motdepasse12345678');
-                $user->setPassword($hashedPassword);
+                $hashedPassword = $passwordHasher->hashPassword($user02, 'motdepasse12345678');
+                $user02->setPassword($hashedPassword);
             }
 
             
             // On peut définir une valeur par défaut pour isApproved
-            $user->setIsApproved(1);
+            $user02->setIsApproved(1);
             // On suppose que isApproved est une sorte de champ booléen ou de flag qui peut indiquer si l'utilisateur est approuvé ou non 
             // (par exemple, s'il est validé par un administrateur). Ici, la valeur 1 signifie "approuvé"
             // Pour le moment, je ne m'en sers pas mais j'en aurai besoin pour valider un user
@@ -138,7 +138,7 @@ final class UtilisateurController extends AbstractController
             
             // $user = $form->getData();  on récupère les données du formulaire dans notre objet utilisateur
             
-            $entityManager->persist($user); // équivaut à la méthode prepare() en PDO
+            $entityManager->persist($user02); // équivaut à la méthode prepare() en PDO
 
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
 
@@ -153,15 +153,15 @@ final class UtilisateurController extends AbstractController
             if (!$isEdit) {
                 $email = (new Email())
                     ->from('noreply@example.com') // Adresse de l'expéditeur
-                    ->to($user->getEmail()) // L'email de l'utilisateur créé
+                    ->to($user02->getEmail()) // L'email de l'utilisateur créé
                     ->subject('Bienvenue sur Forma\'Gestion !')
                     ->text(
-                        'Bonjour ' . $user->getPrenom() . ' ' . $user->getNom() . ',
+                        'Bonjour ' . $user02->getPrenom() . ' ' . $user02->getNom() . ',
             
             Votre compte vient d\'être créé.
             Nous sommes heureux de vous accueillir sur cet outil de gestion administrative.
             Veuillez vous rendre à cette adresse : http://127.0.0.1:8000/login.
-            Votre identifiant est : ' . $user->getEmail() . '
+            Votre identifiant est : ' . $user02->getEmail() . '
             Votre mot de passe provisoire est : motdepasse12345678.
             Pensez à changer votre mot de passe en éditant votre compte à cette adresse : (non disponible pour le moment).
             
@@ -177,7 +177,7 @@ final class UtilisateurController extends AbstractController
 
 
 
-            
+
 
 
             // redirection vers la liste des utilisateurs (si formulaire soumis et formulaire valide)
@@ -191,9 +191,9 @@ final class UtilisateurController extends AbstractController
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
             // on change le nom pour éviter toute ambiguité 'form' -> 'formAddUtilisateur' comme expliqué dans new.html.twig
             'formAddUtilisateur' => $form->createView(), // => $form,
-            'edit' => $user->getId(), // comportement booléen -> permet dans la vue de faire la diff entre création d'un utilisateur et édition d'un utilisateur
+            'edit' => $user02->getId(), // comportement booléen -> permet dans la vue de faire la diff entre création d'un utilisateur et édition d'un utilisateur
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
-            'user' => $user, // pour pouvoir bénéficier de la méthode "delete_utilisateur" dans la vue utilisateur/new.html.twig
+            'user02' => $user02, // pour pouvoir bénéficier de la méthode "delete_utilisateur" dans la vue utilisateur/new.html.twig
         ]);
     }
 
