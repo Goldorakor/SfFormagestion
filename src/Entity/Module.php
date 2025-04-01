@@ -110,6 +110,6 @@ class Module
 
     public function __toString()
     {
-        return $this->nomModule;
+        return $this->nomModule." : ".$this->description;  /* utile pour le formulaire de création de session : liste déroulante avec choix du module */
     }
 }
