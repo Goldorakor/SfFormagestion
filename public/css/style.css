@@ -975,30 +975,54 @@ Chaque ligne est un flex container */
 .form-cell.sexe { flex-basis: 20%; }
 .form-cell.nom { flex-basis: 40%; }
 .form-cell.prenom { flex-basis: 40%; }
+
 .form-cell.tel { flex-basis: 20%; }
 .form-cell.email { flex-basis: 80%; }
-.form-cell.adresse { flex-basis: 40%; }
-.form-cell.codePostal { flex-basis: 10%; }
-.form-cell.ville { flex-basis: 30%; }
+
+.form-cell.adresse { flex-basis: 38%; }
+.form-cell.codePostal { flex-basis: 14%; }
+.form-cell.ville { flex-basis: 28%; }
 .form-cell.pays { flex-basis: 20%; }
-.form-cell.societe { flex-basis: 20%; }
-.form-cell.dateNaissance { flex-basis: 20%; }
-.form-cell.metier { flex-basis: 20%; }
+
+.form-cell.societe { flex-basis: 35%; }
+.form-cell.dateNaissance { flex-basis: 30%; }
+.form-cell.metier { flex-basis: 35%; }
+
+.form-cell.apprenant-inscrit { flex-basis: 80%; }
+.form-cell.apprenant-prix { flex-basis: 20%; }
+
+.form-cell.nbPlaces { flex-basis: 25%; }
+.form-cell.nbmodules { flex-basis: 25%; }
+.form-cell.datedebut-session { flex-basis: 25%; }
+.form-cell.datefin-session { flex-basis: 25%; }
+
+.form-cell.ref-peda { flex-basis: 50%; }
+.form-cell.ref-admin { flex-basis: 50%; }
+
+.form-cell.question { flex-basis: 33%; }
+
+.form-cell.resp-legal { flex-basis: 33%; }
+.form-cell.resp-admin { flex-basis: 33%; }
+.form-cell.resp-rh { flex-basis: 33%; }
+
+
 
 
 
 
 /* Style des champs de formulaire */
 input[type="text"],
+input[type="textarea"],
 input[type="email"],
 input[type="tel"],
 input[type="date"],
+input[type="number"],
 select {
   width: 100%; /* Prend toute la largeur de son conteneur */
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ccceff;
   border-radius: 5px; /* Bords arrondis */
-  background-color: #fff; /* Fond blanc */
+  background-color: #ffffff; /* Fond blanc */
   font-size: 16px;
   height: 40px; /* Hauteur ajustable */
   box-sizing: border-box; /* Évite que le padding change la taille du champ */
@@ -1052,54 +1076,3 @@ FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
 
 */
 
-
-
-/*
-.form-ligne01.sexe{
-  width: 20%;
-}
-
-.form-ligne01.nom{
-  width: 40%;
-}
-
-.form-ligne01.prenom{
-  width: 40%;
-}
-
-.form-ligne01.tel{
-  width: 20%;
-}
-
-.form-ligne01.email{
-  width: 80%;
-}
-
-.form-ligne01.adresse{
-  width: 30%;
-}
-
-.form-ligne01.codePostal{
-  width: 10%;
-}
-
-.form-ligne01.ville{
-  width: 30%;
-}
-
-.form-ligne01.pays{
-  width: 30%;
-}
-
-.form-ligne01.societe{
-  width: 20%;
-}
-
-.form-ligne01.dateNaissance{
-  width: 20%;
-}
-
-.form-ligne01.metier{
-  width: 20%;
-}
-*/

@@ -18,45 +18,50 @@
 
         <h2>Identité du responsable</h2>
 
-        <div>
-            {{ form_label(formAddResponsable.sexe) }}
-            {{ form_widget(formAddResponsable.sexe) }}
-            {{ form_errors(formAddResponsable.sexe) }}
+        <div class="form-ligne01">
+            <div class="form-cell sexe">
+                {{ form_label(formAddResponsable.sexe) }}
+                {{ form_widget(formAddResponsable.sexe) }}
+                {{ form_errors(formAddResponsable.sexe) }}
+            </div>
+    
+            <div class="form-cell nom">
+                {{ form_label(formAddResponsable.nom) }}
+                {{ form_widget(formAddResponsable.nom) }}
+                {{ form_errors(formAddResponsable.nom) }}
+            </div>
+    
+            <div class="form-cell prenom">
+                {{ form_label(formAddResponsable.prenom) }}
+                {{ form_widget(formAddResponsable.prenom) }}
+                {{ form_errors(formAddResponsable.prenom) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddResponsable.nom) }}
-            {{ form_widget(formAddResponsable.nom) }}
-            {{ form_errors(formAddResponsable.nom) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddResponsable.prenom) }}
-            {{ form_widget(formAddResponsable.prenom) }}
-            {{ form_errors(formAddResponsable.prenom) }}
-        </div>
-
 
         <h2>Informations de contact</h2>
 
-        <div>
-            {{ form_label(formAddResponsable.tel) }}
-            {{ form_widget(formAddResponsable.tel) }}
-            {{ form_errors(formAddResponsable.tel) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddResponsable.email) }}
-            {{ form_widget(formAddResponsable.email) }}
-            {{ form_errors(formAddResponsable.email) }}
+        <div class="form-ligne01">
+            <div class="form-cell tel">
+                {{ form_label(formAddResponsable.tel) }}
+                {{ form_widget(formAddResponsable.tel) }}
+                {{ form_errors(formAddResponsable.tel) }}
+            </div>
+    
+            <div class="form-cell email">
+                {{ form_label(formAddResponsable.email) }}
+                {{ form_widget(formAddResponsable.email) }}
+                {{ form_errors(formAddResponsable.email) }}
+            </div>
         </div>
 
         <h2>Informations complémentaires</h2>
 
-        <div>
-            {{ form_label(formAddResponsable.fonction) }}
-            {{ form_widget(formAddResponsable.fonction) }}
-            {{ form_errors(formAddResponsable.fonction) }}
+        <div class="form-ligne01">
+            <div class="form-cell fonction">
+                {{ form_label(formAddResponsable.fonction) }}
+                {{ form_widget(formAddResponsable.fonction) }}
+                {{ form_errors(formAddResponsable.fonction) }}
+            </div>
         </div>
 
         <div class="postion-rose">

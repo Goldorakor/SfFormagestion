@@ -16,64 +16,68 @@
 
         <h2>Identité de la société</h2>
 
-        <div>
-            {{ form_label(formAddEntreprise.statutJuri) }}
-            {{ form_widget(formAddEntreprise.statutJuri) }}
-            {{ form_errors(formAddEntreprise.statutJuri) }}
-        </div>
+        <div class="form-ligne01">
+            <div class="form-cell statujuri">
+                {{ form_label(formAddEntreprise.statutJuri) }}
+                {{ form_widget(formAddEntreprise.statutJuri) }}
+                {{ form_errors(formAddEntreprise.statutJuri) }}
+            </div>
+    
+            <div class="form-cell raisonsociale">
+                {{ form_label(formAddEntreprise.raisonSociale) }}
+                {{ form_widget(formAddEntreprise.raisonSociale) }}
+                {{ form_errors(formAddEntreprise.raisonSociale) }}
+            </div>
 
-        <div>
-            {{ form_label(formAddEntreprise.raisonSociale) }}
-            {{ form_widget(formAddEntreprise.raisonSociale) }}
-            {{ form_errors(formAddEntreprise.raisonSociale) }}
+            <div class="form-cell logo">
+                {{ form_label(formAddEntreprise.logo) }}
+                {{ form_widget(formAddEntreprise.logo) }}
+                {{ form_errors(formAddEntreprise.logo) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddEntreprise.logo) }}
-            {{ form_widget(formAddEntreprise.logo) }}
-            {{ form_errors(formAddEntreprise.logo) }}
-        </div>
-
 
         <h2>Adresse postale du siège social</h2>
 
-        <div>
-            {{ form_label(formAddEntreprise.adresseSiege) }}
-            {{ form_widget(formAddEntreprise.adresseSiege) }}
-            {{ form_errors(formAddEntreprise.adresseSiege) }}
+        <div class="form-ligne01">
+            <div class="form-cell adresse">
+                {{ form_label(formAddEntreprise.adresseSiege) }}
+                {{ form_widget(formAddEntreprise.adresseSiege) }}
+                {{ form_errors(formAddEntreprise.adresseSiege) }}
+            </div>
+    
+            <div class="form-cell codePostal">
+                {{ form_label(formAddEntreprise.codePostalSiege) }}
+                {{ form_widget(formAddEntreprise.codePostalSiege) }}
+                {{ form_errors(formAddEntreprise.codePostalSiege) }}
+            </div>
+    
+            <div class="form-cell ville">
+                {{ form_label(formAddEntreprise.villeSiege) }}
+                {{ form_widget(formAddEntreprise.villeSiege) }}
+                {{ form_errors(formAddEntreprise.villeSiege) }}
+            </div>
+    
+            <div class="form-cell pays">
+                {{ form_label(formAddEntreprise.paysSiege) }}
+                {{ form_widget(formAddEntreprise.paysSiege) }}
+                {{ form_errors(formAddEntreprise.paysSiege) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddEntreprise.codePostalSiege) }}
-            {{ form_widget(formAddEntreprise.codePostalSiege) }}
-            {{ form_errors(formAddEntreprise.codePostalSiege) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddEntreprise.villeSiege) }}
-            {{ form_widget(formAddEntreprise.villeSiege) }}
-            {{ form_errors(formAddEntreprise.villeSiege) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddEntreprise.paysSiege) }}
-            {{ form_widget(formAddEntreprise.paysSiege) }}
-            {{ form_errors(formAddEntreprise.paysSiege) }}
-        </div>
-
 
         <h2>Informations de contact</h2>
 
-        <div>
-            {{ form_label(formAddEntreprise.tel) }}
-            {{ form_widget(formAddEntreprise.tel) }}
-            {{ form_errors(formAddEntreprise.tel) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddEntreprise.email) }}
-            {{ form_widget(formAddEntreprise.email) }}
-            {{ form_errors(formAddEntreprise.email) }}
+        <div class="form-ligne01">
+            <div class="form-cell tel">
+                {{ form_label(formAddEntreprise.tel) }}
+                {{ form_widget(formAddEntreprise.tel) }}
+                {{ form_errors(formAddEntreprise.tel) }}
+            </div>
+    
+            <div class="form-cell email">
+                {{ form_label(formAddEntreprise.email) }}
+                {{ form_widget(formAddEntreprise.email) }}
+                {{ form_errors(formAddEntreprise.email) }}
+            </div>
         </div>
 
 
@@ -88,42 +92,47 @@
 
         <h2>Informations légales</h2>
 
-        <div>
-            {{ form_label(formAddEntreprise.numSiret) }}
-            {{ form_widget(formAddEntreprise.numSiret) }}
-            {{ form_errors(formAddEntreprise.numSiret) }}
+        <div class="form-ligne01">
+            <div class="form-cell siret">
+                {{ form_label(formAddEntreprise.numSiret) }}
+                {{ form_widget(formAddEntreprise.numSiret) }}
+                {{ form_errors(formAddEntreprise.numSiret) }}
+            </div>
+    
+            <div class="form-cell rcs">
+                {{ form_label(formAddEntreprise.numRCS) }}
+                {{ form_widget(formAddEntreprise.numRCS) }}
+                {{ form_errors(formAddEntreprise.numRCS) }}
+            </div>
+
+            <div class="form-cell tvaintra">
+                {{ form_label(formAddEntreprise.numTVA) }}
+                {{ form_widget(formAddEntreprise.numTVA) }}
+                {{ form_errors(formAddEntreprise.numTVA) }}
+            </div>
         </div>
 
-        <div>
-            {{ form_label(formAddEntreprise.numRCS) }}
-            {{ form_widget(formAddEntreprise.numRCS) }}
-            {{ form_errors(formAddEntreprise.numRCS) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddEntreprise.numTVA) }}
-            {{ form_widget(formAddEntreprise.numTVA) }}
-            {{ form_errors(formAddEntreprise.numTVA) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddEntreprise.numDeclaActivite) }}
+        <div class="form-ligne01">
+            <div class="form-cell declara">
+                {{ form_label(formAddEntreprise.numDeclaActivite) }}
             {{ form_widget(formAddEntreprise.numDeclaActivite) }}
             {{ form_errors(formAddEntreprise.numDeclaActivite) }}
+            </div>
+    
+            <div class="form-cell prefet">
+                {{ form_label(formAddEntreprise.prefectureRegion) }}
+                {{ form_widget(formAddEntreprise.prefectureRegion) }}
+                {{ form_errors(formAddEntreprise.prefectureRegion) }}
+            </div>
         </div>
 
-        <div>
-            {{ form_label(formAddEntreprise.prefectureRegion) }}
-            {{ form_widget(formAddEntreprise.prefectureRegion) }}
-            {{ form_errors(formAddEntreprise.prefectureRegion) }}
+        <div class="form-ligne01">
+            <div class="form-cell tribunal">
+                {{ form_label(formAddEntreprise.tribunal) }}
+                {{ form_widget(formAddEntreprise.tribunal) }}
+                {{ form_errors(formAddEntreprise.tribunal) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddEntreprise.tribunal) }}
-            {{ form_widget(formAddEntreprise.tribunal) }}
-            {{ form_errors(formAddEntreprise.tribunal) }}
-        </div>
-
 
         <div class="postion-rose">
             {{ form_end(formAddEntreprise) }}

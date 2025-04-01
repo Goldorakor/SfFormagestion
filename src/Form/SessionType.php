@@ -25,26 +25,33 @@ class SessionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
             ->add('titreSession', TextType::class, [
                 'label' => 'Titre', // texte qui s'affiche devant le rectangle de saisie
             ])
+
             ->add('accroche', TextareaType::class, [
                 'label' => 'Accroche', // texte qui s'affiche devant le rectangle de saisie
             ])
+
             ->add('nbPlaces', IntegerType::class, [
                 'label' => 'Places max.', // texte qui s'affiche devant le rectangle de saisie
             ])
+
             ->add('nbModules', IntegerType::class, [
-                'label' => 'Nb de modules enseignés', // texte qui s'affiche devant le rectangle de saisie
+                'label' => 'Nb de modules', // texte qui s'affiche devant le rectangle de saisie
             ])
+
             ->add('dateDebut', DateTimeType::class, [
-                'label' => 'Date de début de session',
+                'label' => 'Date de début',
                 'widget' => 'single_text', // pour forcer l'affichage sous forme d'un seul champ texte avec un format standardisé
             ])
+
             ->add('dateFin', DateTimeType::class, [
-                'label' => 'Date de fin de session',
+                'label' => 'Date de fin',
                 'widget' => 'single_text', // pour forcer l'affichage sous forme d'un seul champ texte avec un format standardisé
             ])
+
             ->add('formation', EntityType::class, [
                 'class' => Formation::class,
                 'choice_label' => 'nomFormation', // on ne le supprime pas car on ne veut pas spécialement afficher le __toString dans ce cas précis
@@ -102,26 +109,6 @@ class SessionType extends AbstractType
                 //'required' => false,  Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
             ])
 
-
-            /* Champ pour l'apprenant inscrit' -> ancienne méthode pour juste afficher un champ (pour tester)
-            ->add('apprenantInscrit', EntityType::class, [ // nom à utiliser dans le SocieteController
-                'class' => Apprenant::class,
-                //'choice_label' => 'nom',  Affiche le nom du responsable -> on supprime pour qu'il affiche le __toString du responsable
-                'placeholder' => 'Sélectionner un apprenant',
-                'mapped' => false, // On ne mappe pas à l'entité Session directement -> ce champ n'est pas directement lié à l'entité Session. Il sera utilisé pour créer une entrée dans la table Inscription
-                'label' => 'Apprenant inscrit à la session',
-                'required' => false, // Rendre le champ optionnel -> parfois les sociétés n'ont pas la certitude de qui participera à la session, on veut donc pouvoir compléter ce champ plus tard
-            ])
-
-            ->add('prix', NumberType::class, [
-                'mapped' => false, // On ne mappe pas à l'entité Session directement -> ce champ n'est pas directement lié à l'entité Session. Il sera utilisé pour créer une entrée dans la table Inscription
-                'label' => 'Prix en € HT', // texte qui s'affiche devant le rectangle de saisie
-                'required' => false, // Rendre le champ optionnel -> comme je ne suis pas certain d'avoir un apprenant, je ne suis pas certain d'avoir un prix
-            ])
-            */
-
-
-
             // Champ pour inscrire les apprenants avec leur prix
             ->add('apprenantsInscrits', CollectionType::class, [
                 'entry_type' => ApprenantInscritType::class, // Formulaire imbriqué pour chaque apprenant
@@ -137,7 +124,6 @@ class SessionType extends AbstractType
                 'label' => false, // Empêche l'affichage automatique du label (Apprenants inscrits) -> supprime le label global de la collection
             ])
 
-
             // Champ pour inscrire les modules avec leur durée, leur date de début et leur date de fin
             ->add('planificationSessions', CollectionType::class, [
                 'entry_type' => PlanificationSessionType::class, // Formulaire imbriqué pour chaque apprenant
@@ -152,7 +138,6 @@ class SessionType extends AbstractType
                 'required' => false, // rend le champ optionnel
                 'label' => false, // Empêche l'affichage automatique du label (Planification sessions) -> supprime le label global de la collection
             ])
-
 
             ->add('enregistrer', SubmitType::class, [
                 'label' => '<i class="fa-solid fa-download"></i> Enregistrer',

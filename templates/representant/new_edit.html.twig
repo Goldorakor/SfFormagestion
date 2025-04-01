@@ -16,36 +16,40 @@
 
         <h2>Représentant légal</h2>
 
-        <div>
-            {{ form_label(formAddRepresentant.sexe) }}
-            {{ form_widget(formAddRepresentant.sexe) }}
-            {{ form_errors(formAddRepresentant.sexe) }}
+
+        <div class="form-ligne01">
+            <div class="form-cell sexe">
+                {{ form_label(formAddRepresentant.sexe) }}
+                {{ form_widget(formAddRepresentant.sexe) }}
+                {{ form_errors(formAddRepresentant.sexe) }}
+            </div>
+    
+            <div class="form-cell nom">
+                {{ form_label(formAddRepresentant.nom) }}
+                {{ form_widget(formAddRepresentant.nom) }}
+                {{ form_errors(formAddRepresentant.nom) }}
+            </div>
+    
+            <div class="form-cell prenom">
+                {{ form_label(formAddRepresentant.prenom) }}
+                {{ form_widget(formAddRepresentant.prenom) }}
+                {{ form_errors(formAddRepresentant.prenom) }}
+            </div>
         </div>
 
-        <div>
-            {{ form_label(formAddRepresentant.nom) }}
-            {{ form_widget(formAddRepresentant.nom) }}
-            {{ form_errors(formAddRepresentant.nom) }}
+        <div class="form-ligne01">
+            <div class="form-cell foncrep">
+                {{ form_label(formAddRepresentant.fonction) }}
+                {{ form_widget(formAddRepresentant.fonction) }}
+                {{ form_errors(formAddRepresentant.fonction) }}
+            </div>
+    
+            <div class="form-cell tampon">
+                {{ form_label(formAddRepresentant.tampon) }}
+                {{ form_widget(formAddRepresentant.tampon) }}
+                {{ form_errors(formAddRepresentant.tampon) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddRepresentant.prenom) }}
-            {{ form_widget(formAddRepresentant.prenom) }}
-            {{ form_errors(formAddRepresentant.prenom) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddRepresentant.fonction) }}
-            {{ form_widget(formAddRepresentant.fonction) }}
-            {{ form_errors(formAddRepresentant.fonction) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddRepresentant.tampon) }}
-            {{ form_widget(formAddRepresentant.tampon) }}
-            {{ form_errors(formAddRepresentant.tampon) }}
-        </div>
-
 
         {# https://symfony.com/doc/current/controller/upload_file.html #}
         {# {{ form_start(form) }}

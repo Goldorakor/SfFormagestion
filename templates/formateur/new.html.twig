@@ -16,54 +16,59 @@
 
         <h2>Identité du formateur</h2>
 
-        <div>
-            {{ form_label(formAddFormateur.sexe) }}
-            {{ form_widget(formAddFormateur.sexe) }}
-            {{ form_errors(formAddFormateur.sexe) }}
+        <div class="form-ligne01">
+            <div class="form-cell sexe">
+                {{ form_label(formAddFormateur.sexe) }}
+                {{ form_widget(formAddFormateur.sexe) }}
+                {{ form_errors(formAddFormateur.sexe) }}
+            </div>
+    
+            <div class="form-cell nom">
+                {{ form_label(formAddFormateur.nom) }}
+                {{ form_widget(formAddFormateur.nom) }}
+                {{ form_errors(formAddFormateur.nom) }}
+            </div>
+    
+            <div class="form-cell prenom">
+                {{ form_label(formAddFormateur.prenom) }}
+                {{ form_widget(formAddFormateur.prenom) }}
+                {{ form_errors(formAddFormateur.prenom) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddFormateur.nom) }}
-            {{ form_widget(formAddFormateur.nom) }}
-            {{ form_errors(formAddFormateur.nom) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddFormateur.prenom) }}
-            {{ form_widget(formAddFormateur.prenom) }}
-            {{ form_errors(formAddFormateur.prenom) }}
-        </div>
-
 
         <h2>Informations de contact</h2>
 
-        <div>
-            {{ form_label(formAddFormateur.tel) }}
-            {{ form_widget(formAddFormateur.tel) }}
-            {{ form_errors(formAddFormateur.tel) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddFormateur.email) }}
-            {{ form_widget(formAddFormateur.email) }}
-            {{ form_errors(formAddFormateur.email) }}
+        <div class="form-ligne01">
+            <div class="form-cell tel">
+                {{ form_label(formAddFormateur.tel) }}
+                {{ form_widget(formAddFormateur.tel) }}
+                {{ form_errors(formAddFormateur.tel) }}
+            </div>
+    
+            <div class="form-cell email">
+                {{ form_label(formAddFormateur.email) }}
+                {{ form_widget(formAddFormateur.email) }}
+                {{ form_errors(formAddFormateur.email) }}
+            </div>
         </div>
 
         <h2>Statut du formateur</h2>
 
-        <div>
-            {{ form_label(formAddFormateur.societe) }}
-            {{ form_widget(formAddFormateur.societe) }}
-            {{ form_errors(formAddFormateur.societe) }}
+        <div class="form-ligne01">
+            <div class="form-cell societe2">
+                {{ form_label(formAddFormateur.societe) }}
+                {{ form_widget(formAddFormateur.societe) }}
+                {{ form_errors(formAddFormateur.societe) }}
+            </div>
+    
+            <div class="form-cell statut2">
+                {{ form_label(formAddFormateur.statut) }}
+                {{ form_widget(formAddFormateur.statut) }}
+                {{ form_errors(formAddFormateur.statut) }}
+            </div>
         </div>
 
-        <div>
-            {{ form_label(formAddFormateur.statut) }}
-            {{ form_widget(formAddFormateur.statut) }}
-            {{ form_errors(formAddFormateur.statut) }}
-        </div>
-
-        <div>
+        <div class="postion-rose">
             {{ form_end(formAddFormateur) }}
             <a class="btn btn-rose" href="{{ path('app_formateur') }}">Quitter</a> {# bouton pour retourner à la liste des formateurs #}
         </div>

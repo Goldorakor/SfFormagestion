@@ -17,12 +17,14 @@ class ApprenantInscritType extends AbstractType
                 'class' => Apprenant::class,
                 'placeholder' => 'Sélectionner un apprenant',
                 //'choice_label' => 'nom',  Ajuste selon le champ à afficher
-                'label' => 'Apprenant inscrit à la session',
+                'label' => 'Apprenant inscrit',
+                'attr' => ['class' => 'form-cell apprenant-inscrit'] /* pour décider de la taille du champ en css */
             ])
             ->add('prix', NumberType::class, [
                 'label' => 'Prix en € HT',
                 'required' => false,
-                'attr' => ['placeholder' => 'Prix optionnel'], // à rajouter ??
+                /* 'attr' => ['placeholder' => 'Prix optionnel'],  à rajouter ?? */
+                'attr' => ['class' => 'form-cell apprenant-prix'] /* pour décider de la taille du champ en css */
             ]);
     }
 }

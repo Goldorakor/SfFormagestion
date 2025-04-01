@@ -16,117 +16,123 @@
 
         <h2>Identité de la société</h2>
 
-        <div>
-            {{ form_label(formAddSociete.statutJuri) }}
-            {{ form_widget(formAddSociete.statutJuri) }}
-            {{ form_errors(formAddSociete.statutJuri) }}
-        </div>
-            
-        <div>
-            {{ form_label(formAddSociete.raisonSociale) }}
-            {{ form_widget(formAddSociete.raisonSociale) }}
-            {{ form_errors(formAddSociete.raisonSociale) }}
-        </div>
+        <div class="form-ligne01">
+            <div class="form-cell statujuri">
+                {{ form_label(formAddSociete.statutJuri) }}
+                {{ form_widget(formAddSociete.statutJuri) }}
+                {{ form_errors(formAddSociete.statutJuri) }}
+            </div>
+    
+            <div class="form-cell raisonsociale">
+                {{ form_label(formAddSociete.raisonSociale) }}
+                {{ form_widget(formAddSociete.raisonSociale) }}
+                {{ form_errors(formAddSociete.raisonSociale) }}
+            </div>
 
-        <div>
-            {{ form_label(formAddSociete.numSiret) }}
-            {{ form_widget(formAddSociete.numSiret) }}
-            {{ form_errors(formAddSociete.numSiret) }}
+            <div class="form-cell siret2">
+                {{ form_label(formAddSociete.numSiret) }}
+                {{ form_widget(formAddSociete.numSiret) }}
+                {{ form_errors(formAddSociete.numSiret) }}
+            </div>
         </div>
-
 
         <h2>Informations de contact</h2>
 
-        <div>
-            {{ form_label(formAddSociete.tel) }}
-            {{ form_widget(formAddSociete.tel) }}
-            {{ form_errors(formAddSociete.tel) }}
+        <div class="form-ligne01">
+            <div class="form-cell tel">
+                {{ form_label(formAddSociete.tel) }}
+                {{ form_widget(formAddSociete.tel) }}
+                {{ form_errors(formAddSociete.tel) }}
+            </div>
+    
+            <div class="form-cell email">
+                {{ form_label(formAddSociete.email) }}
+                {{ form_widget(formAddSociete.email) }}
+                {{ form_errors(formAddSociete.email) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddSociete.email) }}
-            {{ form_widget(formAddSociete.email) }}
-            {{ form_errors(formAddSociete.email) }}
-        </div>
-
 
         <h2>Adresse postale du siège social</h2>
 
-        <div>
-            {{ form_label(formAddSociete.adresseSiege) }}
-            {{ form_widget(formAddSociete.adresseSiege) }}
-            {{ form_errors(formAddSociete.adresseSiege) }}
+        <div class="form-ligne01">
+            <div class="form-cell adresse">
+                {{ form_label(formAddSociete.adresseSiege) }}
+                {{ form_widget(formAddSociete.adresseSiege) }}
+                {{ form_errors(formAddSociete.adresseSiege) }}
+            </div>
+    
+            <div class="form-cell codePostal">
+                {{ form_label(formAddSociete.codePostalSiege) }}
+                {{ form_widget(formAddSociete.codePostalSiege) }}
+                {{ form_errors(formAddSociete.codePostalSiege) }}
+            </div>
+    
+            <div class="form-cell ville">
+                {{ form_label(formAddSociete.villeSiege) }}
+                {{ form_widget(formAddSociete.villeSiege) }}
+                {{ form_errors(formAddSociete.villeSiege) }}
+            </div>
+    
+            <div class="form-cell pays">
+                {{ form_label(formAddSociete.paysSiege) }}
+                {{ form_widget(formAddSociete.paysSiege) }}
+                {{ form_errors(formAddSociete.paysSiege) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddSociete.codePostalSiege) }}
-            {{ form_widget(formAddSociete.codePostalSiege) }}
-            {{ form_errors(formAddSociete.codePostalSiege) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddSociete.villeSiege) }}
-            {{ form_widget(formAddSociete.villeSiege) }}
-            {{ form_errors(formAddSociete.villeSiege) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddSociete.paysSiege) }}
-            {{ form_widget(formAddSociete.paysSiege) }}
-            {{ form_errors(formAddSociete.paysSiege) }}
-        </div>
-
 
         <h2>Adresse postale de facturation</h2>
 
-        <div>
-            {{ form_label(formAddSociete.adresseFac) }}
-            {{ form_widget(formAddSociete.adresseFac) }}
-            {{ form_errors(formAddSociete.adresseFac) }}
+        <div class="form-ligne01">
+            <div class="form-cell adresse">
+                {{ form_label(formAddSociete.adresseFac) }}
+                {{ form_widget(formAddSociete.adresseFac) }}
+                {{ form_errors(formAddSociete.adresseFac) }}
+            </div>
+    
+            <div class="form-cell codePostal">
+                {{ form_label(formAddSociete.codePostalFac) }}
+                {{ form_widget(formAddSociete.codePostalFac) }}
+                {{ form_errors(formAddSociete.codePostalFac) }}
+            </div>
+    
+            <div class="form-cell ville">
+                {{ form_label(formAddSociete.villeFac) }}
+                {{ form_widget(formAddSociete.villeFac) }}
+                {{ form_errors(formAddSociete.villeFac) }}
+            </div>
+    
+            <div class="form-cell pays">
+                {{ form_label(formAddSociete.paysFac) }}
+                {{ form_widget(formAddSociete.paysFac) }}
+                {{ form_errors(formAddSociete.paysFac) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddSociete.codePostalFac) }}
-            {{ form_widget(formAddSociete.codePostalFac) }}
-            {{ form_errors(formAddSociete.codePostalFac) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddSociete.villeFac) }}
-            {{ form_widget(formAddSociete.villeFac) }}
-            {{ form_errors(formAddSociete.villeFac) }}
-        </div>
-
-        <div>
-            {{ form_label(formAddSociete.paysFac) }}
-            {{ form_widget(formAddSociete.paysFac) }}
-            {{ form_errors(formAddSociete.paysFac) }}
-        </div>
-
 
         <h2>Contacts</h2>
+
+        <div class="form-ligne01">
+            <div class="form-cell resp-legal">
+                {{ form_label(formAddSociete.responsableLegal) }}
+                {{ form_widget(formAddSociete.responsableLegal) }}
+                {{ form_errors(formAddSociete.responsableLegal) }}
+            </div>
     
-        <div>
-            {{ form_label(formAddSociete.responsableLegal) }}
-            {{ form_widget(formAddSociete.responsableLegal) }}
-            {{ form_errors(formAddSociete.responsableLegal) }}
-        </div>
+            <div class="form-cell resp-admin">
+                {{ form_label(formAddSociete.responsableAdministratif) }}
+                {{ form_widget(formAddSociete.responsableAdministratif) }}
+                {{ form_errors(formAddSociete.responsableAdministratif) }}
+            </div>
 
-        <div>
-            {{ form_label(formAddSociete.responsableAdministratif) }}
-            {{ form_widget(formAddSociete.responsableAdministratif) }}
-            {{ form_errors(formAddSociete.responsableAdministratif) }}
+            <div class="form-cell resp-rh">
+                {{ form_label(formAddSociete.responsableRH) }}
+                {{ form_widget(formAddSociete.responsableRH) }}
+                {{ form_errors(formAddSociete.responsableRH) }}
+            </div>
         </div>
-
-        <div>
-            {{ form_label(formAddSociete.responsableRH) }}
-            {{ form_widget(formAddSociete.responsableRH) }}
-            {{ form_errors(formAddSociete.responsableRH) }}
-        </div>
-
+    
         {# <button type="submit" class="btn btn-primary">Enregistrer</button>   -> doublon car dans SocieteType, on a déjà "->add('enregistrer', SubmitType::class)"" qui est un champ "submit" #}
    
-        <div>
+        <div class="postion-rose">
             {{ form_end(formAddSociete) }}
             <a class="btn btn-rose" href="{{ path('app_societe') }}">Quitter</a> {# bouton pour retourner à la liste des sociétés #}
         </div>
