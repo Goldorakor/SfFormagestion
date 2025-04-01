@@ -43,10 +43,10 @@
                                 <a href="{{ path('construction') }}">{{ formation.dateMaj|date("d/m/Y") }}</a>
                             </td>
                             <td>
-                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer l'apprenant' #}
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer la formation #}
                             </td>
                             <td>
-                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer l'apprenant' #}
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer la formation #}
                             </td>
                         </tr>
                     {% endfor %}

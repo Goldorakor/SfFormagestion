@@ -92,18 +92,18 @@
 !!!!! IMPORTANT !!!!!
 Gérer les fonctionnalités selon les rôles
 
-Dans tes templates Twig, tu peux utiliser :
+Dans tes templates Twig, on peut utiliser :
 
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('admin_dashboard') }}">Accès admin</a>
 {% endif %}
 
-Et dans tes contrôleurs, tu peux restreindre l’accès avec :
+Et dans tes contrôleurs, on peut restreindre l’accès avec :
 
 if (!$this->isGranted('ROLE_ADMIN')) {
     throw $this->createAccessDeniedException('Accès refusé.');
 }
 
-Comme ça, les deux rôles accèdent aux mêmes pages, mais avec des fonctionnalités adaptées ! 🎯
+Comme ça, les deux rôles accèdent aux mêmes pages, mais avec des fonctionnalités adaptées !
 #}
 

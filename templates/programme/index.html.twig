@@ -36,17 +36,17 @@
                 <tbody>
                     {% for programme in programmes %}
                         <tr>
-                            <td class="clickable-row" data-href="{{ path('construction') }}>
+                            <td class="clickable-row" data-href="{{ path('construction') }}">
                                 <a href="{{ path('construction') }}">{{ programme.nomProgramme }}</a>
                             </td>
-                            <td class="clickable-row" data-href="{{ path('construction') }}>
+                            <td class="clickable-row" data-href="{{ path('construction') }}">
                                 <a href="{{ path('construction') }}">{{ programme.dateMaj|date("d/m/Y") }}</a>
                             </td>
                             <td>
-                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer l'apprenant' #}
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer le programme #}
                             </td>
                             <td>
-                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer l'apprenant' #}
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('construction') }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer le programme #}
                             </td>
                         </tr>
                     {% endfor %}
