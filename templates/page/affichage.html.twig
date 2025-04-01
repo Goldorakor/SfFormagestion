@@ -4,6 +4,8 @@
 
 {% block body %}
 
+<div class="sous-cont">
+
     
 <h1>Page pour tester les affichages</h1>
 <h2>Page pour tester les affichages</h2>
@@ -16,6 +18,25 @@
         <i class="fa-regular fa-square"></i> action de VAE<br>
         <i class="fa-regular fa-square"></i> action de formation par apprentissage
     </div>
+
+
+    <div class="position-rose">
+        <a class="btn btn-rose" href="{{ path('app_forgot_password_request') }}"><i class="fa-solid fa-right-from-bracket"></i>TEST</a> {# bouton pour tester les liens #}
+    </div>
+
+    <div class="position-rose">
+        <a class="btn btn-rose" href="{{ path('app_check_email') }}"><i class="fa-solid fa-right-from-bracket"></i>TEST</a> {# bouton pour tester les liens #}
+    </div>
+
+    <div class="position-rose">
+        <a class="btn btn-rose" href="{{ path('app_reset_password') }}"><i class="fa-solid fa-right-from-bracket"></i>TEST</a> {# bouton pour tester les liens #}
+    </div>
+
+    
+
+    
+
+</div>
 
 
 {% endblock %}

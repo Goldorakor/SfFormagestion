@@ -90,6 +90,11 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     transition: opacity 0.3s ease, visibility 0s 0s;  /* Supprimer le délai de visibilité */
 }
 
+.fiche-grise i {
+    /*font-size: 36px;  pas besoin d'agrandir l'icone */
+    margin-right: 12px; /* espacement entre l'icône et le nom du référent */
+  }
+
 
 /* FIN
 

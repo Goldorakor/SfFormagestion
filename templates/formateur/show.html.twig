@@ -236,7 +236,7 @@
     
     
     
-        <div class="postion-rose">
+        <div class="position-rose">
             {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-trash"></i>Supprimer</a>{% endif %} {# bouton pour supprimer le formateur' #}
     
             {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_formateur', {'id' : formateur.id}) }}"><i class="fa-solid fa-pen-to-square"></i>Editer</a>{% endif %} {# bouton pour éditer le formateur #}

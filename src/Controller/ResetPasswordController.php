@@ -31,10 +31,13 @@ class ResetPasswordController extends AbstractController
     ) {
     }
 
+
+
     /**
+     * Page de formulaire : on renseigne son email et on valide pour recevoir un lien de réinitialisation
      * Display & process form to request a password reset.
      */
-    #[Route('', name: 'app_forgot_password_request')]
+    #[Route('', name: 'app_forgot_password_request')]  /* http://127.0.0.1:8000/reset-password */
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -53,10 +56,13 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
+
+
     /**
+     * Message qui confirme l'envoi d'un email pour réinitialiser le mot de passe
      * Confirmation page after a user has requested a password reset.
      */
-    #[Route('/check-email', name: 'app_check_email')]
+    #[Route('/check-email', name: 'app_check_email')]  /* http://127.0.0.1:8000/reset-password/check-email */
     public function checkEmail(): Response
     {
         // Generate a fake token if the user does not exist or someone hit this page directly.
@@ -70,10 +76,12 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
+
+
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
-    #[Route('/reset/{token}', name: 'app_reset_password')]
+    #[Route('/reset/{token}', name: 'app_reset_password')]  /* http://127.0.0.1:8000/reset-password/reset => erreur sans token */
     public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, ?string $token = null): Response
     {
         if ($token) {
@@ -128,6 +136,10 @@ class ResetPasswordController extends AbstractController
             'resetForm' => $form,
         ]);
     }
+
+
+
+
 
     private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer, TranslatorInterface $translator): RedirectResponse
     {

@@ -303,9 +303,11 @@ thead tr:hover {
   text-decoration: none;
   font-size: 26px;
   /* font-weight: bold; */
-  transition: background-color 0.3s ease-in-out;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  border: none; /* enlève le bord gris dû au nivagateur */
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .btn.btn-rose i {
@@ -320,6 +322,7 @@ thead tr:hover {
 /* Aligner le bouton à droite */
 .position-purple {
   display: flex;
+  flex-direction: row;
   justify-content: flex-end;
   width: 100%; /* assure que le div prend toute la largeur disponible */
   margin-bottom: 20px;
@@ -441,9 +444,9 @@ VUES DE DETAILS
   color: #E16FAB;
 }
 
-/* aligner les boutons au centre */
 .position-rose {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   width: 100%; /* assure que le div prend toute la largeur disponible */
   margin-top: 60px;
@@ -1005,11 +1008,11 @@ Chaque ligne est un flex container */
 .form-cell.apprenant-inscrit { flex-basis: 80%; }
 .form-cell.apprenant-prix { flex-basis: 20%; }
 
-.form-cell.ses-titre { flex-basis: 50%; }
+.form-cell.ses-titre { flex-basis: 100%; }
 
-.form-cell.ses-accroche { flex-basis: 50%; }
+.form-cell.ses-accroche { flex-basis: 100%; }
 
-.form-cell.ses-formation { flex-basis: 50%; }
+.form-cell.ses-formation { flex-basis: 100%; }
 
 .form-cell.nbplaces { flex-basis: 25%; }
 .form-cell.nbmodules { flex-basis: 25%; }

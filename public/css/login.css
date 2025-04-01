@@ -183,7 +183,7 @@ gestion de l'auto-remplissage et des ombres par les navigateurs
 */
 
 input[type="email"], input[type="password"] {
-    background-color: white !important;
+    background-color: #ffffff !important;
     box-shadow: none !important; /* Désactive toute ombre */
     -webkit-box-shadow: none !important; /* Désactive l'ombre spécifique à Chrome */
     border: none !important; /* Supprime la bordure */
@@ -191,9 +191,9 @@ input[type="email"], input[type="password"] {
 }
 
 input:-webkit-autofill {
-    background-color: white !important;
-    -webkit-text-fill-color: black !important; /* Force la couleur du texte */
-    box-shadow: 0 0 0px 1000px white inset !important;
+    background-color: #ffffff !important;
+    -webkit-text-fill-color: #282828 !important; /* Force la couleur du texte */
+    box-shadow: 0 0 0px 1000px #ffffff inset !important;
 }
 
 /*
@@ -218,7 +218,7 @@ FIN DU CODE SPECIAL
     border-radius: 30px;
     width: 220px;
     height: 60px;
-    border: none;
+    border: none; /* enlève le bord gris dû au nivagateur */
     cursor: pointer;
     transition: background 0.3s ease;
 }
@@ -227,7 +227,3 @@ FIN DU CODE SPECIAL
     background-color: #363cb5;
 }
 
-  
-  
-
-  

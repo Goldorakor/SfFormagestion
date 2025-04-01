@@ -251,7 +251,7 @@
         {% endif %}
     
     
-        <div class="postion-rose">
+        <div class="position-rose">
             {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-trash"></i>Supprimer</a>{% endif %} {# bouton pour supprimer l'apprenant' #}
     
             {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('edit_apprenant', {'id' : apprenant.id}) }}"><i class="fa-solid fa-pen-to-square"></i>Editer</a>{% endif %} {# bouton pour éditer l'apprenant #}

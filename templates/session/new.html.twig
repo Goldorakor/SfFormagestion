@@ -110,10 +110,10 @@
         <h2>Inscriptions avec tarifs</h2>
 
         <!-- Conteneur dynamique pour l'inscription des apprenants -->
-        <div id="apprenants-container" data-prototype="{{ form_widget(formAddSession.apprenantsInscrits.vars.prototype)|e('html_attr') }}">
+        <div class="form-ligne01" id="apprenants-container" data-prototype="{{ form_widget(formAddSession.apprenantsInscrits.vars.prototype)|e('html_attr') }}">
             {% for apprenantField in formAddSession.apprenantsInscrits %}
                 <!-- Chaque champ d'apprenant est enveloppé dans un div avec la classe 'apprenant-entry' -->
-                <div class="form-ligne01">{{ form_row(apprenantField) }}</div> {# <div class="apprenant-entry">{{ form_row(apprenantField) }}</div> #}
+                <div class="form-cell">{{ form_row(apprenantField) }}</div> {# <div class="apprenant-entry">{{ form_row(apprenantField) }}</div> #}
             {% endfor %}
         </div>
 

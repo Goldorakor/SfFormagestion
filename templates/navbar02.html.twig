@@ -23,7 +23,7 @@ ensuite, il sera incorporé au template base.html.twig, sous la balise <body>
                 <span id="email-bouton">{{ user.email|lower }}</span>
             </p>
             <a href="{{ path('construction') }}">Mon compte</a>
-            <a href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Me déconnecter</a>
+            <a href="{{ path('app_logout') }}"><span class="fiche-grise"><i class="fa-solid fa-right-from-bracket"></i>Me déconnecter</span></a>
         </div>
     </nav>
 

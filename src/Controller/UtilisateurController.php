@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
 use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +54,8 @@ final class UtilisateurController extends AbstractController
         Request $request, 
         EntityManagerInterface $entityManager, 
         BreadcrumbsGenerator $breadcrumbsGenerator, 
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        MailerInterface $mailer // Injection du service MailerInterface
         ): Response
     {
         // pour construire notre fil d'Ariane
@@ -138,6 +141,44 @@ final class UtilisateurController extends AbstractController
             $entityManager->persist($user); // équivaut à la méthode prepare() en PDO
 
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
+
+
+
+
+            /* 
+            
+            Important de rajouter ce code pour permettre l'envoi d'un email à la création d'un compte utilisateur
+
+            */
+            if (!$isEdit) {
+                $email = (new Email())
+                    ->from('noreply@example.com') // Adresse de l'expéditeur
+                    ->to($user->getEmail()) // L'email de l'utilisateur créé
+                    ->subject('Bienvenue sur Forma\'Gestion !')
+                    ->text(
+                        'Bonjour ' . $user->getPrenom() . ' ' . $user->getNom() . ',
+            
+            Votre compte vient d\'être créé.
+            Nous sommes heureux de vous accueillir sur cet outil de gestion administrative.
+            Veuillez vous rendre à cette adresse : http://127.0.0.1:8000/login.
+            Votre identifiant est : ' . $user->getEmail() . '
+            Votre mot de passe provisoire est : motdepasse12345678.
+            Pensez à changer votre mot de passe en éditant votre compte à cette adresse : (non disponible pour le moment).
+            
+            À très bientôt !
+            L\'équipe de Forma\'Gestion'
+                    );
+            
+                // Envoi de l'email via le service Mailer
+                $mailer->send($email);
+            }
+
+
+
+
+
+            
+
 
             // redirection vers la liste des utilisateurs (si formulaire soumis et formulaire valide)
             return $this->redirectToRoute('app_utilisateur');
@@ -260,5 +301,27 @@ final class UtilisateurController extends AbstractController
     
     */
 
+
+
+
+
+
+
+
+    // méthode pour teqter un envoi de mail vers MailHog, pour s'assurer que tout va bien !
+    // dans le navigateur, on entre : http://127.0.0.1:8000/test-email
+    #[Route('/test-email', name: 'test_email')]
+    public function sendEmail(MailerInterface $mailer): Response
+    {
+        $email = (new Email())
+            ->from('expediteur@example.com')
+            ->to('destinataire@example.com')
+            ->subject('Test MailHog')
+            ->text('Ceci est un test d\'envoi d\'email avec MailHog.');
+
+        $mailer->send($email);
+
+        return new Response('Email envoyé ! Vérifie MailHog 😉');
+    }
 
 }

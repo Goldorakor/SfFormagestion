@@ -1,12 +1,24 @@
 {% extends 'base02.html.twig' %}
 
+{# formulaire pour choisir un nouveau mot de passe #}
+
 {% block title %}Réinitialiser votre mot de passe{% endblock %}
 
 {% block body %}
-    <h1>Réinitialiser votre mot de passe</h1>
 
-    {{ form_start(resetForm) }}
+<div class="sous-cont">
+
+    <h1 class="h1-sans-h3">Réinitialiser votre mot de passe</h1>
+
+
+    <div class="position-rose">
+        {{ form_start(resetForm) }}
         {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Réinitialisation du mot de passe</button>
-    {{ form_end(resetForm) }}
+        <button class="btn btn-rose">Réinitialisation du mot de passe</button>
+        {{ form_end(resetForm) }}
+    </div>
+
+
+</div>
+
 {% endblock %}

@@ -58,6 +58,15 @@ h1 {
   margin-bottom: 5px;
   width: 100%;
 }
+
+.h1-sans-h3 {  /* pour bénéficier d'un espace vers le bas important */
+  color : #DC6A17;
+  font-size: 70px; /* définit la taille de la police à 50 pixels */
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 100%;
+}
   
 h2 {
   color : #FF4300;
@@ -159,9 +168,11 @@ thead tr:hover {
   text-decoration: none;
   font-size: 26px;
   /* font-weight: bold; */
-  transition: background-color 0.3s ease-in-out;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  border: none; /* enlève le bord gris dû au nivagateur */
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .btn.btn-rose i {
@@ -257,10 +268,6 @@ Chaque ligne est un flex container */
 .form-cell.ville { flex-basis: 28%; }
 .form-cell.pays { flex-basis: 20%; }
 
-/* .form-cell.societe { flex-basis: 20%; }
-.form-cell.dateNaissance { flex-basis: 20%; }
-.form-cell.metier { flex-basis: 20%; } */
-
 .form-cell.fonc-rep { flex-basis: 30%; }
 .form-cell.tampon { flex-basis: 70%; }
 
@@ -304,9 +311,9 @@ select {
 }
 
 .user-comment{
-  font-size: 14px;
+  font-size: 16px;
   font-style: italic;
-  color: #898989;
+  color: #5b5b5b;
 }
 
 /*
@@ -355,6 +362,7 @@ FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
 /* aligner les boutons au centre */
 .position-rose {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   width: 100%; /* assure que le div prend toute la largeur disponible */
   margin-top: 60px;
@@ -362,3 +370,13 @@ FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
 }
 
   
+
+.check-email {
+  font-size: 26px;
+  color: #282828;
+}
+
+.check-clic {
+  font-size: 26px;
+  color: #bd1e73;
+}
