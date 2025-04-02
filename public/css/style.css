@@ -407,6 +407,10 @@ VUES DE DETAILS
 
 .fiche-module {
   flex : 1; /* Permet à la fiche de s'étendre pour remplir l'espace disponible */
+  /* <=> flex: 1 1 0%; 
+  => flex-grow: 1; → L'élément peut grandir pour occuper l'espace disponible.
+  => flex-shrink: 1; → L'élément peut rétrécir si nécessaire.
+  => flex-basis: 0%; → La taille de départ est 0, donc la répartition de l’espace se fait uniquement en fonction de flex-grow. */
   color: #282828;
   background-color: #ffffff; /* Fond blanc */
   border-radius: 20px;
@@ -427,7 +431,7 @@ VUES DE DETAILS
 
 /*
 
-version groupée fiche-module et clickable-div
+version groupée fiche-module et clickable-div (si conflit, meilleure méthode)
 
 .fiche-module {
   display: flex; /* Active Flexbox pour organiser l'intérieur du module 
@@ -451,7 +455,8 @@ version groupée fiche-module et clickable-div
   justify-content: left; /* Aligne le texte à gauche */
   align-items: flex-start; /* Aligne le texte en haut des blocs */
   margin: 0px; /* Supprime les marges externes */
-  flex-grow: 1; /* Permet aux éléments de s'agrandir uniformément pour remplir l’espace disponible => assure un espacement uniforme */
+  flex-grow: 1; /* Permet aux éléments de s'agrandir uniformément pour remplir l’espace disponible 
+  => assure un espacement uniforme ! => Je peux grandir si de l’espace est disponible */
 }
 
 .fiche-champ a {
