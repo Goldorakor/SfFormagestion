@@ -396,48 +396,66 @@ VUES DE DETAILS
 
 .details-modules {
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between; /* center pose des soucis */
-  align-items: stretch; /* center => stretch : force les div à avoir la même hauteur */
-  margin: 0px;
-  gap: 20px;
-  flex-wrap: wrap; /* pour que le 3eme rectangle se place correctement en dessous aligné à gauche */
+  flex-direction: row; /* Aligne les éléments en ligne */
+  width: 100%; /* Prend toute la largeur du conteneur parent */
+  justify-content: flex-start; /* Aligne les éléments au début de la ligne (à gauche) */
+  align-items: stretch; /* center => stretch : Étire les éléments pour qu'ils aient tous la même hauteur */
+  margin: 0px; /* Supprime les marges externes */
+  gap: 20px; /* Ajoute un espace de 20px entre chaque élément */
+  flex-wrap: wrap; /* Permet le retour à la ligne pour que le 3eme rectangle se place correctement en dessous aligné à gauche */
 }
 
 .fiche-module {
-  display: flex; /* flex */
-  flex-direction: column; /* on veut des colonnes pour empiler les champs : un seul champ ici donc pas important */
-  width: 40%;  /* 50% pose problème */
+  flex : 1; /* Permet à la fiche de s'étendre pour remplir l'espace disponible */
   color: #282828;
-  background-color: #ffffff; /* ffffff */
+  background-color: #ffffff; /* Fond blanc */
   border-radius: 20px;
   font-size: 26px;
-  padding: 20px;
-  line-height: 1.2;
+  padding: 20px; /* Espacement interne */
+  line-height: 1.2; /* Espacement entre les lignes de texte */
 }
 
 
 .clickable-div {
-  display: block;
+  display: flex;   /* Active Flexbox pour organiser les éléments */
   /* flex-direction: row; */
   text-decoration: none; /* Enlève le soulignement du lien */
   color: inherit; /* garde la couleur du texte */
-  width: 100%;
+  width: calc(50% - 10px); /* Définit la largeur à 50% moins la moitié du gap pour éviter les débordements */
 }
+
+
+/*
+
+version groupée fiche-module et clickable-div
+
+.fiche-module {
+  display: flex; /* Active Flexbox pour organiser l'intérieur du module 
+  flex-direction: column; /* Empile les éléments à l'intérieur verticalement 
+  width: calc(50% - 20px); /* Définit la largeur à 50% moins l'espace du gap pour éviter le dépassement 
+  color: #282828; /* Définit la couleur du texte 
+  background-color: #ffffff; /* Fond blanc 
+  border-radius: 20px; /* Ajoute des coins arrondis 
+  font-size: 26px; /* Définit la taille du texte 
+  padding: 20px; /* Ajoute un espacement interne autour du contenu 
+  line-height: 1.2; /* Définit l’espacement entre les lignes de texte 
+  box-sizing: border-box; /* Inclut padding et bordure dans la largeur totale 
+}
+
+*/
 
 
 .fiche-champ {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: flex-start;
-  margin: 0px;
-  flex-grow: 1; /* assure un espacement uniforme */
+  display: flex; /* Active Flexbox pour organiser le contenu */
+  flex-direction: row; /* Aligne les éléments horizontalement */
+  justify-content: left; /* Aligne le texte à gauche */
+  align-items: flex-start; /* Aligne le texte en haut des blocs */
+  margin: 0px; /* Supprime les marges externes */
+  flex-grow: 1; /* Permet aux éléments de s'agrandir uniformément pour remplir l’espace disponible => assure un espacement uniforme */
 }
 
 .fiche-champ a {
-  text-decoration: none;
+  text-decoration: none; /* Supprime le soulignement des liens dans les fiches */
 }
 
 .mini-rose {
