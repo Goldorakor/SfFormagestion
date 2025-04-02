@@ -529,9 +529,9 @@ version groupée fiche-module et clickable-div (si conflit, meilleure méthode)
 
 .session-h3 {
   color :#a2118a; /* change la couleur du texte en rose */
-  font-size: 24px; /* définit la taille de la police à 24 pixels */
+  font-size: 40px; /* définit la taille de la police à 24 pixels */
   text-align: center;
-  margin-top: 0px;
+  margin-top: 10px;
   margin-bottom: 50px;
   width: 100%;
 }
@@ -1125,3 +1125,17 @@ FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
 
 */
 
+/*
+
+différences flex /flex-grow :
+
+flex: 1; force la largeur initiale à 0% avant de distribuer l’espace disponible.
+
+flex-grow: 1; respecte la largeur initiale définie avant de grandir.
+
+Si on veut que les éléments grandissent de manière égale et ignorent une largeur de départ, flex: 1; est plus adapté.
+Si on veut qu'ils grandissent en partant d'une largeur définie, flex-grow: 1; seul est préférable.
+
+Dans certains cas, les deux pourraient fonctionner, mais flex: 1; est souvent plus sûr pour un comportement homogène. 
+
+*/

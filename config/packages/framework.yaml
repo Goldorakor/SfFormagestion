@@ -8,6 +8,19 @@ framework:
     #esi: true
     #fragments: true
 
+
+    # ajout personnel pour passer de http à https (inutile depuis que j'ai aussi modifié security.yaml ??)
+    # => HTTP avec une couche de chiffrement SSL/TLS, ce qui sécurise les échanges de données entre le client (navigateur) et le serveur
+    # indispensable pour protéger les données sensibles (mots de passe, paiements, données personnelles, etc.) et améliorer le référencement (SEO)
+    http_client:
+        scoped_clients:
+            app.client:
+                base_uri: 'https://127.0.0.1:8000'
+
+    trusted_proxies: '127.0.0.1' # Adapter selon l'environnement
+    trusted_headers: ['X-Forwarded-Proto']
+
+
 when@test:
     framework:
         test: true
