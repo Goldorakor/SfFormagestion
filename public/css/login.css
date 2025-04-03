@@ -18,14 +18,23 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
     padding: 0;
     box-sizing: border-box;
 }
+
+
+.super-wrap {
+    display : flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100vh; /* Assure que le fond prend toute la hauteur de l'écran */
+    width: 100vw;
+    overflow: hidden; /* Empêche le défilement */
+}
   
 
 .login-wrap {
     display : flex;
     flex-direction: row;
-    margin: 0;
-    min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
-    width: 100vw;
+    width: 100%;
+    flex: 1; /* Utilise l'espace disponible */
 }
   
 
@@ -34,7 +43,7 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50vw;
+    width: 50%; /* Changé de 50vw à 50% => plus souple */
 }
  
 
@@ -178,6 +187,7 @@ input[type="email"], input[type="password"] {
 
 CODE SPECIAL vu sur Stack Overflow
 https://developer.mozilla.org/fr/docs/Web/CSS/WebKit_Extensions
+https://developer.mozilla.org/en-US/docs/Web/CSS/important
 gestion de l'auto-remplissage et des ombres par les navigateurs
 
 */
@@ -228,6 +238,8 @@ FIN DU CODE SPECIAL
 }
 
 
+
+
 /* 
 
 Style pour le footer de la page login 
@@ -236,7 +248,7 @@ Style pour le footer de la page login
 
 .footer-container {
     background-color: #e5e5e5;
-    padding: 0px;
+    padding: 8px; /* Ajouté un peu de padding vertical */
     text-align: center;
     width: 100%;
     margin: 0 auto;
@@ -249,13 +261,16 @@ Style pour le footer de la page login
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 80px;
+    gap: 200px;
     flex-wrap: wrap; /* pour éviter les problèmes d'affichage sur des écrans très étroits */
 }
 
 .footer-link {
     /* background-color: #2e2e2e; */
-    color: #000000;
+    color: #282828;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
     padding: 10px 0px;
     text-decoration: none;
     border-radius: 20px;
@@ -265,7 +280,7 @@ Style pour le footer de la page login
 }
 
 .footer-link:hover {
-    background-color: #11166f;
+    color: #d9740f;
 }
 
 
