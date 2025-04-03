@@ -23,6 +23,15 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     align-items: center;
 }
 
+
+@media (max-width: 840px) {
+    .navbar {
+      top: 10px;
+      right: 10px;
+    }
+}
+
+
 .nav-button {
     background-color: #5b5b5b;
     color: #ffffff;
@@ -39,6 +48,16 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     border: 2px solid #ff4300;
 }
 
+
+@media (max-width: 840px) {
+    .nav-button {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+}
+
+
 .dropdown-menu {
     display: block;  /* Changer de 'none' à 'block' pour travailler avec opacity */
     position: absolute;
@@ -54,6 +73,15 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     transition: opacity 0.3s ease, visibility 0s 0.3s;  /* Transition fluide */
 }
 
+
+@media (max-width: 840px) {
+    .dropdown-menu {
+        top: 65px;
+        border-radius: 6px;
+    }
+}
+
+
 .dropdown-menu a {
     display: block;
     padding: 10px 20px;
@@ -62,15 +90,39 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     color: #282828;
 }
 
+
+@media (max-width: 840px) {
+    .dropdown-menu a {
+        padding: 9px 18px;
+        font-size: 18px;
+    }
+}
+
+
 .dropdown-menu p {  /* on copie colle ".dropdown-menu a" pour copier le style */
     padding: 10px 20px;
     font-size: 20px;
 }
 
-#identite-bouton{
+
+@media (max-width: 840px) {
+    .dropdown-menu p {
+        padding: 9px 18px;
+        font-size: 18px;
+    }
+}
+
+
+#identite-bouton {
     font-size: 20px;
     font-weight: bold;
     color: #282828;
+}
+
+@media (max-width: 840px) {
+    #identite-bouton {
+        font-size: 18px;
+    }
 }
 
 #email-bouton{
@@ -79,7 +131,14 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     color: #5b5b5b;
 }
 
-.dropdown-menu a:hover{
+@media (max-width: 840px) {
+    #identite-bouton {
+        font-size: 16px;
+    }
+}
+
+
+.dropdown-menu a:hover {
     background-color: #282828;
     color: #ffffff;
 }
@@ -92,9 +151,14 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 .fiche-grise i {
     /*font-size: 36px;  pas besoin d'agrandir l'icone */
-    margin-right: 12px; /* espacement entre l'icône et le nom du référent */
-  }
+    margin-right: 12px; /* espacement entre l'icône et "me déconnecter" */
+}
 
+@media (max-width: 840px) {
+    .fiche-grise i {
+        margin-right: 10px;
+    }
+}
 
 /* FIN
 

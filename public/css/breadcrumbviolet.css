@@ -6,7 +6,13 @@
     align-items: center; /* Aligne le texte et la liste sur la même ligne */
     gap: 5px; /* Ajoute un petit espace entre les éléments */
   }
-  
+
+  @media (max-width: 840px) {
+    .ariane {
+      margin-left: 60px;
+    }
+  }
+
   .fil-ariane {
     list-style: none; /* Supprime les puces des listes (<ol> ou <ul>) */
     display: flex; /* Affiche les éléments en ligne (horizontalement) */

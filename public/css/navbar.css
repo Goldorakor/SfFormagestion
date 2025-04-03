@@ -179,7 +179,12 @@ font-size: 14px;
   visibility: visible; /* Le rendre visible */
   transition: opacity 0.3s ease, visibility 0s 0s;  /* Supprimer le délai de visibilité */
 }
-  
+
+
+/* Navbar Mobile (cachée par défaut) */
+.sidenav-mobile {
+  display: none;
+} 
   
 
 
@@ -192,3 +197,81 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 */
 
+
+
+
+
+
+
+
+
+
+/* Quand l’écran est plus petit */
+@media screen and (max-width: 840px) {
+  .sidenav {
+    display: none;
+  }
+
+  /* Add a black background color to the top navigation */
+.sidenav-mobile {
+  position: fixed;  /*  Fixe la position de la navbar sur le côté */
+  top: 0; /* la navbar se colle bien au haut de la page ! */
+  left: 0; /* la navbar se colle bien à gauche de la page ! */
+  background-color: #E16FAB;
+  display: flex;
+  flex-direction: column; /* Met les éléments en colonne */
+  align-items: center; /* Aligne les éléments au centre */
+  width: 60px; /* Largeur fixe pour la sidebar */
+  padding: 0px 0 0 0; /* 5px 0 0 0 => on évite que le premier bouton soit trop collé au haut de la page */
+  /* ce padding 10px explique le décalage vers le bas constaté quand on inspecte la navbar dans le header */
+  overflow-y: auto; /* Permet un défilement vertical */
+  height: 100vh; /* Utilise toute la hauteur de la fenêtre */
+  }
+
+  .sidenav-mobile ul {
+    list-style: none; /* on cache les listes à puces */
+    width: 100%;
+  }
+
+  .sidenav-mobile li {
+  width: 60px; 
+  height: 60px;
+  display: flex;
+  justify-content: center; /* Centrer les éléments à l'intérieur du <li> */
+  align-items: center;
+  margin-bottom: 60px;
+  
+  }
+
+  .logo-sidenav-mobile img {
+    width: 120px; /* Ajuste la largeur */
+    height: auto; /* Garde les proportions */
+    object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
+  }
+
+  /* Style des boutons "Créations", "Suivis" et "Paramètres"  => attention : .princbtn seul ne fonctionne pas */
+  .sidenav-mobile .princbtn-mobile {
+  display: flex;
+  text-align: center; /* Centrer le texte */
+  justify-content: center;
+  }
+
+  .sidenav-mobile .princbtn-mobile img:hover {
+  background-color: #4449D5; /* Couleur du texte plus foncé au survol */
+  }
+
+
+  .icon-sidenav-mobile img {
+    width: 60px; /* Ajuste la largeur */
+    height: 60px; /* Garde les proportions */
+    text-align: center; /* Centrer le texte */
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #4449D5;
+    box-sizing: border-box; /* Assure que la bordure est incluse dans la taille totale */
+    padding: 0; /* Retire tout padding qui pourrait affecter l'apparence */
+  margin: 0; /* Retire toute marge qui pourrait affecter l'apparence */
+    object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
+  }
+
+}

@@ -159,9 +159,17 @@ PAGE D'ACCUEIL
   margin-left: 190px;
   margin-right: 130px;
   margin-bottom: 40px; /* 80px trop grand : pas besoin d'un tel espace ! */
-  /* en principe, il faudrait 200 120 80 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
+  /* en principe, il faudrait 200 120 40 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
 }
 
+@media (max-width: 840px) {
+  .accueil-sous-cont {
+    margin-left: 50px;
+    margin-right: 130px;
+    margin-bottom: 20px;
+    /* en principe, il faudrait 60 120 20 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
+  }
+}
 
 .accueil-h1 {
   color :#790945; /* change la couleur du texte en rose */
@@ -170,6 +178,13 @@ PAGE D'ACCUEIL
   margin-top: 10px;
   margin-bottom: 5px;
 }
+
+@media (max-width: 760px) {
+  .accueil-h1 {
+    font-size: 36px; /* définit la taille de la police à 50 pixels */
+  }
+}
+
 
 
 .accueil-h2 {
@@ -182,6 +197,13 @@ PAGE D'ACCUEIL
   padding-left: 30px; /* meilleure réaction de h2 à la diminution de la largeur d'écran */
 }
 
+@media (max-width: 760px) {
+  .accueil-h2 {
+    font-size: 30px;
+  }
+}
+
+
 
 .accueil-h3 {
   color :#a2118a; /* change la couleur du texte en rose */
@@ -190,6 +212,13 @@ PAGE D'ACCUEIL
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+@media (max-width: 760px) {
+  .accueil-h3 {
+    font-size: 16px;
+  }
+}
+
 
 
 .accueil-boite1 {
@@ -236,6 +265,13 @@ PAGE D'ACCUEIL
   width: 400px;
   height: 360px;
   object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
+}
+
+@media (max-width: 760px) {
+  .accueil-h2 {
+    width: 200px;
+    height: 180px;
+  }
 }
 
 
