@@ -22,7 +22,6 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     align-items: center; /* Aligne les éléments au centre */
     width: 200px; /* Largeur fixe pour la sidebar */
     padding: 10px 0 0 0; /* on évite que le premier bouton soit trop collé au haut de la page */
-    /* ce padding 10px explique le décalage vers le bas constaté quand on inspecte la navbar dans le header */
     overflow-y: auto; /* Permet un défilement vertical */
     height: 100vh; /* Utilise toute la hauteur de la fenêtre */
 }

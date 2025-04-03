@@ -17,95 +17,107 @@
 
     </head>
 
-
     <body>
 
-        <div class="login-wrap">
+        <div class="super-wrap">
 
-            <div id="login-cont01">
-                <div class="login-logofg">
-                    <img src="/images/logo_formagestion.jpg" alt="le logo de l'outil FormaGestion, FG entrelacés, en noir et violet">
-                </div>
-                <h1>
-                    FORMA'GESTION
-                </h1>
-                <p>
-                    Créer et gérer vos formations,<br>
-                    en toute simplicité ! 
-                </p>
-                <div class="login-img">
-                    <img src="/images/image_login.svg" alt="un homme assis dans un fauteuil design, deux mains croisées derrière la tête, qui regarde un oridnateur portable posé sur un guéridon">
-                </div>
-            </div>
-            
-            <div id="login-cont02">
-                <form method="post">
-                    {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
-            
-                    {#{% if app.user %}
-                        <div class="mb-3">
-                            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                        </div>
-                    {% endif %}#}
-            
-                    {# <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> pas besoin de ce titre #}
-            
-                    <div class="login-logoft">
-                        {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
-                        <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
-                        {% endif %}
-                    </div>
+            <div class="login-wrap">
 
-                    
-                    <div class="tubes-login">
-                        <div class="identifiant">
-                            <label for="username">Identifiant</label>
-                            <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-                        </div>
-                
-                        <div class="mot-passe">
-                            <label for="password">Mot de passe</label>
-                            <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-                        </div>
-                
-                        <div>
-                            <input type="hidden" name="_csrf_token"
-                            value="{{ csrf_token('authenticate') }}"
-                            >
-                        </div>
+                <div id="login-cont01">
+                    <div class="login-logofg">
+                        <img src="/images/logo_formagestion.jpg" alt="le logo de l'outil FormaGestion, FG entrelacés, en noir et violet">
                     </div>
-            
-                    
-            
-                    {#
-                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                        See https://symfony.com/doc/current/security/remember_me.html
-            
-                        <div class="checkbox mb-3">
-                            <input type="checkbox" name="_remember_me" id="_remember_me">
-                            <label for="_remember_me">Remember me</label>
-                        </div>
-                    #}
-            
-                    <div class="purple">
-                        <button class="btn-purple" type="submit">
-                            SE CONNECTER
-                        </button>
-                    </div>
-                </form>
-                <div>
+                    <h1>
+                        FORMA'GESTION
+                    </h1>
                     <p>
-                        <a href="{{ path('app_forgot_password_request') }}">Mot de passe perdu ?</a>
+                        Créer et gérer vos formations,<br>
+                        en toute simplicité ! 
                     </p>
+                    <div class="login-img">
+                        <img src="/images/image_login.svg" alt="un homme assis dans un fauteuil design, deux mains croisées derrière la tête, qui regarde un oridnateur portable posé sur un guéridon">
+                    </div>
                 </div>
+                
+                <div id="login-cont02">
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                
+                        {#{% if app.user %}
+                            <div class="mb-3">
+                                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        {% endif %}#}
+                
+                        {# <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> pas besoin de ce titre #}
+                
+                        <div class="login-logoft">
+                            {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
+                            <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+                            {% endif %}
+                        </div>
+    
+                        
+                        <div class="tubes-login">
+                            <div class="identifiant">
+                                <label for="username">Identifiant</label>
+                                <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+                            </div>
+                    
+                            <div class="mot-passe">
+                                <label for="password">Mot de passe</label>
+                                <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                            </div>
+                    
+                            <div>
+                                <input type="hidden" name="_csrf_token"
+                                value="{{ csrf_token('authenticate') }}"
+                                >
+                            </div>
+                        </div>
+                
+                        
+                
+                        {#
+                            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                            See https://symfony.com/doc/current/security/remember_me.html
+                
+                            <div class="checkbox mb-3">
+                                <input type="checkbox" name="_remember_me" id="_remember_me">
+                                <label for="_remember_me">Remember me</label>
+                            </div>
+                        #}
+                
+                        <div class="purple">
+                            <button class="btn-purple" type="submit">
+                                SE CONNECTER
+                            </button>
+                        </div>
+                    </form>
+                    <div>
+                        <p>
+                            <a href="{{ path('app_forgot_password_request') }}">Mot de passe perdu ?</a>
+                        </p>
+                    </div>
+                </div>
+    
             </div>
-
+    
+            <footer class="footer-container">
+                <nav>
+                    <ul class="footer-links">
+                        <li><a href="/mentions-legales" class="footer-link">Mentions légales</a></li>
+                        <li><a href="mailto:contact@votresite.com" class="footer-link">Contacts</a></li>
+                        <li><a href="https://www.formatoque.com" target="_blank" class="footer-link">Formatoque</a></li>
+                    </ul>
+                </nav>
+            </footer>
+            
         </div>
 
+        
 
     </body>
 </html>
-
-

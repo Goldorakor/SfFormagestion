@@ -23,8 +23,16 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   display : flex;
   background-color:#fcf2f5;
   margin: 0;
+  padding: 0;
   min-height: 100vh; /* assure que le fond prend au moins toute la hauteur de l'écran */
   min-width: 100vw;
+}
+
+main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .sous-cont {
@@ -143,12 +151,15 @@ PAGE D'ACCUEIL
 */
 
 
-.accueil-cont {
+.accueil-sous-cont {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 100vw; /* pour occuper toute la largeur */
+  margin-left: 190px;
+  margin-right: 130px;
+  margin-bottom: 80px;
+  /* en principe, il faudrait 200 120 80 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
 }
 
 
@@ -156,7 +167,7 @@ PAGE D'ACCUEIL
   color :#790945; /* change la couleur du texte en rose */
   font-size: 50px; /* définit la taille de la police à 50 pixels */
   text-align: center;
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 5px;
 }
 
@@ -166,7 +177,7 @@ PAGE D'ACCUEIL
   font-size: 50px; /* définit la taille de la police à 50 pixels */
   text-align: center;
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 }
 
 
@@ -184,7 +195,18 @@ PAGE D'ACCUEIL
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  gap: 300px;
+  margin-bottom: 40px;
 }
+
+@media (max-width: 1560px) {
+  .accueil-boite1 {
+    flex-direction: column;
+    gap: 60px; /* espace entre créations et suivis */
+    margin-bottom: 60px; /* espace entre suivis et paramètres */
+  }
+}
+
 
 .accueil-lien {
   display: block; /* permet à <a> de se comporter comme un bloc : on n'a pas envie qu'un élément en ligne puisse contenir un bloc */
@@ -200,8 +222,8 @@ PAGE D'ACCUEIL
   align-items: center;
   margin-top: 0px;
   margin-bottom: 0px;
-  margin-left: 150px;
-  margin-right: 150px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 
@@ -210,7 +232,7 @@ PAGE D'ACCUEIL
   /*margin-top : 15px;  on ne souhaite pas coller le logo en haut du document */
   /*margin-right : 30px;  on ne souhaite pas coller le logo au bord du document */
   width: 400px;
-  height: 400px;
+  height: 360px;
   object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
