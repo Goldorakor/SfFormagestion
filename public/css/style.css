@@ -37,9 +37,9 @@ main {
 
 .sous-cont {
   display : flex;
-  margin-left : 230px;
-  margin-right: 60px;
-  margin-bottom: 80px;
+  margin-left : 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
   width: 85%;
   flex-direction: column;
   justify-content: center;
@@ -212,6 +212,13 @@ PAGE D'ACCUEIL
   }
 }
 
+/*
+@media (max-width: 500px) {
+  .accueil-h2 {
+    display: none;
+  }
+}
+*/
 
 .accueil-h3 {
   color :#a2118a; /* change la couleur du texte en rose */
