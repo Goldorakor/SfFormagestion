@@ -205,9 +205,9 @@ PAGE D'ACCUEIL
 @media (max-width: 660px) {
   .accueil-h2 {
     font-size: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
     min-width: 100%;
-    max-height: 80px; /* On ajuste la hauteur pour garder le centrage */
+    max-height: 120px; /* On ajuste la hauteur pour garder le centrage */
     /* background-color: lightgray;  Pour voir le conteneur */
   }
 }
