@@ -158,7 +158,7 @@ PAGE D'ACCUEIL
   align-items: center;
   margin-left: 190px;
   margin-right: 130px;
-  margin-bottom: 80px;
+  margin-bottom: 40px; /* 80px trop grand : pas besoin d'un tel espace ! */
   /* en principe, il faudrait 200 120 80 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
 }
 
@@ -177,7 +177,9 @@ PAGE D'ACCUEIL
   font-size: 50px; /* définit la taille de la police à 50 pixels */
   text-align: center;
   margin-top: 50px;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
+  padding-right: 30px; /* meilleure réaction de h2 à la diminution de la largeur d'écran */
+  padding-left: 30px; /* meilleure réaction de h2 à la diminution de la largeur d'écran */
 }
 
 
@@ -199,7 +201,7 @@ PAGE D'ACCUEIL
   margin-bottom: 40px;
 }
 
-@media (max-width: 1560px) {
+@media (max-width: 1600px) {
   .accueil-boite1 {
     flex-direction: column;
     gap: 60px; /* espace entre créations et suivis */
