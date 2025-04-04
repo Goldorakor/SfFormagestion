@@ -202,7 +202,9 @@ PAGE D'ACCUEIL
   height: 60px; /* Définit une hauteur (on ajuste si besoin) */
 }
 
-@media (max-width: 660px) {
+
+/* test */
+@media (min-width: 501px) and (max-width: 660px) {
   .accueil-h2 {
     font-size: 30px;
     margin-bottom: 50px;
@@ -212,13 +214,15 @@ PAGE D'ACCUEIL
   }
 }
 
-/*
+
 @media (max-width: 500px) {
   .accueil-h2 {
     display: none;
   }
 }
-*/
+
+/* fin du test */
+
 
 .accueil-h3 {
   color :#a2118a; /* change la couleur du texte en rose */
@@ -253,11 +257,20 @@ PAGE D'ACCUEIL
   }
 }
 
-@media (max-width: 660px) {
+@media (min-width: 501px) and (max-width: 660px) {
   .accueil-boite1 {
     flex-direction: column;
     gap: 30px; /* espace entre créations et suivis */
     margin-bottom: 30px; /* espace entre suivis et paramètres */
+  }
+}
+
+@media (max-width: 500px) {
+  .accueil-boite1 {
+    flex-direction: column;
+    gap: 50px; /* espace entre créations et suivis */
+    margin-top: 50px; /* espace entre suivis et paramètres */
+    margin-bottom: 0;
   }
 }
 
