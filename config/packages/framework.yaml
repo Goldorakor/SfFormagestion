@@ -8,7 +8,6 @@ framework:
     #esi: true
     #fragments: true
 
-
     # ajout personnel pour passer de http à https (inutile depuis que j'ai aussi modifié security.yaml ??)
     # => HTTP avec une couche de chiffrement SSL/TLS, ce qui sécurise les échanges de données entre le client (navigateur) et le serveur
     # indispensable pour protéger les données sensibles (mots de passe, paiements, données personnelles, etc.) et améliorer le référencement (SEO)
@@ -20,13 +19,11 @@ framework:
     trusted_proxies: '127.0.0.1' # Adapter selon l'environnement
     trusted_headers: ['X-Forwarded-Proto']
 
-
     rate_limiter:
         login_limiter:
             policy: 'sliding_window'
             limit: 5
             interval: '1 minute'
-
 
 when@test:
     framework:
