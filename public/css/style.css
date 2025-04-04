@@ -103,9 +103,27 @@ p {
 
 /* 
 
+CREATIONS SUIVIS PARAMETRES
 code css pour les grands bandeaux cliquables (les pages des grandes sections : créations, suivis, paramètres) 
 
 */
+
+
+.h2-creations {
+  color : #4449D5;
+  font-size: 36px; /* définit la taille de la police à 50 pixels */
+  text-align: left;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+
+@media (max-width: 500px) {
+  .h2-creations {
+    display: none;
+  }
+}
 
 
 .lot-bandeau {
@@ -132,8 +150,14 @@ code css pour les grands bandeaux cliquables (les pages des grandes sections : c
 }
 
 
+.csp-mobile {
+  display: none;
+}
+
+
 /*
 
+CREATIONS SUIVIS PARAMETRES
 fin du code css pour les grands bandeaux cliquables
 
 */
@@ -956,7 +980,7 @@ FIN DES VUES DE DETAILS
 
 /*
 
-Tableau de suivi administratif d'une' session
+Tableau de suivi administratif d'une session
 
 */
 

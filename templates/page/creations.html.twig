@@ -13,12 +13,13 @@
 
 
     <div class="sous-cont">
+
         <div class="lot-bandeau">
-            <h2>Contenus pédagogiques</h2>
-    
+
+            <h2 class="h2-creations">Contenus pédagogiques</h2>
     
             <a href="{{ path('app_module') }}" class="bandeau">
-                <div>
+                <div class="csp">
                     <h4>
                         Modules d'enseignement
                     </h4>
@@ -26,11 +27,15 @@
                         Créer ou éditer les modules d'enseignement
                     </p>
                 </div>
+                <div class="csp-mobile">
+                    <h4>
+                        Modules d'enseignement
+                    </h4>
+                </div>
             </a>
             
-    
             <a href="{{ path('app_programme') }}" class="bandeau">
-                <div>
+                <div class="csp">
                     <h4>
                         Programmes de formation
                     </h4>
@@ -38,11 +43,15 @@
                         Créer ou éditer les programmes de formation
                     </p>
                 </div>
+                <div class="csp-mobile">
+                    <h4>
+                        Programmes de formation
+                    </h4>
+                </div>
             </a>
     
-    
             <a href="{{ path('app_formation') }}" class="bandeau">
-                <div>
+                <div class="csp">
                     <h4>
                         Formations
                     </h4>
@@ -50,11 +59,15 @@
                         Créer ou éditer les formations
                     </p>
                 </div>
+                <div class="csp-mobile">
+                    <h4>
+                        Formations
+                    </h4>
+                </div>
             </a>
     
-    
             <a href="{{ path('app_session') }}" class="bandeau">
-                <div>
+                <div class="csp">
                     <h4>
                         Sessions de formation
                     </h4>
@@ -62,16 +75,21 @@
                         Créer ou éditer les sessions de formation
                     </p>
                 </div>
+                <div class="csp-mobile">
+                    <h4>
+                        Sessions de formation
+                    </h4>
+                </div>
             </a>
+
         </div>
     
-    
         <div class="lot-bandeau">
-            <h2>Annuaire</h2>
-    
+            
+            <h2 class="h2-creations">Annuaire</h2>
     
             <a href="{{ path('app_apprenant') }}" class="bandeau">
-                <div>
+                <div class="csp">
                     <h4>
                         Liste des apprenants
                     </h4>
@@ -79,11 +97,15 @@
                         Consulter et gérer la liste des apprenants
                     </p>
                 </div>
+                <div class="csp-mobile">
+                    <h4>
+                        Liste des apprenants
+                    </h4>
+                </div>
             </a>
-            
     
             <a href="{{ path('app_formateur') }}" class="bandeau">
-                <div>
+                <div class="csp">
                     <h4>
                         Liste des formateurs
                     </h4>
@@ -91,11 +113,15 @@
                         Consulter et gérer la liste des formateurs
                     </p>
                 </div>
+                <div class="csp-mobile">
+                    <h4>
+                        Liste des formateurs
+                    </h4>
+                </div>
             </a>
             
-    
             <a href="{{ path('app_responsable') }}" class="bandeau">
-                <div>
+                <div class="csp">
                     <h4>
                         Liste des responsables
                     </h4>
@@ -103,11 +129,15 @@
                         Consulter et gérer la liste des responsables
                     </p>
                 </div>
+                <div class="csp-mobile">
+                    <h4>
+                        Liste des responsables
+                    </h4>
+                </div>
             </a>
             
-    
             <a href="{{ path('app_societe') }}" class="bandeau">
-                <div>
+                <div class="csp">
                     <h4>
                         Liste des sociétés
                     </h4>
@@ -115,11 +145,17 @@
                         Consulter et gérer la liste des sociétés
                     </p>
                 </div>
+                <div class="csp-mobile">
+                    <h4>
+                        Liste des sociétés
+                    </h4>
+                </div>
             </a>
+
         </div>
+
     </div>
 
-   
 </div>
 
 {% endblock %}

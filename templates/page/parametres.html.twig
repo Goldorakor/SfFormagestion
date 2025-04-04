@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="accueil-cont">
+<div class="accueil-sous-cont">
 
 
     <h1>Paramètres</h1>
@@ -12,8 +12,9 @@
 
 
     <div class="sous-cont">
+
         <a href="{{ path('app_utilisateur') }}" class="bandeau">
-            <div>
+            <div class="csp">
                 <h4>
                     Comptes utilisateurs
                 </h4>
@@ -21,11 +22,15 @@
                     Gérer les comptes utilisateurs
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Comptes utilisateurs
+                </h4>
+            </div>
         </a>
         
-    
         <a href="{{ path('modeles_documents') }}" class="bandeau">
-            <div>
+            <div class="csp">
                 <h4>
                     Modèles de documents
                 </h4>
@@ -33,11 +38,15 @@
                     Modifier les modèles de documents
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Modèles de documents
+                </h4>
+            </div>
         </a>
         
-    
         <a href="{{ path('new_edit_entreprise') }}" class="bandeau">
-            <div>
+            <div class="csp">
                 <h4>
                     Informations sur la société
                 </h4>
@@ -45,11 +54,15 @@
                     Renseigner les informations administratives de la société
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Informations sur la société
+                </h4>
+            </div>
         </a>
         
-    
         <a href="{{ path('new_edit_representant') }}" class="bandeau">
-            <div>
+            <div class="csp">
                 <h4>
                     Informations sur le représentant légal
                 </h4>
@@ -57,11 +70,15 @@
                     Renseigner les informations du représentant légal
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Informations sur le représentant légal
+                </h4>
+            </div>
         </a>
         
-    
         <a href="{{ path('construction') }}" class="bandeau">
-            <div>
+            <div class="csp">
                 <h4>
                     Lieux de formation
                 </h4>
@@ -69,11 +86,15 @@
                     Gérer les lieux de formation
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Lieux de formation
+                </h4>
+            </div>
         </a>
         
-    
         <a href="{{ path('termes_publiables') }}" class="bandeau">
-            <div>
+            <div class="csp">
                 <h4>
                     Termes publiables
                 </h4>
@@ -81,10 +102,15 @@
                     Configurer les CGU, les CGV et le Règlement Intérieur
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Termes publiables
+                </h4>
+            </div>
         </a>
+
     </div>
 
-    
 </div>
 
 {% endblock %}

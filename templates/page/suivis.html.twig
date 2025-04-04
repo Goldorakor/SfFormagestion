@@ -4,7 +4,8 @@
 
 {% block body %}
 
-<div class="accueil-cont">
+
+<div class="accueil-sous-cont">
 
     
     <h1>Suivis</h1>
@@ -12,8 +13,10 @@
 
 
     <div class="sous-cont">
+
         <a href="{{ path('construction') }}" class="bandeau">
-            <div>
+
+            <div class="csp">
                 <h4>
                     Apprenants
                 </h4>
@@ -21,11 +24,15 @@
                     Suivre le parcours des apprenants
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Apprenants
+                </h4>
+            </div>
         </a>
-        
     
         <a href="{{ path('suivi_app_session') }}" class="bandeau">
-            <div>
+            <div class="csp">
                 <h4>
                     Sessions
                 </h4>
@@ -33,11 +40,15 @@
                     Suivre la gestion administrative des sessions
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Sessions
+                </h4>
+            </div>
         </a>
         
-    
         <a href="{{ path('construction') }}" class="bandeau">
-            <div>
+            <div class="csp">
                 <h4>
                     Questionnaires
                 </h4>
@@ -45,11 +56,15 @@
                     Evaluer le bon déroulement des sessions
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Questionnaires
+                </h4>
+            </div>
         </a>
         
-    
         <a href="{{ path('construction') }}" class="bandeau">
-            <div>
+            <div class="csp">
                 <h4>
                     Agenda
                 </h4>
@@ -57,9 +72,14 @@
                     Gérer les plannings et structurer le temps
                 </p>
             </div>
+            <div class="csp-mobile">
+                <h4>
+                    Agenda
+                </h4>
+            </div>
         </a>
-    </div>
 
+    </div>
 
 </div>
 
