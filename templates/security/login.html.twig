@@ -44,6 +44,15 @@
                         {% if error %}
                             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                         {% endif %}
+
+
+                        {# !!! Champ caché honey pot !!! #}
+                        <div class="lavande">
+                            <label for="hp">Ne remplissez pas ce champ</label>
+                            <input type="text" id="hp" name="hp" value="">
+                        </div>
+
+
                 
                         {#{% if app.user %}
                             <div class="mb-3">

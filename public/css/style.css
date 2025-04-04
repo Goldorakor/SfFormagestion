@@ -303,17 +303,11 @@ a.accueil-card {
   .accueil-h1 {
     font-size: 36px; /* définit la taille de la police à 50 pixels */
   }
-}
-
-@media (max-width: 660px) {
   .accueil-img img {
     width: 200px;
     height: 180px;
     object-fit: contain;
   }
-}
-
-@media (max-width: 660px) {
   .accueil-h3 {
     font-size: 16px;
   }
@@ -328,9 +322,6 @@ a.accueil-card {
     max-height: 120px; /* On ajuste la hauteur pour garder le centrage */
     /* background-color: lightgray;  Pour voir le conteneur */
   }
-}
-
-@media (min-width: 501px) and (max-width: 660px) {
   .accueil-boite1 {
     flex-direction: column;
     gap: 30px; /* espace entre créations et suivis */
@@ -346,15 +337,10 @@ a.accueil-card {
     margin-top: 50px; /* espace entre suivis et paramètres */
     margin-bottom: 0;
   }
-}
-
-@media (max-width: 500px) {
   .accueil-h2 {
     display: none;
   }
 }
-
-
 
 
 /*
@@ -1187,10 +1173,6 @@ Chaque ligne est un flex container */
 .form-cell.ques-prefor { flex-basis: 34%; }
 .form-cell.ques-chaud { flex-basis: 33%; }
 .form-cell.ques-froid { flex-basis: 33%; }
-
-
-
-
 
 
 

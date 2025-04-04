@@ -22,6 +22,7 @@ class SecurityController extends AbstractController
         EntityManagerInterface $entityManager,
         #[Autowire(service: 'limiter.login_limiter')] RateLimiterFactory $loginLimiter
     ): Response {
+
         // Appliquer la limitation
         $limiter = $loginLimiter->create($request->getClientIp());
         $limit = $limiter->consume(); // Consomme 1 "jeton"
@@ -30,6 +31,15 @@ class SecurityController extends AbstractController
             // Trop de tentatives : refuser l'accès
             return new Response('Trop de tentatives, réessayez plus tard.', Response::HTTP_TOO_MANY_REQUESTS);
         }
+
+
+        // Vérifie si le champ honey pot est rempli
+        $data = $request->request->get('login_form');
+        if (!empty($data['hp'])) {
+            // Si le champ est rempli, rediriger ou afficher un message
+            return new Response('Un bot a été détecté, veuillez réessayer plus tard.', Response::HTTP_FORBIDDEN);
+        }
+        
 
         // Récupère la seule entreprise existante
         $entreprise = $entityManager->getRepository(Entreprise::class)->findOneBy([]);

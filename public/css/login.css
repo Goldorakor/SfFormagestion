@@ -26,7 +26,7 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
     margin: 0;
     height: 100vh; /* Assure que le fond prend toute la hauteur de l'écran */
     width: 100vw;
-    overflow: hidden; /* Empêche le défilement */
+    overflow-x: hidden; /* Empêche le défilement horizontal */
 }
   
 
@@ -284,3 +284,7 @@ Style pour le footer de la page login
 }
 
 
+/* Honey Pot - Pot de miel : pour piéger les bots */
+.lavande {
+    display: none;
+}
