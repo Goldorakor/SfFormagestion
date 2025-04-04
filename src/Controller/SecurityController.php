@@ -9,12 +9,28 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response
+    public function login(
+        Request $request,
+        AuthenticationUtils $authenticationUtils, 
+        EntityManagerInterface $entityManager,
+        RateLimiterFactory $loginLimiter
+        ): Response
     {
+        
+        // Throttling : on récupère le "limiter" pour cette IP
+        $limiter = $loginLimiter->create($request->getClientIp());
+
+        if (!$limiter->consume(1)->isAccepted()) {
+            throw new TooManyRequestsHttpException(60, 'Trop de tentatives. Réessayez dans une minute.');
+        }
+        
         // Récupère la seule entreprise existante (ou null si elle n’existe pas)
         $entreprise = $entityManager->getRepository(Entreprise::class)->findOneBy([]);
         

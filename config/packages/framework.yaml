@@ -21,6 +21,13 @@ framework:
     trusted_headers: ['X-Forwarded-Proto']
 
 
+    rate_limiter:
+        login_limiter:
+            policy: 'sliding_window'
+            limit: 5
+            interval: '1 minute'
+
+
 when@test:
     framework:
         test: true
