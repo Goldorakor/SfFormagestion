@@ -186,14 +186,7 @@ PAGE D'ACCUEIL
   /* en principe, il faudrait 200 120 40 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
 }
 
-@media (max-width: 840px) {
-  .accueil-sous-cont {
-    margin-left: 50px;
-    margin-right: 80px;
-    margin-bottom: 20px;
-    /* en principe, il faudrait 60 70 20 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
-  }
-}
+
 
 .accueil-h1 {
   color :#790945; /* change la couleur du texte en rose */
@@ -203,11 +196,7 @@ PAGE D'ACCUEIL
   margin-bottom: 5px;
 }
 
-@media (max-width: 660px) {
-  .accueil-h1 {
-    font-size: 36px; /* définit la taille de la police à 50 pixels */
-  }
-}
+
 
 
 .accueil-h2 {
@@ -227,25 +216,9 @@ PAGE D'ACCUEIL
 }
 
 
-/* test */
-@media (min-width: 501px) and (max-width: 660px) {
-  .accueil-h2 {
-    font-size: 30px;
-    margin-bottom: 50px;
-    min-width: 100%;
-    max-height: 120px; /* On ajuste la hauteur pour garder le centrage */
-    /* background-color: lightgray;  Pour voir le conteneur */
-  }
-}
 
 
-@media (max-width: 500px) {
-  .accueil-h2 {
-    display: none;
-  }
-}
 
-/* fin du test */
 
 
 .accueil-h3 {
@@ -255,13 +228,6 @@ PAGE D'ACCUEIL
   margin-top: 0px;
   margin-bottom: 0px;
 }
-
-@media (max-width: 660px) {
-  .accueil-h3 {
-    font-size: 16px;
-  }
-}
-
 
 
 .accueil-boite1 {
@@ -273,30 +239,8 @@ PAGE D'ACCUEIL
   margin-bottom: 40px;
 }
 
-@media (min-width: 661px) and (max-width: 1600px) {
-  .accueil-boite1 {
-    flex-direction: column;
-    gap: 60px; /* espace entre créations et suivis */
-    margin-bottom: 60px; /* espace entre suivis et paramètres */
-  }
-}
 
-@media (min-width: 501px) and (max-width: 660px) {
-  .accueil-boite1 {
-    flex-direction: column;
-    gap: 30px; /* espace entre créations et suivis */
-    margin-bottom: 30px; /* espace entre suivis et paramètres */
-  }
-}
 
-@media (max-width: 500px) {
-  .accueil-boite1 {
-    flex-direction: column;
-    gap: 50px; /* espace entre créations et suivis */
-    margin-top: 50px; /* espace entre suivis et paramètres */
-    margin-bottom: 0;
-  }
-}
 
 
 .accueil-lien {
@@ -327,6 +271,40 @@ PAGE D'ACCUEIL
   object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
+
+
+
+.accueil-boite1 a, /* pour que les liens de la page d'accueil ne soient pas soulignés */
+a.accueil-card {
+    text-decoration: none;
+}
+
+
+@media (min-width: 661px) and (max-width: 1600px) {
+  .accueil-boite1 {
+    flex-direction: column;
+    gap: 60px; /* espace entre créations et suivis */
+    margin-bottom: 60px; /* espace entre suivis et paramètres */
+  }
+}
+
+
+@media (max-width: 840px) {
+  .accueil-sous-cont {
+    margin-left: 50px;
+    margin-right: 80px;
+    margin-bottom: 20px;
+    /* en principe, il faudrait 60 70 20 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
+  }
+}
+
+
+@media (max-width: 660px) {
+  .accueil-h1 {
+    font-size: 36px; /* définit la taille de la police à 50 pixels */
+  }
+}
+
 @media (max-width: 660px) {
   .accueil-img img {
     width: 200px;
@@ -335,11 +313,48 @@ PAGE D'ACCUEIL
   }
 }
 
-
-.accueil-boite1 a, /* pour que les liens de la page d'accueil ne soient pas soulignés */
-a.accueil-card {
-    text-decoration: none;
+@media (max-width: 660px) {
+  .accueil-h3 {
+    font-size: 16px;
+  }
 }
+
+
+@media (min-width: 501px) and (max-width: 660px) {
+  .accueil-h2 {
+    font-size: 30px;
+    margin-bottom: 50px;
+    min-width: 100%;
+    max-height: 120px; /* On ajuste la hauteur pour garder le centrage */
+    /* background-color: lightgray;  Pour voir le conteneur */
+  }
+}
+
+@media (min-width: 501px) and (max-width: 660px) {
+  .accueil-boite1 {
+    flex-direction: column;
+    gap: 30px; /* espace entre créations et suivis */
+    margin-bottom: 30px; /* espace entre suivis et paramètres */
+  }
+}
+
+
+@media (max-width: 500px) {
+  .accueil-boite1 {
+    flex-direction: column;
+    gap: 50px; /* espace entre créations et suivis */
+    margin-top: 50px; /* espace entre suivis et paramètres */
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .accueil-h2 {
+    display: none;
+  }
+}
+
+
 
 
 /*
