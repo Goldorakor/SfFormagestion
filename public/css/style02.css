@@ -80,10 +80,10 @@ h1 {
 h2 {
   color : #FF4300;
   font-size: 36px; /* définit la taille de la police à 50 pixels */
-    text-align: left;
-    margin-top: 50px;
-    margin-bottom: 20px;
-    width: 100%;
+  text-align: left;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  width: 100%;
 }
   
 h3 {
@@ -250,7 +250,7 @@ input::placeholder, textarea::placeholder {
 }
 
 /* Alignement des divs sur une seule ligne 
-Chaque ligne est un flex container */
+chaque ligne est un flex container */
 .form-ligne01 {
   display: flex;
   gap: 15px; /* Espacement entre les champs */
@@ -258,11 +258,10 @@ Chaque ligne est un flex container */
 }
 
 
-/* Ajuster la largeur des champs individuellement */
-.form-cell {
-  flex-grow: 1; /* Permet aux champs de s'étendre si nécessaire */
-}
-
+/* Ajuster la largeur des champs individuellement 
+.form-cell { */
+  /* flex-grow: 1;  Permet aux champs de s'étendre si nécessaire 
+}*/
 
 /* Largeurs spécifiques */
 .form-cell.sexe { flex-basis: 20%; }
@@ -284,14 +283,14 @@ Chaque ligne est un flex container */
 .form-cell.raison-sociale { flex-basis: 30%; }
 .form-cell.logo { flex-basis: 50%; }
 
-.form-cell.num-siret { flex-basis: 25%; }
+.form-cell.num-siret { flex-basis: 24%; }
 .form-cell.num-rcs { flex-basis: 25%; }
-.form-cell.num-tva-intra { flex-basis: 50%; } 
+.form-cell.num-tva-intra { flex-basis: 50%; }
 
 .form-cell.num-declara { flex-basis: 50%; }
 .form-cell.prefet { flex-basis: 50%; }
 
-.form-cell.tribunal { flex-basis: 100%; } 
+.form-cell.tribunal { flex-basis: 50%; }
 
 .form-cell.user-nom { flex-basis: 50%; }
 .form-cell.user-prenom { flex-basis: 50%; }
@@ -312,10 +311,6 @@ Chaque ligne est un flex container */
   margin-top: 60px; /* Espacement entre les lignes */
   margin-bottom: 60px; /* Espacement entre les lignes */
 }
-
-*/
-
-
 
 /* Style des champs de formulaire */
 input[type="text"],
@@ -344,10 +339,6 @@ select {
 FIN FORMULAIRES
 
 */
-
-
-
-
 
 /*
 
@@ -391,8 +382,6 @@ FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
   margin-top: 60px;
   gap: 60px;
 }
-
-  
 
 .check-email {
   font-size: 26px;

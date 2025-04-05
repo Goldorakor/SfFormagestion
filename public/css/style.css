@@ -729,7 +729,6 @@ TABLEAU SHOW-FORMATEUR
   background-color: #efefff; /* je ne veux plus que la ligne change de couleur ! #f5f5f5 */
 }
 
-
 /* 
 
 TABLEAU SHOW-RESPONSABLE
@@ -1007,7 +1006,7 @@ FORMULAIRES
 
 */
 
-.form-cell{
+.form-cell {
   width: 100%;
   display: flex;
   flex-direction: column;
