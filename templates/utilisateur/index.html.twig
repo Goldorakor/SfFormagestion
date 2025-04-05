@@ -4,76 +4,79 @@
 
 {% block body %}
 
-<div class="sous-cont">
+<div class="accueil-sous-cont">
 
     <h1>Comptes utilisateurs</h1>
     <h3>Liste de tous les comptes utilisateurs et du rôle de chacun</h3>
 
-    <div class="position-purple">
-        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_utilisateur') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer un utilisateur</a>{% endif %}
+    <div class="sous-cont">
+
+        <div class="position-purple">
+            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_utilisateur') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer un utilisateur</a>{% endif %}
+        </div>
+    
+        {% if users|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+    
+            <table class="documents-table">
+                <thead>
+                    <tr>
+                        <th>
+                            Login
+                        </th>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Prénom
+                        </th>
+                        <th>
+                            Rôle
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <tr>
+                                <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                                    <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.email|lower }}</a>
+                                </td>
+                                <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                                    <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.nom|upper }}</a>
+                                </td>
+                                <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                                    <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.prenom|capitalize }}</a>
+                                </td>
+                                <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
+                                    <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.roles[0] }}</a> {# c'est stocké sous forme de tableau, à un seul élément auquel j'accède avec [0] #}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>
+                                    {{ user.email|lower }}
+                                </td>
+                                <td>
+                                    {{ user.nom|upper }}
+                                </td>
+                                <td>
+                                    {{ user.prenom|capitalize }}
+                                </td>
+                                <td>
+                                    {{ user.roles[0] }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+        {% else %}
+    
+            <div>Aucun utilisateur n'est présent pour le moment.</div>
+    
+        {% endif %}
     </div>
-
-    {% if users|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
-
-        <table class="documents-table">
-            <thead>
-                <tr>
-                    <th>
-                        Login
-                    </th>
-                    <th>
-                        Nom
-                    </th>
-                    <th>
-                        Prénom
-                    </th>
-                    <th>
-                        Rôle
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <tr>
-                            <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
-                                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.email|lower }}</a>
-                            </td>
-                            <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
-                                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.nom|upper }}</a>
-                            </td>
-                            <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
-                                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.prenom|capitalize }}</a>
-                            </td>
-                            <td class="clickable-row" data-href="{{ path('edit_utilisateur', {'id' : user.id}) }}">
-                                <a href="{{ path('edit_utilisateur', {'id' : user.id}) }}">{{ user.roles[0] }}</a> {# c'est stocké sous forme de tableau, à un seul élément auquel j'accède avec [0] #}
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td>
-                                {{ user.email|lower }}
-                            </td>
-                            <td>
-                                {{ user.nom|upper }}
-                            </td>
-                            <td>
-                                {{ user.prenom|capitalize }}
-                            </td>
-                            <td>
-                                {{ user.roles[0] }}
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-
-    {% else %}
-
-        <div>Aucun utilisateur n'est présent pour le moment.</div>
-
-    {% endif %}
 
 </div>
 

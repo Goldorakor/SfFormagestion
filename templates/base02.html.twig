@@ -27,7 +27,7 @@
                 {% include 'navbar02.html.twig' %} {# Inclusion de la navbar #}
             </header>
     
-            <main> {# ici, on affiche le contenu de la page. #}
+            <main> {# ici, on affiche le contenu principal de la page. #}
                 {# Inclusion du fil d'Ariane juste sous la navbar, en dehors du header #}
                 {% if breadcrumbs is defined %} {# on vérifie si la variable breadcrumbs existe avant d'afficher le fil d'Ariane #}
                     {% include 'breadcrumb.html.twig' %} {# on appelle le fichier breadcrumb.html.twig pour afficher la barre de navigation #}

@@ -5,7 +5,7 @@ code css pour le fil d'ariane (orange)
 */
   
 .ariane {
-    margin-left: 210px; /* Décale le contenu principal pour qu'il ne soit pas caché par la barre de navigation latérale */
+    margin-left: 200px; /* Décale le contenu principal pour qu'il ne soit pas caché par la barre de navigation latérale */
     display: flex;
     align-items: center; /* Aligne le texte et la liste sur la même ligne */
     gap: 5px; /* Ajoute un petit espace entre les éléments */

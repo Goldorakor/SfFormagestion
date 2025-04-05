@@ -1,20 +1,11 @@
-{# {% extends 'base.html.twig' %} -> je ne veux pas de navbar dans la page login donc je supprime cette ligne #} 
-
-<!DOCTYPE html>
-<!-- PAGES VIOLETTES -->
-<!-- PAGES VIOLETTES -->
-<!-- PAGES VIOLETTES -->
-
 <html>
     <head>
-
         <meta charset="UTF-8">
         <title>Page de login</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="{{ asset('css/login.css')}}">
-
     </head>
 
     <body>
@@ -45,14 +36,11 @@
                             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                         {% endif %}
 
-
                         {# !!! Champ caché honey pot !!! #}
                         <div class="lavande">
                             <label for="hp">Ne remplissez pas ce champ</label>
                             <input type="text" id="hp" name="hp" value="">
                         </div>
-
-
                 
                         {#{% if app.user %}
                             <div class="mb-3">
@@ -68,7 +56,6 @@
                             {% endif %}
                         </div>
     
-                        
                         <div class="tubes-login">
                             <div class="identifiant">
                                 <label for="username">Identifiant</label>
@@ -86,8 +73,6 @@
                                 >
                             </div>
                         </div>
-                
-                        
                 
                         {#
                             Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.

@@ -6,12 +6,10 @@ PAGES ORANGES
 
 */
 
-
 html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   width: 100%;
   overflow-x: hidden; /* empêche le défilement horizontal */
 }
-
 
 * { /* on calibre notre page => important au moins pour la navbar */
   margin: 0;
@@ -27,12 +25,23 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   min-width: 100vw;
 }
 
+.accueil-sous-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 190px;
+  margin-right: 130px;
+  margin-bottom: 40px; /* 80px trop grand : pas besoin d'un tel espace ! */
+  /* en principe, il faudrait 200 120 40 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
+}
+
 .sous-cont {
   display : flex;
-  margin-left : 230px;
-  margin-right: 60px;
-  margin-bottom: 80px;
-  width: 85%;
+  margin-left : 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  width: 95%;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -219,7 +228,7 @@ FORMULAIRES
 
 /* Style global du formulaire */
 form {
-  max-width: 60%; /* Ajuste la largeur max selon ton besoin */
+  max-width: 90%; /* Ajuste la largeur max selon ton besoin */
   margin: auto; /* formulaire bien centré */
   padding: 20px 20px 80px 20px; /* 80px pour une marge du bas généreuse */
   background-color: #f9f9f9; /* Couleur de fond */

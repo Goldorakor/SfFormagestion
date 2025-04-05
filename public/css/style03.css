@@ -6,98 +6,100 @@ DOCUMENTS ADMINISTRATIFS
 
 */
 
-/* 
-Ce fichier servira à styliser les documents administratifs
-Il est souhaitable de ne pas afficher la navbar dans ces documents
-*/
-
-
-
 html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
-    width: 100%;
-    overflow-x: hidden; /* Empêche le défilement horizontal */
-  }
-  
-  
-  * { /* on calibre notre page => important au moins pour la navbar */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .container {
-    display : flex;
-    background-color:#ffffff;
-    margin: 0;
-    min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
-    min-width: 100vw;
-  }
-
-  .sous-cont {
-    display : flex;
-    margin-left : 230px;
-    margin-right: 60px;
-    margin-bottom: 80px;
-    width: 80%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-  
-  main {
-    margin-left: 10px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar 110 */
-    margin-right: 10px; /* Décale le contenu principal pour équilibrer entre droite et gauche */
-    padding: 15px 0 0 0;
-    min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
-    min-width: 100vw;
-  }
-
-h1 {
-    color :#bd1e73; /* Change la couleur du texte en rose */
-    background-color: #ffffff; /* Fond noir */
-    font-size: 46px; /* définit la taille de la police à 46 pixels */
-    border-top: 3px solid #ff9944;   /* Ecriture abrégé : bordure en haut */
-    border-bottom: 3px solid #ff9944; /* Ecriture abrégé : bordure en bas */
-    border-left: none;  /* Pas de bordure à gauche */
-    border-right: none; /* Pas de bordure à droite */
-    padding: 10px; /* Espace entre le texte et ls bordures oranges */
-    /* display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
-    /* border-radius: 10px;  on arrondit les coins => c'est moche en fait !  */
-    width: 100%;
+  width: 100%;
+  overflow-x: hidden; /* Empêche le défilement horizontal */
 }
 
+* { /* on calibre notre page => important au moins pour la navbar */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display : flex;
+  background-color:#ffffff;
+  margin: 0;
+  min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
+  min-width: 100vw;
+}
+
+.accueil-sous-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 190px;
+  margin-right: 130px;
+  margin-bottom: 40px; /* 80px trop grand : pas besoin d'un tel espace ! */
+  /* en principe, il faudrait 200 120 40 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.sous-cont {
+  display : flex;
+  margin-left : 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+main {
+  margin-left: 10px; /* Décale le contenu principal pour éviter qu'il soit sous la navbar 110 */
+  margin-right: 10px; /* Décale le contenu principal pour équilibrer entre droite et gauche */
+  padding: 15px 0 0 0;
+  min-height: 100vh; /* Assure que le fond prend au moins toute la hauteur de l'écran */
+  min-width: 100vw;
+}
+
+h1 {
+  color :#bd1e73; /* Change la couleur du texte en rose */
+  background-color: #ffffff; /* Fond noir */
+  font-size: 46px; /* définit la taille de la police à 46 pixels */
+  border-top: 3px solid #ff9944;   /* Ecriture abrégé : bordure en haut */
+  border-bottom: 3px solid #ff9944; /* Ecriture abrégé : bordure en bas */
+  border-left: none;  /* Pas de bordure à gauche */
+  border-right: none; /* Pas de bordure à droite */
+  padding: 10px; /* Espace entre le texte et ls bordures oranges */
+  /* display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
 
 h2 {
-    color :#bd1e73; /* Change la couleur du texte en bleu */
-    background-color: #ffffff; /* Fond noir */
-    font-size: 30px; /* définit la taille de la police à 30 pixels */
-    /* border : 3px solid red; */
-    /*border-width: 3px; /* Épaisseur */
-    /*border-style: solid;  Style plein */
-    /*border-color: #bd1e73;  Change la couleur de la bordure en bleu */
-    /*padding: 10px;  Espace entre le texte et la bordure */
-    /*display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
-    /*border-radius: 10px;  on arrondit les coins */
-    margin-top: 18px;
-    margin-bottom: 6px;
+  color :#bd1e73; /* Change la couleur du texte en bleu */
+  background-color: #ffffff; /* Fond noir */
+  font-size: 30px; /* définit la taille de la police à 30 pixels */
+  /* border : 3px solid red; */
+  /*border-width: 3px; /* Épaisseur */
+  /*border-style: solid;  Style plein */
+  /*border-color: #bd1e73;  Change la couleur de la bordure en bleu */
+  /*padding: 10px;  Espace entre le texte et la bordure */
+  /*display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
+  /*border-radius: 10px;  on arrondit les coins */
+  margin-top: 18px;
+  margin-bottom: 6px;
 }
 
 h3 {
-    color :#4449d5; /* Change la couleur du texte en bleu */
-    background-color: #ffffff; /* Fond noir */
-    /* border : 3px solid red; */
-    /*border-width: 3px; /* Épaisseur */
-    /*border-style: solid;  Style plein */
-    /*border-color: #bd1e73;  Change la couleur de la bordure en bleu */
-    /*padding: 10px;  Espace entre le texte et la bordure */
-    /*display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
-    /*border-radius: 10px;  on arrondit les coins */
-    margin-top: 12px;
-    margin-bottom: 6px;
+  color :#4449d5; /* Change la couleur du texte en bleu */
+  background-color: #ffffff; /* Fond noir */
+  /* border : 3px solid red; */
+  /*border-width: 3px; /* Épaisseur */
+  /*border-style: solid;  Style plein */
+  /*border-color: #bd1e73;  Change la couleur de la bordure en bleu */
+  /*padding: 10px;  Espace entre le texte et la bordure */
+  /*display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
+  /*border-radius: 10px;  on arrondit les coins */
+  margin-top: 12px;
+  margin-bottom: 6px;
 }
-
-
-
 
 /*
 
@@ -105,24 +107,28 @@ style pour l'affichage du tampon et la signature du dirigeant de l'organisme de 
 
 */
 
-
 .signatures {
-    display : flex;
-    justify-content: space-around;
-    width: 100%;
+  display : flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
-
 .signature img {
-    width: 200px;
-    height: 200px;
-    object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
-    /* border: 1px solid #a92b2b;  Ajouter une bordure douce autour de l'image */
-    /* border-radius: 8px;  Bordures arrondies */
+  width: 200px;
+  height: 200px;
+  object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+  /* border: 1px solid #a92b2b;  Ajouter une bordure douce autour de l'image */
+  /* border-radius: 8px;  Bordures arrondies */
 } 
 
+.saut-ligne {
+  margin-top: 10px;
+}
 
-
+.lieu-date{
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
 
 /* 
 
@@ -130,20 +136,18 @@ logo de haut de page du document PDF
   
 */
   
-header {
-    text-align : right;
-    margin-top : 15px; /* on ne souhaite pas coller le logo en haut du docvument */
-    margin-right : 30px; /* on ne souhaite pas coller le logo au bord du docvument */
-    width: 100%;
+.doc-header {
+  text-align : right;
+  margin-top : 15px; /* on ne souhaite pas coller le logo en haut du document */
+  margin-right : 30px; /* on ne souhaite pas coller le logo au bord du document */
+  width: 100%;
 }
 
-header img {
-    width: 300px;
-    height: 100px;
-    object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+.doc-header img {
+  width: 300px;
+  height: 100px;
+  object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 } 
-
-
 
 /*
 
@@ -151,25 +155,23 @@ Pied de page du document PDF
 
 */
 
-footer {
-    /*position : fixed;
-    bottom : 0;
-    left : 0;
-    right : 0;
-    padding : 5px;*/
-    font-family: Arial, sans-serif;  /* Police simple et professionnelle - conseil de Mathilde */
-    color: #979797;  /* couleur du texte en gris moyen */
-    font-size: 10px; /* définit la taille de la police à 10 pixels */
-    text-align: center; /* centre horizontalement le texte dans le bloc .footer */
-    margin-top: 30px; /* ajoute un espace vide de 30 pixels au-dessus de .footer => séparer le pied de page du contenu qui le précède */
-    padding-top: 10px; /* ajoute un espace intérieur de 10 pixels en haut du bloc .footer => il donne de l'air après la bordure (qui sera ajoutée juste en dessous) pour que le texte ne soit pas collé */
-    padding-bottom: 10px; /* ne pas coller le footer au bas de la page mais laisser un petit espace */
-    border-top: 1px solid #d8d8d8; /* ajoute une bordure supérieure (1 pixel d'épaisseur, trait plein (solid), gris clair (#d8d8d8)) => séparer visuellement le pied de page du reste du contenu avec un trait discret */
-    line-height: 1.4; /* définit l’espacement vertical entre les lignes de texte (hauteur de ligne) à 1.4 fois la taille de la police => améliore la lisibilité */
-    width: 100%;
+.doc-footer {
+  /*position : fixed;
+  bottom : 0;
+  left : 0;
+  right : 0;
+  padding : 5px;*/
+  font-family: Arial, sans-serif;  /* Police simple et professionnelle - conseil de Mathilde */
+  color: #979797;  /* couleur du texte en gris moyen */
+  font-size: 10px; /* définit la taille de la police à 10 pixels */
+  text-align: center; /* centre horizontalement le texte dans le bloc .footer */
+  margin-top: 30px; /* ajoute un espace vide de 30 pixels au-dessus de .footer => séparer le pied de page du contenu qui le précède */
+  padding-top: 10px; /* ajoute un espace intérieur de 10 pixels en haut du bloc .footer => il donne de l'air après la bordure (qui sera ajoutée juste en dessous) pour que le texte ne soit pas collé */
+  padding-bottom: 10px; /* ne pas coller le footer au bas de la page mais laisser un petit espace */
+  border-top: 1px solid #d8d8d8; /* ajoute une bordure supérieure (1 pixel d'épaisseur, trait plein (solid), gris clair (#d8d8d8)) => séparer visuellement le pied de page du reste du contenu avec un trait discret */
+  line-height: 1.4; /* définit l’espacement vertical entre les lignes de texte (hauteur de ligne) à 1.4 fois la taille de la police => améliore la lisibilité */
+  width: 100%;
 }
-
-
 
 /*
 
@@ -177,9 +179,7 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 
 */
 
-
 /* Styles généraux pour les tableaux */
-
 
 .convention-horraires {
   width: 60%;
@@ -204,16 +204,15 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 }
 
 /* Alternance des couleurs pour les lignes */
-.convention-horraires tbody tr:nth-child(odd) {
+/* nth-child : un sélecteur CSS qui permet de cibler un élément selon sa position dans son parent */
+/* tr:nth-child(3n+1) { ... } : ciblera les 1er, 4e, 7e, ... */
+.convention-horraires tbody tr:nth-child(odd) {  /* cible toutes les lignes impaires du tableau */
   background-color: #f9f9f9;
 }
 
-.convention-horraires tbody tr:nth-child(even) {
+.convention-horraires tbody tr:nth-child(even) {  /* cible toutes les lignes paires */
   background-color: #ffffff;
 }
-
-
-
 
 /* Styles généraux pour les tableaux */
 .convention-effectif {
@@ -247,9 +246,6 @@ TABLEAUX DU DOCUMENT "CONVENTION"
   background-color: #ffffff;
 }
 
-
-
-
 /* Ajustement des tableaux spécifiques */
 .convention-horraires th, .convention-effectif th {
   font-weight: bold;
@@ -263,7 +259,6 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 .convention-horraires, .convention-effectif {
   margin-bottom: 30px;
 }
-
 
 /*
 

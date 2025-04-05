@@ -4,14 +4,16 @@
 
 {% block body %}
 
-<div class="sous-cont">
+<div class="accueil-sous-cont">
 
     {% if not edit %}<h1>Créer un utilisateur</h1>{% else %}<h1>{{ user02.prenom }} {{ user02.nom }}</h1>{% endif %} {# dans UtilisateurController, on a bien passé la vriable : 'apprenants' => $apprenants #}
     {% if not edit %}<h3>Saisissez les informations essentielles du nouvel utilisateur</h3>{% else %}<h3>{{ user02.email }}</h3>{% endif %}
-    
-    {# {{ form(formAddUtilisateur) }} #}
 
-    {{ form_start(formAddUtilisateur) }}
+    <div class="sous-cont">
+        
+        {# {{ form(formAddUtilisateur) }} #}
+
+        {{ form_start(formAddUtilisateur) }}
 
         <h2>Identité de l'utilisateur</h2>
 
@@ -21,7 +23,7 @@
                 {{ form_widget(formAddUtilisateur.nom) }}
                 {{ form_errors(formAddUtilisateur.nom) }}
             </div>
-    
+
             <div class="form-cell user-prenom">
                 {{ form_label(formAddUtilisateur.prenom) }}
                 {{ form_widget(formAddUtilisateur.prenom) }}
@@ -35,7 +37,7 @@
                 {{ form_widget(formAddUtilisateur.roles) }}
                 {{ form_errors(formAddUtilisateur.roles) }}
             </div>
-    
+
             <div class="form-cell user-email">
                 {{ form_label(formAddUtilisateur.email) }}
                 {{ form_widget(formAddUtilisateur.email) }}
@@ -49,9 +51,8 @@
             {% if is_granted('ROLE_ADMIN') %}{% if edit %}<a class="btn btn-rose" href="{{ path('delete_utilisateur', {'id' : user02.id}) }}">Supprimer</a>{% endif %}{% endif %} {# bouton pour supprimer l'utilisateur ==> si on est en création, le bouton Supprimer ne s’affichera pas (logique, car l’utilisateur n’existe pas encore) #}
             <a class="btn btn-rose" href="{{ path('app_utilisateur') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des utilisateurs #}
         </div>
-
+    </div>
 
 </div>
 
 {% endblock %}
-

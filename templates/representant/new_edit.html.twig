@@ -4,17 +4,18 @@
 
 {% block body %}
 
-<div class="sous-cont">
+<div class="accueil-sous-cont">
     
     <h1>Infos sur le représentant légal</h1> {# dans RepresentantController, on a bien passé la variable : 'formAddRepresentant' => $form #}
     <h3>Saisissez l'ensemble des informations du représentant légal de votre société</h3>
-    
-    {# {{ form(formAddRepresentant) }} #}
 
-    {{ form_start(formAddRepresentant) }}
+    <div class="sous-cont">
+        
+        {# {{ form(formAddRepresentant) }} #}
+
+        {{ form_start(formAddRepresentant) }}
 
         <h2>Représentant légal</h2>
-
 
         <div class="form-ligne01">
             <div class="form-cell sexe">
@@ -22,13 +23,13 @@
                 {{ form_widget(formAddRepresentant.sexe) }}
                 {{ form_errors(formAddRepresentant.sexe) }}
             </div>
-    
+
             <div class="form-cell nom">
                 {{ form_label(formAddRepresentant.nom) }}
                 {{ form_widget(formAddRepresentant.nom) }}
                 {{ form_errors(formAddRepresentant.nom) }}
             </div>
-    
+
             <div class="form-cell prenom">
                 {{ form_label(formAddRepresentant.prenom) }}
                 {{ form_widget(formAddRepresentant.prenom) }}
@@ -42,7 +43,7 @@
                 {{ form_widget(formAddRepresentant.fonction) }}
                 {{ form_errors(formAddRepresentant.fonction) }}
             </div>
-    
+
             <div class="form-cell tampon">
                 {{ form_label(formAddRepresentant.tampon) }}
                 {{ form_widget(formAddRepresentant.tampon) }}
@@ -52,26 +53,26 @@
 
         {# https://symfony.com/doc/current/controller/upload_file.html #}
         {# {{ form_start(form) }}
-             ... 
-             ...
+            ... 
+            ...
 
             {{ form_row(form.brochure) }}
             {{ form_end(form) }} #}
-             
+            
         <div class="position-rose">
             {{ form_end(formAddRepresentant) }}
             <a class="btn btn-rose" href="{{ path('parametres') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a>  {# bouton pour retourner à la page principale "paramètres" #}
         </div>
+    </div>
 
 </div>
 
-
 {% endblock %}
-
 
 {# {{ form(form) }} -> la fonction form permet de récup le formulaire, le deuxième form est le nom qui provient du controleur : on change ce nom pour éviter les confusions #}
 
-{#Interprétation de edit dans Twig
+{#
+    Interprétation de edit dans Twig
 
     $apprenant->getId() retourne l'identifiant de l'apprenant s'il existe en base de données.
     Si $apprenant est nouveau, il n'a pas encore d'ID, donc $apprenant->getId() retourne null.
@@ -79,33 +80,29 @@
         edit = null est évalué comme false
         edit = 5 (par exemple) est évalué comme true
 
-Condition {% if not edit %}
+    ndition {% if not edit %}
 
     Si edit est false (donc null), alors {% if not edit %} est vrai, ce qui signifie qu'on est en création.
     Si edit contient un ID (donc true), alors {% if not edit %} est faux, ce qui signifie qu'on est en modification.
 
+    form_label(...) → Affiche le label du champ.
+    form_widget(...) → Affiche le champ lui-même (input, select, textarea…).
+    form_errors(...) → Affiche les erreurs si le champ est mal rempli.
+#}
 
+{#
+    <div class="form-control">
+        <i class="fa fa-calendar"></i> {{ form_label(form.dueDate) }}
+        {{ form_widget(form.dueDate) }}
 
- form_label(...) → Affiche le label du champ.
- form_widget(...) → Affiche le champ lui-même (input, select, textarea…).
- form_errors(...) → Affiche les erreurs si le champ est mal rempli.
- #}
+        <small>{{ form_help(form.dueDate) }}</small>
 
-
-
- {#
- <div class="form-control">
-    <i class="fa fa-calendar"></i> {{ form_label(form.dueDate) }}
-    {{ form_widget(form.dueDate) }}
-
-    <small>{{ form_help(form.dueDate) }}</small>
-
-    <div class="form-error">
-        {{ form_errors(form.dueDate) }}
+        <div class="form-error">
+            {{ form_errors(form.dueDate) }}
+        </div>
     </div>
-</div>
 
-If you're rendering each field manually, make sure you don't forget the _token field that is automatically added for CSRF protection.
+    If you're rendering each field manually, make sure you don't forget the _token field that is automatically added for CSRF protection.
 
-You can also use {{ form_rest(form) }} (recommended) to render any fields that aren't rendered manually.
+    You can also use {{ form_rest(form) }} (recommended) to render any fields that aren't rendered manually.
 #}
