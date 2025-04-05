@@ -181,7 +181,7 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 
 /* Styles généraux pour les tableaux */
 
-.convention-horraires {
+.convention-horaires {
   width: 60%;
   border-collapse: collapse;
   margin: 20px 0;
@@ -190,7 +190,7 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 }
 
 /* Styles pour les en-têtes des tableaux */
-.convention-horraires th {
+.convention-horaires th {
   background-color: #cafafc;
   color: #282828;
   padding: 10px;
@@ -198,7 +198,7 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 }
 
 /* Styles pour les cellules */
-.convention-horraires td {
+.convention-horaires td {
   padding: 10px;
   border: 1px solid #ddd;
 }
@@ -206,11 +206,11 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 /* Alternance des couleurs pour les lignes */
 /* nth-child : un sélecteur CSS qui permet de cibler un élément selon sa position dans son parent */
 /* tr:nth-child(3n+1) { ... } : ciblera les 1er, 4e, 7e, ... */
-.convention-horraires tbody tr:nth-child(odd) {  /* cible toutes les lignes impaires du tableau */
+.convention-horaires tbody tr:nth-child(odd) {  /* cible toutes les lignes impaires du tableau */
   background-color: #f9f9f9;
 }
 
-.convention-horraires tbody tr:nth-child(even) {  /* cible toutes les lignes paires */
+.convention-horaires tbody tr:nth-child(even) {  /* cible toutes les lignes paires */
   background-color: #ffffff;
 }
 

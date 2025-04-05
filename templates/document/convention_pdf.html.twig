@@ -4,8 +4,9 @@
 
 
 {% block pdf_header %}
-    <img src="{{ logoUrl }}" class="logo" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
-    <hr>
+<div class="cont-logo-base64">
+    <img src="{{ logoBase64 }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+</div>
 {% endblock %}
 
 {% block body %}
@@ -98,7 +99,7 @@ ancien test
     Dates et horaires de la session de formation : 
 </h3>
 
-<table>
+<table class="convention-table">
     <thead>
         <tr>
             <th>
@@ -142,7 +143,7 @@ ancien test
 
 {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
 
-    <table>
+    <table class="convention-table">
         <thead>
             <tr>
                 <th>
@@ -312,7 +313,9 @@ ancien test
             {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %} {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|capitalize }}
         </p>
         <div class="signature">
-            <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
+            <div class="cont-tampon-base64">
+                <img src="{{ tamponBase64 }}" alt="Tampon de l'entreprise {{ entreprise.raisonSociale }}">
+            </div>
         </div>
     </div>
     <div>
@@ -324,14 +327,12 @@ ancien test
         <div class="signature"></div>
     </div>
 </div>
-
-{# pied de page 
+{#
 <div class="footer">
     <p>
     {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
     Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
     </p>
-</div> #}
-
-
+</div>
+#}
 {% endblock %}

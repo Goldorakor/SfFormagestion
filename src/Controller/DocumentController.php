@@ -193,9 +193,32 @@ final class DocumentController extends AbstractController
         $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
 
         $dompdf = new Dompdf($pdfOptions);
+        
+        // Chemin vers le logo
+        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        
+        // On récupère l'extension du fichier (png, jpg, etc.)
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        
+        // On lit le contenu du fichier
+        $data = file_get_contents($path);
+        
+        // On encode l'image en base64
+        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        // Dans la méthode genererConventionPdf
-        $logoUrl = $this->generateUrl('logo_display', ['filename' => 'Logo-formatoque-vectorise-1024x288-67cf099d2a84e.png'], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        // Chemin vers le tampon
+        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        
+        // On récupère l'extension du fichier (png, jpg, etc.)
+        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
+        
+        // On lit le contenu du fichier
+        $data02 = file_get_contents($path02);
+        
+        // On encode l'image en base64
+        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
+
 
 
         // on récupère la session, la société et  les autres données nécessaires
@@ -228,7 +251,8 @@ final class DocumentController extends AbstractController
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
             'pdfMode' => true,
-            'logoUrl' => $logoUrl, // Pour passer l'URL du logo à la vue
+            'logoBase64' => $logo_base64,
+            'tamponBase64' => $tampon_base64,
         ]);
 
         // Chargement et génération du PDF

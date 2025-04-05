@@ -13,8 +13,7 @@
             @page {
                 header: myheader;
                 footer: myfooter;
-                margin-top: 120px;
-                margin-bottom: 50px;
+                margin: 0px;
             }
 
             body {
@@ -25,27 +24,39 @@
                 margin: 20mm;
             }
 
-            .header {
-                text-align : right;
-                margin-top : 15px; /* on ne souhaite pas coller le logo en haut du document */
-                margin-right : 30px; /* on ne souhaite pas coller le logo au bord du document */
-                width: 150px;
-                height: 50px;
-                object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
+            .cont-logo-base64 {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
             }
 
-            .header img {
+            .cont-logo-base64 img {
                 max-height: 60px;
+                object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
+            }
+
+            .cont-tampon-base64 {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
+            }
+
+            .cont-tampon-base64 img {
+                max-height: 200px;
+                object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
             }
 
             h1 {
                 color :#bd1e73; /* Change la couleur du texte en rose */
-                font-size: 26px; /* définit la taille de la police à 26 pixels */
+                font-size: 18px; /* définit la taille de la police à 26 pixels */
                 border-top: 3px solid #ff9944;   /* Ecriture abrégé : bordure en haut */
                 border-bottom: 3px solid #ff9944; /* Ecriture abrégé : bordure en bas */
                 border-left: none;  /* Pas de bordure à gauche */
                 border-right: none; /* Pas de bordure à droite */
-                padding: 10px; /* Espace entre le texte et la bordure */
+                padding-top: 5px; /* Espace entre le texte et la bordure haute */
+                padding-bottom: 10px; /* Espace entre le texte et la bordure basse */
                 /* display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
                 /* border-radius: 10px;  on arrondit les coins => c'est moche en fait !  */
             }
@@ -73,56 +84,103 @@
                 /*border-radius: 10px;  on arrondit les coins */
             }
 
+            /* style des tableaux du doc "convention" */
+            .convention-table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            .convention-table th {
+                background-color: aquamarine;
+            }
+
+            .convention-table th, td {
+                border: 1px solid black;
+                padding: 5px;
+                text-align: center;
+            }
+
+            /*
             .signatures {
                 display : flex;
+                flex-direction: row;
                 justify-content: space-around;
+                align-items: flex-start; /* Aligne les éléments au début 
                 margin-top: 50px;
+                width: 100%; /* Assure que le conteneur prend toute la largeur 
             }
 
             .signatures > div {
                 width: 45%;
                 text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             .signature {
                 margin-top: 30px;
                 height: 80px;
+                width: 100%; /* Assure que le conteneur de signature prend toute la largeur 
+                display: flex;
+                justify-content: center;
             }
             
             .signature img {
                 width: 200px;
-                height: 200px;
-                object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
-                /* border: 1px solid #a92b2b;  Ajouter une bordure douce autour de l'image */
-                /* border-radius: 8px;  Bordures arrondies */
+                height: auto; /* Permet à l'image de garder ses proportions 
+                object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée 
+            }
+            */
+
+            .signatures {
+                width: 100%;
+                margin-top: 10px;
+                clear: both;
+            }
+            
+            .signatures > div {
+                width: 45%;
+                text-align: center;
+                float: left;
+            }
+            
+            .signatures > div:first-child {
+                margin-right: 5%;
+            }
+            
+            .signatures > div:last-child {
+                margin-left: 5%;
+            }
+            
+            .signature {
+                margin-top: 30px;
+                height: 80px;
+                width: 100%;
+            }
+            
+            .signature img {
+                width: 200px;
+                height: auto;
+                max-height: 200px;
             }
 
-            /* Ligne de séparation dans l'en-tête */
-            hr {
-                border: none;
-                height: 1px;
-                background-color: #d6d6d6;
-                margin: 10px 0 30px 0;
-            }
+
 
             .footer {
-                position: fixed;
+                /*position: fixed;*/
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 font-family: Arial, sans-serif;  /* Police simple et professionnelle - conseil Mathilde : plus joli que Verdana */
                 color: #979797;  /* couleur du texte en gris moyen */
                 font-size: 10px; /* définit la taille de la police à 10 pixels */
                 text-align: center; /* centre horizontalement le texte dans le bloc .footer */
-                margin-top: 30px; /* ajoute un espace vide de 30 pixels au-dessus de .footer => séparer le pied de page du contenu qui le précède */
+                margin-top: 0px; /* ajoute un espace vide de 30 pixels au-dessus de .footer => séparer le pied de page du contenu qui le précède */
                 padding-top: 10px; /* ajoute un espace intérieur de 10 pixels en haut du bloc .footer => il donne de l'air après la bordure (qui sera ajoutée juste en dessous) pour que le texte ne soit pas collé */
                 border-top: 1px solid #d8d8d8; /* ajoute une bordure supérieure (1 pixel d'épaisseur, trait plein (solid), gris clair (#d8d8d8)) => séparer visuellement le pied de page du reste du contenu avec un trait discret */
                 line-height: 1.4; /* définit l’espacement vertical entre les lignes de texte (hauteur de ligne) à 1.4 fois la taille de la police => améliore la lisibilité */
             }
-
-            /* Pied de page si besoin
-            .footer {
-                bottom: 20mm;
-                left: 20mm;
-                right: 20mm;
-            } */
 
         </style>
 
@@ -135,9 +193,7 @@
         {# Bloc pour le header global de DomPDF #}
         <htmlpageheader name="myheader">
             {% block pdf_header %}
-            <div class="header">
-                <img src="{{ logoUrl }}"  alt="Logo de l'entreprise {{ entreprise.raisonSociale }}"/>
-            </div>  
+              
             {% endblock %}
         </htmlpageheader>
     
@@ -147,10 +203,10 @@
         {# Footer de DomPDF #}
         <htmlpagefooter name="myfooter">
             {% block pdf_footer %}
-                <div class="footer">
+                {#<div class="footer">
                     {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
                     Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
-                </div>
+                </div>#}
             {% endblock %}
         </htmlpagefooter>
 
