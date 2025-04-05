@@ -14,7 +14,6 @@
         <div class="details-fiches">
 
             <div class="fiche-gauche">
-    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Type :</span>&nbsp;<div>{{ session.formation.type|upper }}</div>
                 </div>
@@ -34,37 +33,27 @@
                 <div class="fiche-champ">
                     <span class="fiche-violet">Nb de places restantes :</span>&nbsp;<div>{{ session.nbPlaces  -  session.inscriptions|length }}</div>
                 </div>
-    
             </div>
         
             <div class="fiche-droite">
-    
                 {% for encadrement in session.encadrements %}
-    
                     <div class="fiche-champ">
                         <span class="fiche-violet">référent {{ encadrement.typeReferent }} :</span>&nbsp;<div>
                             <a href="{{ path('show_formateur', {'id' : encadrement.formateur.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }}</span></a><br>
                             {{ encadrement.formateur.email }}<br>
                             {{ encadrement.formateur.tel }}
                         </div>
-    
                     </div>
-    
                 {% endfor %}
-                
             </div>
-    
         </div>
     
-    
         <h2>Tableau récapitulatif</h2>
-    
     
             <table class="recap-table">
                 <tbody>
                     {% set current_societe = null %}
                     {% for ligne in societesEtApprenants %}
-    
                         {# Si on passe à une nouvelle société, on affiche la ligne de la société #}
                         {% if current_societe != ligne.raisonSociale %}
                             <tr class="suivi-bande-couleur">
@@ -87,11 +76,11 @@
                             <td></td>
                             <td></td>
                         </tr>
-    
                     {% endfor %}
                     
                 </tbody>
             </table>
+
             <table class="recap-table">
                 <tbody>
                     <tr class="suivi-bande-couleur">
@@ -114,22 +103,28 @@
                             <!-- vide pour le moment -->
                         </td>
                     </tr>
+
+                    {% set particuliers = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants particuliers #}
+                    
                     {% for line in apprenantsParticuliers %}
-        
-                        <tr>
-                            <td>{{ line.prenom }}</td>
-                            <td>{{ line.nom }}</td>
-                            <td>{{ line.email }}</td>
-                            <td><!-- vide pour le moment --></td>
-                            <td><!-- vide pour le moment --></td>
-                            <td><!-- vide pour le moment --></td>
-                        </tr>
-                        
+                        {% if line %}
+                            {% set particuliers = true %}
+                            <tr>
+                                <td>{{ line.prenom }}</td>
+                                <td>{{ line.nom }}</td>
+                                <td>{{ line.email }}</td>
+                                <td><!-- vide pour le moment --></td>
+                                <td><!-- vide pour le moment --></td>
+                                <td><!-- vide pour le moment --></td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
+                    {% if not particuliers %} {# Après la boucle for, on vérifie si la variable sessions_a_venir est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session à venir". #}
+                        <td colspan="5">Aucune particulier n'a participé à cette session.</td>
+                    {% endif %}
                 </tbody>
             </table>
     
-        
         <div class="position-rose">
             {# <a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}">Supprimer</a>  bouton pour supprimer la session : pas dans suivi administratif #}
     
@@ -144,13 +139,11 @@
 
 {% endblock %}
 
-
- {#
+{#
 public function getFormattedDuration()
 #}
 
-
- {#
+{#
 
 prixParSociete[ligne.societeId]
 
@@ -159,5 +152,4 @@ prixParSociete est un tableau PHP classique dans lequel la clé est l'id de la s
 ligne.societeId récupère la valeur de la clé societeId dans $ligne
 Le résultat est le bon index utilisé pour accéder à la valeur dans prixParSociete.
 
- #}
-
+#}
