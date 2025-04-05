@@ -116,7 +116,7 @@ class Planification
     // cette méthode permet d'afficher le jour et l'heure de début et de fin de chaque module dans une planification
     public function getDatesModule(): string
     {
-        return "du ".$this->dateDebut->format('d/m/Y') ." à ". $this->dateDebut->format('H:i')." au ". $this->dateFin->format('d/m/Y')." à ". $this->dateFin->format('H:i');
+        return "du\u{00A0}".$this->dateDebut->format('d/m/Y') ." à\u{00A0}". $this->dateDebut->format('H:i')." au\u{00A0}". $this->dateFin->format('d/m/Y')." à\u{00A0}". $this->dateFin->format('H:i');
     }
     
 
