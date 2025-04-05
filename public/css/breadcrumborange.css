@@ -1,4 +1,8 @@
-/* code css pour mon fil d'ariane (celui en orange) */
+/* 
+
+code css pour le fil d'ariane (orange) 
+
+*/
   
 .ariane {
     margin-left: 210px; /* Décale le contenu principal pour qu'il ne soit pas caché par la barre de navigation latérale */
@@ -53,4 +57,8 @@
     color: #ff4300; /* Change la couleur du dernier élément en orange flashy */
   }
      
-  /* fin du code css pour mon fil d'ariane */
+  /* 
+
+  fin du code css pour mon fil d'ariane 
+  
+  */
