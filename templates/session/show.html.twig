@@ -4,16 +4,17 @@
 
 {% block body %}
 
+<div class="accueil-sous-cont">
+
+    <h1 class="session-h1">Session : {{ session.formation.nomFormation }}</h1>
+    <h3 class="session-h3">du {{ session.dateDebut|date("d/m/Y") }} au {{ session.dateFin|date("d/m/Y") }}</h3>
+
     <div class="sous-cont">
-
-        <h1 class="session-h1">Session : {{ session.formation.nomFormation }}</h1>
-        <h3 class="session-h3">du {{ session.dateDebut|date("d/m/Y") }} au {{ session.dateFin|date("d/m/Y") }}</h3>
-
-
+        
         <div class="details-fiches">
 
             <div class="fiche-gauche">
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Type :</span>&nbsp;<div>{{ session.formation.type|upper }}</div>
                 </div>
@@ -21,38 +22,38 @@
                 <div class="fiche-champ">
                     <span class="fiche-violet">Modalités :</span>&nbsp;<div>en {{ session.formation.modalites|lower }}</div>
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Durée totale :</span>&nbsp;<div>{{ session.formattedDuration }}</div>
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Prix total :</span>&nbsp;<div>{{ session.totalPrice }}</div> {# autre méthode possible : {% set somme = 0 %} {% for inscription in session.inscriptions %}{% set somme = somme + inscription.prix %}{% endfor %}{{ somme }} euros<br> #}
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Nb de places restantes :</span>&nbsp;<div>{{ session.nbPlaces  -  session.inscriptions|length }}</div>
                 </div>
-
+    
             </div>
         
             <div class="fiche-droite">
-
+    
                 {% for encadrement in session.encadrements %}
-
+    
                     <div class="fiche-champ">
                         <span class="fiche-violet">référent {{ encadrement.typeReferent }} :</span>&nbsp;<div>
                             <a href="{{ path('show_formateur', {'id' : encadrement.formateur.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }}</span></a><br>
                             {{ encadrement.formateur.email }}<br>
                             {{ encadrement.formateur.tel }}
                         </div>
-
+    
                     </div>
-
+    
                 {% endfor %}
                 
             </div>
-
+    
         </div>
         
     
@@ -123,13 +124,13 @@
             <div>Aucun apprenant de l'annuaire inscrit à cette session</div>
         {% endif %}
     
-
+    
         <h2>Modules enseignés pendant la session :</h2>
-
+    
         <div class="details-modules">
     
             {% for planification in session.planifications %}
-
+    
             <a href="{{ path('construction') }}" class="clickable-div"> {# <a href="{{ path('show_module', {'id' : planification.module.id}) }}" class="clickable-div"></a> #}
                 <div class="fiche-module">
                     <div class="fiche-champ">
@@ -148,11 +149,11 @@
                     </div>
                 </div>
             </a>
-
+    
             {% endfor %}
-
+    
         </div>
-
+    
     
         <div class="position-rose">
             {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}"><i class="fa-solid fa-trash"></i>Supprimer</a>{% endif %} {# bouton pour supprimer la session #}
@@ -164,6 +165,7 @@
 
     </div>
 
+</div>
 
 {% endblock %}
 

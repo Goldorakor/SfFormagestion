@@ -4,17 +4,19 @@
 
 {% block body %}
 
-    <div class="sous-cont">
+<div class="accueil-sous-cont">
 
-        <h1>Liste des apprenants</h1>
-        <h3>Votre annuaire compte {{ apprenants|length }} apprenants répertoriés</h3>
+    <h1>Liste des apprenants</h1>
+    <h3>Votre annuaire compte {{ apprenants|length }} apprenants répertoriés</h3>
+
+    <div class="sous-cont">
 
         <div class="position-purple">
             {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_apprenant') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer un apprenant</a>{% endif %}
         </div>
-    
+        
         {% if apprenants|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
-    
+        
             <table class="apprenants-table">
                 <thead>
                     <tr>
@@ -40,7 +42,7 @@
                 </thead>
                 <tbody>
                     {% for apprenant in apprenants %}
-                    <tr>
+                        <tr>
                             <td class="clickable-row" data-href="{{ path('show_apprenant', {'id' : apprenant.id}) }}"> {# https://stackoverflow.com/questions/17147821/how-to-make-a-whole-row-in-a-table-clickable-as-a-link #}
                                 <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}">{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</a>
                             </td>
@@ -63,15 +65,17 @@
                     {% endfor %}
                 </tbody>
             </table>
-    
+        
         {% else %}
-    
+        
             <div>Aucun apprenant n'est présent dans l'annuaire.</div>
-    
+        
         {% endif %}
+
     </div>
 
-    
+</div>
+
 {% endblock %}
 
 

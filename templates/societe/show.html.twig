@@ -4,32 +4,33 @@
 
 {% block body %}
 
+<div class="accueil-sous-cont">
+
+    <h1>{{ societe.statutJuri|upper }} {{ societe.raisonSociale }}</h1>
+    <h3>{{ societe.email|lower }}</h3>
+
     <div class="sous-cont">
-
-        <h1>{{ societe.statutJuri|upper }} {{ societe.raisonSociale }}</h1>
-        <h3>{{ societe.email|lower }}</h3>
-
 
         <div class="details-fiches">
 
             <div class="fiche-gauche">
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Statut :</span>&nbsp;<div>société</div>
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Téléphone :</span>&nbsp;<div>{% if societe.tel %}{{ societe.tel }}{% else %}N° de téléphone non renseigné{% endif %}</div>
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">N° SIRET :</span>&nbsp;<div>{% if societe.numSiret %}{{ societe.numSiret }}{% else %}N° SIRET non renseigné{% endif %}</div>
                 </div>
-
+    
             </div>
         
             <div class="fiche-droite">
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Adresse du siègle social :</span>&nbsp;<div>
                         {{ societe.adresseSiege }}<br>
@@ -37,7 +38,7 @@
                         {{ societe.paysSiege|upper }}
                     </div>
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Adresse de facturation :</span>&nbsp;<div>
                         {{ societe.adresseFac }}<br>
@@ -47,10 +48,10 @@
                 </div>
                 
             </div>
-
+    
         </div>
         
-
+    
         {#
         <div>
             Responsable légal : <div>
@@ -78,11 +79,11 @@
         #}
     
         <h2>Responsables de l'entreprise :</h2>
-
+    
         <div class="details-responsables">  {# beaucoup de div mais j'ai repris la même organisation qu'au dessus #}
     
             {% for responsabilite in societe.responsabilites %}
-
+    
                 <div class="fiche-responsable">
                     <div class="fiche-champ">
                         <span class="fiche-violet">Responsable {{ responsabilite.typeResponsable }} :</span>&nbsp;<div>
@@ -94,10 +95,10 @@
                 </div>
             
             {% endfor %}
-
+    
         </div>
-
-
+    
+    
         <h2>Salariés de l'entreprise :</h2>
     
         {# on peut avoir nos 3 conditions puisque en réalité, une société possède soit des apprenants, soit des formateurs, soit personne mais jamais des formateurs et des apprenants mélangés 
@@ -111,11 +112,11 @@
             {% endfor %}
     
         {% elseif societe.formateurs | length > 0 %}
-             
+                
             {% for formateur in societe.formateurs %}
-                      
-                 <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom }} {{ formateur.nom }} {{ formateur.email }} {{ formateur.tel }}</a><br>
-                           
+                        
+                    <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom }} {{ formateur.nom }} {{ formateur.email }} {{ formateur.tel }}</a><br>
+                            
             {% endfor %}
         
         {% else %}
@@ -222,5 +223,6 @@
 
     </div>
 
+</div>
 
 {% endblock %}

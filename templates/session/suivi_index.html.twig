@@ -4,12 +4,13 @@
 
 {% block body %}
 
-<div class="sous-cont">
-
+<div class="accueil-sous-cont">
 
     <h1>Sessions</h1>
     <h3>Suivi administratif des sessions en cours de traitement</h3>
-    {# {% for session in sessions %}
+
+    <div class="sous-cont">
+        {# {% for session in sessions %}
 
         <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }} nb actuel d'inscrits : {{ session.inscriptions | length }} {{ session.dateDebut | date("d/m/Y") }} {{ session.dateFin | date("d/m/Y") }} {{ session.formation.type }} {{ session.formation.modalites }} {{ session.nbPlaces }}</a>
         <a class="btn btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}">M</a> -> bouton pour éditer la session
@@ -81,8 +82,9 @@
 
     {% endif %}
 
-</div>
+    </div>
 
+</div>
 
 {% endblock %}
 

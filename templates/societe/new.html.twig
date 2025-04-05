@@ -4,7 +4,8 @@
 
 {% block body %}
 
-
+<div class="accueil-sous-cont">
+    
     {% if not edit %}<h1>Créer une société</h1>{% else %}<h1>Modifier une société</h1>{% endif %} {# dans ApprenantController, on a bien passé la vriable : 'apprenants' => $apprenants #}
     {% if not edit %}<h3>Saisissez les informations essentielles de la nouvelle société</h3>{% else %}<h3>Modifiez les informations essentielles de la société</h3>{% endif %}
 
@@ -139,6 +140,7 @@
 
     </div>
 
+</div>
 
 {% endblock %}
 

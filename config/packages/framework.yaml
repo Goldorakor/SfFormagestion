@@ -19,6 +19,7 @@ framework:
     trusted_proxies: '127.0.0.1' # Adapter selon l'environnement
     trusted_headers: ['X-Forwarded-Proto']
 
+    # ajout pour limiter à 5 requêtes par minute sur la page de login (après ajout du composant rate-limiter : composer require symfony/rate-limiter)
     rate_limiter:
         login_limiter:
             policy: 'sliding_window'

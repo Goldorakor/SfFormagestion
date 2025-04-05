@@ -4,7 +4,8 @@
 
 {% block body %}
 
-
+<div class="accueil-sous-cont">
+    
     {% if not edit %}<h1>Créer un formateur</h1>{% else %}<h1>Modifier un formateur</h1>{% endif %}
     {% if not edit %}<h3>Saisissez les informations essentielles du nouveau formateur</h3>{% else %}<h3>Modifiez les informations essentielles du formateur</h3>{% endif %}
 
@@ -74,6 +75,11 @@
         </div>
 
     </div>
+
+</div>
+
+
+    
 
     
 {% endblock %}

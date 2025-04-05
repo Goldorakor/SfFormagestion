@@ -4,10 +4,12 @@
 
 {% block body %}
 
-    <div class="sous-cont">
+<div class="accueil-sous-cont">
 
-        <h1>Liste des formateurs</h1>
-        <h3>Votre annuaire compte {{ formateurs|length }} formateurs répertoriés</h3>
+    <h1>Liste des formateurs</h1>
+    <h3>Votre annuaire compte {{ formateurs|length }} formateurs répertoriés</h3>
+
+    <div class="sous-cont">
         
         <div class="position-purple">
             {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_formateur') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer un formateur</a>{% endif %}
@@ -69,24 +71,23 @@
             <div>Aucun formateur n'est présent dans l'annuaire.</div>
     
         {% endif %}
+    
     </div>
 
+</div>
+
+{# 
+ancienne présentation basique 
+{% for formateur in formateurs %}
+
+    <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom }} {{ formateur.nom | upper }} {{ formateur.email }} {{ formateur.tel }}{% if formateur.societe is not null %} {{ formateur.societe.raisonSociale }}{% else %} -{% endif %}</a>
+    <a class="btn btn-gris" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">M</a>  -> bouton pour éditer le formateur 
+    <a class="btn btn-gris" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">X</a> <br>  -> bouton pour supprimer le formateur 
     
-
-
-    {# 
-    ancienne présentation basique 
-    {% for formateur in formateurs %}
-
-        <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom }} {{ formateur.nom | upper }} {{ formateur.email }} {{ formateur.tel }}{% if formateur.societe is not null %} {{ formateur.societe.raisonSociale }}{% else %} -{% endif %}</a>
-        <a class="btn btn-gris" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">M</a>  -> bouton pour éditer le formateur 
-        <a class="btn btn-gris" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">X</a> <br>  -> bouton pour supprimer le formateur 
-        
-    {% endfor %}
-    #}
+{% endfor %}
+#}
 
 {% endblock %}
-
 
 {#
 !!!!! IMPORTANT !!!!!
@@ -106,4 +107,3 @@ if (!$this->isGranted('ROLE_ADMIN')) {
 
 Comme ça, les deux rôles accèdent aux mêmes pages, mais avec des fonctionnalités adaptées !
 #}
-

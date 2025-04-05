@@ -4,11 +4,12 @@
 
 {% block body %}
 
+<div class="accueil-sous-cont">
+
+    <h1>Liste des sociétés</h1>
+    <h3>Votre annuaire compte {{ societes|length }} sociétés répertoriées</h3>
+
     <div class="sous-cont">
-
-        <h1>Liste des sociétés</h1>
-        <h3>Votre annuaire compte {{ societes|length }} sociétés répertoriées</h3>
-
 
         <div class="position-purple">
             {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_societe') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer une société</a>{% endif %}
@@ -64,9 +65,10 @@
             <div>Aucune société n'est présente dans l'annuaire.</div>
     
         {% endif %}
+
     </div>
 
-    
+</div>
 
 {% endblock %}
 

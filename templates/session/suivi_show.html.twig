@@ -4,140 +4,141 @@
 
 {% block body %}
 
-<div class="sous-cont">
-
+<div class="accueil-sous-cont">
 
     <h1 class="session-h1">Suivi administratif : {{ session.formation.nomFormation }}</h1>
     <h3 class="session-h3">du {{ session.dateDebut|date("d/m/Y") }} au {{ session.dateFin|date("d/m/Y") }}</h3>
 
+    <div class="sous-cont">
 
-    <div class="details-fiches">
+        <div class="details-fiches">
 
-        <div class="fiche-gauche">
-
-            <div class="fiche-champ">
-                <span class="fiche-violet">Type :</span>&nbsp;<div>{{ session.formation.type|upper }}</div>
-            </div>
-            
-            <div class="fiche-champ">
-                <span class="fiche-violet">Modalités :</span>&nbsp;<div>en {{ session.formation.modalites|lower }}</div>
-            </div>
-
-            <div class="fiche-champ">
-                <span class="fiche-violet">Durée totale :</span>&nbsp;<div>{{ session.formattedDuration }}</div>
-            </div>
-
-            <div class="fiche-champ">
-                <span class="fiche-violet">Prix total :</span>&nbsp;<div>{{ session.totalPrice }}</div> {# autre méthode possible : {% set somme = 0 %} {% for inscription in session.inscriptions %}{% set somme = somme + inscription.prix %}{% endfor %}{{ somme }} euros<br> #}
-            </div>
-
-            <div class="fiche-champ">
-                <span class="fiche-violet">Nb de places restantes :</span>&nbsp;<div>{{ session.nbPlaces  -  session.inscriptions|length }}</div>
-            </div>
-
-        </div>
+            <div class="fiche-gauche">
     
-        <div class="fiche-droite">
-
-            {% for encadrement in session.encadrements %}
-
                 <div class="fiche-champ">
-                    <span class="fiche-violet">référent {{ encadrement.typeReferent }} :</span>&nbsp;<div>
-                        <a href="{{ path('show_formateur', {'id' : encadrement.formateur.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }}</span></a><br>
-                        {{ encadrement.formateur.email }}<br>
-                        {{ encadrement.formateur.tel }}
-                    </div>
-
+                    <span class="fiche-violet">Type :</span>&nbsp;<div>{{ session.formation.type|upper }}</div>
                 </div>
-
-            {% endfor %}
-            
-        </div>
-
-    </div>
-
-
-    <h2>Tableau récapitulatif</h2>
-
-
-        <table class="recap-table">
-            <tbody>
-                {% set current_societe = null %}
-                {% for ligne in societesEtApprenants %}
-
-                    {# Si on passe à une nouvelle société, on affiche la ligne de la société #}
-                    {% if current_societe != ligne.raisonSociale %}
-                        <tr class="suivi-bande-couleur">
-                            <td>{{ ligne.raisonSociale }}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{{ prixParSociete[ligne.societeId]|number_format(2, ',', ' ') }} €</td>
-                            <td><a href="{{ path('generer_convention', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">Convention</a></td>
-                            <td><a href="{{ path('generer_convention_pdf', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">Convention PDF</a></td>
-                        </tr>
-                        {% set current_societe = ligne.raisonSociale %}
-                    {% endif %}
-
-                    {# Ligne d'un apprenant #}
-                    <tr>
-                        <td>{{ ligne.prenom }}</td>
-                        <td>{{ ligne.nom }}</td>
-                        <td>{{ ligne.email }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
+                
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Modalités :</span>&nbsp;<div>en {{ session.formation.modalites|lower }}</div>
+                </div>
+    
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Durée totale :</span>&nbsp;<div>{{ session.formattedDuration }}</div>
+                </div>
+    
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Prix total :</span>&nbsp;<div>{{ session.totalPrice }}</div> {# autre méthode possible : {% set somme = 0 %} {% for inscription in session.inscriptions %}{% set somme = somme + inscription.prix %}{% endfor %}{{ somme }} euros<br> #}
+                </div>
+    
+                <div class="fiche-champ">
+                    <span class="fiche-violet">Nb de places restantes :</span>&nbsp;<div>{{ session.nbPlaces  -  session.inscriptions|length }}</div>
+                </div>
+    
+            </div>
+        
+            <div class="fiche-droite">
+    
+                {% for encadrement in session.encadrements %}
+    
+                    <div class="fiche-champ">
+                        <span class="fiche-violet">référent {{ encadrement.typeReferent }} :</span>&nbsp;<div>
+                            <a href="{{ path('show_formateur', {'id' : encadrement.formateur.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }}</span></a><br>
+                            {{ encadrement.formateur.email }}<br>
+                            {{ encadrement.formateur.tel }}
+                        </div>
+    
+                    </div>
+    
                 {% endfor %}
                 
-            </tbody>
-        </table>
-        <table class="recap-table">
-            <tbody>
-                <tr class="suivi-bande-couleur">
-                    <td>
-                        Apprenants particuliers
-                    </td>
-                    <td>
-                        <!-- vide pour le moment -->
-                    </td>
-                    <td>
-                        <!-- vide pour le moment -->
-                    </td>
-                    <td>
-                        <!-- vide pour le moment -->
-                    </td>
-                    <td>
-                        <!-- vide pour le moment -->
-                    </td>
-                    <td>
-                        <!-- vide pour le moment -->
-                    </td>
-                </tr>
-                {% for line in apprenantsParticuliers %}
+            </div>
     
-                    <tr>
-                        <td>{{ line.prenom }}</td>
-                        <td>{{ line.nom }}</td>
-                        <td>{{ line.email }}</td>
-                        <td><!-- vide pour le moment --></td>
-                        <td><!-- vide pour le moment --></td>
-                        <td><!-- vide pour le moment --></td>
-                    </tr>
+        </div>
+    
+    
+        <h2>Tableau récapitulatif</h2>
+    
+    
+            <table class="recap-table">
+                <tbody>
+                    {% set current_societe = null %}
+                    {% for ligne in societesEtApprenants %}
+    
+                        {# Si on passe à une nouvelle société, on affiche la ligne de la société #}
+                        {% if current_societe != ligne.raisonSociale %}
+                            <tr class="suivi-bande-couleur">
+                                <td>{{ ligne.raisonSociale }}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ prixParSociete[ligne.societeId]|number_format(2, ',', ' ') }} €</td>
+                                <td><a href="{{ path('generer_convention', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">Convention</a></td>
+                                <td><a href="{{ path('generer_convention_pdf', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">Convention PDF</a></td>
+                            </tr>
+                            {% set current_societe = ligne.raisonSociale %}
+                        {% endif %}
+    
+                        {# Ligne d'un apprenant #}
+                        <tr>
+                            <td>{{ ligne.prenom }}</td>
+                            <td>{{ ligne.nom }}</td>
+                            <td>{{ ligne.email }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+    
+                    {% endfor %}
                     
-                {% endfor %}
-            </tbody>
-        </table>
-
+                </tbody>
+            </table>
+            <table class="recap-table">
+                <tbody>
+                    <tr class="suivi-bande-couleur">
+                        <td>
+                            Apprenants particuliers
+                        </td>
+                        <td>
+                            <!-- vide pour le moment -->
+                        </td>
+                        <td>
+                            <!-- vide pour le moment -->
+                        </td>
+                        <td>
+                            <!-- vide pour le moment -->
+                        </td>
+                        <td>
+                            <!-- vide pour le moment -->
+                        </td>
+                        <td>
+                            <!-- vide pour le moment -->
+                        </td>
+                    </tr>
+                    {% for line in apprenantsParticuliers %}
+        
+                        <tr>
+                            <td>{{ line.prenom }}</td>
+                            <td>{{ line.nom }}</td>
+                            <td>{{ line.email }}</td>
+                            <td><!-- vide pour le moment --></td>
+                            <td><!-- vide pour le moment --></td>
+                            <td><!-- vide pour le moment --></td>
+                        </tr>
+                        
+                    {% endfor %}
+                </tbody>
+            </table>
     
-    <div class="position-rose">
-        {# <a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}">Supprimer</a>  bouton pour supprimer la session : pas dans suivi administratif #}
+        
+        <div class="position-rose">
+            {# <a class="btn btn-rose" href="{{ path('delete_session', {'id' : session.id}) }}">Supprimer</a>  bouton pour supprimer la session : pas dans suivi administratif #}
+    
+            {# <a class="btn btn-rose" href="{{ path('edit_session', {'id' : session.id}) }}">Editer</a>  bouton pour éditer la session : pas dans suivi administratif #}
+    
+            <a class="btn btn-rose" href="{{ path('suivi_app_session') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des sessions du suivi administratif #}
+        </div>
 
-        {# <a class="btn btn-rose" href="{{ path('edit_session', {'id' : session.id}) }}">Editer</a>  bouton pour éditer la session : pas dans suivi administratif #}
-
-        <a class="btn btn-rose" href="{{ path('suivi_app_session') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des sessions du suivi administratif #}
     </div>
-
 
 </div>
 

@@ -4,14 +4,21 @@
 
 {% block body %}
 
-<h1></h1>
-<h3></h3>
+<div class="accueil-sous-cont">
 
+    <h1></h1>
+    <h3></h3>
 
-<div>
-    Nom du module : {{ module.nomModule }}<br>
-    Description : {{ module.description }}<br>
-    Catégorie : {{ module.categorie.nomCategorie }}<br>
+    <div class="sous-cont">
+
+        <div>
+            Nom du module : {{ module.nomModule }}<br>
+            Description : {{ module.description }}<br>
+            Catégorie : {{ module.categorie.nomCategorie }}<br>
+        </div>
+
+    </div>
+    
 </div>
 
 {% endblock %}

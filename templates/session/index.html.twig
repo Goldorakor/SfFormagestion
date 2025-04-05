@@ -4,99 +4,98 @@
 
 {% block body %}
 
-    <div class="accueil-sous-cont">
+<div class="accueil-sous-cont">
+    
+    <h1>Sessions</h1>
+    <h3>Récapitulatif des sessions en cours de traitement</h3>
 
-        <h1>Sessions</h1>
-        <h3>Récapitulatif des sessions en cours de traitement</h3>
-
-
-        <div class="sous-cont">
-            
-            <div class="position-purple">
-                {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_session') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer une session</a>{% endif %}
-            </div>
-            
-            {# {% for session in sessions %}
+    <div class="sous-cont">
         
-                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }} nb actuel d'inscrits : {{ session.inscriptions | length }} {{ session.dateDebut | date("d/m/Y") }} {{ session.dateFin | date("d/m/Y") }} {{ session.formation.type }} {{ session.formation.modalites }} {{ session.nbPlaces }}</a>
-                <a class="btn btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}">M</a> -> bouton pour éditer la session
-                <a class="btn btn-gris" href="{{ path('delete_session', {'id' : session.id}) }}">X</a> <br> -> bouton pour supprimer la session
-                
-            {% endfor %} #}
-        
-            {% if sessions|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
-        
-                <table class="apprenants-table">
-                    <thead>
-                        <tr>
-                            <th>
-                                Référence de la session<br>Nombre actuel d'inscrits
-                            </th>
-                            <th>
-                                Date de début
-                            </th>
-                            <th>
-                                Date de fin
-                            </th>
-                            <th>
-                                Type
-                            </th>
-                            <th>
-                                Modalité
-                            </th>
-                            <th>
-                                Nb de places
-                            </th>
-                            <th>
-                                <!-- vide : colonne pour les icones édition -->
-                            </th>
-                            <th>
-                                <!-- vide : colonne pour les icones suppression -->
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for session in sessions %}
-                            <tr>
-                                <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
-                                    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }}<br>
-                                    <span class="mini-rose">{{ session.inscriptions|length }} apprenants inscrits</span></a>
-                                </td>
-                                <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
-                                    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.dateDebut|date("d/m/Y") }}</a>
-                                </td>
-                                <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
-                                    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.dateFin|date("d/m/Y") }}</a>
-                                </td>
-                                <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
-                                    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.formation.type|upper }}</a>
-                                </td>
-                                <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
-                                    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.formation.modalites|capitalize }}</a>
-                                </td>
-                                <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
-                                    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nbPlaces }}</a>
-                                </td>
-                                <td>
-                                    {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer la session #}
-                                </td>
-                                <td>
-                                    {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('delete_session', {'id' : session.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer la session #}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-        
-            {% else %}
-        
-                <div>Aucun session n'est présente dans la base de données.</div>
-        
-            {% endif %}
-
+        <div class="position-purple">
+            {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_session') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer une session</a>{% endif %}
         </div>
+        
+        {# {% for session in sessions %}
+    
+            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }} nb actuel d'inscrits : {{ session.inscriptions | length }} {{ session.dateDebut | date("d/m/Y") }} {{ session.dateFin | date("d/m/Y") }} {{ session.formation.type }} {{ session.formation.modalites }} {{ session.nbPlaces }}</a>
+            <a class="btn btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}">M</a> -> bouton pour éditer la session
+            <a class="btn btn-gris" href="{{ path('delete_session', {'id' : session.id}) }}">X</a> <br> -> bouton pour supprimer la session
+            
+        {% endfor %} #}
+    
+        {% if sessions|length > 0 %} <!-- dans le contexte PHP classique, on utilise count() pour savoir combien d'éléments existent dans la collection, dans le contexte TWIG, on utilise le filtre length -->
+    
+            <table class="apprenants-table">
+                <thead>
+                    <tr>
+                        <th>
+                            Référence de la session<br>Nombre actuel d'inscrits
+                        </th>
+                        <th>
+                            Date de début
+                        </th>
+                        <th>
+                            Date de fin
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Modalité
+                        </th>
+                        <th>
+                            Nb de places
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones édition -->
+                        </th>
+                        <th>
+                            <!-- vide : colonne pour les icones suppression -->
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in sessions %}
+                        <tr>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }}<br>
+                                <span class="mini-rose">{{ session.inscriptions|length }} apprenants inscrits</span></a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.dateDebut|date("d/m/Y") }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.dateFin|date("d/m/Y") }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.formation.type|upper }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.formation.modalites|capitalize }}</a>
+                            </td>
+                            <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
+                                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nbPlaces }}</a>
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>{% endif %} {# bouton pour éditer la session #}
+                            </td>
+                            <td>
+                                {% if is_granted('ROLE_ADMIN') %}<a class="icon-btn-gris" href="{{ path('delete_session', {'id' : session.id}) }}"><i class="fa-solid fa-trash"></i></a>{% endif %} {# bouton pour supprimer la session #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+        {% else %}
+    
+            <div>Aucun session n'est présente dans la base de données.</div>
+    
+        {% endif %}
 
     </div>
+
+</div>
 
 {% endblock %}
 

@@ -4,10 +4,12 @@
 
 {% block body %}
 
-    <div class="sous-cont">
+<div class="accueil-sous-cont">
 
-        <h1>{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</h1>
-        <h3>{{ apprenant.email|lower }}</h3>
+    <h1>{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</h1>
+    <h3>{{ apprenant.email|lower }}</h3>
+
+    <div class="sous-cont">
 
         <div class="details-fiches">
 
@@ -46,7 +48,7 @@
                 </div>
 
                 <div class="fiche-champ">
-                    {% if apprenant.sexe == 'F' %}<span class="fiche-violet">Salariée</span>{% else %}<span class="fiche-violet">Salarié</span>{% endif %}<span class="fiche-violet">&nbsp;de la société :</span>&nbsp;<div>{% if apprenant.societe is not null %}<a href="{{ path('show_societe', {'id' : apprenant.societe.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ apprenant.societe.raisonSociale }}</span></a>{% else %}non renseigné ou statut de particulier{% endif %}</div>
+                    {% if apprenant.sexe == 'F' %}<span class="fiche-violet">Salariée</span>{% else %}<span class="fiche-violet">Salarié</span>{% endif %}<span class="fiche-violet">&nbsp;de la société&nbsp;:</span>&nbsp;<div>{% if apprenant.societe is not null %}<a href="{{ path('show_societe', {'id' : apprenant.societe.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ apprenant.societe.raisonSociale }}</span></a>{% else %}non renseigné ou statut de particulier{% endif %}</div>
                 </div>
                 
             </div>
@@ -261,6 +263,7 @@
 
     </div>
 
+</div>
 
 {% endblock %}
 

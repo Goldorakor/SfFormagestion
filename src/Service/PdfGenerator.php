@@ -1,6 +1,7 @@
 <?php
 
-// src/Service/PdfGenerator.php
+/* On ajoute un service pour générer les documents PDF */
+
 namespace App\Service;
 
 use Dompdf\Dompdf;

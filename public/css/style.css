@@ -40,7 +40,7 @@ main {
   margin-left : 0px;
   margin-right: 0px;
   margin-bottom: 0px;
-  width: 85%;
+  width: 95%;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -270,8 +270,6 @@ PAGE D'ACCUEIL
   height: 360px;
   object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
 }
-
-
 
 
 .accueil-boite1 a, /* pour que les liens de la page d'accueil ne soient pas soulignés */
@@ -1086,7 +1084,7 @@ FORMULAIRES
 
 /* Style global du formulaire */
 form {
-  max-width: 60%; /* Ajuste la largeur max selon ton besoin */
+  max-width: 90%; /* Ajuste la largeur max selon ton besoin */
   margin: auto; /* formulaire bien centré */
   padding: 20px 20px 80px 20px; /* 80px pour une marge du bas généreuse */
   background-color: #f9f9f9; /* Couleur de fond */

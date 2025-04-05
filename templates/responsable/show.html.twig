@@ -4,40 +4,41 @@
 
 {% block body %}
 
+<div class="accueil-sous-cont">
+
+    <h1>{{ responsable.prenom|capitalize }} {{ responsable.nom|upper }}</h1>
+    <h3>{{ responsable.email|lower }}</h3>
+
     <div class="sous-cont">
-
-        <h1>{{ responsable.prenom|capitalize }} {{ responsable.nom|upper }}</h1>
-        <h3>{{ responsable.email|lower }}</h3>
-
-
+        
         <div class="details-fiches">
 
             <div class="fiche-gauche">
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Statut :</span>&nbsp;<div>responsable</div>
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Fonction :</span>&nbsp;<div>{{ responsable.fonction|lower }}</div>
                 </div>
-
+    
             </div>
         
             <div class="fiche-droite">
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Téléphone :</span>&nbsp;<div>{{ responsable.tel }}</div>
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Sexe :</span>&nbsp;<div>{{ responsable.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}</div>
                 </div>
                 
             </div>
-
+    
         </div>
-
+    
     
         <h2>Responsabilités :</h2>
     
@@ -77,7 +78,7 @@
                     </tbody>
                 </table>
             {% endif %}
-     
+        
         {% endfor %}
     
         {% if not responsabilites_du_responsable %} {# Après la boucle for, on vérifie si la variable responsabilites_du_responsable est toujours false. Si c'est le cas, cela signifie qu'aucune responsabilité n'a été trouvée, et donc on affiche le message "Aucune responsabilité en cours". #}
@@ -95,5 +96,6 @@
 
     </div>
 
+</div>
 
 {% endblock %}

@@ -23,7 +23,7 @@ class SecurityController extends AbstractController
         #[Autowire(service: 'limiter.login_limiter')] RateLimiterFactory $loginLimiter
     ): Response {
 
-        // Appliquer la limitation
+        // Appliquer la limitation du nombre de requêtes (grâce au rate-limiter)
         $limiter = $loginLimiter->create($request->getClientIp());
         $limit = $limiter->consume(); // Consomme 1 "jeton"
 

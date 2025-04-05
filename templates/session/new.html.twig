@@ -4,12 +4,13 @@
 
 {% block body %}
 
-<div class="sous-cont">
-
+<div class="accueil-sous-cont">
 
     <h1>{% if not edit %}Créer{% else %}Modifier{% endif %} une session</h1> {# dans ApprenantController, on a bien passé la variable : 'apprenants' => $apprenants #}
     {% if not edit %}<h3>Saisissez les informations essentielles de la nouvelle session</h3>{% else %}<h3>Modifiez les informations essentielles de la session</h3>{% endif %}
-        
+
+    <div class="sous-cont">
+
         {#{{ form(formAddSession) }}#}
 
         {{ form_start(formAddSession) }}
@@ -48,7 +49,7 @@
                 {{ form_widget(formAddSession.nbPlaces, {'attr': {'data-nb-places': 'true'}}) }} {# {{ form_widget(formAddSession.nbPlaces) }} #}
                 {{ form_errors(formAddSession.nbPlaces) }}
             </div>
-    
+
             <div class="form-cell nbmodules">
                 {{ form_label(formAddSession.nbModules) }}
                 <!-- Ajout de l'attribut 'data-nb-modules' pour la gestion dynamique des champs -->
@@ -61,7 +62,7 @@
                 {{ form_widget(formAddSession.dateDebut) }}
                 {{ form_errors(formAddSession.dateDebut) }}
             </div>
-    
+
             <div class="form-cell ses-date-fin">
                 {{ form_label(formAddSession.dateFin) }}
                 {{ form_widget(formAddSession.dateFin) }}
@@ -139,7 +140,7 @@
 
         <!-- Inclusion du script JavaScript pour la gestion dynamique des champs de planification -->
         <script src="{{ asset('js/form-dynamique-02.js') }}"></script>
-
+    </div>
 
 </div>
     

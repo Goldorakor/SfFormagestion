@@ -4,40 +4,41 @@
 
 {% block body %}
 
+<div class="accueil-sous-cont">
+
+    <h1>{{ formateur.prenom|capitalize }} {{ formateur.nom|upper }}</h1>
+    <h3>{{ formateur.email|lower }}</h3>
+
     <div class="sous-cont">
-
-        <h1>{{ formateur.prenom|capitalize }} {{ formateur.nom|upper }}</h1>
-        <h3>{{ formateur.email|lower }}</h3>
-
-
+        
         <div class="details-fiches">
 
             <div class="fiche-gauche">
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Statut :</span>&nbsp;<div>{% if formateur.sexe == 'F' %}formatrice {{ formateur.statut|lower }}e{% else %}formateur {{ formateur.statut|lower }}{% endif %}</div>
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">{% if formateur.statut == 'salarié' %}{% if formateur.sexe == 'F' %}Salariée{% else %}Salarié{% endif %} de la société :</span>&nbsp;<div>{% if formateur.societe is not null %}<a href="{{ path('show_societe', {'id' : formateur.societe.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ formateur.societe.raisonSociale }}</span></a>{% else %}Forma'Toque{% endif %}{% endif %}</div>
                 </div>
-
+    
             </div>
         
             <div class="fiche-droite">
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Téléphone :</span>&nbsp;<div>{{ formateur.tel }}</div>
                 </div>
-
+    
                 <div class="fiche-champ">
                     <span class="fiche-violet">Sexe :</span>&nbsp;<div>{{ formateur.sexe|replace({'M': 'masculin', 'F': 'féminin'}) }}</div>
                 </div>
                 
             </div>
-
+    
         </div>
-
+    
     
         <h2>Sessions à venir :</h2> <!-- pour les 3 sections suivantes, il faut penser à passer la variable $now = new DateTime dans la méthode show_formateur du FormateurController -->
     
@@ -246,5 +247,6 @@
 
     </div>
 
+</div>
 
 {% endblock %}
