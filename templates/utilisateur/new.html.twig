@@ -48,7 +48,7 @@
 
         <div class="position-rose">
             {{ form_end(formAddUtilisateur) }}
-            {% if is_granted('ROLE_ADMIN') %}{% if edit %}<a class="btn btn-rose" href="{{ path('delete_utilisateur', {'id' : user02.id}) }}">Supprimer</a>{% endif %}{% endif %} {# bouton pour supprimer l'utilisateur ==> si on est en création, le bouton Supprimer ne s’affichera pas (logique, car l’utilisateur n’existe pas encore) #}
+            {% if is_granted('ROLE_ADMIN') %}{% if edit %}<a class="btn btn-rose" href="{{ path('delete_utilisateur', {'id' : user02.id}) }}"><i class="fa-solid fa-trash"></i>Supprimer</a>{% endif %}{% endif %} {# bouton pour supprimer l'utilisateur ==> si on est en création, le bouton Supprimer ne s’affichera pas (logique, car l’utilisateur n’existe pas encore) #}
             <a class="btn btn-rose" href="{{ path('app_utilisateur') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des utilisateurs #}
         </div>
     </div>

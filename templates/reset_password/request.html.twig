@@ -4,8 +4,7 @@
 
 {% block body %}
 
-<div class="sous-cont">
-
+<div class="accueil-sous-cont">
 
     {% for flash_error in app.flashes('reset_password_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
@@ -13,7 +12,9 @@
 
     <h1 class="h1-sans-h3">Réinitialiser votre mot de passe</h1>
 
-    {{ form_start(requestForm) }}
+    <div class="sous-cont">
+
+        {{ form_start(requestForm) }}
     
         {{ form_row(requestForm.email) }}
 
@@ -27,6 +28,7 @@
         <a class="btn btn-rose" href="{{ path('app_login') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a> {# bouton pour retourner à la liste des utilisateurs #}
         </div>
 
+    </div>
 
 </div>       
 

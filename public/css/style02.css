@@ -298,6 +298,8 @@ chaque ligne est un flex container */
 .form-cell.user-role { flex-basis: 25%; }
 .form-cell.user-email { flex-basis: 75%; }
 
+.form-cell complete { flex-basis: 50%; }
+
 
 #form-cell-plain-password{
   flex-grow: 1;

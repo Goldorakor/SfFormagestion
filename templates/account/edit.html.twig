@@ -1,9 +1,38 @@
-<h1>Modifier mon profil</h1>
+{% extends 'base02.html.twig' %}
 
-{{ form_start(form) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+{# formulaire pour choisir un nouveau mot de passe #}
 
-    <button class="btn btn-primary">Enregistrer</button>
-{{ form_end(form) }}
+{% block title %}Modifier votre profil personnel{% endblock %}
+
+{% block body %}
+
+<div class="accueil-sous-cont">
+    <h1 class="h1-sans-h3">Modifier mon profil</h1>
+
+    <div class="sous-cont">
+    {{ form_start(form) }}
+
+        <div class="form-ligne02 form-cell complete">
+            {{ form_row(form.email) }}
+        </div>
+
+        <div class="form-ligne02 form-cell complete">
+            {{ form_row(form.plainPassword.first) }}
+        </div>
+
+        <div class="form-ligne02 form-cell complete">
+            {{ form_row(form.plainPassword.second) }}
+        </div>
+
+        <div class="position-rose">
+            <button class="btn btn-rose"><i class="fa-solid fa-download"></i>Enregistrer</button>
+            <a class="btn btn-rose" href="{{ path('app_apprenant') }}"><i class="fa-solid fa-right-from-bracket"></i>Quitter</a>
+        </div>
+
+    {{ form_end(form) }}
+
+    </div>
+
+</div>
+
+{% endblock %}

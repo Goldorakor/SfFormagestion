@@ -6,10 +6,11 @@
 
 {% block body %}
 
-<div class="sous-cont">
+<div class="accueil-sous-cont">
 
     <h1 class="h1-sans-h3">Réinitialiser votre mot de passe</h1>
 
+    <div class="sous-cont">
 
         {{ form_start(resetForm) }}
 
@@ -22,7 +23,6 @@
                 {{ form_row(resetForm.plainPassword, {'attr': {'id': 'form-cell-plain-password'}}) }}
             
         </div>
-
 
         {#<div class="form-ligne01">
             <div class="form-cell plain-password">
@@ -43,6 +43,7 @@
 
         {{ form_end(resetForm) }}
 
+    </div>
 
 </div>
 

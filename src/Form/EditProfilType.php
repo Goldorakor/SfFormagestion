@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\User;
 
+
+/* formulaire pour éditer son compte personnel */
 class EditProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
