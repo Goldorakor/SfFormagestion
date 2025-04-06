@@ -75,11 +75,8 @@
 
             h3 {
                 color :#4449d5; /* Change la couleur du texte en bleu */
-                /* border : 3px solid red; */
-                /*border-width: 3px; /* Épaisseur */
-                /*border-style: solid;  Style plein */
-                /*border-color: #bd1e73;  Change la couleur de la bordure en bleu */
-                /*padding: 10px;  Espace entre le texte et la bordure */
+                margin-bottom: 5px;
+                margin-top: 20px;
                 /*display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
                 /*border-radius: 10px;  on arrondit les coins */
             }
@@ -101,85 +98,66 @@
             }
 
             /*
-            .signatures {
-                display : flex;
-                flex-direction: row;
-                justify-content: space-around;
-                align-items: flex-start; /* Aligne les éléments au début 
-                margin-top: 50px;
-                width: 100%; /* Assure que le conteneur prend toute la largeur 
-            }
-
-            .signatures > div {
-                width: 45%;
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .signature {
-                margin-top: 30px;
-                height: 80px;
-                width: 100%; /* Assure que le conteneur de signature prend toute la largeur 
-                display: flex;
-                justify-content: center;
-            }
-            
-            .signature img {
-                width: 200px;
-                height: auto; /* Permet à l'image de garder ses proportions 
-                object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée 
-            }
+            propriétés CSS basiques bien supportées par les générateurs de PDF, 
+            permettant d'afficher deux signatures côte à côte avec un espacement approprié
             */
 
             .signatures {
-                width: 100%;
-                margin-top: 10px;
-                clear: both;
+                width: 100%; /* Prend toute la largeur disponible */
+                margin-top: 10px; /* Espace de 10px au-dessus du conteneur */
+                clear: both; /* Empêche les éléments flottants précédents d'affecter ce conteneur */
+                overflow: hidden; /* Contient les éléments flottants */
+                margin-bottom: 20px; /* Ajoute de l'espace après les signatures */
+                min-height: 200px; /* Hauteur minimale pour assurer la visibilité des signatures */
+                display: block; /* Force l'affichage en bloc */
             }
             
-            .signatures > div {
-                width: 45%;
-                text-align: center;
-                float: left;
+            /* > - C'est un sélecteur d'enfant direct. Il signifie que l'élément suivant doit être un enfant direct (au premier niveau) */
+            .signatures > div { /* Style pour les deux div contenant chaque signature */
+                width: 45%; /* Chaque div prend 45% de la largeur du conteneur */
+                text-align: center; /* Centre le contenu texte à l'intérieur */
+                float: left; /* Place les div côte à côte en les faisant flotter à gauche */
+                display: block; /* Force l'affichage en bloc */
+                min-height: 150px; /* Hauteur minimale pour le contenu */
             }
             
-            .signatures > div:first-child {
-                margin-right: 5%;
+            .signatures > div:first-child { /* Style spécifique pour la première signature (côté gauche) */
+                margin-right: 5%; /* Ajoute une marge de 5% à droite de la première signature */
             }
             
-            .signatures > div:last-child {
-                margin-left: 5%;
+            .signatures > div:last-child { /* Style spécifique pour la deuxième signature (côté droit) */
+                margin-left: 5%; /* Ajoute une marge de 5% à gauche de la deuxième signature */
             }
             
-            .signature {
-                margin-top: 30px;
-                height: 80px;
-                width: 100%;
+            .signature { /* Zone réservée pour l'image de la signature */
+                margin-top: 30px; /* Espace de 30px au-dessus de la zone de signature */
+                height: 80px; /* Hauteur fixe de 80px pour la zone */
+                width: 100%; /* Prend toute la largeur de son conteneur parent */
+                display: block; /* Force l'affichage en bloc */
             }
             
-            .signature img {
-                width: 200px;
-                height: auto;
-                max-height: 200px;
+            .signature img { /* Style de l'image de la signature elle-même */
+                width: 200px; /* Largeur fixe de 200px pour l'image */
+                height: auto; /* Hauteur automatique pour maintenir les proportions */
+                max-height: 200px; /* Hauteur maximale de 200px pour éviter une image trop grande */
             }
 
-
-
+            /* Style du footer */
             .footer {
-                /*position: fixed;*/
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-family: Arial, sans-serif;  /* Police simple et professionnelle - conseil Mathilde : plus joli que Verdana */
-                color: #979797;  /* couleur du texte en gris moyen */
-                font-size: 10px; /* définit la taille de la police à 10 pixels */
-                text-align: center; /* centre horizontalement le texte dans le bloc .footer */
-                margin-top: 0px; /* ajoute un espace vide de 30 pixels au-dessus de .footer => séparer le pied de page du contenu qui le précède */
-                padding-top: 10px; /* ajoute un espace intérieur de 10 pixels en haut du bloc .footer => il donne de l'air après la bordure (qui sera ajoutée juste en dessous) pour que le texte ne soit pas collé */
-                border-top: 1px solid #d8d8d8; /* ajoute une bordure supérieure (1 pixel d'épaisseur, trait plein (solid), gris clair (#d8d8d8)) => séparer visuellement le pied de page du reste du contenu avec un trait discret */
-                line-height: 1.4; /* définit l’espacement vertical entre les lignes de texte (hauteur de ligne) à 1.4 fois la taille de la police => améliore la lisibilité */
+                clear: both; /* S'assure que le footer commence après les éléments flottants */
+                width: 100%; /* Prend toute la largeur disponible */
+                text-align: center; /* Centre le texte */
+                font-family: Arial; /* Police simple */
+                font-size: 10px; /* Taille de police réduite */
+                color: #979797; /* Couleur grise */
+                margin-top: 30px; /* Espace au-dessus du footer */
+                padding-top: 10px; /* Espace intérieur en haut */
+                border-top: 1px solid #d8d8d8;  /* Ligne de séparation */
+            }
+
+            .footer p {
+                margin: 0; /* Supprime les marges du paragraphe */
+                line-height: 1.4; /* Espacement des lignes */
             }
 
         </style>
