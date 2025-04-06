@@ -45,7 +45,7 @@ class SessionRepository extends ServiceEntityRepository
 
 
     // méthode pour récupérer la liste des apprenants de chaque société ayant participé à une session déterminée (nom de la société suivi de la liste des salariés qui ont participé)
-    // utile dans la vue de détails d'une session dans le suivi administratif
+    // utile dans la vue de détails d'une session dans le suivi administratif (tableau récapitulatif)
     public function findSocietesEtApprenantsBySession($sessionId)
     {
         return $this->getEntityManager()->createQuery("
@@ -78,7 +78,7 @@ class SessionRepository extends ServiceEntityRepository
 
 
     // méthode pour récupérer la liste des apprenants d'une société ayant participé à une session déterminée (liste des salariés qui ont participé)
-    // utile dans la vue de détails d'une session dans le suivi administratif
+    // utile dans la vue de détails d'une session dans le suivi administratif (pour le document pdf convention)
     public function findApprenantsBySocieteBySession($sessionId, $societeId)
     {
         return $this->getEntityManager()->createQuery("
@@ -112,7 +112,7 @@ class SessionRepository extends ServiceEntityRepository
 
 
     // méthode pour récupérer la liste des apprenants non salariés d'une société ayant participé à une session déterminée (liste des "particuliers" qui ont participé)
-    // utile dans la vue de détails d'une session dans le suivi administratif
+    // utile dans la vue de détails d'une session dans le suivi administratif (tableau récapitulatif)
     public function findApprenantsParticuliersBySession($sessionId)
     {
         return $this->getEntityManager()->createQuery("
