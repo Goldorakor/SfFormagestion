@@ -138,7 +138,7 @@ ancien test
 </h3>
 
 <p>
-    {{ session.inscriptions|length }} {% if session.inscriptions|length == 1 %}participant {% else %}participants {% endif %}(pour un maximum de {{session.nbPlaces}}  participants).
+    {{ apprenants_soc|length }} {% if apprenants_soc|length == 1 %}participant {% else %}participants {% endif %}(pour un maximum de {{session.nbPlaces}}  participants).
 </p>
 
 {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
@@ -155,9 +155,11 @@ ancien test
             </tr>
         </thead>
         <tbody>
+
+        {# je pensais devoir récupérer tous les apprenants participant à la session (de toutes les entreprises 
         {% for inscription in session.inscriptions %}
-            {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session #}
-                {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
+            {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session
+                {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant
                         <tr>
                             <td>
                                 {{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }}
@@ -167,7 +169,23 @@ ancien test
                             </td>
                         </tr>
             {% endif %} 
+        {% endfor %} #}
+
+        {# le client m'informe que seuls les salariés de l'entreprise concernée doivent être mentionnés et pas de toutes les entreprises #}
+        {% for inscription in apprenants_soc %}
+            {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session #}
+                {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
+                        <tr>
+                            <td>
+                                {{ inscription.prenom|capitalize }} {{ inscription.nom|upper }}
+                            </td>
+                            <td>
+                                {{ inscription.metier|lower }}
+                            </td>
+                        </tr>
+            {% endif %}
         {% endfor %}
+
         </tbody>
     </table>
 
