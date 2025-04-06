@@ -55,6 +55,13 @@
                             <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
                             {% endif %}
                         </div>
+
+                        {# Vérifier si un message flash "success" existe et l'afficher #}
+                        {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
     
                         <div class="tubes-login">
                             <div class="identifiant">

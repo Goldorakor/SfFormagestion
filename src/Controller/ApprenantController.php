@@ -13,8 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-// classe ApprenantController hérite de la classe AbstractController, ce qui permet d'accéder à certaines méthodes pré-établies
-final class ApprenantController extends AbstractController
+
+#[IsGranted('IS_AUTHENTICATED_FULLY')] /* seul un utilisateur bien connecté peut accéder aux méthodes de ce contrôleur */
+final class ApprenantController extends AbstractController // classe ApprenantController hérite de la classe AbstractController, ce qui permet d'accéder à certaines méthodes pré-établies
 {
     // url de la route : /apprenant
     // nom de la route : app_apprenant -> peut être changé mais doit être différent de tous les names de tous les controleurs !

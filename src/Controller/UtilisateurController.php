@@ -16,10 +16,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
+#[IsGranted('IS_AUTHENTICATED_FULLY')] /* seul un utilisateur bien connecté peut accéder aux méthodes de ce contrôleur */
 final class UtilisateurController extends AbstractController
 {
-    
-    
+
     
     #[Route('/accueil/parametres/utilisateur', name: 'app_utilisateur')]
     public function index(UserRepository $userRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
@@ -39,10 +39,6 @@ final class UtilisateurController extends AbstractController
             'breadcrumbs' => $breadcrumbs,
         ]);
     }
-
-
-
-
 
 
 
@@ -69,9 +65,7 @@ final class UtilisateurController extends AbstractController
         // Si condition est vraie → la valeur après ? est assignée.
         // Si condition est fausse → la valeur après : est assignée.
 
-
         $isEdit = $user02 !== null;
-        
         
         // 1. si pas de utilisateur, on crée un nouveau utilisateur (un objet utilisateur est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$user02) {
@@ -91,19 +85,14 @@ final class UtilisateurController extends AbstractController
 
         $form = $this->createForm(UserType::class, $userForm); // Création du formulaire sans polluer avec le ROLE_USER injecté par défaut
 
-        
-
         // 4. le traitement s'effectue ici ! si le formulaire soumis est correct, on fera l'insertion en BDD
         $form->handleRequest($request);
         
-
         // bloc qui concerne la soumission
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             // Récupère les data depuis le formulaire (pas l'ancien $user)
             $submitUser = $form->getData();
-
 
             // Vérification de l'unicité de l'email uniquement si modification
             if ($isEdit && $submitUser->getEmail() !== $originalEmail) {
@@ -127,23 +116,17 @@ final class UtilisateurController extends AbstractController
                 $user02->setPassword($hashedPassword);
             }
 
-            
             // On peut définir une valeur par défaut pour isApproved
             $user02->setIsApproved(1);
             // On suppose que isApproved est une sorte de champ booléen ou de flag qui peut indiquer si l'utilisateur est approuvé ou non 
             // (par exemple, s'il est validé par un administrateur). Ici, la valeur 1 signifie "approuvé"
             // Pour le moment, je ne m'en sers pas mais j'en aurai besoin pour valider un user
 
-
-            
             // $user = $form->getData();  on récupère les données du formulaire dans notre objet utilisateur
             
             $entityManager->persist($user02); // équivaut à la méthode prepare() en PDO
 
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
-
-
-
 
             /* 
             
@@ -173,13 +156,6 @@ final class UtilisateurController extends AbstractController
                 $mailer->send($email);
             }
 
-
-
-
-
-
-
-
             // redirection vers la liste des utilisateurs (si formulaire soumis et formulaire valide)
             return $this->redirectToRoute('app_utilisateur');
         }
@@ -199,12 +175,6 @@ final class UtilisateurController extends AbstractController
 
 
 
-
-
-
-
-
-
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/accueil/parametres/utilisateur/{id}/delete', name: 'delete_utilisateur')]
     public function delete(User $user, EntityManagerInterface $entityManager): Response
@@ -214,11 +184,6 @@ final class UtilisateurController extends AbstractController
 
         return $this->redirectToRoute('app_utilisateur'); // après une suppression, on redirige vers la liste des utilisateurs
     }
-
-
-
-
-
 
 
 
@@ -259,12 +224,6 @@ final class UtilisateurController extends AbstractController
     */
 
 
-
-
-    
-
-
-
     // méthode provisoire pour ajouter un utilisateur 02 avec rôle USER (on ne sécurise pas => le mieux est de supprimer cette méthode après utilisation)
     #[Route('/ajout-user02', name: 'app_ajout_user02')]
     public function addUser02(EntityManagerInterface $em, UserPasswordHasherInterface $hasher)
@@ -300,12 +259,6 @@ final class UtilisateurController extends AbstractController
     Et le user sera ajouté dans la base de données
     
     */
-
-
-
-
-
-
 
 
     // méthode pour teqter un envoi de mail vers MailHog, pour s'assurer que tout va bien !

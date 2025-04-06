@@ -52,11 +52,3 @@ class EntrepriseRepository extends ServiceEntityRepository
     }
 
 }
-
-/*
-
-SELECT e
-FROM App\Entity\Entreprise e
-            WHERE e.id = 5 
-
-*/

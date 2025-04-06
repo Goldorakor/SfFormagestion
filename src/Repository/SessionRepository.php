@@ -136,7 +136,7 @@ class SessionRepository extends ServiceEntityRepository
     FROM inscription                                                                            inscription fait le lien entre la session et l’apprenant
     JOIN apprenant ON inscription.apprenant_id = apprenant.id                                   jointure entre inscription et apprenant
     WHERE inscription.session_id = :sessionId                                                   filtre sur la session concernée
-    AND apprenant.societe_id IS NULL                                                      pour les apprenants sans société
+    AND apprenant.societe_id IS NULL                                                            pour les apprenants sans société
     ORDER BY apprenant.nom, apprenant.prenom;                                                   trie par raison sociale puis par nom d’apprenant
 
     */
