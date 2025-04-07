@@ -72,51 +72,165 @@ final class DocumentController extends AbstractController
 
 
 
+
+
+
+
+
     #[Route('/accueil/suivis/session/{sessionId}/apprenant/{apprenantId}/convocation', name: 'generer_convocation')]
     public function genererConvocation(
         int $sessionId,
         int $apprenantId,
         SessionRepository $sessionRepo,
+        SocieteRepository $societeRepo,
         ApprenantRepository $apprenantRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
-        BreadcrumbsGenerator $breadcrumbsGenerator
+        BreadcrumbsGenerator $breadcrumbsGenerator,
     ): Response
     {
         // on récupère la session, la société et toutes les données nécessaires
         $session = $sessionRepo->find($sessionId);
         $apprenant = $apprenantRepo->find($apprenantId);
+        $societe = $apprenant->getSociete();
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
-        // $responsableLegal = $societeRepo->findUniqueRespLegal($societeId);  pour récupérer le responsable légal de la société
+        $responsableLegal = $societeRepo->findUniqueRespLegal($societeId);  // pour récupérer le responsable légal de la société
         
 
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
-            ['label' => 'Paramètres', 'route' => 'parametres'],
-            ['label' => 'Liste des modèles de documents', 'route' => 'modeles_documents'],
+            ['label' => 'Suivis', 'route' => 'suivis'],
+            ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
+            ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
             ['label' => 'Convocation'], // Pas de route car c’est la page actuelle
         ]);
 
 
         $now = new \DateTime();
-        
+
         
         return $this->render('document/convocation.html.twig', [
             'session' => $session,
+            'societe' => $societe,
             'apprenant' => $apprenant,
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
             'now' => $now,
             'entreprise' => $entreprise,
             'representant' => $representant,
-            /* 'responsableLegal' => $responsableLegal */
+            'responsableLegal' => $responsableLegal,
         ]);
     }
 
 
 
-    // route pour générer une convention spécifique à une session et une société (paramètres dynamiques dans l'url)
+
+
+
+    // route pour générer une convocation PDF spécifique à une session et à un apprenant (paramètres dynamiques dans l'url)
+    #[Route('/accueil/suivis/session/{sessionId}/apprenant/{apprenantId}/convocation_pdf', name: 'generer_convocation_pdf')]
+     
+    public function genererConvocationPdf(
+        int $sessionId,
+        int $apprenantId,
+        SessionRepository $sessionRepo,
+        SocieteRepository $societeRepo,
+        ApprenantRepository $apprenantRepo,
+        EntrepriseRepository $entrepriseRepo,
+        RepresentantRepository $representantRepo,
+        BreadcrumbsGenerator $breadcrumbsGenerator,
+        ): Response
+    {
+        
+        // Optionnel : configurer DomPDF
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Chemin vers le logo
+        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        
+        // On récupère l'extension du fichier (png, jpg, etc.)
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        
+        // On lit le contenu du fichier
+        $data = file_get_contents($path);
+        
+        // On encode l'image en base64
+        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+
+        // Chemin vers le tampon
+        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        
+        // On récupère l'extension du fichier (png, jpg, etc.)
+        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
+        
+        // On lit le contenu du fichier
+        $data02 = file_get_contents($path02);
+        
+        // On encode l'image en base64
+        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
+
+
+
+        // on récupère la session, la société et  les autres données nécessaires
+        $session = $sessionRepo->find($sessionId);
+        $apprenant = $apprenantRepo->find($apprenantId);
+        $societe = $apprenant->getSociete();
+        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
+        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
+        $responsableLegal = $societeRepo->findUniqueRespLegal($societeId);  // pour récupérer le responsable légal de la société
+        $now = new \DateTime();
+
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Suivis', 'route' => 'suivis'],
+            ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
+            ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
+            ['label' => 'Convocation (PDF)'], // Pas de route car c’est la page actuelle
+        ]);
+
+        // Récupérer le contenu HTML du template Twig
+        $htmlContent = $this->renderView('document/convention_pdf.html.twig', [
+            'session' => $session,
+            'societe' => $societe,
+            'apprenant' => $apprenant,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+            'now' => $now,
+            'entreprise' => $entreprise,
+            'representant' => $representant,
+            'responsableLegal' => $responsableLegal,
+            'pdfMode' => true,
+            'logoBase64' => $logo_base64,
+            'tamponBase64' => $tampon_base64,
+        ]);
+
+        // Chargement et génération du PDF
+        $dompdf->loadHtml($htmlContent);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Envoi du PDF au navigateur
+        return new Response(
+            $dompdf->output(),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="convention.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+            ]
+        );
+    }
+
+
+
+
+
+    // route pour générer une convention spécifique à une session et à une société (paramètres dynamiques dans l'url)
     #[Route('/accueil/suivis/session/{sessionId}/societe/{societeId}/convention', name: 'generer_convention')]
     public function genererConvention(
         int $sessionId,
@@ -145,8 +259,9 @@ final class DocumentController extends AbstractController
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
-            ['label' => 'Paramètres', 'route' => 'parametres'],
-            ['label' => 'Liste des modèles de documents', 'route' => 'modeles_documents'],
+            ['label' => 'Suivis', 'route' => 'suivis'],
+            ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
+            ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
             ['label' => 'Convention'], // Pas de route car c’est la page actuelle
         ]);
 
@@ -173,8 +288,12 @@ final class DocumentController extends AbstractController
     }
 
 
+
+
+
+
     
-    // la troisième méthode sur le document "convention" : la génération d'un document au format pdf
+    // route pour générer une convention PDF spécifique à une session et à une société (paramètres dynamiques dans l'url)
     #[Route('/accueil/suivis/session/{sessionId}/societe/{societeId}/convention_pdf', name: 'generer_convention_pdf')]
      
     public function genererConventionPdf(
@@ -235,8 +354,9 @@ final class DocumentController extends AbstractController
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
-            ['label' => 'Paramètres', 'route' => 'parametres'],
-            ['label' => 'Liste des modèles de documents', 'route' => 'modeles_documents'],
+            ['label' => 'Suivis', 'route' => 'suivis'],
+            ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
+            ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
             ['label' => 'Convention (PDF)'], // Pas de route car c’est la page actuelle
         ]);
 

@@ -125,6 +125,11 @@ style pour l'affichage du tampon et la signature du dirigeant de l'organisme de 
   margin-top: 10px;
 }
 
+.ecrigro {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .lieu-date{
   margin-top: 10px;
   margin-bottom: 20px;

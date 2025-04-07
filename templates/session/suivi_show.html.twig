@@ -72,8 +72,8 @@
                             <td>{{ ligne.prenom }}</td>
                             <td>{{ ligne.nom }}</td>
                             <td>{{ ligne.email }}</td>
-                            <td></td>
-                            <td></td>
+                            <td>{# <a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">Convocation</a> #}</td>
+                            <td>{# <a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Convocation PDF</a> #}</td>
                             <td></td>
                         </tr>
                     {% endfor %}
@@ -113,8 +113,8 @@
                                 <td>{{ line.prenom }}</td>
                                 <td>{{ line.nom }}</td>
                                 <td>{{ line.email }}</td>
-                                <td><!-- vide pour le moment --></td>
-                                <td><!-- vide pour le moment --></td>
+                                <td><a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu">Convocation</a></td>
+                                <td><a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Convocation PDF</a></td>
                                 <td><!-- vide pour le moment --></td>
                             </tr>
                         {% endif %}

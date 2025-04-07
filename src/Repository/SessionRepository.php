@@ -49,7 +49,7 @@ class SessionRepository extends ServiceEntityRepository
     public function findSocietesEtApprenantsBySession($sessionId)
     {
         return $this->getEntityManager()->createQuery("
-            SELECT s.id AS societeId, s.raisonSociale, a.nom, a.prenom, a.email, a.metier
+            SELECT s.id AS societeId, s.raisonSociale, a.id AS apprenantId, a.nom, a.prenom, a.email, a.metier
             FROM App\Entity\Inscription i
             JOIN i.apprenant a
             JOIN a.societe s
@@ -82,7 +82,7 @@ class SessionRepository extends ServiceEntityRepository
     public function findApprenantsBySocieteBySession($sessionId, $societeId)
     {
         return $this->getEntityManager()->createQuery("
-            SELECT s.id AS societeId, s.raisonSociale, a.nom, a.prenom, a.email, a.metier
+            SELECT s.id AS societeId, s.raisonSociale, a.id, a.nom, a.prenom, a.email, a.metier
             FROM App\Entity\Inscription i
             JOIN i.apprenant a
             JOIN a.societe s

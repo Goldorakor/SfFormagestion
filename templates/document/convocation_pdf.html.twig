@@ -2,20 +2,18 @@
 
 {% block title %}Document administratif : convocation{% endblock %}
 
+
+{% block pdf_header %}
+<div class="cont-logo-base64">
+    <img src="{{ logoBase64 }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+</div>
+{% endblock %}
+
+
 {% block body %}
-
-<div class="accueil-sous-cont">
-
-    {# logo du haut de la page #}
-    <div class="doc-header">
-        {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
-        <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
-        {% endif %}
-    </div>
 
     <h1>CONVOCATION</h1>
 
-    <div class="sous-cont">
 
         <p class="saut-ligne ecrigro">
             {% if apprenant.societe is defined %}{{ apprenant.societe.raisonSociale }}<br>
@@ -168,13 +166,11 @@
             
         </div>
     
-        <p class="doc-footer">
+        <div class="footer">
+            <p>
             {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
             Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
-        </p>
-
-    </div>
-
-</div>
+            </p>
+        </div>
 
 {% endblock %}
