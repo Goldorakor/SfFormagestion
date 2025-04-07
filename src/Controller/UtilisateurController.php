@@ -261,8 +261,8 @@ final class UtilisateurController extends AbstractController
     */
 
 
-    // méthode pour teqter un envoi de mail vers MailHog, pour s'assurer que tout va bien !
-    // dans le navigateur, on entre : http://127.0.0.1:8000/test-email
+    // méthode pour tester un envoi de mail vers MailHog, pour s'assurer que tout va bien !
+    // dans le navigateur, on entre : https://127.0.0.1:8000/test-email
     #[Route('/test-email', name: 'test_email')]
     public function sendEmail(MailerInterface $mailer): Response
     {
