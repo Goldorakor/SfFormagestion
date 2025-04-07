@@ -98,6 +98,10 @@ final class DocumentController extends AbstractController
             ['label' => 'Liste des modèles de documents', 'route' => 'modeles_documents'],
             ['label' => 'Convocation'], // Pas de route car c’est la page actuelle
         ]);
+
+
+        $now = new \DateTime();
+        
         
         return $this->render('document/convocation.html.twig', [
             'session' => $session,
