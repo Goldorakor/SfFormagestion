@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Validator\PasswordConstraints; /* pour utiliser la regex */
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
+
 
 /* formulaire de changement de mot de passe */
 class ChangePasswordFormType extends AbstractType
@@ -26,19 +28,20 @@ class ChangePasswordFormType extends AbstractType
                     ],
                 ],
                 'first_options' => [
-                    'constraints' => [
+                    'constraints' => array_merge([ /* array_merge() permet de garder les contraintes existantes (comme PasswordStrength) et d’ajouter celles définies dans PasswordConstraints */
                         new NotBlank([
                             'message' => 'Veuillez entrer un mot de passe',
                         ]),
+                        /* on commente ici car on a centralisé les règles de validation dans alidator/PasswordConstraints.php
                         new Length([
                             'min' => 12,
                             'minMessage' => 'Your password should be at least {{ limit }} characters',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
-                        ]),
+                        ]),*/
                         new PasswordStrength(),
                         new NotCompromisedPassword(),
-                    ],
+                    ], PasswordConstraints::get()), // On ajoute la contrainte Regex définie dans Validator/PasswordConstraints.php
                     'label' => 'Nouveau mot de passe',
                 ],
                 'second_options' => [

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Validator\PasswordConstraints; /* pour utiliser la regex */
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -26,12 +27,19 @@ class EditProfilType extends AbstractType
                 'type' => PasswordType::class,
                 'mapped' => false, // car ce n'est pas directement une propriété de User (un password en clair n'est pas stocké en BDD)
                 'required' => false, // facultatif si l'utilisateur ne veut pas changer
+                
+
+                /*
                 'first_options' => ['label' => 'Nouveau mot de passe'],
+                */
+
+                'first_options' => [
+                    'label' => 'Nouveau mot de passe',
+                    'constraints' => PasswordConstraints::get(), // On ajoute la contrainte Regex définie dans Validator/PasswordConstraints.php
+                ],
+
                 'second_options' => ['label' => 'Répéter le mot de passe'],
                 'invalid_message' => 'Les mots de passe doivent correspondre.',
-                'constraints' => [
-                    new Length(['min' => 6]),
-                ],
             ]);
     }
 
