@@ -71,9 +71,26 @@ final class DocumentController extends AbstractController
     }
 
 
-    #[Route('/accueil/parametres/modeles_documents/convocation', name: 'convocation')]
-    public function convocation(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+
+    #[Route('/accueil/suivis/session/{sessionId}/apprenant/{apprenantId}/convocation', name: 'generer_convocation')]
+    public function genererConvocation(
+        int $sessionId,
+        int $apprenantId,
+        SessionRepository $sessionRepo,
+        ApprenantRepository $apprenantRepo,
+        EntrepriseRepository $entrepriseRepo,
+        RepresentantRepository $representantRepo,
+        BreadcrumbsGenerator $breadcrumbsGenerator
+    ): Response
     {
+        // on récupère la session, la société et toutes les données nécessaires
+        $session = $sessionRepo->find($sessionId);
+        $apprenant = $apprenantRepo->find($apprenantId);
+        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
+        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
+        // $responsableLegal = $societeRepo->findUniqueRespLegal($societeId);  pour récupérer le responsable légal de la société
+        
+
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
@@ -83,38 +100,16 @@ final class DocumentController extends AbstractController
         ]);
         
         return $this->render('document/convocation.html.twig', [
-            'controller_name' => 'DocumentController',
+            'session' => $session,
+            'apprenant' => $apprenant,
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+            'now' => $now,
+            'entreprise' => $entreprise,
+            'representant' => $representant,
+            /* 'responsableLegal' => $responsableLegal */
         ]);
     }
 
-
-    /* 
-    
-    Je n'affiche pas le modèle convention en twig : AUCUN INTERET
-
-    route pour la partie modèle de convention qu'on peut configurer (afficher ou modifier le modèle de convention)
-    #[Route('/accueil/parametres/modeles_documents/convention', name: 'modele_convention')]
-    public function voirModeleConvention(
-        BreadcrumbsGenerator $breadcrumbsGenerator,
-    ): Response
-    {
-        
-        // pour construire notre fil d'Ariane
-        $breadcrumbs = $breadcrumbsGenerator->generate([
-            ['label' => 'Accueil', 'route' => 'accueil'],
-            ['label' => 'Paramètres', 'route' => 'parametres'],
-            ['label' => 'Liste des modèles de documents', 'route' => 'modeles_documents'],
-            ['label' => 'Convention'], // Pas de route car c’est la page actuelle
-        ]);
-        
-        return $this->render('document/convention.html.twig', [
-            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
-        ]);
-
-    }
-    
-    */   
 
 
     // route pour générer une convention spécifique à une session et une société (paramètres dynamiques dans l'url)
