@@ -18,15 +18,19 @@
     <div class="sous-cont">
 
         <p class="saut-ligne ecrigro">
-            {% if apprenant.societe is defined %}{{ apprenant.societe.raisonSociale }}<br>
-            {{ apprenant.societe.adresseSiege }} - {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} - {{ apprenant.societe.paysSiege }}<br>
-            {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% else %}{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}<br>
-            {{ apprenant.adresse }} - {{ apprenant.codePostal }} {{ apprenant.ville|capitalize }} - {{ apprenant.pays|upper }}{% endif %}
+            {% if apprenant.societe is not null %}
+                {{ apprenant.societe.raisonSociale }}<br>
+                {{ apprenant.societe.adresseSiege }} - {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} - {{ apprenant.societe.paysSiege }}<br>
+                {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}
+            {% else %}
+                {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}<br>
+                {{ apprenant.adresse }} - {{ apprenant.codePostal }} {{ apprenant.ville|capitalize }} - {{ apprenant.pays|upper }}
+            {% endif %}
         </p>
     
         <p class="saut-ligne ecrigro">
-            À {{ entreprise.villeSiege }}, le {{ "now"|date("l d F Y")|trans }}<br>
-            {{ 'now'|date("d-m-Y") }}
+            À {{ entreprise.villeSiege }}, le {{ 'now'|date("d-m-Y") }}<br>
+            
         </b>
     
         <h2>
@@ -73,7 +77,21 @@
         </h3>
         <p>
             {{ session.datesSession }}, à l'adresse suivante :<br>
-            {% if session.formation.modalites == 'présentiel' %}{% if apprenant.societe is defined %}{{ apprenant.societe.adresseSiege }} {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} {{ apprenant.societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}{% elseif session.formation.modalites == 'distanciel' %}{% if apprenant.societe is defined %}{{ apprenant.societe.adresseSiege }} {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} {{ apprenant.societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}{% elseif session.formation.modalites == 'e-learning' %}La formation 'à distance' en e_learning se déroulera à la convenance de chaque stagiaire, aux dates et lieux choisis par ce dernier.{% endif %}
+            {% if session.formation.modalites == 'présentiel' %}
+                {% if apprenant.societe is not null %}
+                    {{ apprenant.societe.adresseSiege }} {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} {{ apprenant.societe.paysSiege|upper }}
+                {% else %}
+                    au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}
+                {% endif %}
+            {% elseif session.formation.modalites == 'distanciel' %}
+                {% if apprenant.societe is not null %}
+                    {{ apprenant.societe.adresseSiege }} {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} {{ apprenant.societe.paysSiege|upper }}
+                {% else %}
+                    au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}
+                {% endif %}
+            {% elseif session.formation.modalites == 'e-learning' %}
+                La formation 'à distance' en e_learning se déroulera à la convenance de chaque stagiaire, aux dates et lieux choisis par ce dernier.
+            {% endif %}
         </p>
     
         <p class="saut-ligne">

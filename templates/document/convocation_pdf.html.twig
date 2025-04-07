@@ -1,4 +1,4 @@
-{% extends 'base03.html.twig' %}
+{% extends 'base04.html.twig' %}
 
 {% block title %}Document administratif : convocation{% endblock %}
 
@@ -16,15 +16,18 @@
 
 
         <p class="saut-ligne ecrigro">
-            {% if apprenant.societe is defined %}{{ apprenant.societe.raisonSociale }}<br>
-            {{ apprenant.societe.adresseSiege }} - {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} - {{ apprenant.societe.paysSiege }}<br>
-            {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% else %}{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}<br>
-            {{ apprenant.adresse }} - {{ apprenant.codePostal }} {{ apprenant.ville|capitalize }} - {{ apprenant.pays|upper }}{% endif %}
+            {% if apprenant.societe is not null %}{{ apprenant.societe.raisonSociale }}<br>
+                {{ apprenant.societe.adresseSiege }} - {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} - {{ apprenant.societe.paysSiege }}<br>
+                {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}
+            {% else %}
+                {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}<br>
+                {{ apprenant.adresse }} - {{ apprenant.codePostal }} {{ apprenant.ville|capitalize }} - {{ apprenant.pays|upper }}
+            {% endif %}
         </p>
     
         <p class="saut-ligne ecrigro">
-            À {{ entreprise.villeSiege }}, le {{ "now"|date("l d F Y")|trans }}<br>
-            {{ 'now'|date("d-m-Y") }}
+            À {{ entreprise.villeSiege }}, le {{ 'now'|date("d-m-Y") }}<br>
+            
         </b>
     
         <h2>
@@ -160,7 +163,9 @@
                     {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
                 </p>
                 <div class="signature">
-                    <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
+                    <div class="cont-tampon-base64">
+                        <img src="{{ tamponBase64 }}" alt="Tampon de l'entreprise {{ entreprise.raisonSociale }}">
+                    </div>
                 </div>
             </div>
             

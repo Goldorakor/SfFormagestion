@@ -93,9 +93,17 @@ final class DocumentController extends AbstractController
         $session = $sessionRepo->find($sessionId);
         $apprenant = $apprenantRepo->find($apprenantId);
         $societe = $apprenant->getSociete();
+
+        // S’il y a une société, on récupère son id et le responsable légal
+        $responsableLegal = null;
+        if ($societe !== null) {
+            $societeId = $societe->getId();
+            $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
+        }
+
+        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
-        $responsableLegal = $societeRepo->findUniqueRespLegal($societeId);  // pour récupérer le responsable légal de la société
         
 
         // pour construire notre fil d'Ariane
@@ -104,7 +112,7 @@ final class DocumentController extends AbstractController
             ['label' => 'Suivis', 'route' => 'suivis'],
             ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
             ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
-            ['label' => 'Convocation'], // Pas de route car c’est la page actuelle
+            ['label' => "Convocation apprenant #".$apprenant->getId(),], // Pas de route car c’est la page actuelle
         ]);
 
 
@@ -174,17 +182,25 @@ final class DocumentController extends AbstractController
         
         // On encode l'image en base64
         $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
+        
 
-
-
-        // on récupère la session, la société et  les autres données nécessaires
+        // on récupère la session, la société et toutes les données nécessaires
         $session = $sessionRepo->find($sessionId);
         $apprenant = $apprenantRepo->find($apprenantId);
         $societe = $apprenant->getSociete();
+
+        // S’il y a une société, on récupère son id et le responsable légal
+        $responsableLegal = null;
+        if ($societe !== null) {
+            $societeId = $societe->getId();
+            $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
+        }
+
+        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
-        $responsableLegal = $societeRepo->findUniqueRespLegal($societeId);  // pour récupérer le responsable légal de la société
         $now = new \DateTime();
+
 
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -192,11 +208,11 @@ final class DocumentController extends AbstractController
             ['label' => 'Suivis', 'route' => 'suivis'],
             ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
             ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
-            ['label' => 'Convocation (PDF)'], // Pas de route car c’est la page actuelle
+            ['label' => "Convocation (PDF) apprenant #".$apprenant->getId(),], // Pas de route car c’est la page actuelle
         ]);
 
         // Récupérer le contenu HTML du template Twig
-        $htmlContent = $this->renderView('document/convention_pdf.html.twig', [
+        $htmlContent = $this->renderView('document/convocation_pdf.html.twig', [
             'session' => $session,
             'societe' => $societe,
             'apprenant' => $apprenant,
@@ -262,7 +278,7 @@ final class DocumentController extends AbstractController
             ['label' => 'Suivis', 'route' => 'suivis'],
             ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
             ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
-            ['label' => 'Convention'], // Pas de route car c’est la page actuelle
+            ['label' => "Convention société #".$societe->getId(),], // Pas de route car c’est la page actuelle
         ]);
 
 
@@ -340,16 +356,20 @@ final class DocumentController extends AbstractController
         $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
 
 
-
         // on récupère la session, la société et  les autres données nécessaires
         $session = $sessionRepo->find($sessionId);
         $societe = $societeRepo->find($societeId);
-        $apprenantsSoc = $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId);
+
+
+        // On protège les accès aux infos société
+        $apprenantsSoc = $societe ? $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId) : [];
+        $responsableLegal = $societe ? $societeRepo->findUniqueRespLegal($societe->getId()) : null;
+        $prixTotal = $societe ? $societeRepo->findPrixSociete($sessionId, $societeId) : null;
+
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
-        $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
-        $prixTotal = $societeRepo->findPrixSociete($sessionId, $societeId); // Récupération du prix total payé par la société pour la session donnée
         $now = new \DateTime();
+
 
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -357,7 +377,7 @@ final class DocumentController extends AbstractController
             ['label' => 'Suivis', 'route' => 'suivis'],
             ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
             ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
-            ['label' => 'Convention (PDF)'], // Pas de route car c’est la page actuelle
+            ['label' => "Convention (PDF) société #".$societe->getId(),], // Pas de route car c’est la page actuelle
         ]);
 
         // Récupérer le contenu HTML du template Twig

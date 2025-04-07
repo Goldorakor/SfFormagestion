@@ -39,12 +39,26 @@
     et
 </h3>
 
-<p>
-    la société {{ societe.raisonSociale }},<br>
-    {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }},<br>
-    Représentée par {{ responsableLegal.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ responsableLegal.prenom|capitalize }} {{ responsableLegal.nom|upper }}<br>
-    (ci-après dénommée le bénéficiaire)
-</p>
+{% if societe %}
+    {% if responsableLegal %}
+        <p>
+            la société {{ societe.raisonSociale }},<br>
+            {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }},<br>
+            Représentée par {{ responsableLegal.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ responsableLegal.prenom|capitalize }} {{ responsableLegal.nom|upper }}<br>
+            (ci-après dénommée le bénéficiaire)
+        </p>
+    {% else %}
+        <p>
+            la société {{ societe.raisonSociale }},<br>
+            {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }}<br>
+            (ci-après dénommée le bénéficiaire)
+        </p>
+    {% endif %}
+{% else %}
+    <p>
+        Données de la société manquantes ! Impossible d'afficher la convention correctement.
+    </p>
+{% endif %}
 
 <p>
     L'organisme de formation {{ entreprise.raisonSociale }} s'engage à réaliser l'action de formation prévue par la présente convention dans les conditions fixées aux articles L.6353 2 et D.6353 1 du Code du travail.
@@ -124,7 +138,7 @@
 </h3>
 
 <p>
-    {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
+    {% if societe is not null %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
 </p>
 
 <h3>

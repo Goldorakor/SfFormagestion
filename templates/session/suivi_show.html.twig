@@ -72,8 +72,8 @@
                             <td>{{ ligne.prenom }}</td>
                             <td>{{ ligne.nom }}</td>
                             <td>{{ ligne.email }}</td>
-                            <td>{# <a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">Convocation</a> #}</td>
-                            <td>{# <a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Convocation PDF</a> #}</td>
+                            <td><a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">Convocation</a></td>
+                            <td><a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Convocation PDF</a></td>
                             <td></td>
                         </tr>
                     {% endfor %}
