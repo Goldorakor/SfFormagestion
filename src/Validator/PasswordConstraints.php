@@ -3,6 +3,8 @@
 /* création d'une classe PHP PasswordConstraints.php pour regrouper les règles */
 namespace App\Validator;
 
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class PasswordConstraints
@@ -16,7 +18,7 @@ class PasswordConstraints
                 'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères.',
                 'max' => 4096,
             ]),
-            new Assert\Regex([
+            new Regex([
                 'pattern' => '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{12,}$/',
                 'message' => 'Le mot de passe doit contenir au moins 12 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.',
             ]),
