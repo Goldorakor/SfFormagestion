@@ -57,8 +57,7 @@
                         {# Si on passe à une nouvelle société, on affiche la ligne de la société #}
                         {% if current_societe != ligne.raisonSociale %}
                             <tr class="suivi-bande-couleur">
-                                <td>{{ ligne.raisonSociale }}</td>
-                                <td></td>
+                                <td colspan="2">{{ ligne.raisonSociale }}</td>
                                 <td></td>
                                 <td></td>
                                 <td>{{ prixParSociete[ligne.societeId]|number_format(2, ',', ' ') }} €</td>

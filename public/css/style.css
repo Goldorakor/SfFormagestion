@@ -997,11 +997,12 @@ Tableau de suivi administratif d'une session
 .recap-table th:nth-child(3),
 .recap-table td:nth-child(3) {
     width: 20%;
+    background-color: #E16FAB;
 }
 
 .recap-table th:nth-child(4),
 .recap-table td:nth-child(4) {
-    width: 15%;
+    width: 10%;
 }
 
 .recap-table th:nth-child(5),
@@ -1016,7 +1017,7 @@ Tableau de suivi administratif d'une session
 
 .recap-table th:nth-child(7),
 .recap-table td:nth-child(7) {
-    width: 15%;
+    width: 20%;
 }
 
 /*
