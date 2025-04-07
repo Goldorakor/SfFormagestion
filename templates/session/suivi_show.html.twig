@@ -68,7 +68,7 @@
                         {% endif %}
     
                         {# Ligne d'un apprenant #}
-                        <tr>
+                        <tr class="suivi-bande-blanche">
                             <td>{{ ligne.prenom }}</td>
                             <td>{{ ligne.nom }}</td>
                             <td>{{ ligne.email }}</td>
@@ -109,7 +109,7 @@
                     {% for line in apprenantsParticuliers %}
                         {% if line %}
                             {% set particuliers = true %}
-                            <tr>
+                            <tr class="suivi-bande-blanche">
                                 <td>{{ line.prenom }}</td>
                                 <td>{{ line.nom }}</td>
                                 <td>{{ line.email }}</td>
