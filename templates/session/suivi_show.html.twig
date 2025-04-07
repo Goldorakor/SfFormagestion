@@ -60,9 +60,10 @@
                                 <td>{{ ligne.raisonSociale }}</td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                                 <td>{{ prixParSociete[ligne.societeId]|number_format(2, ',', ' ') }} €</td>
-                                <td><a href="{{ path('generer_convention', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">Convention</a></td>
-                                <td><a href="{{ path('generer_convention_pdf', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Convention PDF</a></td>
+                                <td><a href="{{ path('generer_convention', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">Conv</a></td>
+                                <td><a href="{{ path('generer_convention_pdf', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Conv PDF</a></td>
                             </tr>
                             {% set current_societe = ligne.raisonSociale %}
                         {% endif %}
@@ -72,9 +73,10 @@
                             <td>{{ ligne.prenom }}</td>
                             <td>{{ ligne.nom }}</td>
                             <td>{{ ligne.email }}</td>
-                            <td><a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">Convocation</a></td>
-                            <td><a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Convocation PDF</a></td>
-                            <td></td>
+                            <td><a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">Convoc</a></td>
+                            <td><a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Convoc PDF</a></td>
+                            <td><a href="{{ path('generer_attestation_assiduite', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">Assidu</a></td>
+                            <td><a href="{{ path('generer_attestation_assiduite_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Assidu PDF</a></td>
                         </tr>
                     {% endfor %}
                     

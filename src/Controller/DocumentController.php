@@ -35,6 +35,10 @@ final class DocumentController extends AbstractController
     }
 
 
+
+
+
+
     #[Route('/accueil/parametres/modeles_documents/programme', name: 'programme')]
     public function programme(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -51,6 +55,10 @@ final class DocumentController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
+
+
+
 
 
     #[Route('/accueil/parametres/modeles_documents/contrat_formateur', name: 'contrat_formateur')]
@@ -505,22 +513,181 @@ final class DocumentController extends AbstractController
     }
 
 
-    #[Route('/accueil/parametres/modeles_documents/attestation_assiduite', name: 'attestation_assiduite')]
-    public function attestationAssiduite(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+  
+
+
+    #[Route('/accueil/suivis/session/{sessionId}/apprenant/{apprenantId}/attestation_assiduite', name: 'generer_attestation_assiduite')]
+    public function genererAttestationAssiduite(
+        int $sessionId,
+        int $apprenantId,
+        SessionRepository $sessionRepo,
+        SocieteRepository $societeRepo,
+        ApprenantRepository $apprenantRepo,
+        EntrepriseRepository $entrepriseRepo,
+        RepresentantRepository $representantRepo,
+        BreadcrumbsGenerator $breadcrumbsGenerator,
+    ): Response
     {
+        // on récupère la session, la société et toutes les données nécessaires
+        $session = $sessionRepo->find($sessionId);
+        $apprenant = $apprenantRepo->find($apprenantId);
+        $societe = $apprenant->getSociete();
+
+        // S’il y a une société, on récupère son id et le responsable légal
+        $responsableLegal = null;
+        if ($societe !== null) {
+            $societeId = $societe->getId();
+            $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
+        }
+
+        
+        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
+        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
+        
+
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
-            ['label' => 'Paramètres', 'route' => 'parametres'],
-            ['label' => 'Liste des modèles de documents', 'route' => 'modeles_documents'],
-            ['label' => "Attestation d'assiduité"], // Pas de route car c’est la page actuelle
+            ['label' => 'Suivis', 'route' => 'suivis'],
+            ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
+            ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
+            ['label' => "Attestation assiduité apprenant #".$apprenant->getId(),], // Pas de route car c’est la page actuelle
         ]);
+
+
+        $now = new \DateTime();
+
         
         return $this->render('document/attestation_assiduite.html.twig', [
-            'controller_name' => 'DocumentController',
+            'session' => $session,
+            'societe' => $societe,
+            'apprenant' => $apprenant,
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+            'now' => $now,
+            'entreprise' => $entreprise,
+            'representant' => $representant,
+            'responsableLegal' => $responsableLegal,
         ]);
     }
+
+
+
+
+
+
+    // route pour générer une attestation d'assiduité PDF spécifique à une session et à un apprenant (paramètres dynamiques dans l'url)
+    #[Route('/accueil/suivis/session/{sessionId}/apprenant/{apprenantId}/attestation_assiduite_pdf', name: 'generer_attestation_assiduite_pdf')]
+     
+    public function genererAttestationAssiduitePdf(
+        int $sessionId,
+        int $apprenantId,
+        SessionRepository $sessionRepo,
+        SocieteRepository $societeRepo,
+        ApprenantRepository $apprenantRepo,
+        EntrepriseRepository $entrepriseRepo,
+        RepresentantRepository $representantRepo,
+        BreadcrumbsGenerator $breadcrumbsGenerator,
+        ): Response
+    {
+        
+        // Optionnel : configurer DomPDF
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Chemin vers le logo
+        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        
+        // On récupère l'extension du fichier (png, jpg, etc.)
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        
+        // On lit le contenu du fichier
+        $data = file_get_contents($path);
+        
+        // On encode l'image en base64
+        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+
+        // Chemin vers le tampon
+        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        
+        // On récupère l'extension du fichier (png, jpg, etc.)
+        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
+        
+        // On lit le contenu du fichier
+        $data02 = file_get_contents($path02);
+        
+        // On encode l'image en base64
+        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
+        
+
+        // on récupère la session, la société et toutes les données nécessaires
+        $session = $sessionRepo->find($sessionId);
+        $apprenant = $apprenantRepo->find($apprenantId);
+        $societe = $apprenant->getSociete();
+
+        // S’il y a une société, on récupère son id et le responsable légal
+        $responsableLegal = null;
+        if ($societe !== null) {
+            $societeId = $societe->getId();
+            $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
+        }
+
+        
+        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
+        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
+        $now = new \DateTime();
+
+
+        // pour construire notre fil d'Ariane
+        $breadcrumbs = $breadcrumbsGenerator->generate([
+            ['label' => 'Accueil', 'route' => 'accueil'],
+            ['label' => 'Suivis', 'route' => 'suivis'],
+            ['label' => 'Liste de suivi des sessions', 'route' => 'suivi_app_session'],
+            ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
+            ['label' => "Attestation assiduité (PDF) apprenant #".$apprenant->getId(),], // Pas de route car c’est la page actuelle
+        ]);
+
+        // Récupérer le contenu HTML du template Twig
+        $htmlContent = $this->renderView('document/attestation_assiduite_pdf.html.twig', [
+            'session' => $session,
+            'societe' => $societe,
+            'apprenant' => $apprenant,
+            'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
+            'now' => $now,
+            'entreprise' => $entreprise,
+            'representant' => $representant,
+            'responsableLegal' => $responsableLegal,
+            'pdfMode' => true,
+            'logoBase64' => $logo_base64,
+            'tamponBase64' => $tampon_base64,
+        ]);
+
+        // Chargement et génération du PDF
+        $dompdf->loadHtml($htmlContent);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Envoi du PDF au navigateur
+        return new Response(
+            $dompdf->output(),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="convention.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+            ]
+        );
+    }
+
+
+
+
+
+
+
+
 
 
     #[Route('/accueil/parametres/modeles_documents/certificat_realisation', name: 'certificat_realisation')]

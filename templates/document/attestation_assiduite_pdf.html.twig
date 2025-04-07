@@ -1,0 +1,135 @@
+{% extends 'base04.html.twig' %}
+
+{% block title %}Document administratif : attestation d'assiduité{% endblock %}
+
+
+{% block pdf_header %}
+<div class="cont-logo-base64">
+    <img src="{{ logoBase64 }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+</div>
+{% endblock %}
+
+
+{% block body %}
+
+    <h1>ATTESTATION D'ASSIDUITÉ</h1>
+
+    <p class="saut-ligne">
+        Je {% if representant.sexe == 'M' %} soussigné, {% elseif representant.sexe == 'F' %} soussignée, {% else %} soussigné(e), {% endif %}, {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
+        agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }}, organisme de formation dont la déclaration d'activité est enregistrée sous le numéro {{ entreprise.numDeclaActivite }} auprès du préfet de la région {{ entreprise.prefectureRegion }},
+    </p>
+
+    <p class="saut-ligne">
+        atteste que :
+    </p>
+
+    <p class="saut-ligne">
+        {% if apprenant.sexe == 'M' %}
+            Monsieur
+        {% elseif apprenant.sexe == 'F' %}
+            Madame
+        {% else %}
+            L'apprenant
+        {% endif %}
+        {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }},<br>
+        {% if societe is not null %}
+            {% if apprenant.sexe == 'M' %}
+                salarié
+            {% elseif apprenant.sexe == 'F' %}
+                salariée
+            {% else %}
+                salarié(e)
+            {% endif %} de l'entreprise {{ societe.raisonSociale }},<br>
+        située au {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege }},<br>
+        {% endif %}
+        a suivi la formation :
+    </p>
+
+    <h2>{{ session.formation.nomFormation }}</h2>
+
+    <div>
+        qui s'est déroulée {{ session.datesSession }} :<br>
+        <ul>
+            <li>
+                {% if session.formation.modalites == 'présentiel' %}
+                    en présence (salle de formation), pour une durée de <span class="reponse01"></span> sur une durée prévue de {{ session.formattedDuration }}.
+                {% elseif session.formation.modalites == 'distanciel' %}
+                    à distance, de manière synchrone (classe virtuelle) pour une durée de <span class="reponse01"></span> sur une durée prévue de {{ session.formattedDuration }}.
+                {% else %}
+                    à distance, de manière asynchrone (e-learning) pour une durée de <span class="reponse01"></span> sur une durée prévue de {{ session.formattedDuration }}.
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+
+    <h3>
+        Nombre de stagiaires ayant participé à ladite session de formation :
+    </h3>
+    <p>
+        {{ session.inscriptions|length }}
+    </p>
+
+    <h3>
+        Modalités d'organisation de l'action (en présence, à distance synchrone, à distance asynchrone, etc.) :
+    </h3>
+    <p>
+        {{ session.formation.programme.moyensEnca }}
+    </p>
+
+    <h3>
+        Modalités d'accompagnement (ressources en ligne, visioconférence, téléphone, SMS, etc.) :
+    </h3>
+    <p>
+        {{ session.formation.programme.moyensTech }}
+    </p>
+
+    <h3>
+        Résultats de l'évaluation des acquis jalonnant ou terminant la formation (examen, test, contrôle continu, etc.) :
+    </h3>
+    <div> 
+        <div class="reponse02"></div>
+    </div>
+
+    <div class="comment">
+        Ce document ne se substitue pas :
+        <ul>
+            <li>
+                aux feuilles d'émargement, signées à la demi-journée par le stagiaire et le formateur, qui doivent être jointes pour les formations dispensées en présentiel ou en distanciel synchrone.
+            </li>
+            <li>
+                aux relevés de connexion signés par le stagiaire pour les formations dispensées en distanciel asynchrone.
+            </li>
+        </ul> 
+        
+    </div>
+
+    <div>
+        Fait à {{ entreprise.villeSiege|capitalize }}<br>
+        Le {{ 'now'|date("d-m-Y") }}
+    </div>
+
+    <div class="signatures">
+
+        <div>
+            <p>
+                Cachet et signature<br>
+                du responsable du dispensateur de formation<br>
+                {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
+            </p>
+            <div class="signature">
+                <div class="cont-tampon-base64">
+                    <img src="{{ tamponBase64 }}" alt="Tampon de l'entreprise {{ entreprise.raisonSociale }}">
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="footer">
+        <p>
+        {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
+        Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
+        </p>
+    </div>
+
+{% endblock %}
