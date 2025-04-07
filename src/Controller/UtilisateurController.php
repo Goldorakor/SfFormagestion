@@ -274,7 +274,7 @@ final class UtilisateurController extends AbstractController
 
         $mailer->send($email);
 
-        return new Response('Email envoyé ! Vérifie MailHog 😉');
+        return new Response('Email envoyé ! Vérifie Mailpit 😉');
     }
 
 }
