@@ -18,7 +18,15 @@
     <div class="sous-cont">
 
         <p class="saut-ligne">
-            Je {% if representant.sexe == 'M' %} soussigné, {% elseif representant.sexe == 'F' %} soussignée, {% else %} soussigné(e), {% endif %}, {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
+            Je 
+            {% if representant.sexe == 'M' %} 
+                soussigné, 
+            {% elseif representant.sexe == 'F' %} 
+                soussignée, 
+            {% else %} 
+                soussigné(e), 
+            {% endif %}, 
+            {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
             agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }}, organisme de formation dont la déclaration d'activité est enregistrée sous le numéro {{ entreprise.numDeclaActivite }} auprès du préfet de la région {{ entreprise.prefectureRegion }},
         </p>
     
@@ -117,7 +125,13 @@
                 <p>
                     Cachet et signature<br>
                     du responsable du dispensateur de formation<br>
-                    {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
+                    {% if representant.sexe == 'M' %}
+                        Monsieur
+                    {% elseif representant.sexe == 'F' %}
+                        Madame
+                    {% else %}
+                    {% endif %}
+                    {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
                 </p>
                 <div class="signature">
                     <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">

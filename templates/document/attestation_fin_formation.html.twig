@@ -4,89 +4,145 @@
 
 {% block body %}
 
-    <div class="signature">
-        <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="le logo de l'organisme de formation">
+<div class="accueil-sous-cont">
+
+    {# logo du haut de la page #}
+    <div class="doc-header">
+        {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
+        <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+        {% endif %}
     </div>
 
     <h1>ATTESTATION DE FORMATION PROFESSIONNELLE</h1>
 
-    <p>
-        Je {% if representant.sexe == 'M' %} soussigné, {% elseif representant.sexe == 'F' %} soussignée, {% else %} soussigné(e), {% endif %}, {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
-        agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }}, organisme de formation dont la déclaration d'activité est enregistrée sous le numéro {{ entreprise.numDeclaActivite }} auprès du préfet de la {{ entreprise.prefectureRegion }},
-    </p>
-
-    <p>
-        atteste que :
-    </p>
-
-    <p>
-        {% if apprenant.sexe == 'M' %}Monsieur{% elseif apprenant.sexe == 'F' %}Madame{% else %}L'apprenant{% endif %}{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }},<br>
-        {% if societe is defined %}{% if apprenant.sexe == 'M' %}salarié{% elseif if apprenant.sexe == 'F' %}salariée{% else %}salarié(e){% endif %} de l'entreprise {{ societe.raisonSociale }}{% endif %},<br>
-        a suivi la formation :
-    </p>
-
-    <h2>{{ session.formation.nomFormation }}</h2>
-
-    <p>
-        qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formatteDuration }}.
-    </p>
-
-    <div>
-        <p>
-            La formation a été animée par : {% for encadrement in encadrements %}
-            {{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }} en tant que référent {{ encadrement.typeReferent|lower }},<br>{% endfor %}
-
+    <div class="sous-cont">
+        
+        <p class="saut-ligne">
+            Je 
+            {% if representant.sexe == 'M' %} 
+                soussigné, 
+            {% elseif representant.sexe == 'F' %} 
+                soussignée, 
+            {% else %} 
+                soussigné(e), 
+            {% endif %}, 
+            {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
+            agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }}, organisme de formation dont la déclaration d'activité est enregistrée sous le numéro {{ entreprise.numDeclaActivite }} auprès du préfet de la région {{ entreprise.prefectureRegion }},
         </p>
-        <p>
-            à l'adresse suivante :
+    
+        <p class="saut-ligne">
+            atteste que :
         </p>
-        <ul>
-            <li>
-                {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
-            </li>
-        </ul>
-    </div>
-
-    <p>
-        <u>Nature de l'action</u> : Action d'adaptation et de développement des compétences des salariés.
-    </p>
-
-    <p>
-        <u>Objectifs de la formation</u> :<br>
-        {{ session.formation.programme.objectifsPeda }}.
-    </p>
-
-    <p>
-        <u>Résultats de l'évaluation des acquis de la formation</u> : Les compétences nécessaires à l'atteinte des objectifs sont acquises par le stagiaire.
-    </p>
-
-    <div>
-        Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date(trad.translateFormatDate['date']) }}
-    </div>
-
-    <div class="signatures">
+    
+        <p class="saut-ligne">
+            {% if apprenant.sexe == 'M' %}
+                Monsieur
+            {% elseif apprenant.sexe == 'F' %}
+                Madame
+            {% else %}
+                L'apprenant
+            {% endif %}
+            {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }},<br>
+            {% if societe is not null %}
+                {% if apprenant.sexe == 'M' %}
+                    salarié
+                {% elseif apprenant.sexe == 'F' %}
+                    salariée
+                {% else %}
+                    salarié(e)
+                {% endif %} de l'entreprise {{ societe.raisonSociale }},<br>
+            située au {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege }},<br>
+            {% endif %}
+            a suivi la formation :
+        </p>
+    
+        <h2>{{ session.formation.nomFormation }}</h2>
+    
+        <p class="saut-ligne">
+            qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formatteDuration }}.
+        </p>
+    
         <div>
             <p>
-                Signature de<br>
-                {% if apprenant.sexe == 'M' %}Monsieur{% elseif apprenant.sexe == 'F' %}Madame{% else %}L'apprenant{% endif %}{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}                 
+                La formation a été animée par : {% for encadrement in encadrements %}
+                {{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }} en tant que référent {{ encadrement.typeReferent|lower }},<br>{% endfor %}
+    
             </p>
-            <div class="signature"></div>
+            <p class="saut-ligne">
+                à l'adresse suivante :
+            </p>
+            <ul class="saut-ligne">
+                <li>
+                    {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
+                </li>
+            </ul>
         </div>
-        <div>
-            <p>
-                Cachet et signature<br>
-                du responsable du dispensateur de formation<br>
-                {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom }} {{ representant.nom|upper  }}, {{ representant.fonction }}
-            </p>
-            <div class="signature">
-                <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
+    
+        <h3>
+            Nature de l'action :
+        </h3>
+        <p>
+            Action d'adaptation et de développement des compétences des salariés.
+        </p>
+    
+        <h3>
+            Objectifs de la formation :
+        </h3>
+        <p>
+            {{ session.formation.programme.objectifsPeda }}.
+        </p>
+    
+        <h3>
+            Résultats de l'évaluation des acquis de la formation :
+        </h3>
+        <p>
+            Les compétences nécessaires à l'atteinte des objectifs sont acquises par le stagiaire.
+        </p>
+    
+        <div class="saut-ligne">
+            Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date(trad.translateFormatDate['date']) }}
+        </div>
+    
+        <div class="signatures">
+            <div>
+                <p>
+                    Signature de<br>
+                    {% if apprenant.sexe == 'M' %}
+                        Monsieur
+                    {% elseif apprenant.sexe == 'F' %}
+                        Madame
+                    {% else %}
+                        L'apprenant
+                    {% endif %}
+                    {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}                 
+                </p>
+                <div class="signature"></div>
+            </div>
+            <div>
+                <p>
+                    Cachet et signature<br>
+                    du responsable du dispensateur de formation<br>
+                    {% if representant.sexe == 'M' %}
+                        Monsieur
+                    {% elseif representant.sexe == 'F' %}
+                        Madame
+                    {% else %}
+                    {% endif %}
+                    {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
+                </p>
+                <div class="signature">
+                    <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
+                </div>
             </div>
         </div>
+    
+        <p class="doc-footer">
+            {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
+            Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
+        </p>
+
     </div>
 
-    <p class="piedpage">
-        {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
-        Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
-    </p>
+</div>
 
 {% endblock %}
