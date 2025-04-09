@@ -1,6 +1,6 @@
 {% extends 'base04.html.twig' %}
 
-{% block title %}Document administratif : attestation d'assiduité{% endblock %}
+{% block title %}Document administratif : attestation de formation professionnelle{% endblock %}
 
 
 {% block pdf_header %}
@@ -12,10 +12,18 @@
 
 {% block body %}
 
-<h1>ATTESTATION D'ASSIDUITÉ</h1>
+<h1>ATTESTATION DE FORMATION PROFESSIONNELLE</h1>
 
 <p class="saut-ligne">
-    Je {% if representant.sexe == 'M' %} soussigné, {% elseif representant.sexe == 'F' %} soussignée, {% else %} soussigné(e), {% endif %}, {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
+    Je 
+    {% if representant.sexe == 'M' %} 
+        soussigné, 
+    {% elseif representant.sexe == 'F' %} 
+        soussignée, 
+    {% else %} 
+        soussigné(e), 
+    {% endif %}, 
+    {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
     agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }}, organisme de formation dont la déclaration d'activité est enregistrée sous le numéro {{ entreprise.numDeclaActivite }} auprès du préfet de la région {{ entreprise.prefectureRegion }},
 </p>
 
@@ -50,68 +58,68 @@
 
 <h2>{{ session.formation.nomFormation }}</h2>
 
+<p class="saut-ligne">
+    qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formattedDuration }}.
+</p>
+
 <div>
-    qui s'est déroulée {{ session.datesSession }} :<br>
-    <ul>
+    <p class="saut-ligne">
+        La formation a été animée par :<br>
+        {% for encadrement in session.encadrements %}
+            {{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }} en tant que référent {{ encadrement.typeReferent|lower }},<br>
+        {% endfor %}
+
+    </p>
+    <p class="saut-ligne">
+        à l'adresse suivante :
+    </p>
+    <ul class="saut-ligne">
         <li>
-            {% if session.formation.modalites == 'présentiel' %}
-                en présence (salle de formation), pour une durée de <span class="reponse01"></span> sur une durée prévue de {{ session.formattedDuration }}.
-            {% elseif session.formation.modalites == 'distanciel' %}
-                à distance, de manière synchrone (classe virtuelle) pour une durée de <span class="reponse01"></span> sur une durée prévue de {{ session.formattedDuration }}.
-            {% else %}
-                à distance, de manière asynchrone (e-learning) pour une durée de <span class="reponse01"></span> sur une durée prévue de {{ session.formattedDuration }}.
-            {% endif %}
+            {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
         </li>
     </ul>
 </div>
 
 <h3>
-    Nombre d'apprenants ayant participé à ladite session de formation :
+    Nature de l'action :
 </h3>
 <p>
-    {{ session.inscriptions|length }}
+    Action d'adaptation et de développement des compétences des salariés.
 </p>
 
 <h3>
-    Modalités d'organisation de l'action (en présence, à distance synchrone, à distance asynchrone, etc.) :
+    Objectifs de la formation :
 </h3>
 <p>
-    {{ session.formation.programme.moyensEnca }}
+    {{ session.formation.programme.objectifsPeda }}.
 </p>
 
 <h3>
-    Modalités d'accompagnement (ressources en ligne, visioconférence, téléphone, SMS, etc.) :
+    Résultats de l'évaluation des acquis de la formation :
 </h3>
 <p>
-    {{ session.formation.programme.moyensTech }}
+    Les compétences nécessaires à l'atteinte des objectifs sont acquises par le stagiaire.
 </p>
 
-<h3>
-    Résultats de l'évaluation des acquis jalonnant ou terminant la formation (examen, test, contrôle continu, etc.) :
-</h3>
-<div> 
-    <div class="reponse02"></div>
-</div>
-
-<div class="comment">
-    Ce document ne se substitue pas :
-    <ul>
-        <li>
-            aux feuilles d'émargement, signées à la demi-journée par le stagiaire et le formateur, qui doivent être jointes pour les formations dispensées en présentiel ou en distanciel synchrone.
-        </li>
-        <li>
-            aux relevés de connexion signés par le stagiaire pour les formations dispensées en distanciel asynchrone.
-        </li>
-    </ul> 
-    
-</div>
-
-<div>
-    Fait à {{ entreprise.villeSiege|capitalize }}<br>
-    Le {{ 'now'|date("d-m-Y") }}
+<div class="saut-ligne">
+    Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
 </div>
 
 <div class="signatures">
+    <div>
+        <p>
+            Signature de<br>
+            {% if apprenant.sexe == 'M' %}
+                Monsieur
+            {% elseif apprenant.sexe == 'F' %}
+                Madame
+            {% else %}
+                L'apprenant
+            {% endif %}
+            {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}                 
+        </p>
+        <div class="signature"></div>
+    </div>
     <div>
         <p>
             Cachet et signature<br>
@@ -131,7 +139,7 @@
         </div>
     </div>
 </div>
-
+    
 <div class="footer">
     <p>
     {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>

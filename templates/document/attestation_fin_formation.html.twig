@@ -53,19 +53,24 @@
                 {% endif %} de l'entreprise {{ societe.raisonSociale }},<br>
             située au {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege }},<br>
             {% endif %}
+        </p>
+        
+        <p class="saut-ligne">
             a suivi la formation :
         </p>
     
         <h2>{{ session.formation.nomFormation }}</h2>
     
         <p class="saut-ligne">
-            qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formatteDuration }}.
+            qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formattedDuration }}.
         </p>
     
         <div>
-            <p>
-                La formation a été animée par : {% for encadrement in encadrements %}
-                {{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }} en tant que référent {{ encadrement.typeReferent|lower }},<br>{% endfor %}
+            <p class="saut-ligne">
+                La formation a été animée par :<br>
+                {% for encadrement in session.encadrements %}
+                    {{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }} en tant que référent {{ encadrement.typeReferent|lower }},<br>
+                {% endfor %}
     
             </p>
             <p class="saut-ligne">
@@ -100,7 +105,7 @@
         </p>
     
         <div class="saut-ligne">
-            Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date(trad.translateFormatDate['date']) }}
+            Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
         </div>
     
         <div class="signatures">

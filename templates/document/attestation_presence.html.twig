@@ -30,7 +30,7 @@
             agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }},
         </p>
     
-        <p>
+        <p class="saut-ligne">
             atteste que :
         </p>
     
@@ -53,26 +53,25 @@
                 {% endif %} de l'entreprise {{ societe.raisonSociale }},<br>
             située au {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege }},<br>
             {% endif %}
+        </p>
+
+        <p class="saut-ligne">
             a suivi la formation :
         </p>
     
         <h2>{{ session.formation.nomFormation }}</h2>
     
         <p class="saut-ligne">
-            qui s'est déroulée {{ session.datesSession }},
+            qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formattedDuration }}.
         </p>
     
-        <p class="saut-ligne">
-            pour une durée de {{ session.formatteDuration }}.
-        </p>
-    
-        <div>
+        <div class="saut-ligne">
             <p>
                 La formation {% if session.formation.modalites == 'présentiel' %}'en présence'{% elseif session.formation.modalites == 'distanciel' %}'à distance'{% else %}{% endif %} s'est réalisée à l'adresse suivante :
             </p>
             <ul>
                 <li>
-                    {% if societe is defined %}
+                    {% if societe is not null %}
                         {{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}
                     {% else %}
                         au domicile de {{ apprenant.prenom }} {{ apprenant.nom }}
@@ -83,10 +82,10 @@
     
         <div class="saut-ligne">
             Fait à {{ entreprise.villeSiege|capitalize }}<br>
-            Le {{ 'now'|date(trad.translateFormatDate['date']) }}
+            Le {{ 'now'|date("d-m-Y") }}
         </div>
     
-        <div class="signatures">
+        <div class="signatures saut-ligne">
             <div>
                 <p>
                     Signature de<br>

@@ -986,7 +986,7 @@ Tableau de suivi administratif d'une session
 /* définition des largeurs des colonnes du tableau récapitulatif */
 .recap-table th:nth-child(1),
 .recap-table td:nth-child(1) {
-    width: 10%;
+    width: 20%;
 }
 
 .recap-table th:nth-child(2),
@@ -996,8 +996,7 @@ Tableau de suivi administratif d'une session
 
 .recap-table th:nth-child(3),
 .recap-table td:nth-child(3) {
-    width: 20%;
-    background-color: #E16FAB;
+    width: 10%;
 }
 
 .recap-table th:nth-child(4),
@@ -1007,17 +1006,27 @@ Tableau de suivi administratif d'une session
 
 .recap-table th:nth-child(5),
 .recap-table td:nth-child(5) {
-    width: 15%;
+    width: 10%;
 }
 
 .recap-table th:nth-child(6),
 .recap-table td:nth-child(6) {
-    width: 15%;
+    width: 10%;
 }
 
 .recap-table th:nth-child(7),
 .recap-table td:nth-child(7) {
-    width: 20%;
+    width: 10%;
+}
+
+.recap-table th:nth-child(8),
+.recap-table td:nth-child(8) {
+    width: 10%;
+}
+
+.recap-table th:nth-child(9),
+.recap-table td:nth-child(9) {
+    width: 10%;
 }
 
 /*

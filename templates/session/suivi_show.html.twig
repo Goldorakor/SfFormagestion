@@ -57,25 +57,56 @@
                         {# Si on passe à une nouvelle société, on affiche la ligne de la société #}
                         {% if current_societe != ligne.raisonSociale %}
                             <tr class="suivi-bande-couleur">
-                                <td colspan="2">{{ ligne.raisonSociale }}</td>
+                                <td>
+                                    {{ ligne.raisonSociale }}
+                                </td>
                                 <td></td>
                                 <td></td>
-                                <td>{{ prixParSociete[ligne.societeId]|number_format(2, ',', ' ') }} €</td>
-                                <td><a href="{{ path('generer_convention', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">Conv</a></td>
-                                <td><a href="{{ path('generer_convention_pdf', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Conv PDF</a></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    {{ prixParSociete[ligne.societeId]|number_format(2, ',', ' ') }} €
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_convention', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">4</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_convention_pdf', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">4*</a>
+                                </td>
                             </tr>
                             {% set current_societe = ligne.raisonSociale %}
                         {% endif %}
     
                         {# Ligne d'un apprenant #}
                         <tr class="suivi-bande-blanche">
-                            <td>{{ ligne.prenom }}</td>
-                            <td>{{ ligne.nom }}</td>
-                            <td>{{ ligne.email }}</td>
-                            <td><a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">Convoc</a></td>
-                            <td><a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Convoc PDF</a></td>
-                            <td><a href="{{ path('generer_attestation_assiduite', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">Assidu</a></td>
-                            <td><a href="{{ path('generer_attestation_assiduite_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Assidu PDF</a></td>
+                            <td>
+                                {{ ligne.prenom }} {{ ligne.nom }} {{ ligne.email }}
+                            </td>
+                            <td>
+                                <a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">3</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">3*</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('generer_attestation_assiduite', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">10</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('generer_attestation_assiduite_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">10*</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('generer_attestation_fin_formation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">6</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('generer_attestation_fin_formation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">6*</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('generer_attestation_presence', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">7</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('generer_attestation_presence_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">7*</a>
+                            </td>
                         </tr>
                     {% endfor %}
                     
@@ -103,6 +134,15 @@
                         <td>
                             <!-- vide pour le moment -->
                         </td>
+                        <td>
+                            <!-- vide pour le moment -->
+                        </td>
+                        <td>
+                            <!-- vide pour le moment -->
+                        </td>
+                        <td>
+                            <!-- vide pour le moment -->
+                        </td>
                     </tr>
 
                     {% set particuliers = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants particuliers #}
@@ -111,17 +151,38 @@
                         {% if line %}
                             {% set particuliers = true %}
                             <tr class="suivi-bande-blanche">
-                                <td>{{ line.prenom }}</td>
-                                <td>{{ line.nom }}</td>
-                                <td>{{ line.email }}</td>
-                                <td><a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu">Convocation</a></td>
-                                <td><a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">Convocation PDF</a></td>
-                                <td><!-- vide pour le moment --></td>
+                                <td>
+                                    {{ line.prenom }} {{ line.nom }} {{ line.email }}
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu">3</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">3*</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_attestation_assiduite', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu">10</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_attestation_assiduite_pdf', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">10*</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_attestation_fin_formation', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu">6</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_attestation_fin_formation_pdf', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">6*</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_attestation_presence', {sessionId: session.id, apprenantId: line.apprenantId}) }}" class="boutondocu">7</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_attestation_presence_pdf', {sessionId: session.id, apprenantId: line.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">7*</a>
+                                </td>
                             </tr>
                         {% endif %}
                     {% endfor %}
                     {% if not particuliers %} {# Après la boucle for, on vérifie si la variable sessions_a_venir est toujours false. Si c'est le cas, cela signifie qu'aucune session n'a été trouvée, et donc on affiche le message "Aucune session à venir". #}
-                        <td colspan="5">Aucune particulier n'a participé à cette session.</td>
+                        <td colspan="9">Aucune particulier n'a participé à cette session.</td>
                     {% endif %}
                 </tbody>
             </table>

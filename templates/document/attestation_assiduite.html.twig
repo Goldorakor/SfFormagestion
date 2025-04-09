@@ -53,6 +53,9 @@
                 {% endif %} de l'entreprise {{ societe.raisonSociale }},<br>
             située au {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege }},<br>
             {% endif %}
+        </p>
+
+        <p class="saut-ligne">
             a suivi la formation :
         </p>
     
@@ -120,7 +123,6 @@
         </div>
     
         <div class="signatures">
-
             <div>
                 <p>
                     Cachet et signature<br>
@@ -137,7 +139,6 @@
                     <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
                 </div>
             </div>
-            
         </div>
     
         <p class="doc-footer">

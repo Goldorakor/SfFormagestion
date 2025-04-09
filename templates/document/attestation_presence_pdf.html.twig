@@ -1,0 +1,131 @@
+{% extends 'base04.html.twig' %}
+
+{% block title %}Document administratif : attestation de présence{% endblock %}
+
+
+{% block pdf_header %}
+<div class="cont-logo-base64">
+    <img src="{{ logoBase64 }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+</div>
+{% endblock %}
+
+
+{% block body %}
+
+<h1>ATTESTATION DE PRÉSENCE</h1>
+
+<p class="saut-ligne">
+    Je 
+    {% if representant.sexe == 'M' %} 
+        soussigné, 
+    {% elseif representant.sexe == 'F' %} 
+        soussignée, 
+    {% else %} 
+        soussigné(e), 
+    {% endif %} 
+    {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
+    agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }},
+</p>
+
+<p class="saut-ligne">
+    atteste que :
+</p>
+
+<p class="saut-ligne">
+    {% if apprenant.sexe == 'M' %}
+        Monsieur
+    {% elseif apprenant.sexe == 'F' %}
+        Madame
+    {% else %}
+        L'apprenant
+    {% endif %}
+    {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }},<br>
+    {% if societe is not null %}
+        {% if apprenant.sexe == 'M' %}
+            salarié
+        {% elseif apprenant.sexe == 'F' %}
+            salariée
+        {% else %}
+            salarié(e)
+        {% endif %} de l'entreprise {{ societe.raisonSociale }},<br>
+    située au {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege }},<br>
+    {% endif %}  
+</p>
+
+<p class="saut-ligne">
+    a suivi la formation :
+</p>
+
+<h2>{{ session.formation.nomFormation }}</h2>
+
+<p class="saut-ligne">
+    qui s'est déroulée {{ session.datesSession }},
+</p>
+
+<p class="saut-ligne">
+    pour une durée de {{ session.formattedDuration }}.
+</p>
+
+<div>
+    <p>
+        La formation {% if session.formation.modalites == 'présentiel' %}'en présence'{% elseif session.formation.modalites == 'distanciel' %}'à distance'{% else %}{% endif %} s'est réalisée à l'adresse suivante :
+    </p>
+    <ul>
+        <li>
+            {% if societe is not null %}
+                {{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}
+            {% else %}
+                au domicile de {{ apprenant.prenom }} {{ apprenant.nom }}
+            {% endif %}
+        </li>
+    </ul>
+</div>
+
+<div class="saut-ligne">
+    Fait à {{ entreprise.villeSiege|capitalize }}<br>
+    Le {{ 'now'|date("d-m-Y") }}
+</div>
+
+<div class="signatures">
+    <div>
+        <p>
+            Signature de<br>
+            {% if apprenant.sexe == 'M' %}
+                Monsieur
+            {% elseif apprenant.sexe == 'F' %}
+                Madame
+            {% else %}
+                L'apprenant
+            {% endif %}
+            {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}                 
+        </p>
+        <div class="signature"></div>
+    </div>
+    <div>
+        <p>
+            Cachet et signature<br>
+            du responsable du dispensateur de formation<br>
+            {% if representant.sexe == 'M' %}
+                Monsieur
+            {% elseif representant.sexe == 'F' %}
+                Madame
+            {% else %}
+            {% endif %}
+            {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
+        </p>
+        <div class="signature">
+            <div class="cont-tampon-base64">
+                <img src="{{ tamponBase64 }}" alt="Tampon de l'entreprise {{ entreprise.raisonSociale }}">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>
+    {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
+    Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
+    </p>
+</div>
+
+{% endblock %}
