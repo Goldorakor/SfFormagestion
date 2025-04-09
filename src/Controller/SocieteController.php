@@ -83,9 +83,17 @@ final class SocieteController extends AbstractController
 
 
             // Sauvegarde de la société
-            $entityManager->persist($societe); // équivaut à la méthode prepare() en PDO
-             // $entityManager->flush(); équivaut à la méthode execute() en PDOStatement -> on exécute tout à la fin
+            // $entityManager->persist($societe);  équivaut à la méthode prepare() en PDO (on le fait plus bas)
+            // $entityManager->flush(); équivaut à la méthode execute() en PDOStatement -> on exécute tout à la fin
 
+
+
+            // Supprimer les anciennes responsabilités de cette société avant de les mettre à jour (sinon on a plein de doublons dans la table)
+            // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
+            foreach ($societe->getResponsabilites()->toArray() as $responsabilite) {
+                $entityManager->remove($responsabilite); // suppression réelle
+                $societe->removeResponsabilite($responsabilite); // optionnel, pour tenir la collection à jour côté PHP
+            }
 
 
             // Récupération des responsables sélectionnés
@@ -122,6 +130,7 @@ final class SocieteController extends AbstractController
 
 
             // Enregistrement de la société et des responsabilités
+            $entityManager->persist($societe);
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
 
 

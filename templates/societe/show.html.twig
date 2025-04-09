@@ -87,7 +87,7 @@
                 <div class="fiche-responsable">
                     <div class="fiche-champ">
                         <span class="fiche-violet">Responsable {{ responsabilite.typeResponsable }} :</span>&nbsp;<div>
-                            <a href="{{ path('show_responsable', {'id' : responsabilite.responsable.id}) }}"></a><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ responsabilite.responsable.prenom|capitalize }} {{ responsabilite.responsable.nom|upper }}</span></a><br>
+                            <a href="{{ path('show_responsable', {'id' : responsabilite.responsable.id}) }}"><span class="fiche-orange"><i class="fa-solid fa-up-right-from-square"></i>{{ responsabilite.responsable.prenom|capitalize }} {{ responsabilite.responsable.nom|upper }}</span></a><br>
                             {{ responsabilite.responsable.email|lower }}<br>
                             {{ responsabilite.responsable.tel }}
                         </div>

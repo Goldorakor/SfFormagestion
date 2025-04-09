@@ -65,6 +65,6 @@ class Responsabilite
 
     public function __toString()
     {
-        return $this->responsable->prenom." ".$this->responsable->nom." : référent ".$this->type_referent;
+        return $this->responsable->prenom." ".$this->responsable->nom." : référent ".$this->type_responsable;
     }
 }
