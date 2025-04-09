@@ -215,6 +215,34 @@ final class SessionController extends AbstractController
     #[Route('/admin/accueil/creations/session/{id}/delete', name: 'delete_session')]
     public function delete(Session $session, EntityManagerInterface $entityManager): Response
     {
+        // Session.php : Collection $inscriptions - Collection $encadrements - Collection $planifications - Collection $sondages
+        // voilà les collections d'entités à traiter pour la question d'intégrité référentielle
+        
+        // Vérifier s'il y a des inscriptions liées
+        if (count($session->getInscriptions()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer cette session : elle possède encore au moins une inscription d'apprenant. Supprimez-la en éditant la session.");
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]); // on redirige immédiatement sur la vue de détails de la société (sans rien supprimer)
+        }
+
+        // Vérifier s'il y a des encadrements liés
+        if (count($session->getEncadrements()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer cette session : elle possède encore au moins un encadrement de formateur. Supprimez-le en éditant la session.");
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]); // on redirige immédiatement sur la vue de détails de la société (sans rien supprimer)
+        }
+
+        // Vérifier s'il y a des planifications liées
+        if (count($session->getPlanifications()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer cette session : elle possède encore au moins une planification de module. Supprimez-la en éditant la session.");
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]); // on redirige immédiatement sur la vue de détails de la société (sans rien supprimer)
+        }
+
+        // Vérifier s'il y a des sondages liés
+        if (count($session->getSondages()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer cette session : elle possède encore au moins un sondage à travers un questionnaire. Supprimez-le en éditant la session.");
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]); // on redirige immédiatement sur la vue de détails de la société (sans rien supprimer)
+        }
+        
+        
         $entityManager->remove($session); // on enlève la session ciblée de la collection des sessions
         $entityManager->flush(); // on effectue la requête SQL : DELETE FROM
 

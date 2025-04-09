@@ -162,20 +162,20 @@ final class SocieteController extends AbstractController
         
         // Vérifier s'il y a des apprenants liés
         if (count($societe->getApprenants()) > 0) {
-            $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore des salariés. Supprimez-les d'abord.");
-            return $this->redirectToRoute('show_societe', ['id' => $societe->getId()]); // on redirige immédiatement sur la liste des sociétés (sans rien supprimer)
+            $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore au moins un salarié. Supprimez-le ou supprimez ce lien d'abord.");
+            return $this->redirectToRoute('show_societe', ['id' => $societe->getId()]); // on redirige immédiatement sur la vue de détails de la société (sans rien supprimer)
         }
 
         // Vérifier s'il y a des formateurs liés
         if (count($societe->getFormateurs()) > 0) {
-            $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore des formateurs. Supprimez-les d'abord.");
-            return $this->redirectToRoute('show_societe', ['id' => $societe->getId()]); // on redirige immédiatement sur la liste des sociétés (sans rien supprimer)
+            $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore au moins un formateur. Supprimez-le ou supprimez ce lien d'abord.");
+            return $this->redirectToRoute('show_societe', ['id' => $societe->getId()]); // on redirige immédiatement sur la vue de détails de la société (sans rien supprimer)
         }
 
         // Vérifier s'il y a des responsabilités liées
         if (count($societe->getResponsabilites()) > 0) {
-            $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore au moins un responsable. Supprimez-le en éditant le profil de la société d'abord.");
-            return $this->redirectToRoute('show_societe', ['id' => $societe->getId()]); // on redirige immédiatement sur la liste des sociétés (sans rien supprimer)
+            $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore au moins un lien avec un responsable. Supprimez ce lien en éditant le profil de la société d'abord.");
+            return $this->redirectToRoute('show_societe', ['id' => $societe->getId()]); // on redirige immédiatement sur la vue de détails de la société (sans rien supprimer)
         }
 
         

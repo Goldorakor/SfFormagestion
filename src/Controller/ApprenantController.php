@@ -144,6 +144,16 @@ final class ApprenantController extends AbstractController // classe ApprenantCo
     #[Route('/admin/accueil/creations/apprenant/{id}/delete', name: 'delete_apprenant')]
     public function delete(Apprenant $apprenant, EntityManagerInterface $entityManager): Response
     {
+        
+        // Apprenant.php : Collection $inscriptions
+        // voilà la collection d'entités à traiter pour la question d'intégrité référentielle
+        
+        // Vérifier s'il y a des inscriptions liées
+        if (count($apprenant->getInscriptions()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer cet apprenant : il possède encore au moins un lien avec une session (à travers une inscription). Supprimez ce lien en éditant le profil de la session d'abord.");
+            return $this->redirectToRoute('show_apprenant', ['id' => $apprenant->getId()]); // on redirige immédiatement sur la vue de détails de l'apprenant (sans rien supprimer)
+        }
+        
         $entityManager->remove($apprenant); // on enlève l'apprenant ciblé de la collection des apprenants
         $entityManager->flush(); // on effectue la requête SQL : DELETE FROM
 

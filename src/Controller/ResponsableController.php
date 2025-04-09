@@ -102,6 +102,17 @@ final class ResponsableController extends AbstractController
     #[Route('/admin/accueil/creations/responsable/{id}/delete', name: 'delete_responsable')]
     public function delete(Responsable $responsable, EntityManagerInterface $entityManager): Response
     {
+
+        // Responsable.php : Collection $responsabilites
+        // voilà la collection d'entités à traiter pour la question d'intégrité référentielle
+        
+        // Vérifier s'il y a des responsabilités liées
+        if (count($responsable->getResponsabilites()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer ce responsable : il possède encore au moins un lien avec une société. Supprimez ce lien en éditant le profil de la société d'abord.");
+            return $this->redirectToRoute('show_responsable', ['id' => $responsable->getId()]); // on redirige immédiatement sur la vue de détails du responsable (sans rien supprimer)
+        }
+        
+        
         $entityManager->remove($responsable); // on enlève le responsable ciblé de la collection des responsables
         $entityManager->flush(); // on effectue la requête SQL : DELETE FROM
 

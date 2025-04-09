@@ -102,6 +102,16 @@ final class FormateurController extends AbstractController
     #[Route('/admin/accueil/creations/formateur/{id}/delete', name: 'delete_formateur')]
     public function delete(Formateur $formateur, EntityManagerInterface $entityManager): Response
     {
+        
+        // Formateur.php : Collection $encadrements
+        // voilà la collection d'entités à traiter pour la question d'intégrité référentielle
+        
+        // Vérifier s'il y a des encadrements liés
+        if (count($formateur->getEncadrements()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer ce formateur : il possède encore au moins un lien avec une session (à travers un encadrement). Supprimez ce lien en éditant le profil de la session d'abord.");
+            return $this->redirectToRoute('show_formateur', ['id' => $formateur->getId()]); // on redirige immédiatement sur la vue de détails de l'apprenant (sans rien supprimer)
+        }
+        
         $entityManager->remove($formateur); // on enlève le formateur ciblé de la collection des formateurs
         $entityManager->flush(); // on effectue la requête SQL : DELETE FROM
 

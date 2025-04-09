@@ -6,6 +6,15 @@
 
 <div class="accueil-sous-cont">
 
+    {# messages flash #}
+    {% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endfor %}
+
     <h1>{{ formateur.prenom|capitalize }} {{ formateur.nom|upper }}</h1>
     <h3>{{ formateur.email|lower }}</h3>
 

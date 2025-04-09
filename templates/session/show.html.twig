@@ -6,6 +6,15 @@
 
 <div class="accueil-sous-cont">
 
+    {# messages flash #}
+    {% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endfor %}
+
     <h1 class="session-h1">Session : {{ session.formation.nomFormation }}</h1>
     <h3 class="session-h3">du {{ session.dateDebut|date("d/m/Y") }} au {{ session.dateFin|date("d/m/Y") }}</h3>
 
