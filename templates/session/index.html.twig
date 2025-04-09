@@ -59,7 +59,14 @@
                         <tr>
                             <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.titreSession }}<br>
-                                <span class="mini-rose">{{ session.inscriptions|length }} apprenants inscrits</span></a>
+                                <span class="mini-rose">
+                                    {{ session.inscriptions|length }} 
+                                    {% if session.inscriptions|length > 1 %}
+                                        apprenants inscrits
+                                    {% else %}
+                                        apprenant inscrit
+                                    {% endif %}
+                                </span></a>
                             </td>
                             <td class="clickable-row" data-href="{{ path('show_session', {'id' : session.id}) }}">
                                 <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.dateDebut|date("d/m/Y") }}</a>

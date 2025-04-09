@@ -23,12 +23,14 @@ code css pour le fil d'ariane (orange)
     font-size: 14px; /* Définit la taille du texte */
     padding: 0;
     margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fil d'Ariane beaucoup plus lisible avec cette police */
   }
     
   .fil-ariane-texte {
     color: #dc6a17; /* Définit la couleur du texte en orange terne */
     font-weight: bold; /* Met le texte d'introduction du fil d'ariane en gras */
     margin-right: 0px; /* Ajoute un espace entre le texte d'introduction et l'élément suivant : à 0 sinon trop d'espace */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
     
   .fil-ariane li {

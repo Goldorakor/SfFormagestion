@@ -78,6 +78,14 @@ final class SessionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $session = $form->getData(); // on récupère les données du formulaire dans notre objet session
+
+
+            // Supprimer les anciens encadrements (réf péda et réf admin) de cette société avant de les mettre à jour (sinon on a plein de doublons dans la table)
+            // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
+            foreach ($session->getEncadrements()->toArray() as $encadrement) {
+                $entityManager->remove($encadrement); // suppression réelle
+                $session->removeEncadrement($encadrement); // optionnel, pour tenir la collection à jour côté PHP
+            }
             
             $entityManager->persist($session); // équivaut à la méthode prepare() en PDO
 
@@ -179,6 +187,8 @@ final class SessionController extends AbstractController
             }
 
 
+            // Enregistrement de la session et des encadrements, inscriptions, sondages, planifications
+            $entityManager->persist($session);
             // Enregistrement de la session, des encadrements et des sondages
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement -> maintenant, on envoie la totalité des informations en BDD
 

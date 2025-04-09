@@ -121,7 +121,7 @@
         {% endfor %}
     
         {% if not apprenants_trouves %} {# Après la boucle for, on vérifie si la variable 'apprenants_trouves' est toujours false. Si c'est le cas, cela signifie qu'aucun apprenant (en réalité, aucune inscription) n'a été trouvé, et donc on affiche le message "Aucun apprenant de l'annuaire inscrit à cette session". #}
-            <div>Aucun apprenant de l'annuaire inscrit à cette session</div>
+            <div class="msg-vide">Aucun apprenant de l'annuaire inscrit à cette session</div>
         {% endif %}
     
     

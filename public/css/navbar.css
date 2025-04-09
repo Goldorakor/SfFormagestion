@@ -61,6 +61,7 @@ font-size: 14px;
   padding: 16px 16px; /* Garder la même taille de padding que pour les autres boutons */
   text-align: center; /* Centrer le texte */
   width: 100%; /* Garder la largeur de ces éléments pour qu'ils prennent toute la largeur de la barre */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* boutons principaux de la barre beaucoup plus lisibles avec cette police */
 }
 
 .sidenav .princbtn:hover {
