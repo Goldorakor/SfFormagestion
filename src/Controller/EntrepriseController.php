@@ -89,7 +89,7 @@ final class EntrepriseController extends AbstractController
 
                 if (!in_array($extension, $allowedExtensions)) { // si l'extension ne coïncide pas avec la liste d'extensions autorisées
                     $this->addFlash('error', 'Format de fichier non autorisé.');
-                    return $this->redirectToRoute('new_edit_representant'); // on est redirigé vers le formulaire
+                    return $this->redirectToRoute('new_edit_entreprise'); // on est redirigé vers le formulaire
                 }
                 
                 $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
