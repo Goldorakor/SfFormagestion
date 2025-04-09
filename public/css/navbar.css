@@ -134,10 +134,10 @@ font-size: 14px;
 .dropdown-content {
     display: block;  /* Changer de 'none' à 'block' pour travailler avec opacity */
     position: absolute;
-    top: 140px;
+    top: 146px;
     left: 8px;
     background-color: #f9f9f9; /* couleur de fond du rectangle de menu déroulant */
-    min-width: 180px;
+    min-width: 172px;
     border-radius: 5px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3); /*  ombre que projette le rectangle du menu déroulant */
     overflow: hidden;
@@ -149,9 +149,10 @@ font-size: 14px;
 /* Style the links inside the dropdown */
 .dropdown-content a {
     /* float: none; */
-    color: #000000; /* couleur du texte dans le rectangle du menu déroulant */
-    font-size: 18px; /* taille écriture dans le menu déroulant nouveau */
-    padding: 12px 16px;
+    color: #282828; /* couleur du texte dans le rectangle du menu déroulant */
+    font-size: 17px; /* taille écriture dans le menu déroulant nouveau */
+    font-family: "Times New Roman", Times, serif;
+    padding: 12px 12px;
     text-decoration: none;
     display: block;
     text-align: left;

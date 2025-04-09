@@ -31,7 +31,7 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   justify-content: center;
   align-items: center;
   margin-left: 190px;
-  margin-right: 130px;
+  margin-right: 150px; /* 130 ?? */
   margin-bottom: 40px; /* 80px trop grand : pas besoin d'un tel espace ! */
   /* en principe, il faudrait 200 120 40 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
   padding-left: 40px;
