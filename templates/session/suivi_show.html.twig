@@ -173,10 +173,10 @@
                                     <a href="{{ path('generer_attestation_fin_formation_pdf', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">6*</a>
                                 </td>
                                 <td>
-                                    <a href="{{ path('generer_attestation_presence', {sessionId: session.id, apprenantId: line.apprenantId}) }}" class="boutondocu">7</a>
+                                    <a href="{{ path('generer_attestation_presence', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu">7</a>
                                 </td>
                                 <td>
-                                    <a href="{{ path('generer_attestation_presence_pdf', {sessionId: session.id, apprenantId: line.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">7*</a>
+                                    <a href="{{ path('generer_attestation_presence_pdf', {sessionId: session.id, apprenantId: line.id}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">7*</a>
                                 </td>
                             </tr>
                         {% endif %}
