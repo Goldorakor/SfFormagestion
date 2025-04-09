@@ -147,6 +147,29 @@ final class SocieteController extends AbstractController
     #[Route('/admin/accueil/creations/societe/{id}/delete', name: 'delete_societe')]
     public function delete(Societe $societe, EntityManagerInterface $entityManager): Response
     {
+        
+        // Societe.php : Collection $apprenants - Collection $formateurs - Collection $responsabilites
+        // voilà les collections d'entités à traiter pour la question d'intégrité référentielle
+        
+        // Vérifier s'il y a des apprenants liés
+        if (count($societe->getApprenants()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore des salariés. Supprimez-les d'abord.");
+            return $this->redirectToRoute('app_societe'); // on redirige immédiatement sur la liste des sociétés (sans rien supprimer)
+        }
+
+        // Vérifier s'il y a des formateurs liés
+        if (count($societe->getFormateurs()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore des formateurs. Supprimez-les d'abord.");
+            return $this->redirectToRoute('app_societe'); // on redirige immédiatement sur la liste des sociétés (sans rien supprimer)
+        }
+
+        // Vérifier s'il y a des responsabilités liées
+        if (count($societe->getResponsabilites()) > 0) {
+            $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore au moins un responsable. Supprimez-le en éditant son profil d'abord.");
+            return $this->redirectToRoute('app_societe'); // on redirige immédiatement sur la liste des sociétés (sans rien supprimer)
+        }
+
+        
         $entityManager->remove($societe); // on enlève la societe ciblée de la collection des societes
         $entityManager->flush(); // on effectue la requête SQL : DELETE FROM
 

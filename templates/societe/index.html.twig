@@ -11,6 +11,15 @@
 
     <div class="sous-cont">
 
+        {# messages flash #}
+        {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% endfor %}
+
         <div class="position-purple">
             {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('new_societe') }}" class="btn btn-rose"><i class="fa-solid fa-folder-plus"></i>Créer une société</a>{% endif %}
         </div>
