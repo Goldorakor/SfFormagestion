@@ -9,7 +9,7 @@
     {# logo du haut de la page #}
     <div class="doc-header">
         {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
-        <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+            <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
         {% endif %}
     </div>
 
@@ -18,7 +18,15 @@
     <div class="sous-cont">
 
         <p class="saut-ligne">
-            Je {% if representant.sexe == 'M' %} soussigné, {% elseif representant.sexe == 'F' %} soussignée, {% else %} soussigné(e), {% endif %}, {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
+            Je 
+            {% if representant.sexe == 'M' %}
+                soussigné, 
+            {% elseif representant.sexe == 'F' %} 
+                soussignée, 
+            {% else %} 
+                soussigné(e), 
+            {% endif %} 
+            {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
             représentant légal du dispensateur de l'action concourant au développement des compétences : {{ entreprise.raisonSociale }},
         </p>
     
@@ -27,8 +35,24 @@
         </p>
     
         <p class="saut-ligne">
-            {% if apprenant.sexe == 'M' %}Monsieur{% elseif apprenant.sexe == 'F' %}Madame{% else %}L'apprenant{% endif %}{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }},<br>
-            {% if societe is not null %}{% if apprenant.sexe == 'M' %}salarié{% elseif if apprenant.sexe == 'F' %}salariée{% else %}salarié(e){% endif %} de l'entreprise {{ societe.raisonSociale }},<br>{% endif %}
+            {% if apprenant.sexe == 'M' %}
+                Monsieur
+            {% elseif apprenant.sexe == 'F' %}
+                Madame
+            {% else %}
+                L'apprenant
+            {% endif %}
+            {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }},<br>
+            {% if societe is not null %}
+                {% if apprenant.sexe == 'M' %}
+                    salarié
+                {% elseif apprenant.sexe == 'F' %}
+                    salariée
+                {% else %}
+                    salarié(e) 
+                {% endif %} 
+                de l'entreprise {{ societe.raisonSociale }},<br>
+            {% endif %}
             a suivi l'action : {{ session.formation.nomFormation }}
         </p>
     
@@ -45,7 +69,7 @@
         </p>
     
         <p class="saut-ligne">
-            pour une durée de {{ session.formatteDuration }}.<br>
+            pour une durée de {{ session.formattedDuration }}.<br>
             <span class="comment">
                 (Dans le cadre des formations à distance, le temps estimé pour la réalisation des activités pédagogiques est pris en compte.)
             </span>
@@ -56,10 +80,10 @@
         </p>
            
         <div class="saut-ligne">
-            Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date(trad.translateFormatDate['date']) }}
+            Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
         </div>
     
-        <div class="signatures">
+        <div class="signatures saut-ligne">
 
             <div>
                 <p>

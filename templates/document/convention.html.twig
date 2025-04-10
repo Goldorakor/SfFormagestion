@@ -9,7 +9,7 @@
     {# logo du haut de la page #}
     <div class="doc-header">
         {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
-        <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+            <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
         {% endif %}
     </div>
 
@@ -292,7 +292,7 @@
             À {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
         </div>
 
-        <div class="signatures">
+        <div class="signatures saut-ligne">
             <div>
                 <p>
                     Pour l'organisme de formation<br>
@@ -300,7 +300,7 @@
                 </p>
                 <div class="signature">
                     {% if representant is not null and representant.tamponFilename is not empty %}
-                    <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
+                        <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
                     {% endif %}
                 </div>
             </div>

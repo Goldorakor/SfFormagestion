@@ -68,9 +68,10 @@
                                 <td>
                                     {{ prixParSociete[ligne.societeId]|number_format(2, ',', ' ') }} €
                                 </td>
-                                <td>
+                                <td></td>
+                                {#<td>
                                     <a href="{{ path('generer_convention', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">4</a>
-                                </td>
+                                </td>#}
                                 <td>
                                     <a href="{{ path('generer_convention_pdf', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">4*</a>
                                 </td>
@@ -81,32 +82,40 @@
                         {# Ligne d'un apprenant #}
                         <tr class="suivi-bande-blanche">
                             <td>
-                                {{ ligne.prenom }} {{ ligne.nom }} {{ ligne.email }}
+                                {{ ligne.prenom }} {{ ligne.nom }}<br>{{ ligne.email }}
                             </td>
-                            <td>
+                            {#<td>
                                 <a href="{{ path('generer_convocation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">3</a>
-                            </td>
+                            </td>#}
                             <td>
                                 <a href="{{ path('generer_convocation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">3*</a>
                             </td>
-                            <td>
+                            {#<td>
                                 <a href="{{ path('generer_attestation_assiduite', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">10</a>
-                            </td>
+                            </td>#}
                             <td>
                                 <a href="{{ path('generer_attestation_assiduite_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">10*</a>
                             </td>
-                            <td>
+                            {#<td>
                                 <a href="{{ path('generer_attestation_fin_formation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">6</a>
-                            </td>
+                            </td>#}
                             <td>
                                 <a href="{{ path('generer_attestation_fin_formation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">6*</a>
                             </td>
-                            <td>
+                            {#<td>
                                 <a href="{{ path('generer_attestation_presence', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu">7</a>
-                            </td>
+                            </td>#}
                             <td>
                                 <a href="{{ path('generer_attestation_presence_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">7*</a>
                             </td>
+                            <td>
+                                <a href="{{ path('generer_certificat_realisation', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">11</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('generer_certificat_realisation_pdf', {sessionId: session.id, apprenantId: ligne.apprenantId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">11*</a>
+                            </td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     {% endfor %}
                     

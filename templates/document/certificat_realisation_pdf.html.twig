@@ -1,6 +1,6 @@
 {% extends 'base04.html.twig' %}
 
-{% block title %}Document administratif : attestation de présence{% endblock %}
+{% block title %}Document administratif : certificat de réalisation{% endblock %}
 
 
 {% block pdf_header %}
@@ -12,7 +12,7 @@
 
 {% block body %}
 
-<h1>ATTESTATION DE PRÉSENCE</h1>
+<h1>CERTIFICAT DE RÉALISATION</h1>
 
 <p class="saut-ligne">
     Je 
@@ -22,9 +22,9 @@
         soussignée, 
     {% else %} 
         soussigné(e), 
-    {% endif %} 
+    {% endif %}
     {{ representant.prenom|capitalize }} {{ representant.nom|upper  }},<br>
-    agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }},
+    représentant légal du dispensateur de l'action concourant au développement des compétences : {{ entreprise.raisonSociale }},
 </p>
 
 <p class="saut-ligne">
@@ -46,60 +46,45 @@
         {% elseif apprenant.sexe == 'F' %}
             salariée
         {% else %}
-            salarié(e)
-        {% endif %} de l'entreprise {{ societe.raisonSociale }},<br>
-    située au {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege }},<br>
+            salarié(e) 
+        {% endif %} 
+        de l'entreprise {{ societe.raisonSociale }},<br>
     {% endif %}  
 </p>
 
 <p class="saut-ligne">
-    a suivi la formation :
+    a suivi l'action : {{ session.formation.nomFormation }}
 </p>
 
-<h2>{{ session.formation.nomFormation }}</h2>
+<div class="saut-ligne">
+    <i>Nature de l'action concourant au développement des compétences :</i><br>
+    <i class="fa-regular fa-square-check"></i>  action de formation<br>
+    <i class="fa-regular fa-square"></i> bilan de compétences<br>
+    <i class="fa-regular fa-square"></i> action de VAE<br>
+    <i class="fa-regular fa-square"></i> action de formation par apprentissage
+</div>
 
 <p class="saut-ligne">
     qui s'est déroulée {{ session.datesSession }},
 </p>
 
 <p class="saut-ligne">
-    pour une durée de {{ session.formattedDuration }}.
+    pour une durée de {{ session.formattedDuration }}.<br>
+    <span class="comment">
+        (Dans le cadre des formations à distance, le temps estimé pour la réalisation des activités pédagogiques est pris en compte.)
+    </span>
 </p>
 
-<div>
-    <p>
-        La formation {% if session.formation.modalites == 'présentiel' %}'en présence'{% elseif session.formation.modalites == 'distanciel' %}'à distance'{% else %}{% endif %} s'est réalisée à l'adresse suivante :
-    </p>
-    <ul>
-        <li>
-            {% if societe is not null %}
-                {{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}
-            {% else %}
-                au domicile de {{ apprenant.prenom }} {{ apprenant.nom }}
-            {% endif %}
-        </li>
-    </ul>
-</div>
-
+<p class="saut-ligne">
+    Sans préjudice des délais imposés par les règles fiscales, comptables ou commerciales, je m'engage à conserver l'ensemble des pièces justificatives qui ont permis d'établir le présent certificat pendant une durée de 3 ans à compter de la fin de l'année du dernier paiement. En cas de cofinancement des fonds européens, la durée de conservation est étendue conformément aux obligations conventionnelles spécifiques.
+</p>
+    
 <div class="saut-ligne">
     Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
 </div>
 
 <div class="signatures saut-ligne">
-    <div>
-        <p>
-            Signature de<br>
-            {% if apprenant.sexe == 'M' %}
-                Monsieur
-            {% elseif apprenant.sexe == 'F' %}
-                Madame
-            {% else %}
-                L'apprenant
-            {% endif %}
-            {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}                 
-        </p>
-        <div class="signature"></div>
-    </div>
+
     <div>
         <p>
             Cachet et signature<br>
@@ -118,6 +103,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 <div class="footer">

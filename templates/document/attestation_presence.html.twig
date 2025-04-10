@@ -9,7 +9,7 @@
     {# logo du haut de la page #}
     <div class="doc-header">
         {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
-        <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+            <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
         {% endif %}
     </div>
 
@@ -81,8 +81,7 @@
         </div>
     
         <div class="saut-ligne">
-            Fait à {{ entreprise.villeSiege|capitalize }}<br>
-            Le {{ 'now'|date("d-m-Y") }}
+            Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
         </div>
     
         <div class="signatures saut-ligne">
