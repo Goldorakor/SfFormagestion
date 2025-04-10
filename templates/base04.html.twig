@@ -7,6 +7,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Document PDF{% endblock %}</title>
+
         
         <style>
 
@@ -14,6 +15,15 @@
                 header: myheader;
                 footer: myfooter;
                 margin: 0px;
+            }
+
+            .car-unicode {
+                font-family: 'DejaVu Sans', Arial, sans-serif; /* police qui supporte les caractères spéciaux */
+                color: #5f5f5f;
+                line-height: 1;
+                /*font-size: 14px;
+                line-height: 1.6;
+                margin: 20mm;*/
             }
 
             body {
@@ -81,6 +91,12 @@
                 /*border-radius: 10px;  on arrondit les coins */
             }
 
+            .comment {
+                font-size: 11px;
+                font-style: italic;
+                color: #5f5f5f;
+            }
+
             /* style des tableaux du doc "convention" */
             .convention-table {
                 border-collapse: collapse;
@@ -118,7 +134,7 @@
                 text-align: center; /* Centre le contenu texte à l'intérieur */
                 float: left; /* Place les div côte à côte en les faisant flotter à gauche */
                 display: block; /* Force l'affichage en bloc */
-                min-height: 150px; /* Hauteur minimale pour le contenu */
+                min-height: 100px; /* Hauteur minimale pour le contenu */
             }
             
             .signatures > div:first-child { /* Style spécifique pour la première signature (côté gauche) */
@@ -132,14 +148,14 @@
             .signature { /* Zone réservée pour l'image de la signature */
                 margin-top: 0px; /* Espace de 30px au-dessus de la zone de signature */
                 height: 100px; /* Hauteur fixe de 80px pour la zone */
-                width: 100%; /* Prend toute la largeur de son conteneur parent */
+                width: auto; /* Prend toute la largeur de son conteneur parent */
                 display: block; /* Force l'affichage en bloc */
             }
             
             .signature img { /* Style de l'image de la signature elle-même */
-                width: 180px; /* Largeur fixe de 180px pour l'image */
+                width: auto; /* Largeur fixe de 180px pour l'image */
                 height: auto; /* Hauteur automatique pour maintenir les proportions */
-                max-height: 200px; /* Hauteur maximale de 200px pour éviter une image trop grande */
+                max-height: 120px; /* Hauteur maximale de 200px pour éviter une image trop grande */
             }
 
             /* Style du footer */
@@ -178,15 +194,15 @@
         {# Bloc de contenu #}
         {% block body %}{% endblock %}
 
-        {# Footer de DomPDF #}
+        {# Footer de DomPDF
         <htmlpagefooter name="myfooter">
             {% block pdf_footer %}
-                {#<div class="footer">
+                <div class="footer">
                     {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
                     Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
-                </div>#}
+                </div>
             {% endblock %}
-        </htmlpagefooter>
+        </htmlpagefooter> #}
 
     </body>
 </html>

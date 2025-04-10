@@ -55,7 +55,7 @@
 <p class="saut-ligne">
     a suivi l'action : {{ session.formation.nomFormation }}
 </p>
-
+{#
 <div class="saut-ligne">
     <i>Nature de l'action concourant au développement des compétences :</i><br>
     <i class="fa-regular fa-square-check"></i>  action de formation<br>
@@ -63,13 +63,18 @@
     <i class="fa-regular fa-square"></i> action de VAE<br>
     <i class="fa-regular fa-square"></i> action de formation par apprentissage
 </div>
+#}
+
+<div class="saut-ligne">
+    <i>Nature de l'action concourant au développement des compétences :</i><br>
+    <span class="car-unicode">☑️</span>  action de formation<br>
+    <span class="car-unicode">◻️</span> bilan de compétences<br>
+    <span class="car-unicode">◻️</span> action de VAE<br>
+    <span class="car-unicode">◻️</span> action de formation par apprentissage
+</div>
 
 <p class="saut-ligne">
-    qui s'est déroulée {{ session.datesSession }},
-</p>
-
-<p class="saut-ligne">
-    pour une durée de {{ session.formattedDuration }}.<br>
+    qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formattedDuration }}.<br>
     <span class="comment">
         (Dans le cadre des formations à distance, le temps estimé pour la réalisation des activités pédagogiques est pris en compte.)
     </span>
@@ -83,34 +88,31 @@
     Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
 </div>
 
-<div class="signatures saut-ligne">
-
-    <div>
-        <p>
-            Cachet et signature<br>
-            du responsable du dispensateur de formation<br>
-            {% if representant.sexe == 'M' %}
-                Monsieur
-            {% elseif representant.sexe == 'F' %}
-                Madame
-            {% else %}
-            {% endif %}
-            {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
-        </p>
-        <div class="signature">
-            <div class="cont-tampon-base64">
-                <img src="{{ tamponBase64 }}" alt="Tampon de l'entreprise {{ entreprise.raisonSociale }}">
-            </div>
+<div class="signatures">
+    <p>
+        Cachet et signature<br>
+        du responsable du dispensateur de formation<br>
+        {% if representant.sexe == 'M' %}
+            Monsieur
+        {% elseif representant.sexe == 'F' %}
+            Madame
+        {% else %}
+        {% endif %}
+        {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
+    </p>
+    <div class="signature">
+        <div class="cont-tampon-base64">
+            <img src="{{ tamponBase64 }}" alt="Tampon de l'entreprise {{ entreprise.raisonSociale }}">
         </div>
     </div>
-    
 </div>
 
+{#
 <div class="footer">
     <p>
     {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
     Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
     </p>
 </div>
-
+#}
 {% endblock %}
