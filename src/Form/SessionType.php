@@ -67,7 +67,7 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un formateur',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 2 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Encadrement
                 'label' => 'Référent pédagogique',
-                //'required' => false,  Rend le champ optionnel -> pas ici car on veut tjrs un référent pédagogique
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un référent pédagogique
             ])
 
             // Champ pour le référent administratif
@@ -77,7 +77,7 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un formateur',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 2 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Encadrement
                 'label' => 'Référent administratif',
-                //'required' => false,  Rend le champ optionnel -> pas ici car on veut tjrs un référent administratif
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un référent administratif
             ])
 
             // Champ pour le questionnaire de préformation
@@ -87,7 +87,7 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un questionnaire de préformation',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 3 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Sondage
                 'label' => 'Questionnaire de préformation',
-                //'required' => false,  Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire de préformation
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire de préformation
             ])
 
             // Champ pour le questionnaire à chaud
@@ -97,7 +97,7 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un questionnaire à chaud',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 3 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Sondage
                 'label' => 'Questionnaire à chaud',
-                //'required' => false,  Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
             ])
 
             // Champ pour le questionnaire à froid
@@ -107,7 +107,7 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un questionnaire à froid',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 3 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Sondage
                 'label' => 'Questionnaire à froid',
-                //'required' => false,  Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
             ])
 
             // Champ pour inscrire les apprenants avec leur prix

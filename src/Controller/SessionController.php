@@ -80,14 +80,35 @@ final class SessionController extends AbstractController
             $session = $form->getData(); // on récupère les données du formulaire dans notre objet session
 
 
-            // Supprimer les anciens encadrements (réf péda et réf admin) de cette société avant de les mettre à jour (sinon on a plein de doublons dans la table)
+            // Supprimer les anciennes inscriptions (apprenants inscrits) de cette session avant de les mettre à jour (sinon on a plein de doublons dans la table)
+            // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
+            foreach ($session->getInscriptions()->toArray() as $inscription) {
+                $entityManager->remove($inscription); // suppression réelle
+                $session->removeInscription($inscription); // optionnel, pour tenir la collection à jour côté PHP
+            }
+
+            // Supprimer les anciens encadrements (réf péda et réf admin) de cette session avant de les mettre à jour (sinon on a plein de doublons dans la table)
             // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
             foreach ($session->getEncadrements()->toArray() as $encadrement) {
                 $entityManager->remove($encadrement); // suppression réelle
                 $session->removeEncadrement($encadrement); // optionnel, pour tenir la collection à jour côté PHP
             }
+
+            // Supprimer les anciennes planifications (modules enseignés) de cette session avant de les mettre à jour (sinon on a plein de doublons dans la table)
+            // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
+            foreach ($session->getPlanifications()->toArray() as $planification) {
+                $entityManager->remove($planification); // suppression réelle
+                $session->removePlanification($planification); // optionnel, pour tenir la collection à jour côté PHP
+            }
+
+            // Supprimer les anciens sondages (3 questionnaires) de cette session avant de les mettre à jour (sinon on a plein de doublons dans la table)
+            // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
+            foreach ($session->getSondages()->toArray() as $sondage) {
+                $entityManager->remove($sondage); // suppression réelle
+                $session->removeSondage($sondage); // optionnel, pour tenir la collection à jour côté PHP
+            }
             
-            $entityManager->persist($session); // équivaut à la méthode prepare() en PDO
+            // $entityManager->persist($session);  équivaut à la méthode prepare() en PDO
 
             // $entityManager->flush();  équivaut à la méthode execute() en PDOStatement -> on n'envoie rien en BDD à ce stade car on enverra tout en BDD à la fin et pas uniquement ce qui concerne Session
 
