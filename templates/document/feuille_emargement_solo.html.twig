@@ -1,0 +1,89 @@
+{% extends 'base03.html.twig' %}
+
+{% block title %}Document administratif : feuille d'émargement individuelle{% endblock %}
+
+{% block body %}
+
+<div class="accueil-sous-cont">
+
+    {# logo du haut de la page #}
+    <div class="doc-header">
+        {% if entreprise is not null and entreprise.logoFilename is not empty %}  {# on ajoute une vérification pour éviter une erreur si l'entreprise n'existe pas ou si le logo n'est pas encore choisi #}
+            <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+        {% endif %}
+    </div>
+
+    <h1>FEUILLE D'ÉMARGEMENT</h1>
+
+    <div class="sous-cont">
+
+        <div class="titre-emarge">
+            Organisme de formation : {{ entreprise.raisonSociale }}<br>
+            Intitulé de la formation : {{ session.formation.nomFormation }}
+        </div>
+
+
+        <p class="saut-ligne">
+            Période et horaires de l'action de formation :{{ session.datesSession }}
+        </p>
+
+        <p>
+            Durée de l'action de formation : {{ session.getFormattedDuration() }}
+        </p>
+
+
+        <table class="table-emarge">
+            <thead>
+                <tr>
+                    <th>
+                        Nom de l'apprenant
+                    </th>
+                    {% for dj in demi_journees %}
+                        <th>
+                            {{ dj.date|date('d/m/Y') }}<br>{{ dj.moment }}
+                        </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ apprenant.nom }} {{ apprenant.prenom }}</td>
+                    {% for dj in demi_journees %}
+                        <td></td> {# case vide à signer #}
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+
+    
+        <div class="signatures-left saut-ligne">
+            <div>
+                <p>
+                    Certifié exact par le responsable du dispensateur de formation, le {{ 'now'|date("d-m-Y") }}
+                    Cachet et signature<br>
+                    du responsable du dispensateur de formation<br>
+                    {% if representant.sexe == 'M' %}
+                        Monsieur
+                    {% elseif representant.sexe == 'F' %}
+                        Madame
+                    {% else %}
+                    {% endif %}
+                    {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
+                </p>
+                <div class="signature">
+                    <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
+                </div>
+            </div>
+        </div>
+    
+        <p class="doc-footer">
+            {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
+            Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}
+

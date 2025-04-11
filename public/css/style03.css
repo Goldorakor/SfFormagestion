@@ -284,6 +284,13 @@ TABLEAU DU DOCUMENT "EMARGEMENT"
 
 */
 
+.titre-emarge{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #fcbadd;
+  padding: 6px;
+}
+
 .table-emarge {
   /* width: 100%; */
   border-collapse: collapse;
@@ -306,12 +313,12 @@ TABLEAU DU DOCUMENT "EMARGEMENT"
 }
 
 .table-emarge th {
-  height: 100px;
+  height: 60px;
 }
 
 .table-emarge td {
   text-align: center !important; /* seule solution pour forcer le centrage du texte dans les cellules td */
-  height: 150px;
+  height: 100px;
 }
 
 .table-emarge th {
