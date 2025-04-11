@@ -1,5 +1,3 @@
-
-
 // Cette fonction s'exécute lorsque le DOM est entièrement chargé, ce qui signifie que tous les éléments HTML sont disponibles.
 document.addEventListener("DOMContentLoaded", function () {
     

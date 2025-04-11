@@ -31,7 +31,11 @@
                 font-size: 14px;
                 color: #5f5f5f;
                 line-height: 1.6;
-                margin: 20mm;
+                /* margin: 20mm; */
+                margin-top: 10mm;
+                margin-bottom: 10mm;
+                margin-left: 20mm;
+                margin-right: 20mm;
             }
 
             .cont-logo-base64 {
@@ -67,6 +71,7 @@
                 border-right: none; /* Pas de bordure à droite */
                 padding-top: 5px; /* Espace entre le texte et la bordure haute */
                 padding-bottom: 10px; /* Espace entre le texte et la bordure basse */
+                margin-top: 8mm;
                 /* display: inline-block;  Pour que la bordure ne prenne que la largeur du texte */
                 /* border-radius: 10px;  on arrondit les coins => c'est moche en fait !  */
             }
@@ -91,10 +96,36 @@
                 /*border-radius: 10px;  on arrondit les coins */
             }
 
+            .saut-ligne {
+                margin-top: 20px;
+            }
+
             .comment {
                 font-size: 11px;
                 font-style: italic;
                 color: #5f5f5f;
+            }
+
+            .paragraf {
+                font-size: 16px;
+                color: #5f5f5f;
+                font-weight: normal;
+            }
+
+            .reponse01 {
+                background-color: #fef7fb;
+                display: inline-block; /* pour que span se comporte comme une div */
+                width: 120px; /* pour écrire à la main */
+            }
+
+            .reponse02 {
+                background-color: #fef7fb;
+                width: 100%; /* pour écrire à la main */
+                height: 100px;
+            }
+
+            .proche{
+                line-height: 1.1;
             }
 
             /* style des tableaux du doc "convention" */
@@ -127,7 +158,7 @@
                 min-height: 200px; /* Hauteur minimale pour assurer la visibilité des signatures */
                 display: block; /* Force l'affichage en bloc */
             }
-            
+
             /* > - C'est un sélecteur d'enfant direct. Il signifie que l'élément suivant doit être un enfant direct (au premier niveau) */
             .signatures > div { /* Style pour les deux div contenant chaque signature */
                 width: 45%; /* Chaque div prend 45% de la largeur du conteneur */

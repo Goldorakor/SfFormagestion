@@ -14,8 +14,7 @@
 
 <h1>CONVOCATION</h1>
 
-
-<p class="saut-ligne ecrigro">
+<p>
     {% if apprenant.societe is not null %}{{ apprenant.societe.raisonSociale }}<br>
         {{ apprenant.societe.adresseSiege }} - {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} - {{ apprenant.societe.paysSiege }}<br>
         {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}
@@ -25,7 +24,7 @@
     {% endif %}
 </p>
 
-<p class="saut-ligne">
+<p>
     À {{ entreprise.villeSiege }}, le {{ 'now'|date("d-m-Y") }}
 </p>
 
@@ -33,7 +32,7 @@
     Bonjour{% if apprenant.sexe == 'M' %} Monsieur{% elseif apprenant.sexe == 'F' %} Madame{% else %}{% endif %} {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }},
 </h2>
 
-<p class="saut-ligne">
+<p>
     Par suite de votre inscription à une formation délivrée par l'organisme {{ entreprise.raisonSociale }}, vous trouverez ci-après votre convocation ainsi que toute information utile au bon déroulement de l'évènement. 
 </p>
 
@@ -54,29 +53,18 @@
 </p>
 
 <h3>
-    Objectifs, programme et méthodes :
+    Objectifs, programme et méthodes : <span class="paragraf">détaillés dans le programme de formation envoyé en courriel annexe de la convocation</span>
 </h3>
-<p>
-    détaillés dans le programme de formation envoyé en courriel annexe de la convocation.
-</p>
 
 <h3>
-    Type d'action de formation :
+    Type d'action de formation : <span class="paragraf">action d'adaptation et de développement des compétences des salariés</span>
 </h3>
-
-<p>
-    action d'adaptation et de développement des compétences des salariés.
-</p>
 
 <h3>
-    Dates et horaires de la session de formation, ainsi que le lieu de réalisation de la formation :
+    Dates et horaires de la session de formation, ainsi que le lieu de réalisation de la formation : <span class="paragraf">{{ session.datesSession }}, à l'adresse suivante : {% if session.formation.modalites == 'présentiel' %}{% if apprenant.societe is defined %}{{ apprenant.societe.adresseSiege }} {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} {{ apprenant.societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}{% elseif session.formation.modalites == 'distanciel' %}{% if apprenant.societe is defined %}{{ apprenant.societe.adresseSiege }} {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} {{ apprenant.societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}{% elseif session.formation.modalites == 'e-learning' %}La formation 'à distance' en e_learning se déroulera à la convenance de chaque stagiaire, aux dates et lieux choisis par ce dernier.{% endif %}</span>
 </h3>
-<p>
-    {{ session.datesSession }}, à l'adresse suivante :<br>
-    {% if session.formation.modalites == 'présentiel' %}{% if apprenant.societe is defined %}{{ apprenant.societe.adresseSiege }} {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} {{ apprenant.societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}{% elseif session.formation.modalites == 'distanciel' %}{% if apprenant.societe is defined %}{{ apprenant.societe.adresseSiege }} {{ apprenant.societe.codePostalSiege }} {{ apprenant.societe.villeSiege|capitalize }} {{ apprenant.societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}{% elseif session.formation.modalites == 'e-learning' %}La formation 'à distance' en e_learning se déroulera à la convenance de chaque stagiaire, aux dates et lieux choisis par ce dernier.{% endif %}
-</p>
 
-<p class="saut-ligne">
+<p class="comment">
     Lors des formations d'une journée complète, un temps de pause méridien est convenu d'une durée de 1h00. Ce temps pourra être adapté selon les besoins des bénéficiaires.
 </p>
 
@@ -84,76 +72,76 @@
     Modalités de déroulement de la formation :
 </h3>
 
-<p class="saut-ligne">
+<p>
     <u>Moyens pédagogiques</u> : {{ session.formation.programme.methodes }}
 </p>
 
-<p class="saut-ligne">
+<p>
     <u>Moyens techniques</u> : {{ session.formation.programme.moyensTech }}
 </p>
 
-<p class="saut-ligne">
+<p>
     <u>Moyens d'encadrement</u> : {{ session.formation.programme.moyensEnca }}
 </p>
 
-<p class="saut-ligne">
+<p>
     Les stagiaires doivent se munir du matériel nécessaire à la prise de notes (papier et stylos) et du téléphone portable pour répondre aux questionnaires.
 </p>
-<p class="saut-ligne">
+<p>
     Si votre participation nécessite des aménagements spécifiques (situation de handicap ou trouble de santé invalidant), merci de vous rapprocher de {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %} {{ representant.prenom|capitalize }} {{ representant.nom|upper }} au {{ entreprise.tel }} ou d'adresser un mail à {{ entreprise.email }} afin que l'ensemble des moyens de compensation puissent être mis en œuvre.
 </p>
 
 {% if session.formation.modalites == 'distanciel' %}
-    <p class="saut-ligne">
+    <p>
         Pour une bonne qualité du son et pour éviter les interférences, je vous conseille de vous équiper d'un écouteur avec micro intégré. Testez également le son et la vidéo avant le démarrage de la formation.
     </p>
 
-    <p class="saut-ligne">
+    <p>
         Si vous êtes plusieurs participants d'une même entreprise, il est vivement conseillé que chaque participant se connecte depuis un ordinateur et évitez de vous installer dans une même pièce.
     </p>
 
-    <p class="saut-ligne">
+    <p>
         Si vous êtes plusieurs dans une même salle, préférez les outils de conférence afin d'éviter les effets d'échos et de Larsen.
     </p>
     
-    <p class="saut-ligne">
+    <p>
         Assurez-vous également d'avoir une connexion internet permettant le suivi d'une visioconférence avec partage d'écran.
     </p>
 
-    <p class="saut-ligne">
+    <p>
         Les débits minima conseillés sont : 1.5 Mbps en débit montant et descendant. N'hésitez pas à tester votre connexion sur le site : <a href="https://www.speedtest.net/fr">https://www.speedtest.net/fr</a> .
     </p>
 
-    <p class="saut-ligne">
+    <p>
         Afin de profiter pleinement de votre temps de formation, installez-vous dans un endroit calme, soyez disponible et dans la mesure du possible, préférez l'ordinateur. L'écran du téléphone portable n'est pas adapté pour le suivi efficace de la formation en classe virtuelle.
     </p>
 
-    <p class="saut-ligne">
+    <p>
         Lors de votre connexion le jour de la formation, pensez à bien vous identifier avec vos noms et prénoms, ce qui me permettra de vous reconnaître et nous gagnerons du temps. <i class="fa-regular fa-face-smile"></i> 
     </p>
 {% endif %}
 
-<p class="saut-ligne">
+<p>
     Le règlement intérieur est consultable et téléchargeable sur le site <a href="https://www.formatoque.fr">www.formatoque.fr</a> .
 </p>
 
-<p class="saut-ligne">
+<p>
     Merci de bien vouloir confirmer la bonne réception de cette convocation par mail à l'adresse {{ entreprise.email }} ou par téléphone en envoyant un sms au {{ entreprise.tel }}.
 </p>
 
-<p class="saut-ligne">
+<p>
     Si, pour quelque raison que ce soit, vous ne pouviez être {% if apprenant.sexe == 'M' %}présent{% elseif apprenant.sexe == 'F' %}présente{% else %}présent(e){% endif %} à cette session, veuillez-nous en informer par mail ou téléphone minimum 48h à l'avance.
 </p>
 
-<p class="saut-ligne">
+<p>
     Je reste à votre entière disposition pour tout complément d'information, n'hésitez pas à me joindre par téléphone ou par mail.
 </p>
 
-<p class="saut-ligne">
+<p>
     Cordialement
 </p>
 
-<div class="signatures saut-ligne">
+<div class="signatures">
 
     <div>
         <p>

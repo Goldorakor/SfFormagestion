@@ -27,7 +27,9 @@ final class DocumentController extends AbstractController
     // mais cette page est statique et elle est donc traitée par une méthode dans PageController.php :
     // #[Route('/accueil/parametres/modeles_documents', name: 'modeles_documents')]
     #[Route('/document', name: 'app_document')]
-    public function index(): Response
+    public function index(
+
+    ): Response
     {
         return $this->render('document/index.html.twig', [
             'controller_name' => 'DocumentController',
@@ -36,7 +38,9 @@ final class DocumentController extends AbstractController
 
 
     #[Route('/accueil/parametres/modeles_documents/programme', name: 'programme')]
-    public function programme(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    public function programme(
+        BreadcrumbsGenerator $breadcrumbsGenerator
+    ): Response
     {
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -58,7 +62,9 @@ final class DocumentController extends AbstractController
 
 
     #[Route('/accueil/parametres/modeles_documents/contrat_formateur', name: 'contrat_formateur')]
-    public function contratFormateur(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    public function contratFormateur(
+        BreadcrumbsGenerator $breadcrumbsGenerator
+    ): Response
     {
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -148,7 +154,7 @@ final class DocumentController extends AbstractController
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
         BreadcrumbsGenerator $breadcrumbsGenerator,
-        ): Response
+    ): Response
     {
         
         // Optionnel : configurer DomPDF
@@ -312,7 +318,7 @@ final class DocumentController extends AbstractController
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
         BreadcrumbsGenerator $breadcrumbsGenerator,
-        ): Response
+    ): Response
     {
         
         // Optionnel : configurer DomPDF
@@ -410,7 +416,9 @@ final class DocumentController extends AbstractController
 
 
     #[Route('/accueil/parametres/modeles_documents/feuille_emargement', name: 'feuille_emargement')]
-    public function feuilleEmargement(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    public function feuilleEmargement(
+        BreadcrumbsGenerator $breadcrumbsGenerator
+    ): Response
     {
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -503,7 +511,7 @@ final class DocumentController extends AbstractController
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
         BreadcrumbsGenerator $breadcrumbsGenerator,
-        ): Response
+    ): Response
     {
         
         // Optionnel : configurer DomPDF
@@ -674,7 +682,7 @@ final class DocumentController extends AbstractController
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
         BreadcrumbsGenerator $breadcrumbsGenerator,
-        ): Response
+    ): Response
     {
         
         // Optionnel : configurer DomPDF
@@ -781,7 +789,9 @@ final class DocumentController extends AbstractController
 
 
     #[Route('/accueil/parametres/modeles_documents/releve_connexion', name: 'releve_connexion')]
-    public function releveConnexion(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    public function releveConnexion(
+        BreadcrumbsGenerator $breadcrumbsGenerator
+    ): Response
     {
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -804,7 +814,9 @@ final class DocumentController extends AbstractController
 
 
     #[Route('/accueil/parametres/modeles_documents/releve_evaluation', name: 'releve_evaluation')]
-    public function releveEvaluation(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    public function releveEvaluation(
+        BreadcrumbsGenerator $breadcrumbsGenerator
+    ): Response
     {
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -893,7 +905,7 @@ final class DocumentController extends AbstractController
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
         BreadcrumbsGenerator $breadcrumbsGenerator,
-        ): Response
+    ): Response
     {
         
         // Optionnel : configurer DomPDF
@@ -1058,7 +1070,7 @@ final class DocumentController extends AbstractController
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
         BreadcrumbsGenerator $breadcrumbsGenerator,
-        ): Response
+    ): Response
     {
         
         // Optionnel : configurer DomPDF
@@ -1163,7 +1175,9 @@ final class DocumentController extends AbstractController
 
 
     #[Route('/accueil/parametres/modeles_documents/contrat_client_particulier', name: 'contrat_client_particulier')]
-    public function contratClientParticulier(BreadcrumbsGenerator $breadcrumbsGenerator): Response
+    public function contratClientParticulier(
+        BreadcrumbsGenerator $breadcrumbsGenerator
+    ): Response
     {
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([

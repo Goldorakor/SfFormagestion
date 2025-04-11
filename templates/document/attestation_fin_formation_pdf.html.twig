@@ -14,7 +14,7 @@
 
 <h1>ATTESTATION DE FORMATION PROFESSIONNELLE</h1>
 
-<p class="saut-ligne">
+<p>
     Je 
     {% if representant.sexe == 'M' %} 
         soussigné, 
@@ -27,11 +27,11 @@
     agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }}, organisme de formation dont la déclaration d'activité est enregistrée sous le numéro {{ entreprise.numDeclaActivite }} auprès du préfet de la région {{ entreprise.prefectureRegion }},
 </p>
 
-<p class="saut-ligne">
+<p>
     atteste que :
 </p>
 
-<p class="saut-ligne">
+<p>
     {% if apprenant.sexe == 'M' %}
         Monsieur
     {% elseif apprenant.sexe == 'F' %}
@@ -52,40 +52,32 @@
     {% endif %} 
 </p>
 
-<p class="saut-ligne">
+<p>
     a suivi la formation :
 </p>
 
 <h2>{{ session.formation.nomFormation }}</h2>
 
-<p class="saut-ligne">
+<p>
     qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formattedDuration }}.
 </p>
 
 <div>
-    <p class="saut-ligne">
+    <p>
         La formation a été animée par :<br>
         {% for encadrement in session.encadrements %}
-            {{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }} en tant que référent {{ encadrement.typeReferent|lower }},<br>
+            - {{ encadrement.formateur.prenom|capitalize }} {{ encadrement.formateur.nom|upper }} en tant que référent {{ encadrement.typeReferent|lower }},<br>
         {% endfor %}
 
     </p>
-    <p class="saut-ligne">
-        à l'adresse suivante :
+    <p>
+        à l'adresse suivante : {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
     </p>
-    <ul class="saut-ligne">
-        <li>
-            {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
-        </li>
-    </ul>
 </div>
 
 <h3>
-    Nature de l'action :
+    Nature de l'action : <span class="paragraf">action d'adaptation et de développement des compétences des salariés</span>
 </h3>
-<p>
-    Action d'adaptation et de développement des compétences des salariés.
-</p>
 
 <h3>
     Objectifs de la formation :
@@ -97,9 +89,9 @@
 <h3>
     Résultats de l'évaluation des acquis de la formation :
 </h3>
-<p>
-    Les compétences nécessaires à l'atteinte des objectifs sont acquises par le stagiaire.
-</p>
+<div> 
+    <div class="reponse02">&nbsp;</div>
+</div>
 
 <div class="saut-ligne">
     Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}

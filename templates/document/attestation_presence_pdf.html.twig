@@ -27,11 +27,11 @@
     agissant en qualité de {{ representant.fonction|lower }} de la société {{ entreprise.raisonSociale }},
 </p>
 
-<p class="saut-ligne">
+<p>
     atteste que :
 </p>
 
-<p class="saut-ligne">
+<p>
     {% if apprenant.sexe == 'M' %}
         Monsieur
     {% elseif apprenant.sexe == 'F' %}
@@ -52,34 +52,24 @@
     {% endif %}  
 </p>
 
-<p class="saut-ligne">
+<p>
     a suivi la formation :
 </p>
 
 <h2>{{ session.formation.nomFormation }}</h2>
 
 <p class="saut-ligne">
-    qui s'est déroulée {{ session.datesSession }},
+    qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formattedDuration }}.
 </p>
 
-<p class="saut-ligne">
-    pour une durée de {{ session.formattedDuration }}.
+<p>
+    La formation {% if session.formation.modalites == 'présentiel' %}'en présence'{% elseif session.formation.modalites == 'distanciel' %}'à distance'{% else %}{% endif %} s'est réalisée à l'adresse suivante : 
+    {% if societe is not null %}
+        {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} - {{ societe.paysSiege|upper }}
+    {% else %}
+        au domicile de {{ apprenant.prenom }} {{ apprenant.nom }}
+    {% endif %}
 </p>
-
-<div>
-    <p>
-        La formation {% if session.formation.modalites == 'présentiel' %}'en présence'{% elseif session.formation.modalites == 'distanciel' %}'à distance'{% else %}{% endif %} s'est réalisée à l'adresse suivante :
-    </p>
-    <ul>
-        <li>
-            {% if societe is not null %}
-                {{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}
-            {% else %}
-                au domicile de {{ apprenant.prenom }} {{ apprenant.nom }}
-            {% endif %}
-        </li>
-    </ul>
-</div>
 
 <div class="saut-ligne">
     Fait à {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}

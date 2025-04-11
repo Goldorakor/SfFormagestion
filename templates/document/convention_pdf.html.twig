@@ -68,45 +68,30 @@
     Intitulé de l'action de formation :
 </h3>
 <p>
-    {{ session.formation.nomFormation }}.
+    {{ session.formation.nomFormation }}
 </p>
 
 <h3>
-    Objectifs, programme et méthodes : 
+    Objectifs, programme et méthodes : <span class="paragraf">détaillés dans le programme de formation joint en document annexe de la convention</span>
 </h3>
-
-<p>
-    détaillés dans le programme de formation joint en document annexe de la convention.
-</p>
 
 <h3>
-    Intervenante : 
+    Intervenante : <span class="paragraf">formatrice confirmée (au moins 6 années d'expérience) dans le domaine de la nutrition et de l'hygiène alimentaire</span>
 </h3>
-
-<p>
-    formatrice confirmée (au moins 6 années d'expérience) dans le domaine de la nutrition et de l'hygiène alimentaire.
-</p>
 
 <h3>
-    Type d'action de formation : 
+    Type d'action de formation : <span class="paragraf">action d'adaptation et de développement des compétences des salariés</span>
 </h3>
-
-<p>
-    action d'adaptation et de développement des compétences des salariés.
-</p>
 
 <h3>
-    Durée de la formation : 
+    Durée de la formation : <span class="paragraf">{{ session.getFormattedDuration() }}</span>
 </h3>
-
-<p>
-    {{ session.getFormattedDuration() }}. {# {{ session.FormattedDuration }} ne fonctionne pas #}
-</p>
 
 <h3>
-    Dates et horaires de la session de formation : 
+    Dates et horaires de la session : <span class="paragraf">{{ session.datesSession }}</span>
 </h3>
 
+{#
 <table class="convention-table">
     <thead>
         <tr>
@@ -131,23 +116,15 @@
         {% endfor %}
     </tbody>
 </table>
-
-
-<h3>
-    Lieu de réalisation de la formation : 
-</h3>
-
-<p>
-    {% if societe is not null %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
-</p>
+#}
 
 <h3>
-    Effectif de la formation :
+    Lieu de réalisation de la formation : <span class="paragraf">{% if societe is not null %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}</span>
 </h3>
 
-<p>
-    {{ apprenants_soc|length }} {% if apprenants_soc|length == 1 %}participant {% else %}participants {% endif %}(pour un maximum de {{session.nbPlaces}}  participants).
-</p>
+<h3>
+    Effectif de la formation : <span class="paragraf">{{ apprenants_soc|length }} {% if apprenants_soc|length == 1 %}participant {% else %}participants {% endif %}(pour un maximum de {{session.nbPlaces}}  participants)</span>
+</h3>
 
 {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
 
@@ -203,10 +180,13 @@
 
 <h2>Modalités de déroulement de la formation :</h2>
 
-<h3>Moyens pédagogiques</h3>
-<p>détaillés dans le programme de formation joint en annexe de la convention.</p>
+<h3>
+    Moyens pédagogiques : <span class="paragraf">détaillés dans le programme de formation joint en annexe de la convention</span>
+</h3>
 
-<h3>Moyens techniques</h3>{% if session.formation.modalites =='présentiel' %}
+<h3>
+    Moyens techniques :
+</h3>{% if session.formation.modalites =='présentiel' %}
 <ul>
     <li>
         Salle de formation et /ou cuisine
@@ -242,26 +222,21 @@
     </li>
 </ul>{% endif %}
 
+<h3>
+    Moyens d'encadrement : <span class="paragraf">{{ session.formation.programme.moyensEnca }}</span>
+</h3>
 
-<h3>Moyens d'encadrement :</h3>
-<p>{{ session.formation.programme.moyensEnca }}</p>
-
-<p>
+<p class="comment">
     Lorsque la formation se déroule dans les locaux du bénéficiaire ou mis à disposition par le bénéficiaire, celui-ci atteste que lesdits locaux sont correctement entretenus et conformes à l'accueil du public et qu'ils sont équipés de manière à assurer le parfait déroulement de la formation.
 </p>
 
-<p>
+<p class="comment">
     Le règlement intérieur de l'entreprise bénéficiaire est applicable concernant les mesures de santé et de sécurité lorsque la formation se déroule dans ses locaux.
 </p>
 
-
 <h3>
-    Moyens permettant de suivre l'exécution de l'action :
+    Moyens permettant de suivre l'exécution de l'action : <span class="paragraf">{% if session.formation.modalites =='présentiel' %}La feuille d'émargement atteste la réalisation de la formation.{% endif %}{% if session.formation.modalites =='distanciel' %}la copie d'écran lors de la formation et/ou l'émargement numérique attestent la réalisation de la formation.{% endif %}</span>
 </h3>
-
-<p>
-    {% if session.formation.modalites =='présentiel' %}La feuille d'émargement atteste la réalisation de la formation.{% endif %}{% if session.formation.modalites =='distanciel' %}La copie d'écran lors de la formation et/ou l'émargement numérique attestent la réalisation de la formation.{% endif %}
-</p>
 
 <h3>
     Moyens permettant d'apprécier les résultats de l'action (par une procédure d'évaluation) :
@@ -272,28 +247,16 @@
 </p>
 
 <h3>
-    Modalités de contrôle de l'assiduité :
+    Modalités de contrôle de l'assiduité : <span class="paragraf">{% if session.formation.modalites =='présentiel' %}le certificat de réalisation atteste l'assiduité durant la formation.{% else %}le certificat de réalisation atteste l'assiduité durant la formation.{% endif %}</span>
 </h3>
-
-<p>
-    {% if session.formation.modalites =='présentiel' %} Le certificat de réalisation atteste l'assiduité durant la formation.{% else %} Le certificat de réalisation atteste l'assiduité durant la formation.{% endif %}
-</p>
 
 <h3>
-    Sanction de la formation :
+    Sanction de la formation : <span class="paragraf">à l'issue de la formation, une attestation de formation mentionnant les objectifs, la nature et la durée de l'action est envoyée par mail au stagiaire.</span>
 </h3>
-
-<p>
-    À l'issue de la formation, une attestation de formation mentionnant les objectifs, la nature et la durée de l'action est envoyée par mail au stagiaire.
-</p>
 
 <h3>
-    Coût de la prestation :
+    Coût de la prestation : <span class="paragraf">le coût de la formation, objet de la présente, s'élève à :</span>
 </h3>
-
-<p>
-    Le coût de la formation, objet de la présente, s'élève à :
-</p>
 
 <ul>
     <li>
@@ -313,15 +276,13 @@
     </li>
 </ul>
 
-<p>
+<p class="comment">
     Cette somme couvre l'intégralité des frais engagés par l'organisme de formation pour cette session.
 </p>
 
-<h3>Modalités de règlement :</h3>
-
-<p>
-    Le paiement sera dû après réalisation de la formation, à réception de la facture.
-</p>
+<h3>
+    Modalités de règlement : <span class="paragraf">le paiement sera dû après réalisation de la formation, à réception de la facture.</span>
+</h3>
 
 <p>
     L'organisme de formation s'engage à délivrer une prestation de formation de qualité, conformément au décret n° 2019-564 du 6 juin 2019 relatif à la qualité des actions de la formation professionnelle.

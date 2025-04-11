@@ -73,7 +73,7 @@
     <span class="car-unicode">◻️</span> action de formation par apprentissage
 </div>
 
-<p class="saut-ligne">
+<p class="saut-ligne proche">
     qui s'est déroulée {{ session.datesSession }}, pour une durée de {{ session.formattedDuration }}.<br>
     <span class="comment">
         (Dans le cadre des formations à distance, le temps estimé pour la réalisation des activités pédagogiques est pris en compte.)
@@ -100,10 +100,8 @@
         {% endif %}
         {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
     </p>
-    <div class="signature">
-        <div class="cont-tampon-base64">
-            <img src="{{ tamponBase64 }}" alt="Tampon de l'entreprise {{ entreprise.raisonSociale }}">
-        </div>
+    <div class="signature cont-tampon-base64">
+        <img src="{{ tamponBase64 }}" alt="Tampon de l'entreprise {{ entreprise.raisonSociale }}">
     </div>
 </div>
 
@@ -115,4 +113,5 @@
     </p>
 </div>
 #}
+
 {% endblock %}
