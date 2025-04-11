@@ -1,0 +1,93 @@
+{% extends 'base04.html.twig' %}
+
+{% block title %}Document administratif : feuille d'émargement{% endblock %}
+
+
+{% block pdf_header %}
+<div class="cont-logo-base64">
+    <img src="{{ logoBase64 }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
+</div>
+{% endblock %}
+
+
+{% block body %}
+
+<h1>FEUILLE D'ÉMARGEMENT</h1>
+
+<div class="titre-emarge">
+    Organisme de formation : {{ entreprise.raisonSociale }}<br>
+    Intitulé de la formation : {{ session.formation.nomFormation }}
+</div>
+
+<h3>
+    Organisme de formation : <span class="paragraf">{{ entreprise.raisonSociale }}</span>
+</h3>
+
+<h3>
+    Intitulé de la formation : <span class="paragraf">{{ session.formation.nomFormation }}</span>
+</h3>
+
+<h3>
+    Période et horaires de l'action de formation : <span class="paragraf">{{ session.datesSession }}</span>
+</h3>
+
+<h3>
+    Durée de l'action de formation : <span class="paragraf">{{ session.getFormattedDuration() }}</span>
+</h3>
+
+<table class="table-emarge">
+    <thead>
+        <tr>
+            <th>
+                Nom de l'apprenant
+            </th>
+            {% for dj in demi_journees %}
+                <th>
+                    {{ dj.date|date('d/m/Y') }}<br>{{ dj.moment }}
+                </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for apprenant in apprenants_soc %}
+            <tr>
+                <td>{{ apprenant.nom }} {{ apprenant.prenom }}</td>
+                {% for dj in demi_journees %}
+                    <td></td> {# case vide à signer #}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<div class="signatures-emarge saut-ligne">
+    <div>
+        <p>
+            Certifié exact par le responsable du dispensateur de formation, le {{ 'now'|date("d-m-Y") }}<br>
+            Cachet et signature du responsable du dispensateur de formation<br>
+            {% if representant.sexe == 'M' %}
+                Monsieur
+            {% elseif representant.sexe == 'F' %}
+                Madame
+            {% else %}
+            {% endif %}
+            {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
+        </p>
+        <div class="signature-emarge">
+            <div class="cont-tampon-base64">
+                <img src="{{ tamponBase64 }}" alt="Tampon de l'entreprise {{ entreprise.raisonSociale }}">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>
+    {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
+    Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
+    </p>
+</div>
+
+{% endblock %}

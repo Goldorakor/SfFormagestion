@@ -452,38 +452,60 @@ final class DocumentController extends AbstractController
 
         $now = new \DateTime();
 
-
-
         /* partie pour récupérer les demi-journées qui composent la session */
+
+        // On initialise un tableau vide pour stocker les demi-journées regroupées par date et moment (matin/après-midi)
         $demiJournees = [];
 
+        // On parcourt toutes les planifications de la session (chaque planification correspond à un module, enseigné à un moment donné)
         foreach ($session->getPlanifications() as $planif) {
+            // On récupère la date au format d/m/Y (ex : 2025-04-12)
             $date = $planif->getDateDebut()->format('Y-m-d');
+            // On récupère la date sous forme d'un objet DateTime qu'on passera à la vue
+            $dateTwig = $planif->getDateDebut();
+            // On extrait l'heure pour déterminer le moment de la journée (matin ou après-midi)
             $hour = (int)$planif->getDateDebut()->format('H');
-            $moment = ($hour < 13) ? 'matin' : 'après-midi';
+            // Si l'heure est avant 12h, c'est le matin ; sinon, c'est l'après-midi
+            $moment = ($hour < 12) ? 'matin' : 'après-midi';
+            // On crée une clé unique pour chaque demi-journée, par exemple : "2025-04-12-matin"
             $key = $date . '-' . $moment;
 
+            // Si cette demi-journée n'existe pas encore dans le tableau, on l'initialise
             if (!isset($demiJournees[$key])) {
                 $demiJournees[$key] = [
                     'date' => $date,
                     'moment' => $moment,
-                    'modules' => []
+                    'modules' => [] // On prépare un tableau pour stocker les noms des modules
                 ];
             }
 
-            $demiJournees[$key]['modules'][] = $planif->getModule()->getNom();
+            // On ajoute le nom du module à la liste des modules de cette demi-journée
+            $demiJournees[$key]['modules'][] = $planif->getModule()->getNomModule();
         }
 
-        ksort($demiJournees); // On trie les demi-journées dans l'ordre chronologique
-        /* fin de la partie pour récupérer les demi-journées qui composent la session */
+        // On trie les demi-journées pour que les matinées apparaissent avant les après-midis d'un même jour
+        uksort($demiJournees, function ($a, $b) { // les arguments $a et $b représentent les clés du tableau $demiJournees
+            // On sépare chaque clé en deux parties : date et moment
+            [$dateA, $momentA] = explode('-', $a); // pour découper la chaîne $a en deux parties : une date et un moment 
+            [$dateB, $momentB] = explode('-', $b); // pour découper la chaîne $b en deux parties : une date et un moment 
         
-
+            if ($dateA === $dateB) {
+                // Si la date est la même, on place le matin avant l'après-midi
+                return ($momentA === $momentB) ? 0 : (($momentA === 'matin') ? -1 : 1);
+            }
+            // 0 : les deux éléments comparés sont considérés comme égaux, donc leur ordre relatif ne change pas.
+            // -1 :  premier élément doit venir avant le second élément.
+            // 1 : le premier élément doit venir après le second élément.
+        
+            // Sinon, on trie simplement par date (ordre chronologique)
+            return strcmp($dateA, $dateB);
+        });
+        /* fin de la partie pour récupérer les demi-journées qui composent la session */
         
         return $this->render('document/feuille_emargement.html.twig', [
             'session' => $session,
             'societe' => $societe,
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
-            'prix_total' => $prixTotal, // on envoie le prix total à la vue
             'apprenants_soc' => $apprenantsSoc,
             'now' => $now,
             'entreprise' => $entreprise,
@@ -563,38 +585,60 @@ final class DocumentController extends AbstractController
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
 
-
-
         /* partie pour récupérer les demi-journées qui composent la session */
+
+        // On initialise un tableau vide pour stocker les demi-journées regroupées par date et moment (matin/après-midi)
         $demiJournees = [];
 
+        // On parcourt toutes les planifications de la session (chaque planification correspond à un module, enseigné à un moment donné)
         foreach ($session->getPlanifications() as $planif) {
+            // On récupère la date au format d/m/Y (ex : 12/04/2025)
             $date = $planif->getDateDebut()->format('Y-m-d');
+            // On récupère la date sous forme d'un objet DateTime qu'on passera à la vue
+            $dateTwig = $planif->getDateDebut();
+            // On extrait l'heure pour déterminer le moment de la journée (matin ou après-midi)
             $hour = (int)$planif->getDateDebut()->format('H');
-            $moment = ($hour < 13) ? 'matin' : 'après-midi';
+            // Si l'heure est avant 12h, c'est le matin ; sinon, c'est l'après-midi
+            $moment = ($hour < 12) ? 'matin' : 'après-midi';
+            // On crée une clé unique pour chaque demi-journée, par exemple : "2025-04-12-matin"
             $key = $date . '-' . $moment;
 
+            // Si cette demi-journée n'existe pas encore dans le tableau, on l'initialise
             if (!isset($demiJournees[$key])) {
                 $demiJournees[$key] = [
                     'date' => $date,
                     'moment' => $moment,
-                    'modules' => []
+                    'modules' => [] // On prépare un tableau pour stocker les noms des modules
                 ];
             }
 
-            $demiJournees[$key]['modules'][] = $planif->getModule()->getNom();
+            // On ajoute le nom du module à la liste des modules de cette demi-journée
+            $demiJournees[$key]['modules'][] = $planif->getModule()->getNomModule();
         }
 
-        ksort($demiJournees); // On trie les demi-journées dans l'ordre chronologique
+        // On trie les demi-journées pour que les matinées apparaissent avant les après-midis d'un même jour
+        uksort($demiJournees, function ($a, $b) { // les arguments $a et $b représentent les clés du tableau $demiJournees
+            // On sépare chaque clé en deux parties : date et moment
+            [$dateA, $momentA] = explode('-', $a); // pour découper la chaîne $a en deux parties : une date et un moment 
+            [$dateB, $momentB] = explode('-', $b); // pour découper la chaîne $b en deux parties : une date et un moment 
+        
+            if ($dateA === $dateB) {
+                // Si la date est la même, on place le matin avant l'après-midi
+                return ($momentA === $momentB) ? 0 : (($momentA === 'matin') ? -1 : 1);
+            }
+            // 0 : les deux éléments comparés sont considérés comme égaux, donc leur ordre relatif ne change pas.
+            // -1 :  premier élément doit venir avant le second élément.
+            // 1 : le premier élément doit venir après le second élément.
+        
+            // Sinon, on trie simplement par date (ordre chronologique)
+            return strcmp($dateA, $dateB);
+        });
         /* fin de la partie pour récupérer les demi-journées qui composent la session */
-
-
 
         // Récupérer le contenu HTML du template Twig
         $htmlContent = $this->renderView('document/feuille_emargement_pdf.html.twig', [
             'session' => $session,
             'societe' => $societe,
-            'prix_total' => $prixTotal,
             'apprenants_soc' => $apprenantsSoc,
             'now' => $now,
             'entreprise' => $entreprise,
@@ -603,6 +647,7 @@ final class DocumentController extends AbstractController
             'pdfMode' => true,
             'logoBase64' => $logo_base64,
             'tamponBase64' => $tampon_base64,
+            'demi_journees' => $demiJournees,
         ]);
 
         // Chargement et génération du PDF
@@ -1358,40 +1403,4 @@ final class DocumentController extends AbstractController
         ]);
     }
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$demiJournees = [];
-
-foreach ($session->getPlanifications() as $p) {
-    $date = $p->getDateDebut()->format('Y-m-d');
-
-    $hour = (int)$p->getDateDebut()->format('H');
-    $moment = ($hour < 12) ? 'matin' : 'après-midi';
-
-    $key = $date . '-' . $moment;
-
-    if (!isset($demiJournees[$key])) {
-        $demiJournees[$key] = [
-            'date' => $date,
-            'moment' => $moment,
-            'modules' => []
-        ];
-    }
-
-    $demiJournees[$key]['modules'][] = $p->getModule()->getNom();
 }

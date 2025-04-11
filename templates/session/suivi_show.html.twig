@@ -63,8 +63,6 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
                                 <td>
                                     {{ prixParSociete[ligne.societeId]|number_format(2, ',', ' ') }} €
                                 </td>
@@ -74,6 +72,12 @@
                                 </td>#}
                                 <td>
                                     <a href="{{ path('generer_convention_pdf', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu" target="_blank" rel="noopener noreferrer">4*</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_feuille_emargement', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">5</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('generer_feuille_emargement_pdf', {sessionId: session.id, societeId: ligne.societeId}) }}" class="boutondocu">5*</a>
                                 </td>
                             </tr>
                             {% set current_societe = ligne.raisonSociale %}

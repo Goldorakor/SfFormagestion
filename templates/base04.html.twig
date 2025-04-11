@@ -159,10 +159,28 @@
                 display: block; /* Force l'affichage en bloc */
             }
 
+            .signatures-emarge {
+                width: 100%; /* Prend toute la largeur disponible */
+                margin-top: 10px; /* Espace de 10px au-dessus du conteneur */
+                clear: both; /* Empêche les éléments flottants précédents d'affecter ce conteneur */
+                overflow: hidden; /* Contient les éléments flottants */
+                margin-bottom: 20px; /* Ajoute de l'espace après les signatures */
+                min-height: 200px; /* Hauteur minimale pour assurer la visibilité des signatures */
+                display: block; /* Force l'affichage en bloc */
+            }
+
             /* > - C'est un sélecteur d'enfant direct. Il signifie que l'élément suivant doit être un enfant direct (au premier niveau) */
             .signatures > div { /* Style pour les deux div contenant chaque signature */
                 width: 45%; /* Chaque div prend 45% de la largeur du conteneur */
                 text-align: center; /* Centre le contenu texte à l'intérieur */
+                float: left; /* Place les div côte à côte en les faisant flotter à gauche */
+                display: block; /* Force l'affichage en bloc */
+                min-height: 100px; /* Hauteur minimale pour le contenu */
+            }
+
+            .signatures-emarge > div { /* Style pour les deux div contenant chaque signature */
+                width: 80%; /* Chaque div prend 45% de la largeur du conteneur */
+                text-align: left; /* Centre le contenu texte à l'intérieur */
                 float: left; /* Place les div côte à côte en les faisant flotter à gauche */
                 display: block; /* Force l'affichage en bloc */
                 min-height: 100px; /* Hauteur minimale pour le contenu */
@@ -182,11 +200,24 @@
                 width: auto; /* Prend toute la largeur de son conteneur parent */
                 display: block; /* Force l'affichage en bloc */
             }
+
+            .signature-emarge { /* Zone réservée pour l'image de la signature */
+                margin-top: 0px; /* Espace de 30px au-dessus de la zone de signature */
+                height: 160px; /* Hauteur fixe de 80px pour la zone */
+                width: auto; /* Prend toute la largeur de son conteneur parent */
+                display: block; /* Force l'affichage en bloc */
+            }
             
             .signature img { /* Style de l'image de la signature elle-même */
                 width: auto; /* Largeur fixe de 180px pour l'image */
                 height: auto; /* Hauteur automatique pour maintenir les proportions */
                 max-height: 120px; /* Hauteur maximale de 200px pour éviter une image trop grande */
+            }
+
+            .signature-emarge img { /* Style de l'image de la signature elle-même */
+                width: auto; /* Largeur fixe de 180px pour l'image */
+                height: 120px; /* Hauteur automatique pour maintenir les proportions */
+                /* max-height: 160px;  Hauteur maximale de 200px pour éviter une image trop grande */
             }
 
             /* Style du footer */
@@ -206,6 +237,64 @@
                 margin: 0; /* Supprime les marges du paragraphe */
                 line-height: 1.4; /* Espacement des lignes */
             }
+
+
+            /*
+
+            TABLEAU DU DOCUMENT "EMARGEMENT"
+
+            */
+
+            .table-emarge {
+                /* width: 100%; */
+                border-collapse: collapse;
+                margin-top: 40px;
+                margin-bottom: 40px;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+            }
+            
+            .table-emarge thead {
+                background-color: #f0f0f0;
+            }
+            
+            .table-emarge th, td {
+                border: 1px solid #999;
+                padding: 8px;
+                text-align: center;
+                vertical-align: middle;
+                width: 200px;
+            }
+            
+            .table-emarge th {
+                height: 100px;
+            }
+            
+            .table-emarge td {
+                text-align: center !important; /* seule solution pour forcer le centrage du texte dans les cellules td */
+                height: 150px;
+            }
+            
+            .table-emarge th {
+                font-weight: bold;
+                background-color: #dceaff; /* bleu clair */
+            }
+            
+            .table-emarge tr:nth-child(even) td {
+                background-color: #fafafa;
+            }
+            
+            .table-emarge td:first-child {
+                text-align: left;
+                font-weight: bold;
+                background-color: #f9f9f9;
+            }
+            
+            /*
+            
+            FIN DU TABLEAU DU DOCUMENT "EMARGEMENT"
+            
+            */
 
         </style>
 

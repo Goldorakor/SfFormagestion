@@ -113,6 +113,12 @@ style pour l'affichage du tampon et la signature du dirigeant de l'organisme de 
   width: 100%;
 }
 
+.signatures-left {
+  display : flex;
+  justify-content: left;
+  width: 100%;
+}
+
 .signature img {
   width: 200px;
   height: 200px;
@@ -268,5 +274,63 @@ TABLEAUX DU DOCUMENT "CONVENTION"
 /*
 
 FIN TABLEAUX DU DOCUMENT "CONVENTION"
+
+*/
+
+
+/*
+
+TABLEAU DU DOCUMENT "EMARGEMENT"
+
+*/
+
+.table-emarge {
+  /* width: 100%; */
+  border-collapse: collapse;
+  margin-top: 40px;
+  margin-bottom: 80px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.table-emarge thead {
+  background-color: #f0f0f0;
+}
+
+.table-emarge th, td {
+  border: 1px solid #999;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+  width: 200px;
+}
+
+.table-emarge th {
+  height: 100px;
+}
+
+.table-emarge td {
+  text-align: center !important; /* seule solution pour forcer le centrage du texte dans les cellules td */
+  height: 150px;
+}
+
+.table-emarge th {
+  font-weight: bold;
+  background-color: #dceaff; /* bleu clair */
+}
+
+.table-emarge tr:nth-child(even) td {
+  background-color: #fafafa;
+}
+
+.table-emarge td:first-child {
+  text-align: left;
+  font-weight: bold;
+  background-color: #f9f9f9;
+}
+
+/*
+
+FIN DU TABLEAU DU DOCUMENT "EMARGEMENT"
 
 */

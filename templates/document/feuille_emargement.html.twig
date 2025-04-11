@@ -17,198 +17,72 @@
 
     <div class="sous-cont">
 
-        <h3>Entre les soussignés :</h3>
+        <div class="titre-emarge">
+            Organisme de formation : {{ entreprise.raisonSociale }}<br>
+            Intitulé de la formation : {{ session.formation.nomFormation }}
+        </div>
+
 
         <p>
-            Organisme de formation : {{ entreprise.raisonSociale }}, <br>
-            {{ entreprise.adresseSiege }} - {{ entreprise.codePostalSiege }} {{ entreprise.villeSiege|capitalize }},<br>
-            Représentée par {{ representant.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ representant.prenom|capitalize }} {{ representant.nom|upper }},<br>
-        </p>
-        <p>
-            Numéro de déclaration d'activité : {{ entreprise.numDeclaActivite }},<br>
-            Obtenu auprès de la préfecture de la {{ entreprise.prefectureRegion }},<br>
-            N° SIRET : {{ entreprise.numSiret }},
-        </p>
-
-        <h3>
-            et
-        </h3>
-
-        <p>
-            la société {{ societe.raisonSociale }},<br>
-            {{ societe.adresseSiege }} - {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }},<br>
-            Représentée par {{ responsableLegal.sexe|replace({'M' : 'Monsieur' , 'F' : 'Madame'}) }} {{ responsableLegal.prenom|capitalize }} {{ responsableLegal.nom|upper }}<br>
-            (ci-après dénommée le bénéficiaire)
+            Période et horaires de l'action de formation :{{ session.datesSession }}
         </p>
 
         <p>
-            L'organisme de formation {{ entreprise.raisonSociale }} s'engage à réaliser l'action de formation prévue par la présente convention dans les conditions fixées aux articles L.6353 2 et D.6353 1 du Code du travail.
+            Durée de l'action de formation : {{ session.getFormattedDuration() }}
         </p>
 
-        <h3>
-            Intitulé de l'action de formation :
-        </h3>
-        <p>
-            {{ session.formation.nomFormation }}.
-        </p>
 
-        <h3>
-            Objectifs, programme et méthodes : 
-        </h3>
-
-        <p>
-            détaillés dans le programme de formation joint en document annexe de la convention.
-        </p>
-
-        <h3>
-            Intervenante : 
-        </h3>
-
-        <p>
-            formatrice confirmée (au moins 6 années d'expérience) dans le domaine de la nutrition et de l'hygiène alimentaire.
-        </p>
-
-        <h3>
-            Type d'action de formation : 
-        </h3>
-
-        <p>
-            action d'adaptation et de développement des compétences des salariés.
-        </p>
-
-        <h3>
-            Durée de la formation : 
-        </h3>
-
-        <p>
-            {{ session.getFormattedDuration() }}. {# {{ session.FormattedDuration }} ne fonctionne pas #}
-        </p>
-
-        <h3>
-            Dates et horaires de la session de formation : 
-        </h3>
-
-        <table class="convention-horaires">
+        <table class="table-emarge">
             <thead>
                 <tr>
                     <th>
-                        Nom du module enseigné
+                        Nom de l'apprenant
                     </th>
-                    <th>
-                        Horaires
-                    </th>
+                    {% for dj in demi_journees %}
+                        <th>
+                            {{ dj.date|date('d/m/Y') }}<br>{{ dj.moment }}
+                        </th>
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
-                {% for planification in session.planifications %}
+                {% for apprenant in apprenants_soc %}
                     <tr>
-                        <td>
-                            {{ planification.module.nomModule }}{{ planification.module.description }}
-                        </td>
-                        <td>
-                            {{ planification.datesModule }}
-                        </td>
+                        <td>{{ apprenant.nom }} {{ apprenant.prenom }}</td>
+                        {% for dj in demi_journees %}
+                            <td></td> {# case vide à signer #}
+                        {% endfor %}
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
 
-        <h3>
-            Lieu de réalisation de la formation : 
-        </h3>
-
-        <p>
-            {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
-        </p>
-
-        <h3>
-            Effectif de la formation :
-        </h3>
-
-        
-
-        {% set apprenants_trouves = false %} {# On initialise une variable pour savoir si on a trouvé des apprenants inscrits (en réalité, si on trouve une inscription) en cours #}
-
-            <table class="convention-effectif">
-                <thead>
-                    <tr>
-                        <th>
-                            Prénom et Nom de l'apprenant
-                        </th>
-                        <th>
-                            Fonction de l'apprenant
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for inscription in session.inscriptions %}
-                    {% if inscription %} {# on vérifie qu'on trouve au moins une inscription dans la collection d'inscriptions de la session #}
-                        {% set apprenants_trouves = true %} {# On met la variable à true dès qu'on trouve un apprenant #}
-                                <tr>
-                                    <td>
-                                        {{ inscription.apprenant.prenom|capitalize }} {{ inscription.apprenant.nom|upper }}
-                                    </td>
-                                    <td>
-                                        {{ inscription.apprenant.metier|lower }}
-                                    </td>
-                                </tr>
-                    {% endif %} 
-                {% endfor %}
-                </tbody>
-            </table>
-
-            {% if not apprenants_trouves %} {# Après la boucle for, on vérifie si la variable 'apprenants_trouves' est toujours false. Si c'est le cas, cela signifie qu'aucun apprenant (en réalité, aucune inscription) n'a été trouvé, et donc on affiche le message "Aucun apprenant de l'annuaire inscrit à cette session". #}
-                <div>Aucun apprenant de l'annuaire inscrit à cette session</div>
-            {% endif %}
-
-
-
-      
-      
-
-     
-
-        
-
-     
-
-
-     
-
-        <div class="lieu-date">
-            Fait en double exemplaire<br>
-            À {{ entreprise.villeSiege|capitalize }}, le {{ 'now'|date("d-m-Y") }}
-        </div>
-
-        <div class="signatures saut-ligne">
+    
+        <div class="signatures-left saut-ligne">
             <div>
                 <p>
-                    Pour l'organisme de formation<br>
-                    {% if representant.sexe == 'M' %}Monsieur{% elseif representant.sexe == 'F' %}Madame{% else %}{% endif %}{{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|capitalize }}
+                    Certifié exact par le responsable du dispensateur de formation, le {{ 'now'|date("d-m-Y") }}
+                    Cachet et signature<br>
+                    du responsable du dispensateur de formation<br>
+                    {% if representant.sexe == 'M' %}
+                        Monsieur
+                    {% elseif representant.sexe == 'F' %}
+                        Madame
+                    {% else %}
+                    {% endif %}
+                    {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, {{ representant.fonction|lower }}
                 </p>
                 <div class="signature">
-                    {% if representant is not null and representant.tamponFilename is not empty %}
-                        <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
-                    {% endif %}
+                    <img src="{{ path('tampon_display', { filename: representant.tamponFilename }) }}" alt="le tampon et la signature du représentant">
                 </div>
             </div>
-            <div>
-                <p>
-                    Pour l'entreprise bénéficiaire<br>
-                    (Signature, Nom et Qualité du signataire)<br>
-                    Cachet de l'entreprise                 
-                </p>
-                <div class="signature"></div>
-            </div>
         </div>
-
-        <!-- pied de page -->
-        <div class="doc-footer">
-            <p>
+    
+        <p class="doc-footer">
             {{ representant.prenom|capitalize }} {{ representant.nom|upper  }}, Diététicienne-Qualiticienne - N° SIRET : {{ entreprise.numSiret }} - Tel : {{ entreprise.tel }}<br>
             Activité enregistrée sous le n° {{ entreprise.numDeclaActivite }} auprès de la région {{ entreprise.prefectureRegion }}
-            </p>
-        </div>
+        </p>
+
     </div>
 
 </div>
