@@ -265,6 +265,7 @@ Style pour le footer de la page login
 
 .password-container {
     position: relative;
+    width: 100%;
 }
 
 .password-container input {
