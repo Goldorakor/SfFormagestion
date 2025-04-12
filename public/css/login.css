@@ -109,12 +109,12 @@ h4 {
 }
 
 #login-cont02 p {
-    color: #282828;
+    color: #5b5b5b;
     font-size: 30px;
 }
 
 #login-cont02 a {
-    color: #282828;
+    color: #5b5b5b;
     font-size: 20px;
     text-decoration: none;
     font-style: italic;
@@ -138,25 +138,13 @@ h4 {
 }
 
 .identifiant label, .mot-passe label{
-    color: #282828;
+    color: #5b5b5b;
     font-size: 36px;
     margin-left: 25px; /* écriture sur la partie droite du tube oblong et non pas sur la partie arrondie */
 }
 
-/*
-#username {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
-
-#password {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-*/
-
-input[type="email"], input[type="password"] {
+input[type="email"], input[type="password"], input[type="text"] {
     width: 100%;
     padding: 20px;
     font-size: 20px;
@@ -175,7 +163,7 @@ gestion de l'auto-remplissage et des ombres par les navigateurs
 
 */
 
-input[type="email"], input[type="password"] {
+input[type="email"], input[type="password"], input[type="text"] {
     background-color: #ffffff !important;
     box-shadow: none !important; /* Désactive toute ombre */
     -webkit-box-shadow: none !important; /* Désactive l'ombre spécifique à Chrome */
@@ -267,3 +255,35 @@ Style pour le footer de la page login
 .lavande {
     display: none;
 }
+
+
+/*
+*
+* mise en place du toggle pour afficher ou cacher le mot de passe
+*
+*/
+
+.password-container {
+    position: relative;
+}
+
+.password-container input {
+    padding-right: 35px; /* pour laisser la place à l’icône */
+}
+
+.password-container i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #5b5b5b;
+    font-size: 24px;
+}
+
+/*
+*
+* fin de la mise en place du toggle pour afficher ou cacher le mot de passe
+*
+*/
+

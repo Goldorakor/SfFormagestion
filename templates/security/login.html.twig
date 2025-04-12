@@ -69,9 +69,19 @@
                                 <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
                             </div>
                     
+                            {#
                             <div class="mot-passe">
                                 <label for="password">Mot de passe</label>
                                 <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                            </div>
+                            #}
+
+                            <div class="mot-passe">
+                                <label for="password">Mot de passe</label>
+                                <div class="password-container">
+                                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                                    <i id="togglePassword" class="fa-solid fa-eye"></i>
+                                </div>
                             </div>
                     
                             <div>
@@ -117,6 +127,8 @@
             </footer>
             
         </div>
+
+        <script src="{{ asset('js/password.js') }}"></script>
 
     </body>
 </html>
