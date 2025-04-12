@@ -1142,6 +1142,7 @@ input[type="textarea"],
 input[type="email"],
 input[type="tel"],
 input[type="date"],
+input[type="datetime-local"],
 input[type="number"],
 select {
   width: 100%; /* Prend toute la largeur de son conteneur */
@@ -1153,6 +1154,7 @@ select {
   height: 40px; /* Hauteur ajustable */
   box-sizing: border-box; /* Évite que le padding change la taille du champ */
 }
+
 
 /*
 

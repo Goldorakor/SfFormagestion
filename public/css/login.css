@@ -143,11 +143,10 @@ h4 {
     margin-left: 25px; /* écriture sur la partie droite du tube oblong et non pas sur la partie arrondie */
 }
 
-
 input[type="email"], input[type="password"], input[type="text"] {
     width: 100%;
     padding: 20px;
-    font-size: 20px;
+    font-size: 24px;
     /* border: 2px solid #ccc; */
     border-radius: 30px;
     background-color: #ffffff;
@@ -256,7 +255,6 @@ Style pour le footer de la page login
     display: none;
 }
 
-
 /*
 *
 * mise en place du toggle pour afficher ou cacher le mot de passe
@@ -279,7 +277,7 @@ Style pour le footer de la page login
     transform: translateY(-50%);
     cursor: pointer;
     color: #5b5b5b;
-    font-size: 24px;
+    font-size: 26px;
 }
 
 /*
@@ -287,4 +285,3 @@ Style pour le footer de la page login
 * fin de la mise en place du toggle pour afficher ou cacher le mot de passe
 *
 */
-
