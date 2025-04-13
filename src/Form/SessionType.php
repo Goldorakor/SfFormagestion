@@ -72,7 +72,8 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un formateur',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 2 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Encadrement
                 'label' => 'Référent pédagogique',
-                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un référent pédagogique
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un référent pédagogique
+                'data' => $options['referentPedagogique'], // préremplissage ici
             ])
 
             // Champ pour le référent administratif => champ non mappé directement (à traiter dans le contrôleur) !!
@@ -82,7 +83,8 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un formateur',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 2 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Encadrement
                 'label' => 'Référent administratif',
-                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un référent administratif
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un référent administratif
+                'data' => $options['referentAdministratif'], // préremplissage ici
             ])
 
             // Champ pour le questionnaire de préformation
@@ -92,7 +94,8 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un questionnaire de préformation',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 3 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Sondage
                 'label' => 'Questionnaire de préformation',
-                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire de préformation
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire de préformation
+                'data' => $options['questionnairePrefor'],
             ])
 
             // Champ pour le questionnaire à chaud
@@ -102,7 +105,8 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un questionnaire à chaud',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 3 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Sondage
                 'label' => 'Questionnaire à chaud',
-                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
+                'data' => $options['questionnaireChaud'],
             ])
 
             // Champ pour le questionnaire à froid
@@ -112,7 +116,8 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un questionnaire à froid',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 3 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Sondage
                 'label' => 'Questionnaire à froid',
-                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
+                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
+                'data' => $options['questionnaireFroid'],
             ])
 
             // Champ pour inscrire les apprenants avec leur prix
@@ -158,6 +163,11 @@ class SessionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Session::class,
+            'referentPedagogique' => null,
+            'referentAdministratif' => null,
+            'questionnairePrefor' => null,
+            'questionnaireChaud' => null,
+            'questionnaireFroid' => null,
         ]);
     }
 }

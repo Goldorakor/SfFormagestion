@@ -12,6 +12,7 @@ use App\Repository\SessionRepository;
 use App\Repository\SocieteRepository;
 use App\Service\BreadcrumbsGenerator;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\InscriptionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -52,7 +53,8 @@ final class SessionController extends AbstractController
         Session $session = null,
         Request $request,
         EntityManagerInterface $entityManager,
-        BreadcrumbsGenerator $breadcrumbsGenerator
+        BreadcrumbsGenerator $breadcrumbsGenerator,
+        InscriptionRepository $inscriptionRepository,
     ): Response // pour ajouter un session à notre BDD
     {
         
@@ -81,9 +83,46 @@ final class SessionController extends AbstractController
         $inscriptionsExistantes = $session->getInscriptions()->toArray();
         $planificationsExistantes = $session->getPlanifications()->toArray();
 
+        $formOptions = [];
+
+
+        // Pré-remplir les champs référents si on est en mode édition
+        foreach ($session->getEncadrements() as $encadrement) {
+            if ($encadrement->getTypeReferent() === 'pédagogique') {
+                $formOptions['referentPedagogique'] = $encadrement->getFormateur();
+            } elseif ($encadrement->getTypeReferent() === 'administratif') {
+                $formOptions['referentAdministratif'] = $encadrement->getFormateur();
+            }
+        }
+
+
+        // Pré-remplir les champs questionnaires si on est en mode édition
+        foreach ($session->getSondages() as $sondage) {
+            if ($sondage->getTypeQuestionnaire() === 'de préformation') {
+                $formOptions['questionnairePrefor'] = $sondage->getQuestionnaire();
+            } elseif ($sondage->getTypeQuestionnaire() === 'à chaud') {
+                $formOptions['questionnaireChaud'] = $sondage->getQuestionnaire();
+            } elseif ($sondage->getTypeQuestionnaire() === 'à froid') {
+                $formOptions['questionnaireFroid'] = $sondage->getQuestionnaire();
+            }
+        }
+
+
+        $inscriptions = $inscriptionRepository->findBy(['session' => $session]);
+        foreach ($inscriptions as $inscription) {
+            $session->addInscription($inscription);
+        }
+
 
         // 2. on crée le formulaire à partir de SessionType (on veut ce modèle là bien entendu)
-        $form = $this->createForm(SessionType::class, $session); // c'est bien la méthode createForm() qui permet de créer le formulaire
+        $form = $this->createForm(SessionType::class, $session, [ // c'est bien la méthode createForm() qui permet de créer le formulaire
+            'data' => $session,
+            'referentPedagogique' => $formOptions['referentPedagogique'] ?? null,
+            'referentAdministratif' => $formOptions['referentAdministratif'] ?? null,
+            'questionnairePrefor' => $formOptions['questionnairePrefor'] ?? null,
+            'questionnaireChaud' => $formOptions['questionnaireChaud'] ?? null,
+            'questionnaireFroid' => $formOptions['questionnaireFroid'] ?? null,
+        ]); 
 
         // 4. le traitement s'effectue ici ! si le formulaire soumis est correct, on fera l'insertion en BDD
         $form->handleRequest($request);

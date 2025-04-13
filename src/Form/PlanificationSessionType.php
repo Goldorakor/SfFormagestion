@@ -22,7 +22,7 @@ class PlanificationSessionType extends AbstractType
                 'label' => "Nom du module d'enseignement",
             ])
             ->add('duree', IntegerType::class, [
-                'label' => 'Durée', // texte qui s'affiche devant le rectangle de saisie
+                'label' => 'Durée (en minutes)', // texte qui s'affiche devant le rectangle de saisie
             ])
             ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début',

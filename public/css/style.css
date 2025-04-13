@@ -1067,6 +1067,7 @@ label {
   font-size: 22px;
 }
 
+/* les :: signifient qu’on utilise un pseudo-élément. Un pseudo-élément permet de cibler une partie spécifique d’un élément HTML */
 input::placeholder, textarea::placeholder {
   color: #282828;
 }
