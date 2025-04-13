@@ -75,8 +75,11 @@ final class SessionController extends AbstractController
             $session = new Session();
         }
 
+
         // On stocke les inscriptions d’origine pour comparaison (si édition)
+        // Enregistrer les données existantes pour nettoyage éventuel
         $inscriptionsExistantes = $session->getInscriptions()->toArray();
+        $planificationsExistantes = $session->getPlanifications()->toArray();
 
 
         // 2. on crée le formulaire à partir de SessionType (on veut ce modèle là bien entendu)
@@ -89,15 +92,27 @@ final class SessionController extends AbstractController
         // bloc qui concerne la soumission
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $session = $form->getData(); // on récupère les données du formulaire dans notre objet session
-
+            $session = $form->getData(); // on récupère les données du formulaire dans notre objet session - obsolète
 
             // Récupération des formateurs sélectionnés
             $referentPedagogique = $form->get('referentPedagogique')->getData();
             $referentAdministratif = $form->get('referentAdministratif')->getData();
 
-            $session->setReferentPedagogique($referentPedagogique);
-            $session->setReferentAdministratif($referentAdministratif);
+            if ($referentPedagogique) {
+                $encadrementPedago = new Encadrement();
+                $encadrementPedago->setSession($session);
+                $encadrementPedago->setFormateur($referentPedagogique);
+                $encadrementPedago->setTypeReferent('pédagogique');
+                $entityManager->persist($encadrementPedago);
+            }
+            
+            if ($referentAdministratif) {
+                $encadrementAdmin = new Encadrement();
+                $encadrementAdmin->setSession($session);
+                $encadrementAdmin->setFormateur($referentAdministratif);
+                $encadrementAdmin->setTypeReferent('administratif');
+                $entityManager->persist($encadrementAdmin);
+            }
 
 
             
@@ -106,18 +121,45 @@ final class SessionController extends AbstractController
             $questionnaireChaud = $form->get('questionnaireChaud')->getData();
             $questionnaireFroid = $form->get('questionnaireFroid')->getData();
 
-
-
-
-            // Récupération des apprenants et de leurs prix (apprenant inscrit transporte les deux informations)
-            $apprenantsInscrits = $form->get('apprenantsInscrits')->getData();
-
-
-            foreach ($apprenantsInscrits as $apprenantData) {
-                $apprenant = $apprenantData['apprenant'] ?? null; // Récupérer l'apprenant sélectionné
-                $prix = $apprenantData['prix'] ?? null; // Récupérer le prix associé
+            if ($questionnairePrefor) {
+                $sondage = new Sondage();
+                $sondage->setSession($session);
+                $sondage->setQuestionnaire($questionnairePrefor);
+                $sondage->setTypeQuestionnaire('de préformation');
+                $entityManager->persist($sondage);
+            }
             
-                if ($apprenant && $prix !== null) { // Vérifie que l'apprenant est sélectionné ET que le prix est renseigné
+            if ($questionnaireChaud) {
+                $sondage = new Sondage();
+                $sondage->setSession($session);
+                $sondage->setQuestionnaire($questionnaireChaud);
+                $sondage->setTypeQuestionnaire('à chaud');
+                $entityManager->persist($sondage);
+            }
+            
+            if ($questionnaireFroid) {
+                $sondage = new Sondage();
+                $sondage->setSession($session);
+                $sondage->setQuestionnaire($questionnaireFroid);
+                $sondage->setTypeQuestionnaire('à froid');
+                $entityManager->persist($sondage);
+            }
+
+
+            // Nettoyage des anciennes inscriptions (si modification)
+            if ($modif) {
+                foreach ($inscriptionsExistantes as $inscription) {
+                    $entityManager->remove($inscription);
+                }
+            }
+
+            // Apprenants inscrits
+            $apprenantsInscrits = $form->get('apprenantsInscrits')->getData();
+            foreach ($apprenantsInscrits as $apprenantData) {
+                $apprenant = $apprenantData['apprenant'] ?? null;
+                $prix = $apprenantData['prix'] ?? null;
+
+                if ($apprenant && $prix !== null) {
                     $inscription = new Inscription();
                     $inscription->setSession($session);
                     $inscription->setApprenant($apprenant);
@@ -126,18 +168,22 @@ final class SessionController extends AbstractController
                 }
             }
 
+            // Nettoyage des anciennes planifications (si modification)
+            if ($modif) {
+                foreach ($planificationsExistantes as $planif) {
+                    $entityManager->remove($planif);
+                }
+            }
 
-            // Récupération des apprenants et de leurs prix (apprenant inscrit transporte les deux informations)
+            // Planifications
             $planificationSessions = $form->get('planificationSessions')->getData();
-
-
             foreach ($planificationSessions as $moduleData) {
-                $module = $moduleData['module'] ?? null; // Récupérer le module sélectionné
-                $duree = $moduleData['duree'] ?? null; // Récupérer la durée associée
-                $dateDebut = $moduleData['dateDebut'] ?? null; // Récupérer la date de début associée
-                $dateFin = $moduleData['dateFin'] ?? null; // Récupérer la date de fin associée
-            
-                if ($module && $duree !== null && $dateDebut && $dateFin) { // Vérifie que le module est sélectionné ET que la durée est renseignée ET que les dates de début et de fin sont remplies
+                $module = $moduleData['module'] ?? null;
+                $duree = $moduleData['duree'] ?? null;
+                $dateDebut = $moduleData['dateDebut'] ?? null;
+                $dateFin = $moduleData['dateFin'] ?? null;
+
+                if ($module && $duree !== null && $dateDebut && $dateFin) {
                     $planification = new Planification();
                     $planification->setSession($session);
                     $planification->setModule($module);
@@ -171,6 +217,7 @@ final class SessionController extends AbstractController
         ]);
 
     }
+
 
 
     #[IsGranted('ROLE_ADMIN')]

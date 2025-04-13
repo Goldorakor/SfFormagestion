@@ -25,9 +25,6 @@ class Session
     #[ORM\Column]
     private ?int $nbPlaces = null;
 
-    #[ORM\Column]
-    private ?int $nbModules = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateDebut = null;
 
@@ -107,18 +104,6 @@ class Session
     public function setNbPlaces(int $nbPlaces): static
     {
         $this->nbPlaces = $nbPlaces;
-
-        return $this;
-    }
-
-    public function getNbModules(): ?int
-    {
-        return $this->nbModules;
-    }
-
-    public function setNbModules(int $nbModules): static
-    {
-        $this->nbModules = $nbModules;
 
         return $this;
     }

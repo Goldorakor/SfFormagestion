@@ -1068,7 +1068,7 @@ label {
 }
 
 input::placeholder, textarea::placeholder {
-  color: #b83d3d;
+  color: #282828;
 }
 
 /* Alignement des divs sur une seule ligne 
@@ -1139,8 +1139,9 @@ Chaque ligne est un flex container */
 
 
 /* Style des champs de formulaire */
+textarea,
 input[type="text"],
-input[type="textarea"],
+/*input[type="textarea"], En HTML, <textarea> est une balise à part entière, ce n’est pas un <input type="textarea"> */
 input[type="email"],
 input[type="tel"],
 input[type="date"],

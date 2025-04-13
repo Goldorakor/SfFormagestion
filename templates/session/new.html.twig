@@ -47,16 +47,8 @@
         <div class="form-ligne01">
             <div class="form-cell nbplaces">
                 {{ form_label(formAddSession.nbPlaces) }}
-                <!-- Ajout de l'attribut 'data-nb-places' pour la gestion dynamique des champs -->
-                {{ form_widget(formAddSession.nbPlaces, {'attr': {'data-nb-places': 'true'}}) }} {# {{ form_widget(formAddSession.nbPlaces) }} #}
+                {{ form_widget(formAddSession.nbPlaces) }} 
                 {{ form_errors(formAddSession.nbPlaces) }}
-            </div>
-
-            <div class="form-cell nbmodules">
-                {{ form_label(formAddSession.nbModules) }}
-                <!-- Ajout de l'attribut 'data-nb-modules' pour la gestion dynamique des champs -->
-                {{ form_widget(formAddSession.nbModules, {'attr': {'data-nb-modules': 'true'}}) }} {# {{ form_widget(formAddSession.nbModules) }} #}
-                {{ form_errors(formAddSession.nbModules) }}
             </div>
 
             <div class="form-cell ses-date-debut">
@@ -116,22 +108,34 @@
         <div class="form-ligne01" id="apprenants-container" data-prototype="{{ form_widget(formAddSession.apprenantsInscrits.vars.prototype)|e('html_attr') }}">
             {% for apprenantField in formAddSession.apprenantsInscrits %}
                 <!-- Chaque champ d'apprenant est enveloppé dans un div avec la classe 'apprenant-entry' -->
-                <div class="form-ligne01">
-                    {{ form_label(apprenantField) }}
+                <div class="apprenant-entry form-ligne01">
                     {{ form_widget(apprenantField) }}
-                    {{ form_errors(apprenantField) }}
+                    <button type="button" class="remove-apprenant btn btn-danger">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </div> {# <div class="apprenant-entry">{{ form_row(apprenantField) }}</div> #}
             {% endfor %}
+            <button type="button" class="btn btn-secondary" id="add-apprenant">
+                <i class="fa-solid fa-plus"></i> Ajouter un apprenant
+            </button>
         </div>
 
         <h2>Planification de la session</h2>
 
-        <!-- Conteneur dynamique pour l'inscription des apprenants -->
-        <div id="modules-container" data-prototype="{{ form_widget(formAddSession.planificationSessions.vars.prototype)|e('html_attr') }}">
+        <!-- Conteneur dynamique pour la planification des modules -->
+        <div class="form-ligne01" id="modules-container" data-prototype="{{ form_widget(formAddSession.planificationSessions.vars.prototype)|e('html_attr') }}">
             {% for moduleField in formAddSession.planificationSessions %}
                 <!-- Chaque champ de module est enveloppé dans un div avec la classe 'module-entry' -->
-                <div class="module-entry">{{ form_row(moduleField) }}</div>
+                <div class="module-entry form-ligne01">
+                    {{ form_widget(moduleField) }}
+                    <button type="button" class="remove-module btn btn-danger">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div> {# <div class="module-entry">{{ form_row(moduleField) }}</div> #}
             {% endfor %}
+            <button type="button" class="btn btn-secondary" id="add-module">
+                <i class="fa-solid fa-plus"></i> Ajouter un module
+            </button>
         </div>
 
         <!-- Fin du formulaire -->
