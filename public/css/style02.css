@@ -35,6 +35,7 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   margin-right: 130px; /* 130 ?? */
   margin-bottom: 40px; /* 80px trop grand : pas besoin d'un tel espace ! */
   /* en principe, il faudrait 200 120 40 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
+  font-family: 'Inter', sans-serif;
 }
 
 .sous-cont {
@@ -320,6 +321,7 @@ input[type="text"],
 input[type="email"],
 input[type="tel"],
 input[type="date"],
+input[type="datetime-local"],
 select {
   width: 100%; /* Prend toute la largeur de son conteneur */
   padding: 10px;
@@ -328,8 +330,26 @@ select {
   background-color: #ffffff; /* Fond blanc */
   font-size: 16px;
   height: 40px; /* Hauteur ajustable */
+  line-height: 10px;
   box-sizing: border-box; /* Évite que le padding change la taille du champ */
 }
+
+input[type="file"],
+select {
+  width: 100%; /* Prend toute la largeur de son conteneur */
+  padding-top: 7px;
+  padding-left: 10px;
+  border: 1px solid #ccceff;
+  border-radius: 5px; /* Bords arrondis */
+  background-color: #ffffff; /* Fond blanc */
+  font-size: 16px;
+  height: 40px; /* Hauteur ajustable */
+  
+  box-sizing: border-box; /* Évite que le padding change la taille du champ */
+}
+
+
+
 
 .user-comment{
   font-size: 16px;

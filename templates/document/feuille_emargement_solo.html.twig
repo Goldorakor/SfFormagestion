@@ -1,6 +1,6 @@
 {% extends 'base03.html.twig' %}
 
-{% block title %}Document administratif : feuille d'émargement individuelle{% endblock %}
+{% block title %}Document administratif : feuille d'émargement individuel{% endblock %}
 
 {% block body %}
 
@@ -13,7 +13,7 @@
         {% endif %}
     </div>
 
-    <h1>FEUILLE D'ÉMARGEMENT</h1>
+    <h1>FEUILLE D'ÉMARGEMENT INDIVIDUEL</h1>
 
     <div class="sous-cont">
 
@@ -59,9 +59,8 @@
         <div class="signatures-left saut-ligne">
             <div>
                 <p>
-                    Certifié exact par le responsable du dispensateur de formation, le {{ 'now'|date("d-m-Y") }}
-                    Cachet et signature<br>
-                    du responsable du dispensateur de formation<br>
+                    Certifié exact par le responsable du dispensateur de formation, le {{ 'now'|date("d-m-Y") }}<br>
+                    Cachet et signature du responsable du dispensateur de formation<br>
                     {% if representant.sexe == 'M' %}
                         Monsieur
                     {% elseif representant.sexe == 'F' %}

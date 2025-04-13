@@ -55,6 +55,7 @@ final class SessionController extends AbstractController
         BreadcrumbsGenerator $breadcrumbsGenerator
     ): Response // pour ajouter un session à notre BDD
     {
+        
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
@@ -68,9 +69,15 @@ final class SessionController extends AbstractController
         
         
         // 1. si pas de session, on crée une nouvelle session (un objet session est bien créé ici) - s'il existe déjà, pas besoin de le créer
+        $modif = true;
         if(!$session) {
+            $modif = false;
             $session = new Session();
         }
+
+        // On stocke les inscriptions d’origine pour comparaison (si édition)
+        $inscriptionsExistantes = $session->getInscriptions()->toArray();
+
 
         // 2. on crée le formulaire à partir de SessionType (on veut ce modèle là bien entendu)
         $form = $this->createForm(SessionType::class, $session); // c'est bien la méthode createForm() qui permet de créer le formulaire
@@ -85,60 +92,13 @@ final class SessionController extends AbstractController
             $session = $form->getData(); // on récupère les données du formulaire dans notre objet session
 
 
-            // Supprimer les anciennes inscriptions (apprenants inscrits) de cette session avant de les mettre à jour (sinon on a plein de doublons dans la table)
-            // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
-            foreach ($session->getInscriptions()->toArray() as $inscription) {
-                $entityManager->remove($inscription); // suppression réelle
-                $session->removeInscription($inscription); // optionnel, pour tenir la collection à jour côté PHP
-            }
-
-            // Supprimer les anciens encadrements (réf péda et réf admin) de cette session avant de les mettre à jour (sinon on a plein de doublons dans la table)
-            // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
-            foreach ($session->getEncadrements()->toArray() as $encadrement) {
-                $entityManager->remove($encadrement); // suppression réelle
-                $session->removeEncadrement($encadrement); // optionnel, pour tenir la collection à jour côté PHP
-            }
-
-            // Supprimer les anciennes planifications (modules enseignés) de cette session avant de les mettre à jour (sinon on a plein de doublons dans la table)
-            // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
-            foreach ($session->getPlanifications()->toArray() as $planification) {
-                $entityManager->remove($planification); // suppression réelle
-                $session->removePlanification($planification); // optionnel, pour tenir la collection à jour côté PHP
-            }
-
-            // Supprimer les anciens sondages (3 questionnaires) de cette session avant de les mettre à jour (sinon on a plein de doublons dans la table)
-            // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
-            foreach ($session->getSondages()->toArray() as $sondage) {
-                $entityManager->remove($sondage); // suppression réelle
-                $session->removeSondage($sondage); // optionnel, pour tenir la collection à jour côté PHP
-            }
-            
-            // $entityManager->persist($session);  équivaut à la méthode prepare() en PDO
-
-            // $entityManager->flush();  équivaut à la méthode execute() en PDOStatement -> on n'envoie rien en BDD à ce stade car on enverra tout en BDD à la fin et pas uniquement ce qui concerne Session
-
-
             // Récupération des formateurs sélectionnés
             $referentPedagogique = $form->get('referentPedagogique')->getData();
             $referentAdministratif = $form->get('referentAdministratif')->getData();
 
+            $session->setReferentPedagogique($referentPedagogique);
+            $session->setReferentAdministratif($referentAdministratif);
 
-            // Création des encadrements si un formateur est sélectionné
-            if ($referentPedagogique) { // vérifie si l'utilisateur a effectivement sélectionné un référent pédagogique via le formulaire -> si un formateur a été choisi, un nouvel encadrement est créé.
-                $encadrementPeda = new Encadrement();
-                $encadrementPeda->setSession($session);
-                $encadrementPeda->setFormateur($referentPedagogique);
-                $encadrementPeda->setTypeReferent("pédagogique");
-                $entityManager->persist($encadrementPeda); // équivaut à la méthode prepare() en PDO
-            }
-
-            if ($referentAdministratif) { // vérifie si l'utilisateur a effectivement sélectionné un référent administratif via le formulaire -> si un formateur a été choisi, un nouvel encadrement est créé.
-                $encadrementAdmin = new Encadrement();
-                $encadrementAdmin->setSession($session);
-                $encadrementAdmin->setFormateur($referentAdministratif);
-                $encadrementAdmin->setTypeReferent("administratif");
-                $entityManager->persist($encadrementAdmin); // équivaut à la méthode prepare() en PDO
-            }
 
             
             // Récupération des questionnaires sélectionnés
@@ -147,30 +107,6 @@ final class SessionController extends AbstractController
             $questionnaireFroid = $form->get('questionnaireFroid')->getData();
 
 
-            // Création des sondages si un questionnaire est sélectionné
-            if ($questionnairePrefor) { // vérifie si l'utilisateur a effectivement sélectionné un questionnaire de préformation via le formulaire -> si un questionnaire a été choisi, un nouveau sondage est créé.
-                $sondagePrefor = new Sondage();
-                $sondagePrefor->setSession($session);
-                $sondagePrefor->setQuestionnaire($questionnairePrefor);
-                $sondagePrefor->setTypeQuestionnaire("de préformation");
-                $entityManager->persist($sondagePrefor); // équivaut à la méthode prepare() en PDO
-            }
-
-            if ($questionnaireChaud) { // vérifie si l'utilisateur a effectivement sélectionné un questionnaire à chaud via le formulaire -> si un questionnaire a été choisi, un nouveau sondage est créé.
-                $sondageChaud = new Sondage();
-                $sondageChaud->setSession($session);
-                $sondageChaud->setQuestionnaire($questionnaireChaud);
-                $sondageChaud->setTypeQuestionnaire("à chaud");
-                $entityManager->persist($sondageChaud); // équivaut à la méthode prepare() en PDO
-            }
-
-            if ($questionnaireFroid) { // vérifie si l'utilisateur a effectivement sélectionné un questionnaire à froid via le formulaire -> si un questionnaire a été choisi, un nouveau sondage est créé.
-                $sondageFroid = new Sondage();
-                $sondageFroid->setSession($session);
-                $sondageFroid->setQuestionnaire($questionnaireFroid);
-                $sondageFroid->setTypeQuestionnaire("à froid");
-                $entityManager->persist($sondageFroid); // équivaut à la méthode prepare() en PDO
-            }
 
 
             // Récupération des apprenants et de leurs prix (apprenant inscrit transporte les deux informations)
@@ -201,7 +137,7 @@ final class SessionController extends AbstractController
                 $dateDebut = $moduleData['dateDebut'] ?? null; // Récupérer la date de début associée
                 $dateFin = $moduleData['dateFin'] ?? null; // Récupérer la date de fin associée
             
-                if ($apprenant && $prix !== null) { // Vérifie que le module est sélectionné ET que la durée est renseignée ET que les dates de début et de fin sont remplies
+                if ($module && $duree !== null && $dateDebut && $dateFin) { // Vérifie que le module est sélectionné ET que la durée est renseignée ET que les dates de début et de fin sont remplies
                     $planification = new Planification();
                     $planification->setSession($session);
                     $planification->setModule($module);

@@ -1236,16 +1236,7 @@ final class DocumentController extends AbstractController
 
 
 
-
-
-
-
-
-
-
-
-
-
+    /*
     #[Route('/accueil/parametres/modeles_documents/releve_connexion', name: 'releve_connexion')]
     public function releveConnexion(
         BreadcrumbsGenerator $breadcrumbsGenerator
@@ -1264,13 +1255,9 @@ final class DocumentController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+    */
 
-
-
-
-
-
-
+    /*
     #[Route('/accueil/parametres/modeles_documents/releve_evaluation', name: 'releve_evaluation')]
     public function releveEvaluation(
         BreadcrumbsGenerator $breadcrumbsGenerator
@@ -1289,12 +1276,8 @@ final class DocumentController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+    */
 
-
-
-
-
-  
 
 
     /*

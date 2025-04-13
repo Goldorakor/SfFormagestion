@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ApprenantInscritType extends AbstractType
 {
@@ -15,7 +16,7 @@ class ApprenantInscritType extends AbstractType
         $builder
             ->add('apprenant', EntityType::class, [
                 'class' => Apprenant::class,
-                'placeholder' => 'Sélectionner un apprenant',
+                'placeholder' => 'Sélectionner un apprenant',// champ de type EntityType (ou ChoiceType) : l'option placeholder n’est pas un attribut HTML mais une vraie option Symfony
                 //'choice_label' => 'nom',  Ajuste selon le champ à afficher
                 'label' => 'Apprenant inscrit',
                 'attr' => ['class' => 'form-cell apprenant-inscrit'] /* pour décider de la taille du champ en css */
@@ -24,7 +25,14 @@ class ApprenantInscritType extends AbstractType
                 'label' => 'Prix en € HT',
                 'required' => false,
                 /* 'attr' => ['placeholder' => 'Prix optionnel'],  à rajouter ?? */
-                'attr' => ['class' => 'form-cell apprenant-prix'] /* pour décider de la taille du champ en css */
+                'attr' => [
+                    'placeholder' => 'Prix optionnel',  // ici, placeholder est un attribut HTML : tous les attributs HTML personnalisés (comme class, placeholder, style, etc.) doivent être mis dans le tableau attr dans un formulaire Symfony
+                    'class' => 'form-cell apprenant-prix' /* pour décider de la taille du champ en css */
+                ], 
+                'constraints' => [
+                    new Assert\PositiveOrZero(), // pas de nombre négatif pour un prix
+                    new Assert\LessThan(10000), // pas de nombre trop grand non plus ! 
+                ]
             ]);
     }
 }

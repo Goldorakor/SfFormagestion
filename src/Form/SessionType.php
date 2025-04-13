@@ -28,20 +28,25 @@ class SessionType extends AbstractType
 
             ->add('titreSession', TextType::class, [
                 'label' => 'Titre', // texte qui s'affiche devant le rectangle de saisie
+                'attr' => ['placeholder' => 'Intitulé de la session'],
             ])
 
             ->add('accroche', TextareaType::class, [
                 'label' => 'Accroche', // texte qui s'affiche devant le rectangle de saisie
                 'required' => false,   // champ non obligatoire
+                'attr' => ['placeholder' => 'Phrase d’accroche optionnelle'],
             ])
 
             ->add('nbPlaces', IntegerType::class, [
                 'label' => 'Places max.', // texte qui s'affiche devant le rectangle de saisie
+                'attr' => ['placeholder' => 'Nombre de participants max.'],
             ])
 
+            /* on supprime ce champ car l'ajout du sous-formulaire sera différent
             ->add('nbModules', IntegerType::class, [
                 'label' => 'Nb de modules', // texte qui s'affiche devant le rectangle de saisie
             ])
+            */
 
             ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début',
@@ -60,24 +65,24 @@ class SessionType extends AbstractType
                 'label' => 'Formation associée à la session',
             ])
 
-            // Champ pour le référent pédagogique
+            // Champ pour le référent pédagogique => champ non mappé directement (à traiter dans le contrôleur) !!
             ->add('referentPedagogique', EntityType::class, [ // nom à utiliser dans le SessionController
                 'class' => Formateur::class,
                 //'choice_label' => 'nom',  Affiche le nom du formateur -> on supprime pour qu'il affiche le __toString du formateur
                 'placeholder' => 'Sélectionner un formateur',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 2 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Encadrement
                 'label' => 'Référent pédagogique',
-                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un référent pédagogique
+                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un référent pédagogique
             ])
 
-            // Champ pour le référent administratif
+            // Champ pour le référent administratif => champ non mappé directement (à traiter dans le contrôleur) !!
             ->add('referentAdministratif', EntityType::class, [ // nom à utiliser dans le SessionController
                 'class' => Formateur::class,
                 //'choice_label' => 'nom',  Affiche le nom du formateur -> on supprime pour qu'il affiche le __toString du formateur
                 'placeholder' => 'Sélectionner un formateur',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 2 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Encadrement
                 'label' => 'Référent administratif',
-                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un référent administratif
+                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un référent administratif
             ])
 
             // Champ pour le questionnaire de préformation
@@ -87,7 +92,7 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un questionnaire de préformation',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 3 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Sondage
                 'label' => 'Questionnaire de préformation',
-                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire de préformation
+                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire de préformation
             ])
 
             // Champ pour le questionnaire à chaud
@@ -97,7 +102,7 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un questionnaire à chaud',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 3 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Sondage
                 'label' => 'Questionnaire à chaud',
-                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
+                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
             ])
 
             // Champ pour le questionnaire à froid
@@ -107,12 +112,12 @@ class SessionType extends AbstractType
                 'placeholder' => 'Sélectionner un questionnaire à froid',
                 'mapped' => false, // On ne mappe pas à l'entité Session directement -> ces 3 champs ne sont pas directement liés à l'entité Session. Ils seront utilisés pour créer des entrées dans la table Sondage
                 'label' => 'Questionnaire à froid',
-                'required' => false, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
+                'required' => true, // Rend le champ optionnel -> pas ici car on veut tjrs un questionnaire à chaud
             ])
 
             // Champ pour inscrire les apprenants avec leur prix
             ->add('apprenantsInscrits', CollectionType::class, [
-                'entry_type' => ApprenantInscritType::class, // Formulaire imbriqué pour chaque apprenant
+                'entry_type' => ApprenantInscritType::class, // Formulaire imbriqué pour chaque apprenant (spécifie que chaque élément est un sous-formulaire ApprenantType)
                 'allow_add' => true, // Permet d'ajouter dynamiquement des apprenants
                 'allow_delete' => true, // Permet de supprimer un apprenant inscrit
                 /*'entry_options' => [

@@ -42,6 +42,7 @@ main {
   margin-right: 130px; /* 130 ?? */
   margin-bottom: 40px; /* 80px trop grand : pas besoin d'un tel espace ! */
   /* en principe, il faudrait 200 120 40 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
+  font-family: 'Inter', sans-serif;
 }
 
 .sous-cont {
@@ -452,12 +453,12 @@ VUES DE DETAILS
 .fiche-responsable {
   display: flex; /* flex */
   flex-direction: column; /* on veut des colonnes pour empiler les champs : un seul champ ici donc pas important */
-  width: 32%;
+  width: 33%;
   color: #282828;
   background-color: #ffffff; /* ffffff */
   border-radius: 20px;
   font-size: 26px;
-  padding: 20px;
+  padding: 10px;
   line-height: 1.4; /* Augmente l'espacement entre les lignes */
 }
 
@@ -1059,7 +1060,7 @@ form {
 
 /* Style des labels */
 label {
-  color: #444444; /* Gris foncé */
+  color: #282828; /* Gris foncé */
   font-weight: bold;
   display: block;
   margin-bottom: 5px;
@@ -1074,6 +1075,7 @@ input::placeholder, textarea::placeholder {
 Chaque ligne est un flex container */
 .form-ligne01 {
   display: flex;
+  flex-direction: row;
   gap: 15px; /* Espacement entre les champs */
   margin-bottom: 15px; /* Espacement entre les lignes */
 }

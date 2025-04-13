@@ -46,7 +46,7 @@ class Session
     /**
      * @var Collection<int, Inscription>
      */
-    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'session')]
+    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'session', cascade: ['persist'], orphanRemoval: true)]
     private Collection $inscriptions;
 
     /**
@@ -58,7 +58,7 @@ class Session
     /**
      * @var Collection<int, Planification>
      */
-    #[ORM\OneToMany(targetEntity: Planification::class, mappedBy: 'session')]
+    #[ORM\OneToMany(targetEntity: Planification::class, mappedBy: 'session', cascade: ['persist'], orphanRemoval: true)]
     private Collection $planifications;
 
 
