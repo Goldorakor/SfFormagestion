@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Entity\Sondage;
+use App\Entity\Apprenant;
+use App\Entity\Module;
 use App\Form\SessionType;
 use App\Entity\Encadrement;
 use App\Entity\Inscription;
@@ -153,7 +155,24 @@ final class SessionController extends AbstractController
         // bloc qui concerne la soumission
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $session = $form->getData(); // on récupère les données du formulaire dans notre objet session - obsolète
+            // Suppression des anciennes inscriptions
+            foreach ($session->getInscriptions() as $inscription) {
+                $session->removeInscription($inscription);
+                $entityManager->remove($inscription);
+            }
+
+            // Suppression des anciennes planifications
+            foreach ($session->getPlanifications() as $planification) {
+                $session->removePlanification($planification);
+                $entityManager->remove($planification);
+            }
+
+            // On supprime les anciens 'encadrements'
+            if ($modif) {
+                foreach ($session->getEncadrements() as $encadrement) {
+                    $entityManager->remove($encadrement);
+                }
+            }
 
             // Récupération des formateurs sélectionnés
             $referentPedagogique = $form->get('referentPedagogique')->getData();
@@ -176,7 +195,14 @@ final class SessionController extends AbstractController
             }
 
 
-            
+
+            // On supprime les anciens 'sondages'
+            if ($modif) {
+                foreach ($session->getSondages() as $sondage) {
+                    $entityManager->remove($sondage);
+                }
+            }
+
             // Récupération des questionnaires sélectionnés
             $questionnairePrefor = $form->get('questionnairePrefor')->getData();
             $questionnaireChaud = $form->get('questionnaireChaud')->getData();
@@ -207,6 +233,7 @@ final class SessionController extends AbstractController
             }
 
 
+
             // Nettoyage des anciennes inscriptions (si modification)
             if ($modif) {
                 foreach ($inscriptionsExistantes as $inscription) {
@@ -214,7 +241,7 @@ final class SessionController extends AbstractController
                 }
             }
 
-            // Apprenants inscrits
+            /* Apprenants inscrits
             $apprenantsInscrits = $form->get('apprenantsInscrits')->getData();
             foreach ($apprenantsInscrits as $apprenantData) {
                 $apprenant = $apprenantData['apprenant'] ?? null;
@@ -227,7 +254,29 @@ final class SessionController extends AbstractController
                     $inscription->setPrix($prix);
                     $entityManager->persist($inscription);
                 }
+            }*/
+
+            $apprenantsInscrits = $request->request->all('session')['apprenantsInscrits'] ?? [];
+
+            foreach ($apprenantsInscrits as $apprenantData) {
+                $apprenantId = $apprenantData['apprenant'] ?? null;
+                $prix = $apprenantData['prix'] ?? null;
+
+                if ($apprenantId && $prix !== null) {
+                    $apprenant = $entityManager->getRepository(Apprenant::class)->find($apprenantId);
+                    if ($apprenant) {
+                        $inscription = new Inscription();
+                        $inscription->setSession($session);
+                        $inscription->setApprenant($apprenant);
+                        $inscription->setPrix($prix);
+                        $entityManager->persist($inscription);
+                    }
+                }
             }
+
+
+
+
 
             // Nettoyage des anciennes planifications (si modification)
             if ($modif) {
@@ -236,7 +285,7 @@ final class SessionController extends AbstractController
                 }
             }
 
-            // Planifications
+            /* Planifications
             $planificationSessions = $form->get('planificationSessions')->getData();
             foreach ($planificationSessions as $moduleData) {
                 $module = $moduleData['module'] ?? null;
@@ -252,6 +301,28 @@ final class SessionController extends AbstractController
                     $planification->setDateDebut($dateDebut);
                     $planification->setDateFin($dateFin);
                     $entityManager->persist($planification);
+                }
+            }*/
+
+            $planificationSessions = $request->request->all('session')['planificationSessions'] ?? [];
+
+            foreach ($planificationSessions as $planifData) {
+                $moduleId = $planifData['module'] ?? null;
+                $duree = $planifData['duree'] ?? null;
+                $dateDebut = $planifData['dateDebut'] ?? null;
+                $dateFin = $planifData['dateFin'] ?? null;
+
+                if ($moduleId && $duree !== null && $dateDebut && $dateFin) {
+                    $module = $entityManager->getRepository(Module::class)->find($moduleId);
+                    if ($module) {
+                        $planification = new Planification();
+                        $planification->setSession($session);
+                        $planification->setModule($module);
+                        $planification->setDuree($duree);
+                        $planification->setDateDebut(new \DateTime($dateDebut));
+                        $planification->setDateFin(new \DateTime($dateFin));
+                        $entityManager->persist($planification);
+                    }
                 }
             }
 
