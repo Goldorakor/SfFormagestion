@@ -49,13 +49,13 @@ final class SessionController extends AbstractController
     #[Route('/admin/accueil/creations/session/new', name: 'new_session')] // 'new_session' est un nom cohérent qui décrit bien la fonction
     #[Route('/admin/accueil/creations/session/{id}/edit', name: 'edit_session')] // 'edit_session' est un nom cohérent qui décrit bien la fonction attendue
     #[IsGranted('ROLE_ADMIN')]
-    public function new_edit(
+    public function new_edit( // pour ajouter une session à notre BDD ou éditer une session existante
         Session $session = null,
         Request $request,
         EntityManagerInterface $entityManager,
         BreadcrumbsGenerator $breadcrumbsGenerator,
         InscriptionRepository $inscriptionRepository,
-    ): Response // pour ajouter un session à notre BDD
+    ): Response 
     {
         
         // pour construire notre fil d'Ariane
@@ -76,7 +76,6 @@ final class SessionController extends AbstractController
             $modif = false;
             $session = new Session();
         }
-
 
         // On stocke les inscriptions d’origine pour comparaison (si édition)
         // Enregistrer les données existantes pour nettoyage éventuel
@@ -108,20 +107,43 @@ final class SessionController extends AbstractController
         }
 
 
+        /* Récupération des inscriptions liées à la session
         $inscriptions = $inscriptionRepository->findBy(['session' => $session]);
         foreach ($inscriptions as $inscription) {
-            $session->addInscription($inscription);
+            $session->addInscription($inscription); // utile pour les avoir à disposition sur $session
+        }*/
+
+        // Préparer les données pour le champ non mappé 'apprenantsInscrits'
+        $apprenantsInscritsData = [];
+        foreach ($session->getInscriptions() as $inscription) {
+            $apprenantsInscritsData[] = [
+                'apprenant' => $inscription->getApprenant(),
+                'prix' => $inscription->getPrix() ?? null,
+            ];
+        }
+
+        // Préparer les données pour le champ non mappé 'planificationSessions'
+        $planificationSessionsData = [];
+        foreach ($session->getPlanifications() as $planification) {
+            $planificationSessionsData[] = [
+                'module' => $planification->getModule(),
+                'duree' => $planification->getDuree(),
+                'dateDebut' => $planification->getDateDebut(),
+                'dateFin' => $planification->getDateFin(),
+            ];
         }
 
 
         // 2. on crée le formulaire à partir de SessionType (on veut ce modèle là bien entendu)
         $form = $this->createForm(SessionType::class, $session, [ // c'est bien la méthode createForm() qui permet de créer le formulaire
-            'data' => $session,
+            //'data' => $session,
             'referentPedagogique' => $formOptions['referentPedagogique'] ?? null,
             'referentAdministratif' => $formOptions['referentAdministratif'] ?? null,
             'questionnairePrefor' => $formOptions['questionnairePrefor'] ?? null,
             'questionnaireChaud' => $formOptions['questionnaireChaud'] ?? null,
             'questionnaireFroid' => $formOptions['questionnaireFroid'] ?? null,
+            'apprenantsInscrits' => $apprenantsInscritsData,
+            'planificationSessions' => $planificationSessionsData,
         ]); 
 
         // 4. le traitement s'effectue ici ! si le formulaire soumis est correct, on fera l'insertion en BDD

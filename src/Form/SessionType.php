@@ -42,12 +42,6 @@ class SessionType extends AbstractType
                 'attr' => ['placeholder' => 'Nombre de participants max.'],
             ])
 
-            /* on supprime ce champ car l'ajout du sous-formulaire sera différent
-            ->add('nbModules', IntegerType::class, [
-                'label' => 'Nb de modules', // texte qui s'affiche devant le rectangle de saisie
-            ])
-            */
-
             ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début',
                 'widget' => 'single_text', // pour forcer l'affichage sous forme d'un seul champ texte avec un format standardisé
@@ -133,6 +127,7 @@ class SessionType extends AbstractType
                 'prototype' => true, //  Ajout du prototype pour le JavaScript
                 'required' => false, // rend le champ optionnel
                 'label' => false, // Empêche l'affichage automatique du label (Apprenants inscrits) -> supprime le label global de la collection
+                'data' => $options['apprenantsInscrits'] ?? [], // pour récup les données initiales lors de l'édition d'une session
             ])
 
             // Champ pour inscrire les modules avec leur durée, leur date de début et leur date de fin
@@ -148,6 +143,7 @@ class SessionType extends AbstractType
                 'prototype' => true, //  Ajout du prototype pour le JavaScript
                 'required' => false, // rend le champ optionnel
                 'label' => false, // Empêche l'affichage automatique du label (Planification sessions) -> supprime le label global de la collection
+                'data' => $options['planificationSessions'] ?? [], // pour récup les données initiales lors de l'édition d'une session
             ])
 
             ->add('enregistrer', SubmitType::class, [
@@ -163,11 +159,13 @@ class SessionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Session::class,
-            'referentPedagogique' => null,
+            'referentPedagogique' => null, // pour édition de session
             'referentAdministratif' => null,
             'questionnairePrefor' => null,
             'questionnaireChaud' => null,
             'questionnaireFroid' => null,
+            'apprenantsInscrits' => [], 
+            'planificationSessions' => [], // pour édition de session
         ]);
     }
 }
