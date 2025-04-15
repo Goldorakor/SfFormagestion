@@ -321,8 +321,13 @@ final class DocumentController extends AbstractController
     * route pour générer une convention PDF spécifique à une session et à une société (paramètres dynamiques dans l'url)
     *
     */
-    #[Route('/accueil/suivis/session/{sessionId}/societe/{societeId}/convention_pdf', name: 'generer_convention_pdf')]
+    /* déclaration d'une route Symfony :  L’URL contient deux paramètres dynamiques : sessionId et societeId.*/
+    /* Le nom de la route (generer_convention_pdf) pourra être utilisé dans Twig ou dans les redirections */
+    #[Route('/accueil/suivis/session/{sessionId}/societe/{societeId}/convention_pdf', name: 'generer_convention_pdf')] 
      
+    /* Déclaration de la méthode et injection des dépendances */
+    /* Cette méthode est appelée quand la route est visitée. Elle attend en paramètres : 
+    Les deux ID passés dans l’URL et plusieurs repositories injectés automatiquement (grâce à l’autowiring) pour interagir avec la base de données. */
     public function genererConventionPdf(
         int $sessionId,
         int $societeId,
@@ -334,13 +339,13 @@ final class DocumentController extends AbstractController
     {
         
         // Optionnel : configurer DomPDF
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+        $pdfOptions = new Options(); // création d’un objet de configuration pour DomPDF
+        $pdfOptions->set('defaultFont', 'Arial'); // La police par défaut est Arial
+        $pdfOptions->setIsRemoteEnabled(true); // permet à DomPDF de charger des images distantes ou locales avec des chemins absolus
 
-        $dompdf = new Dompdf($pdfOptions);
+        $dompdf = new Dompdf($pdfOptions); // instanciation de DomPDF avec les options précédemment définies
         
-        // Chemin vers le logo
+        // on récupère le chemin absolu du logo
         $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
         
         // On récupère l'extension du fichier (png, jpg, etc.)
@@ -349,11 +354,11 @@ final class DocumentController extends AbstractController
         // On lit le contenu du fichier
         $data = file_get_contents($path);
         
-        // On encode l'image en base64
+        // On encode l'image en base64 : utile pour l’afficher dans un PDF
         $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
 
-        // Chemin vers le tampon
+        // on récupère le chemin absolu du tampon
         $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
         
         // On récupère l'extension du fichier (png, jpg, etc.)
@@ -362,26 +367,38 @@ final class DocumentController extends AbstractController
         // On lit le contenu du fichier
         $data02 = file_get_contents($path02);
         
-        // On encode l'image en base64
+        // On encode l'image en base64 : utile pour l’afficher dans un PDF
         $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
 
 
-        // on récupère la session, la société et  les autres données nécessaires
+        // on récupère la session de formation et la société concernée via leurs IDs
         $session = $sessionRepo->find($sessionId);
         $societe = $societeRepo->find($societeId);
 
 
-        // On protège les accès aux infos société
-        $apprenantsSoc = $societe ? $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId) : [];
+        // On protège les accès aux 'infos société' : si une société est trouvée .... pour éviter des messages d'erreur
+        $apprenantsSoc = $societe ? $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId) : []; 
+        // On récupère les apprenants inscrits à cette session dans cette société
+
         $responsableLegal = $societe ? $societeRepo->findUniqueRespLegal($societe->getId()) : null;
+        // on récupère Le responsable légal de la société
+
         $prixTotal = $societe ? $societeRepo->findPrixSociete($sessionId, $societeId) : null;
+        // on récupère le prix total que la société doit payer pour la session
 
-        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
-        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
+        $entreprise = $entrepriseRepo->findUniqueEntreprise();
+        // on récupère les infos de l'organisme de formation (l’entreprise)
+
+        $representant = $representantRepo->findUniqueRepresentant();
+        // on récupère le représentant de l'organisme de formation
+
         $now = new \DateTime();
+        // on récupère la date actuelle
 
 
-        // Récupérer le contenu HTML du template Twig
+        /*  on rend un template Twig (HTML) qui va servir de contenu du PDF.
+        toutes les variables nécessaires sont passées à Twig : 
+        données sur la session, la société, le prix, les images encodées, etc. */
         $htmlContent = $this->renderView('document/convention_pdf.html.twig', [
             'session' => $session,
             'societe' => $societe,
@@ -396,18 +413,22 @@ final class DocumentController extends AbstractController
             'tamponBase64' => $tampon_base64,
         ]);
 
-        // Chargement et génération du PDF
+        // on charge le HTML dans DomPDF
         $dompdf->loadHtml($htmlContent);
+        // on choisit le format et l’orientation
         $dompdf->setPaper('A4', 'portrait');
+        // on génère le PDF
         $dompdf->render();
 
-        // Envoi du PDF au navigateur
+        // On retourne une réponse HTTP contenant le fichier PDF ( envoi du PDF au navigateur)
         return new Response(
             $dompdf->output(),
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="convention.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+                'Content-Disposition' => 'inline; filename="convention.pdf"', 
+                // inline : le PDF sera affiché dans le navigateur - filename : nom du fichier proposé si on l’enregistre
+                // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
             ]
         );
     }

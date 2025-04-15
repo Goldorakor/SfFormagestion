@@ -72,13 +72,13 @@ class SocieteRepository extends ServiceEntityRepository
 
     requête SQL liée à function findPrixSociete($session_id, $societe_id)
 
-    SELECT societe.raison_sociale, SUM(inscription.prix) AS total_paye
-    FROM societe
-    JOIN apprenant ON societe.id = apprenant.societe_id
-    JOIN inscription ON apprenant.id = inscription.apprenant_id
-    WHERE inscription.session_id = :sessionId
-    AND societe.id = :societeId
-    GROUP BY societe.id;
+    SELECT s.raison_sociale, SUM(i.prix) AS total_paye
+    FROM societe s
+    JOIN apprenant a ON s.id = a.societe_id
+    JOIN inscription i ON a.id = i.apprenant_id
+    WHERE i.session_id = :sessionId
+    AND s.id = :societeId
+    GROUP BY s.id;
     
     */
 
@@ -113,12 +113,12 @@ class SocieteRepository extends ServiceEntityRepository
     requête SQL liée à function findRespLegal($societe_id)
     testée dans HeidiSQL => impeccable
 
-    SELECT societe.raison_sociale, responsable.sexe, responsable.prenom, responsable.nom
-    FROM societe
-    JOIN responsabilite ON societe.id = responsabilite.societe_id
-    JOIN responsable ON responsabilite.responsable_id = responsable.id
-    WHERE societe.id = :societeId 
-    AND responsabilite.type_responsable = "légal";
+    SELECT s.raison_sociale, r.sexe, r.prenom, r.nom
+    FROM societe s
+    JOIN responsabilite resp ON s.id = resp.societe_id
+    JOIN responsable r ON resp.responsable_id = r.id
+    WHERE s.id = :societeId 
+    AND resp.type_responsable = "légal";
     
     */
 

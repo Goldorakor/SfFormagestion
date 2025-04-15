@@ -51,4 +51,16 @@ class EntrepriseRepository extends ServiceEntityRepository
         ->getOneOrNullResult();  // Retourne le seul résultat ou null si aucune société trouvée
     }
 
+    /* 
+
+    SELECT e en DQL signifie qu’on veut l’entité complète Entreprise, donc en SQL on utilise SELECT *
+    
+    requête SQL liée à function findUniqueRepresentant()
+
+    SELECT *
+    FROM entreprise
+    WHERE id = 1;
+    
+    */
+
 }

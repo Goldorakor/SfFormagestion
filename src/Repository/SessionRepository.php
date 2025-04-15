@@ -65,12 +65,12 @@ class SessionRepository extends ServiceEntityRepository
 
     requête SQL liée à function findSocietesEtApprenantsBySession($sessionId)
 
-    SELECT societe.id AS societeId, societe.raison_sociale, apprenant.nom, apprenant.prenom
-    FROM inscription                                                                            inscription fait le lien entre la session et l’apprenant
-    JOIN apprenant ON inscription.apprenant_id = apprenant.id                                   jointure entre inscription et apprenant
-    JOIN societe ON apprenant.societe_id = societe.id                                           jointure en cascade entre apprenant et societe
-    WHERE inscription.session_id = :sessionId                                                   filtre sur la session concernée
-    ORDER BY societe.raison_sociale, apprenant.nom;                                             trie par raison sociale puis par nom d’apprenant
+    SELECT s.id AS societeId, s.raison_sociale, a.id AS apprenantId, a.nom, a.prenom, a.email, a.metier
+    FROM inscription i                                                                        
+    JOIN apprenant a ON i.apprenant_id = a.id
+    JOIN societe s ON a.societe_id = s.id
+    WHERE i.session_id = :sessionId                           
+    ORDER BY s.raison_sociale, a.nom;
 
     */
 
@@ -98,14 +98,15 @@ class SessionRepository extends ServiceEntityRepository
 
     /*
 
-    requête SQL liée à function findSocietesEtApprenantsBySession($sessionId)
+    requête SQL liée à function findApprenantsBySocieteBySession($sessionId, $societeId)
 
-    SELECT societe.id AS societeId, societe.raison_sociale, apprenant.nom, apprenant.prenom
-    FROM inscription                                                                            inscription fait le lien entre la session et l’apprenant
-    JOIN apprenant ON inscription.apprenant_id = apprenant.id                                   jointure entre inscription et apprenant
-    JOIN societe ON apprenant.societe_id = societe.id                                           jointure en cascade entre apprenant et societe
-    WHERE inscription.session_id = :sessionId                                                   filtre sur la session concernée
-    ORDER BY societe.raison_sociale, apprenant.nom;                                             trie par raison sociale puis par nom d’apprenant
+    SELECT s.id AS societeId, s.raison_sociale, a.id, a.nom, a.prenom, a.email, a.metier
+    FROM inscription i
+    JOIN apprenant a ON i.apprenant_id = a.id
+    JOIN societe s ON a.societe_id = societe.id
+    WHERE i.session_id = :sessionId
+    AND a.societe_id = :societeId
+    ORDER BY s.raison_sociale, a.nom;
 
     */
 
@@ -132,12 +133,12 @@ class SessionRepository extends ServiceEntityRepository
 
     requête SQL liée à function findApprenantsParticuliersBySession($sessionId)
 
-    SELECT apprenant.nom, apprenant.prenom
-    FROM inscription                                                                            inscription fait le lien entre la session et l’apprenant
-    JOIN apprenant ON inscription.apprenant_id = apprenant.id                                   jointure entre inscription et apprenant
-    WHERE inscription.session_id = :sessionId                                                   filtre sur la session concernée
-    AND apprenant.societe_id IS NULL                                                            pour les apprenants sans société
-    ORDER BY apprenant.nom, apprenant.prenom;                                                   trie par raison sociale puis par nom d’apprenant
+    SELECT a.id, a.nom, a.prenom, a.email, a.metier
+    FROM inscription i
+    JOIN apprenant a ON i.apprenant_id = a.id
+    WHERE i.session_id = :sessionId
+    AND a.societe_id IS NULL
+    ORDER BY a.nom, a.prenom;
 
     */
 

@@ -44,11 +44,23 @@ class RepresentantRepository extends ServiceEntityRepository
     public function findUniqueRepresentant() // on veut récupérer l'organisme de formation et son représentant
     {
         return $this->getEntityManager()->createQuery("
-            SELECT r
+            SELECT r 
             FROM App\Entity\Representant r
             WHERE r.id = 1
         ")
         ->getOneOrNullResult();  // Retourne le seul résultat ou null si aucun représentant trouvé
     }
+
+    /* 
+
+    SELECT r en DQL signifie qu’on veut l’entité complète Representant, donc en SQL on utilise SELECT *
+    
+    requête SQL liée à function findUniqueRepresentant()
+
+    SELECT *
+    FROM representant
+    WHERE id = 1;
+    
+    */
 
 }
