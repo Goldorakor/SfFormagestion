@@ -224,14 +224,14 @@ final class SessionController extends AbstractController
 
             // Suppression des anciennes inscriptions (avant enregistrement des nouvelles)
             foreach ($inscriptionsExistantes as $inscription) {
-                $session->removeInscription($inscription);
+                $session->removeInscription($inscription); /* suppression de la collection $inscriptions de l'objet $session */
 
                 $apprenant = $inscription->getApprenant();
                 if ($apprenant) {
-                    $apprenant->removeInscription($inscription);
+                    $apprenant->removeInscription($inscription); /* suppression de la collection $inscriptions de l'objet $apprenant */
                 }
 
-                $entityManager->remove($inscription);
+                $entityManager->remove($inscription); /* suppression en BDD */
             }
 
 
