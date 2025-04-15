@@ -35,6 +35,18 @@ class ApprenantInscritType extends AbstractType
                 ]
             ]);
     }
+
+
+    //  LIGNE À AJOUTER POUR PERMETTRE LE PASSAGE D’UN TABLEAU EN INPUT
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => null, // ici on dit que ce formulaire n’est pas basé sur une entité 
+            // => Symfony ne doit pas chercher une classe à instancier avec les données envoyées.
+            // Il traitera donc apprenant et prix comme un simple tableau associatif.
+        ]);
+    }
+
 }
 
 /*

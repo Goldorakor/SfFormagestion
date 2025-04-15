@@ -1134,22 +1134,21 @@ Chaque ligne est un flex container */
 
 
 /* deux classes définies dans notre sous-formulaire ApprenantInscritType */
-
-.apprenant-entry {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  align-items: center;
-  margin-bottom: 10px;
+.apprenant-entry {  
+  display: flex; /* Affiche les éléments enfants en flexbox */
+  flex-direction: row; /* Direction des éléments enfants : en ligne */
+  gap: 15px; /* Espace de 15px entre chaque élément enfant */
+  align-items: center; /* Centre verticalement les éléments enfants */
+  margin-bottom: 10px; /* Marge inférieure pour séparer chaque ligne d’apprenant */
 }
 
-.form-cell.apprenant-inscrit { flex-basis: 70%; } /* 60% pour le champ d'apprenant */
-.form-cell.apprenant-prix { flex-basis: 26%; } /* 25% pour le champ de prix */
+.form-cell.apprenant-inscrit { flex-basis: 70%; } /* Attribue 70% de la largeur de la ligne au champ de sélection d’un apprenant */
+.form-cell.apprenant-prix { flex-basis: 26%; } /* Attribue 26% de la largeur de la ligne au champ du prix payé par l’apprenant */
 .form-cell.remove-apprenant {
-  flex-basis: 4%; /* 15% pour le bouton de suppression */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-basis: 4%; /* Attribue 26% de la largeur de la ligne pour le bouton de suppression */
+  display: flex; /* Permet d'aligner le bouton à l'intérieur avec flexbox */
+  justify-content: center; /* Centre horizontalement le bouton dans sa cellule */
+  align-items: center; /* Centre verticalement le bouton dans sa cellule */
 }
 
 .remove-apprenant-btn {
@@ -1157,19 +1156,18 @@ Chaque ligne est un flex container */
 }
 
 .remove-apprenant-btn:hover {
-  background-color: #2e32a6;
+  background-color: #2e32a6; /* Change la couleur de fond du bouton au survol pour un effet visuel */
 }
 
 /* Deuxième ligne pour le bouton "+ ajouter un apprenant" */
 .form-ligne01 #add-apprenant {
-  /* width: 25%; */ /* meilleur rendu si on supprime cette ligne */
-  margin-top: 20px;
+  margin-top: 20px; /* Ajoute de l’espace au-dessus du bouton pour l’aérer du reste du formulaire */
 }
 
 
 
 
-/* deux classes définies dans notre sous-formulaire ApprenantInscritType */
+/* deux classes définies dans notre sous-formulaire PlanificationSessionType */
 
 .module-entry {
   display: flex;

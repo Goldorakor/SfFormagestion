@@ -24,6 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('IS_AUTHENTICATED_FULLY')] /* seul un utilisateur bien connecté peut accéder aux méthodes de ce contrôleur */
 final class SessionController extends AbstractController
 {
+    
     #[Route('/accueil/creations/session', name: 'app_session')]
     public function index(SessionRepository $sessionRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -155,18 +156,6 @@ final class SessionController extends AbstractController
         // bloc qui concerne la soumission
         if ($form->isSubmitted() && $form->isValid()) {
             
-            // Suppression des anciennes inscriptions
-            foreach ($session->getInscriptions() as $inscription) {
-                $session->removeInscription($inscription);
-                $entityManager->remove($inscription);
-            }
-
-            // Suppression des anciennes planifications
-            foreach ($session->getPlanifications() as $planification) {
-                $session->removePlanification($planification);
-                $entityManager->remove($planification);
-            }
-
             // On supprime les anciens 'encadrements'
             if ($modif) {
                 foreach ($session->getEncadrements() as $encadrement) {
@@ -233,28 +222,18 @@ final class SessionController extends AbstractController
             }
 
 
+            // Suppression des anciennes inscriptions (avant enregistrement des nouvelles)
+            foreach ($inscriptionsExistantes as $inscription) {
+                $session->removeInscription($inscription);
 
-            // Nettoyage des anciennes inscriptions (si modification)
-            if ($modif) {
-                foreach ($inscriptionsExistantes as $inscription) {
-                    $entityManager->remove($inscription);
+                $apprenant = $inscription->getApprenant();
+                if ($apprenant) {
+                    $apprenant->removeInscription($inscription);
                 }
+
+                $entityManager->remove($inscription);
             }
 
-            /* Apprenants inscrits
-            $apprenantsInscrits = $form->get('apprenantsInscrits')->getData();
-            foreach ($apprenantsInscrits as $apprenantData) {
-                $apprenant = $apprenantData['apprenant'] ?? null;
-                $prix = $apprenantData['prix'] ?? null;
-
-                if ($apprenant && $prix !== null) {
-                    $inscription = new Inscription();
-                    $inscription->setSession($session);
-                    $inscription->setApprenant($apprenant);
-                    $inscription->setPrix($prix);
-                    $entityManager->persist($inscription);
-                }
-            }*/
 
             $apprenantsInscrits = $request->request->all('session')['apprenantsInscrits'] ?? [];
 
@@ -269,6 +248,11 @@ final class SessionController extends AbstractController
                         $inscription->setSession($session);
                         $inscription->setApprenant($apprenant);
                         $inscription->setPrix($prix);
+
+                        // Ajout aux collections (relations bidirectionnelles)
+                        $session->addInscription($inscription);
+                        $apprenant->addInscription($inscription);
+
                         $entityManager->persist($inscription);
                     }
                 }
@@ -276,33 +260,18 @@ final class SessionController extends AbstractController
 
 
 
+            // Suppression des anciennes planifications (avant enregistrement des nouvelles)
+            foreach ($planificationsExistantes as $planification) {
+                $session->removePlanification($planification);
 
-
-            // Nettoyage des anciennes planifications (si modification)
-            if ($modif) {
-                foreach ($planificationsExistantes as $planif) {
-                    $entityManager->remove($planif);
+                $module = $planification->getModule();
+                if ($module) {
+                    $module->removePlanification($planification);
                 }
+
+                $entityManager->remove($planification);
             }
 
-            /* Planifications
-            $planificationSessions = $form->get('planificationSessions')->getData();
-            foreach ($planificationSessions as $moduleData) {
-                $module = $moduleData['module'] ?? null;
-                $duree = $moduleData['duree'] ?? null;
-                $dateDebut = $moduleData['dateDebut'] ?? null;
-                $dateFin = $moduleData['dateFin'] ?? null;
-
-                if ($module && $duree !== null && $dateDebut && $dateFin) {
-                    $planification = new Planification();
-                    $planification->setSession($session);
-                    $planification->setModule($module);
-                    $planification->setDuree($duree);
-                    $planification->setDateDebut($dateDebut);
-                    $planification->setDateFin($dateFin);
-                    $entityManager->persist($planification);
-                }
-            }*/
 
             $planificationSessions = $request->request->all('session')['planificationSessions'] ?? [];
 
@@ -321,6 +290,11 @@ final class SessionController extends AbstractController
                         $planification->setDuree($duree);
                         $planification->setDateDebut(new \DateTime($dateDebut));
                         $planification->setDateFin(new \DateTime($dateFin));
+
+                        // Ajout aux collections (relations bidirectionnelles)
+                        $session->addPlanification($planification);
+                        $module->addPlanification($planification);
+
                         $entityManager->persist($planification);
                     }
                 }
@@ -390,6 +364,7 @@ final class SessionController extends AbstractController
         return $this->redirectToRoute('app_session'); // après une suppression, on redirige vers la liste des sessions
     }
 
+
     
     #[Route('/accueil/creations/session/{id}', name: 'show_session')]
     public function show(Session $session, BreadcrumbsGenerator $breadcrumbsGenerator): Response
@@ -409,6 +384,7 @@ final class SessionController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
 
 
     /*
@@ -434,6 +410,7 @@ final class SessionController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
 
 
     /*
