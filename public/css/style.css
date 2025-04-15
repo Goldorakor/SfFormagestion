@@ -1156,6 +1156,10 @@ Chaque ligne est un flex container */
   width: 100%; /* S'assurer que le bouton de suppression occupe toute la largeur de son conteneur */
 }
 
+.remove-apprenant-btn:hover {
+  background-color: #2e32a6;
+}
+
 /* Deuxième ligne pour le bouton "+ ajouter un apprenant" */
 .form-ligne01 #add-apprenant {
   /* width: 25%; */ /* meilleur rendu si on supprime cette ligne */
@@ -1188,6 +1192,10 @@ Chaque ligne est un flex container */
 
 .remove-module-btn {
   width: 100%; /* S'assurer que le bouton de suppression occupe toute la largeur de son conteneur */
+}
+
+.remove-module-btn:hover {
+  background-color: #2e32a6;
 }
 
 /* Deuxième ligne pour le bouton "+ ajouter un apprenant" */

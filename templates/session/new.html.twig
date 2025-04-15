@@ -140,16 +140,16 @@
                 <!-- Première ligne de chaque module -->
                 <div class="module-entry form-ligne01">
                     <div class="form-cell module-nomModule">
-                        {{ form_widget(apprenantField.module) }}
+                        {{ form_widget(moduleField.module) }}
                     </div>
                     <div class="form-cell module-duree">
-                        {{ form_widget(apprenantField.duree) }}
+                        {{ form_widget(moduleField.duree) }}
                     </div>
                     <div class="form-cell module-dateDebut">
-                        {{ form_widget(apprenantField.dateDebut) }}
+                        {{ form_widget(moduleField.dateDebut) }}
                     </div>
                     <div class="form-cell module-dateFin">
-                        {{ form_widget(apprenantField.dateFin) }}
+                        {{ form_widget(moduleField.dateFin) }}
                     </div>
                     <div class="form-cell remove-module">
                         <button type="button" class="btn btn-parme remove-module-btn">
@@ -160,7 +160,7 @@
             {% endfor %}
             <!-- Deuxième ligne : bouton pour ajouter un module -->
             <div class="form-ligne01">
-                <button type="button" class="btn btn-rose" id="add-apprenant">
+                <button type="button" class="btn btn-rose" id="add-module">
                     <i class="fa-solid fa-plus"></i> Ajouter un module
                 </button>
             </div>
