@@ -26,7 +26,7 @@ class ApprenantInscritType extends AbstractType
                 'required' => false,
                 /* 'attr' => ['placeholder' => 'Prix optionnel'],  à rajouter ?? */
                 'attr' => [
-                    'placeholder' => 'Prix optionnel',  // ici, placeholder est un attribut HTML : tous les attributs HTML personnalisés (comme class, placeholder, style, etc.) doivent être mis dans le tableau attr dans un formulaire Symfony
+                    'placeholder' => 'Prix optionnel (en € HT)',  // ici, placeholder est un attribut HTML : tous les attributs HTML personnalisés (comme class, placeholder, style, etc.) doivent être mis dans le tableau attr dans un formulaire Symfony
                     'class' => 'form-cell apprenant-prix' /* pour décider de la taille du champ en css */
                 ], 
                 'constraints' => [

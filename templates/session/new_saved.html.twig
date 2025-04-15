@@ -105,67 +105,38 @@
         <h2>Inscriptions avec tarifs</h2>
 
         <!-- Conteneur dynamique pour l'inscription des apprenants -->
-        <div id="apprenants-container" data-prototype="{{ form_widget(formAddSession.apprenantsInscrits.vars.prototype)|e('html_attr') }}">
+        <div class="form-ligne01" id="apprenants-container" data-prototype="{{ form_widget(formAddSession.apprenantsInscrits.vars.prototype)|e('html_attr') }}">
             {% for apprenantField in formAddSession.apprenantsInscrits %}
-                <!-- Première ligne de chaque apprenant -->
+                <!-- Chaque champ d'apprenant est enveloppé dans un div avec la classe 'apprenant-entry' -->
                 <div class="apprenant-entry form-ligne01">
-                    <div class="form-cell apprenant-inscrit">
-                        {{ form_widget(apprenantField.apprenant) }}
-                    </div>
-                    <div class="form-cell apprenant-prix">
-                        {{ form_widget(apprenantField.prix) }}
-                    </div>
-                    <div class="form-cell remove-apprenant">
-                        <button type="button" class="btn btn-parme remove-apprenant-btn">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
+                    {{ form_widget(apprenantField) }}
+                    <button type="button" class="remove-apprenant btn btn-danger">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div> {# <div class="apprenant-entry">{{ form_row(apprenantField) }}</div> #}
             {% endfor %}
-            <!-- Deuxième ligne : bouton pour ajouter un apprenant -->
-            <div class="form-ligne01">
-                <button type="button" class="btn btn-rose" id="add-apprenant">
-                    <i class="fa-solid fa-plus"></i> Ajouter un apprenant
-                </button>
-            </div>
+            <button type="button" class="btn btn-secondary" id="add-apprenant">
+                <i class="fa-solid fa-plus"></i> Ajouter un apprenant
+            </button>
         </div>
-
-
 
         <h2>Planification de la session</h2>
 
         <!-- Conteneur dynamique pour la planification des modules -->
-        <div id="modules-container" data-prototype="{{ form_widget(formAddSession.planificationSessions.vars.prototype)|e('html_attr') }}">
+        <div class="form-ligne01" id="modules-container" data-prototype="{{ form_widget(formAddSession.planificationSessions.vars.prototype)|e('html_attr') }}">
             {% for moduleField in formAddSession.planificationSessions %}
-                <!-- Première ligne de chaque module -->
+                <!-- Chaque champ de module est enveloppé dans un div avec la classe 'module-entry' -->
                 <div class="module-entry form-ligne01">
-                    <div class="form-cell module-nomModule">
-                        {{ form_widget(apprenantField.module) }}
-                    </div>
-                    <div class="form-cell module-duree">
-                        {{ form_widget(apprenantField.duree) }}
-                    </div>
-                    <div class="form-cell module-dateDebut">
-                        {{ form_widget(apprenantField.dateDebut) }}
-                    </div>
-                    <div class="form-cell module-dateFin">
-                        {{ form_widget(apprenantField.dateFin) }}
-                    </div>
-                    <div class="form-cell remove-module">
-                        <button type="button" class="btn btn-parme remove-module-btn">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
+                    {{ form_widget(moduleField) }}
+                    <button type="button" class="remove-module btn btn-danger">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div> {# <div class="module-entry">{{ form_row(moduleField) }}</div> #}
             {% endfor %}
-            <!-- Deuxième ligne : bouton pour ajouter un module -->
-            <div class="form-ligne01">
-                <button type="button" class="btn btn-rose" id="add-apprenant">
-                    <i class="fa-solid fa-plus"></i> Ajouter un module
-                </button>
-            </div>
+            <button type="button" class="btn btn-secondary" id="add-module">
+                <i class="fa-solid fa-plus"></i> Ajouter un module
+            </button>
         </div>
-
 
         <!-- Fin du formulaire -->
         <div class="position-rose">

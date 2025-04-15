@@ -20,17 +20,28 @@ class PlanificationSessionType extends AbstractType
                 'placeholder' => 'Sélectionner un module',
                 //'choice_label' => 'nom',  Ajuste selon le champ à afficher
                 'label' => "Nom du module d'enseignement",
+                'attr' => ['class' => 'form-cell module-nomModule'] /* pour décider de la taille du champ en css */
             ])
             ->add('duree', IntegerType::class, [
                 'label' => 'Durée (en minutes)', // texte qui s'affiche devant le rectangle de saisie
+                'attr' => [
+                    'placeholder' => 'Durée (en minutes)',  // ici, placeholder est un attribut HTML : tous les attributs HTML personnalisés (comme class, placeholder, style, etc.) doivent être mis dans le tableau attr dans un formulaire Symfony
+                    'class' => 'form-cell module-duree' /* pour décider de la taille du champ en css */
+                ],
             ])
             ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début',
                 'widget' => 'single_text', // pour forcer l'affichage sous forme d'un seul champ texte avec un format standardisé
+                'attr' => [
+                    'class' => 'form-cell module-dateDebut' /* pour décider de la taille du champ en css */
+                ],
             ])
             ->add('dateFin', DateTimeType::class, [
                 'label' => 'Date de fin',
                 'widget' => 'single_text', // pour forcer l'affichage sous forme d'un seul champ texte avec un format standardisé
+                'attr' => [
+                    'class' => 'form-cell module-dateFin' /* pour décider de la taille du champ en css */
+                ],
             ]);
     }
 }

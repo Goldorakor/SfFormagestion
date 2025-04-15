@@ -387,6 +387,23 @@ thead tr:hover {
   transition: background 0.3s ease;
 }
 
+.btn.btn-parme {
+  display: inline-flex; /* permet d'aligner l'icône et le texte correctement */
+  align-items: center; /* centre verticalement le contenu */
+  background-color: #4449D5; /* Violet */
+  color: #ffffff; /* Écriture blanche */
+  padding: 8px 25px 8px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 26px;
+  /* font-weight: bold; */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  border: none; /* enlève le bord gris dû au nivagateur */
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
 .btn.btn-rose i {
   font-size: 36px; /* l'icone n'est pas assez grande */
   margin-right: 12px; /* espacement entre l'icône et le texte */
@@ -1046,6 +1063,7 @@ FORMULAIRES
   width: 100%;
   display: flex;
   flex-direction: column;
+  flex-grow: 1; /* Permet aux champs de s'étendre si nécessaire */
 }
 
 /* Style global du formulaire */
@@ -1081,10 +1099,6 @@ Chaque ligne est un flex container */
   margin-bottom: 15px; /* Espacement entre les lignes */
 }
 
-/* Ajuster la largeur des champs individuellement */
-.form-cell {
-  flex-grow: 1; /* Permet aux champs de s'étendre si nécessaire */
-}
 
 /* Largeurs spécifiques */
 .form-cell.sexe { flex-basis: 20%; }
@@ -1116,9 +1130,74 @@ Chaque ligne est un flex container */
 .form-cell.resp-admin { flex-basis: 34%; }
 .form-cell.resp-rh { flex-basis: 33%; }
 
+
+
+
 /* deux classes définies dans notre sous-formulaire ApprenantInscritType */
-.form-cell.apprenant-inscrit { flex-basis: 80%; }
-.form-cell.apprenant-prix { flex-basis: 20%; }
+
+.apprenant-entry {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-cell.apprenant-inscrit { flex-basis: 70%; } /* 60% pour le champ d'apprenant */
+.form-cell.apprenant-prix { flex-basis: 26%; } /* 25% pour le champ de prix */
+.form-cell.remove-apprenant {
+  flex-basis: 4%; /* 15% pour le bouton de suppression */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remove-apprenant-btn {
+  width: 100%; /* S'assurer que le bouton de suppression occupe toute la largeur de son conteneur */
+}
+
+/* Deuxième ligne pour le bouton "+ ajouter un apprenant" */
+.form-ligne01 #add-apprenant {
+  /* width: 25%; */ /* meilleur rendu si on supprime cette ligne */
+  margin-top: 20px;
+}
+
+
+
+
+/* deux classes définies dans notre sous-formulaire ApprenantInscritType */
+
+.module-entry {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-cell.module-nomModule { flex-basis: 30%; } /* 60% pour le champ du module */
+.form-cell.module-duree { flex-basis: 16%; } /* 60% pour le champ de duree */
+.form-cell.module-dateDebut { flex-basis: 25%; } /* 60% pour le champ de dateDebut */
+.form-cell.module-dateFin { flex-basis: 25%; } /* 60% pour le champ de dateFin */
+.form-cell.remove-module {
+  flex-basis: 4%; /* 15% pour le bouton de suppression */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remove-module-btn {
+  width: 100%; /* S'assurer que le bouton de suppression occupe toute la largeur de son conteneur */
+}
+
+/* Deuxième ligne pour le bouton "+ ajouter un apprenant" */
+.form-ligne01 #add-module {
+  /* width: 25%; */ /* meilleur rendu si on supprime cette ligne */
+  margin-top: 20px;
+}
+
+
+
 
 .form-cell.ses-titre { flex-basis: 100%; }
 
@@ -1126,10 +1205,9 @@ Chaque ligne est un flex container */
 
 .form-cell.ses-formation { flex-basis: 100%; }
 
-.form-cell.nbplaces { flex-basis: 25%; }
-.form-cell.nbmodules { flex-basis: 25%; }
-.form-cell.ses-date-debut { flex-basis: 25%; }
-.form-cell.ses-date-fin { flex-basis: 25%; }
+.form-cell.nbplaces { flex-basis: 34%; }
+.form-cell.ses-date-debut { flex-basis: 33%; }
+.form-cell.ses-date-fin { flex-basis: 33%; }
 
 .form-cell.ref-peda { flex-basis: 50%; }
 .form-cell.ref-admin { flex-basis: 50%; }
