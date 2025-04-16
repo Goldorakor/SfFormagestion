@@ -20,7 +20,7 @@ class PdfGenerator
         $this->dompdf = new Dompdf($options);
     }
 
-    public function generatePdf(string $htmlContent, string $fileName)
+    public function getPdfContent(string $htmlContent): string
     {
         // Charger le contenu HTML dans domPDF
         $this->dompdf->loadHtml($htmlContent);
@@ -31,7 +31,10 @@ class PdfGenerator
         // Rendre le PDF
         $this->dompdf->render();
 
-        // Envoyer le PDF directement au navigateur (ou l'enregistrer sur le serveur)
-        $this->dompdf->stream($fileName, ["Attachment" => 0]); // 0 pour afficher dans le navigateur, 1 pour forcer le téléchargement
+        // option pour retourner le contenu du PDF
+        return $this->dompdf->output();
     }
 }
+
+
+

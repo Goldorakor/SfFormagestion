@@ -335,6 +335,7 @@ final class DocumentController extends AbstractController
         SocieteRepository $societeRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
+        PdfGenerator $pdfGenerator,
     ): Response
     {
         
@@ -422,7 +423,7 @@ final class DocumentController extends AbstractController
 
         // On retourne une réponse HTTP contenant le fichier PDF ( envoi du PDF au navigateur)
         return new Response(
-            $dompdf->output(),
+            $pdfGenerator->getPdfContent($html),
             200,
             [
                 'Content-Type' => 'application/pdf',

@@ -84,8 +84,8 @@ class SocieteRepository extends ServiceEntityRepository
 
 
 
-    // méthode pour récupérer le prix total payé par une société donnée pour une session déterminée (prix global que paie une société pour ses salariés inscrits)
-    // utile dans le document convention mais aussi dans la vue de détails d'une session dans le suivi administratif
+    // méthode pour récupérer le responsable légal de la société
+    // utile dans le document convention 
     public function findUniqueRespLegal($societe_id)
     {
 
@@ -110,7 +110,7 @@ class SocieteRepository extends ServiceEntityRepository
 
     /* 
 
-    requête SQL liée à function findRespLegal($societe_id)
+    requête SQL liée à function findUniqueRespLegal($societe_id)
     testée dans HeidiSQL => impeccable
 
     SELECT s.raison_sociale, r.sexe, r.prenom, r.nom

@@ -55,7 +55,7 @@ class EntrepriseRepository extends ServiceEntityRepository
 
     SELECT e en DQL signifie qu’on veut l’entité complète Entreprise, donc en SQL on utilise SELECT *
     
-    requête SQL liée à function findUniqueRepresentant()
+    requête SQL liée à function findUniqueEntreprise()
 
     SELECT *
     FROM entreprise
