@@ -4,23 +4,14 @@
 
 {% block meta_description %}Le document administratif 'convention de formation' au format PDF généré automatiquement par FORMA'GESTION pour chaque société ayant des salariés qui participeront à une session.{% endblock %}
 
-
 {% block pdf_header %}
 <div class="cont-logo-base64">
     <img src="{{ logoBase64 }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}">
 </div>
 {% endblock %}
 
-
 {% block body %}
 
-<!-- logo du haut de la page -->
-
-    {# <img src="{{ path('logo_display', { filename: entreprise.logoFilename }) }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}"> #}
-    {# <img src="{{ logoUrl }}" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}" style="width: 100px;" /> #}
-    {# <img src="http://127.0.0.1:8000/logo/logo-formatoque-67d018f6254f1.png" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}" style="width: 150px; height: 50px; object-fit: contain;" /> #}
-    {# <img src="https://formatoque.fr/wp-content/uploads/2020/04/Logo-formatoque.png" alt="Logo de l'entreprise {{ entreprise.raisonSociale }}"/> #}
-    
 
 <h1>CONVENTION DE FORMATION PROFESSIONNELLE CONTINUE</h1>
 
@@ -41,7 +32,7 @@
     et
 </h3>
 
-{% if societe %}
+{% if societe %} 
     {% if responsableLegal %}
         <p>
             la société {{ societe.raisonSociale }},<br>

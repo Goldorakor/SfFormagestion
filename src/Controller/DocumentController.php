@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -335,7 +336,7 @@ final class DocumentController extends AbstractController
         SocieteRepository $societeRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
-        PdfGenerator $pdfGenerator,
+        PdfGenerator $pdfGenerator, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
         
@@ -414,22 +415,18 @@ final class DocumentController extends AbstractController
             'tamponBase64' => $tampon_base64,
         ]);
 
-        // on charge le HTML dans DomPDF
-        $dompdf->loadHtml($htmlContent);
-        // on choisit le format et l’orientation
-        $dompdf->setPaper('A4', 'portrait');
-        // on génère le PDF
-        $dompdf->render();
+        // On génère le contenu PDF à l’aide du service PdfGenerator
+        $pdfContent = $pdfGenerator->getPdfContent($htmlContent);
 
-        // On retourne une réponse HTTP contenant le fichier PDF ( envoi du PDF au navigateur)
+        $slug = $slugger->slug($societe->getRaisonSociale()); // pour avoir un nom de société propre et normalisé
+
+        // On retourne une réponse HTTP contenant le fichier PDF
         return new Response(
-            $pdfGenerator->getPdfContent($html),
+            $pdfContent,
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="convention.pdf"', 
-                // inline : le PDF sera affiché dans le navigateur - filename : nom du fichier proposé si on l’enregistre
-                // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+                'Content-Disposition' => 'inline; filename="Convention_' . $slug . '.pdf"', // nom de ficher avec nom de société propre et normalisé
             ]
         );
     }
