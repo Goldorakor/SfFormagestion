@@ -19,7 +19,7 @@ class PdfGenerator
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
         $options->set('isRemoteEnabled', true); // pour charger les images avec chemins absolus
-        $pdfOptions->set('defaultFont', 'Arial');
+        $options->set('defaultFont', 'Arial');
 
         $this->dompdf = new Dompdf($options); 
         // on initialise DomPDF dans le constructeur (1) : 
