@@ -14,7 +14,6 @@ final class PlanificationController extends AbstractController
     public function index(): Response
     {
         return $this->render('planification/index.html.twig', [
-            'controller_name' => 'PlanificationController',
         ]);
     }
 }

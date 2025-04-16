@@ -29,6 +29,8 @@ final class RepresentantController extends AbstractController
     }
 
 
+
+    
     // https://symfony.com/doc/current/controller/upload_file.html -> on récupère la partie de code qui permet définir la méthode ci-dessous
 
     // Route unique pour créer ou éditer le représentant (on fusionne les deux noms) et afficher la vue de détails
@@ -38,7 +40,6 @@ final class RepresentantController extends AbstractController
     // attention : #[Autowire('%kernel.project_dir%/public/uploads/tampons')] => #[Autowire('%env(TAMPON_DIRECTORY)%')] : stockage en dehors de public - voir le fichier .env
 
     {
-    
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
@@ -46,11 +47,9 @@ final class RepresentantController extends AbstractController
             ['label' => 'Infos sur le représentant légal'], // Pas de route car c’est la page actuelle
         ]);
         
-        
         $tamponsDirectory = $this->getParameter('tampons_directory'); // on récupère le bon chemin d'upload
         
         // dump($tamponsDirectory); die();  Vérification du chemin
-        
         
         // On récupère le seul représentant existant ou on en crée un si aucun n'existe.
         $representant = $entityManager->getRepository(Representant::class)->findOneBy([]) ?? new Representant();
@@ -70,7 +69,6 @@ final class RepresentantController extends AbstractController
 
             if ($tamponFile) {
 
-
                 // Si un tampon existe déjà, on supprime l'ancien fichier du dossier
                 if ($representant->getTamponFilename()) {
                     $oldFilePath = $tamponsDirectory . $representant->getTamponFilename();
@@ -79,7 +77,6 @@ final class RepresentantController extends AbstractController
                         unlink($oldFilePath);  // Supprimer le fichier tampon existant
                     }
                 }
-
 
                 // https://symfony.com/doc/current/controller/upload_file.html
                 // vérification de l'extension du fichier (on vérifie déjà dans RepresentantType.php mais une vérification supplémentaire au niveau du contrôleur empêche toute tentative de contournement en manipulant l’extension d’un fichier malveillant)
@@ -136,6 +133,8 @@ final class RepresentantController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
+
 
 
     // les fichiers stockés en dehors de 'public' ne sont pas directement accessibles par url. Pour les afficher, il faut créer une route spéciale qui lit les fichiers et les sert via Symfony.

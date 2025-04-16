@@ -24,7 +24,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('IS_AUTHENTICATED_FULLY')] /* seul un utilisateur bien connecté peut accéder aux méthodes de ce contrôleur */
 final class SessionController extends AbstractController
 {
-    
     #[Route('/accueil/creations/session', name: 'app_session')]
     public function index(SessionRepository $sessionRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -34,7 +33,6 @@ final class SessionController extends AbstractController
             ['label' => 'Créations', 'route' => 'creations'],
             ['label' => 'Liste des sessions'], // Pas de route car c’est la page actuelle
         ]);
-        
         
         // méthode choisie qui ne permet pas de trier la liste des sessions
         // $sessions = $sessionRepository->findAll();
@@ -49,6 +47,7 @@ final class SessionController extends AbstractController
 
 
 
+
     #[Route('/admin/accueil/creations/session/new', name: 'new_session')] // 'new_session' est un nom cohérent qui décrit bien la fonction
     #[Route('/admin/accueil/creations/session/{id}/edit', name: 'edit_session')] // 'edit_session' est un nom cohérent qui décrit bien la fonction attendue
     #[IsGranted('ROLE_ADMIN')]
@@ -60,7 +59,6 @@ final class SessionController extends AbstractController
         InscriptionRepository $inscriptionRepository,
     ): Response 
     {
-        
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
@@ -71,7 +69,6 @@ final class SessionController extends AbstractController
         // $variable = (condition) ? valeur_si_vrai : valeur_si_faux;
         // Si condition est vraie → la valeur après ? est assignée.
         // Si condition est fausse → la valeur après : est assignée.
-        
         
         // 1. si pas de session, on crée une nouvelle session (un objet session est bien créé ici) - s'il existe déjà, pas besoin de le créer
         $modif = true;
@@ -87,7 +84,6 @@ final class SessionController extends AbstractController
 
         $formOptions = [];
 
-
         // Pré-remplir les champs référents si on est en mode édition
         foreach ($session->getEncadrements() as $encadrement) {
             if ($encadrement->getTypeReferent() === 'pédagogique') {
@@ -96,7 +92,6 @@ final class SessionController extends AbstractController
                 $formOptions['referentAdministratif'] = $encadrement->getFormateur();
             }
         }
-
 
         // Pré-remplir les champs questionnaires si on est en mode édition
         foreach ($session->getSondages() as $sondage) {
@@ -108,7 +103,6 @@ final class SessionController extends AbstractController
                 $formOptions['questionnaireFroid'] = $sondage->getQuestionnaire();
             }
         }
-
 
         /* Récupération des inscriptions liées à la session
         $inscriptions = $inscriptionRepository->findBy(['session' => $session]);
@@ -136,7 +130,6 @@ final class SessionController extends AbstractController
             ];
         }
 
-
         // 2. on crée le formulaire à partir de SessionType (on veut ce modèle là bien entendu)
         $form = $this->createForm(SessionType::class, $session, [ // c'est bien la méthode createForm() qui permet de créer le formulaire
             //'data' => $session,
@@ -151,7 +144,6 @@ final class SessionController extends AbstractController
 
         // 4. le traitement s'effectue ici ! si le formulaire soumis est correct, on fera l'insertion en BDD
         $form->handleRequest($request);
-
 
         // bloc qui concerne la soumission
         if ($form->isSubmitted() && $form->isValid()) {
@@ -182,7 +174,6 @@ final class SessionController extends AbstractController
                 $encadrementAdmin->setTypeReferent('administratif');
                 $entityManager->persist($encadrementAdmin);
             }
-
 
 
             // On supprime les anciens 'sondages'
@@ -221,7 +212,6 @@ final class SessionController extends AbstractController
                 $entityManager->persist($sondage);
             }
 
-
             // Suppression des anciennes inscriptions (avant enregistrement des nouvelles)
             foreach ($inscriptionsExistantes as $inscription) {
                 $session->removeInscription($inscription); /* suppression de la collection $inscriptions de l'objet $session */
@@ -233,7 +223,6 @@ final class SessionController extends AbstractController
 
                 $entityManager->remove($inscription); /* suppression en BDD */
             }
-
 
             $apprenantsInscrits = $request->request->all('session')['apprenantsInscrits'] ?? [];
 
@@ -258,8 +247,6 @@ final class SessionController extends AbstractController
                 }
             }
 
-
-
             // Suppression des anciennes planifications (avant enregistrement des nouvelles)
             foreach ($planificationsExistantes as $planification) {
                 $session->removePlanification($planification);
@@ -271,7 +258,6 @@ final class SessionController extends AbstractController
 
                 $entityManager->remove($planification);
             }
-
 
             $planificationSessions = $request->request->all('session')['planificationSessions'] ?? [];
 
@@ -300,19 +286,16 @@ final class SessionController extends AbstractController
                 }
             }
 
-
             // Enregistrement de la session et des encadrements, inscriptions, sondages, planifications
             $entityManager->persist($session);
             // Enregistrement de la session, des encadrements et des sondages
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement -> maintenant, on envoie la totalité des informations en BDD
-
 
             // redirection vers la liste des sessions (si formulaire soumis et formulaire valide)
             return $this->redirectToRoute('app_session');
         }
         // fin du bloc
         
-
         // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddSession) }} --> affichage par défaut 
         return $this->render('session/new.html.twig', [ // 'session/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier session
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
@@ -323,6 +306,7 @@ final class SessionController extends AbstractController
         ]);
 
     }
+
 
 
 
@@ -357,7 +341,6 @@ final class SessionController extends AbstractController
             return $this->redirectToRoute('show_session', ['id' => $session->getId()]); // on redirige immédiatement sur la vue de détails de la société (sans rien supprimer)
         }
         
-        
         $entityManager->remove($session); // on enlève la session ciblée de la collection des sessions
         $entityManager->flush(); // on effectue la requête SQL : DELETE FROM
 
@@ -366,6 +349,7 @@ final class SessionController extends AbstractController
 
 
     
+
     #[Route('/accueil/creations/session/{id}', name: 'show_session')]
     public function show(Session $session, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -378,12 +362,12 @@ final class SessionController extends AbstractController
             // Session spécifique // Pas de route car c’est la page actuelle
         ]);
         
-        
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
 
 
 
@@ -402,7 +386,6 @@ final class SessionController extends AbstractController
             ['label' => 'Liste de suivi des sessions'], // Pas de route car c’est la page actuelle
         ]);
         
-
         $sessions = $sessionRepository->findBy([], ["titreSession"=>"ASC"]);
 
         return $this->render('session/suivi_index.html.twig', [
@@ -410,6 +393,7 @@ final class SessionController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
 
 
 
@@ -430,7 +414,6 @@ final class SessionController extends AbstractController
             // Session spécifique // Pas de route car c’est la page actuelle
         ]);
 
-
         // Récupérer les sociétés et les apprenants salariés liés à la session
         $societesEtApprenants = $sessionRepo->findSocietesEtApprenantsBySession($session->getId());
 
@@ -440,7 +423,6 @@ final class SessionController extends AbstractController
         // Récupérer le total payé par chaque société
         $prixParSociete = []; // On prépare un tableau associatif (societeId => total payé) qui contiendra la somme des paiements par société, pour le moment c'est vide
         
-    
         // On parcourt toutes les lignes récupérées par la DQL qui liste les sociétés et leurs apprenants
         foreach ($societesEtApprenants as $ligne) {
 
@@ -453,7 +435,6 @@ final class SessionController extends AbstractController
             - 'email' => email de l'apprenant
             - 'metier' => métier de l'apprenant
             */
-
 
             // On vérifie si on n'a pas encore calculé le total payé pour cette société
             if (!isset($prixParSociete[$ligne['societeId']])) {
@@ -468,15 +449,17 @@ final class SessionController extends AbstractController
         }
 
         /*
-
-        tableau associatif a cette forme :
-
-        [
-            1 => 5000,   // société Id 1 a payé 5000 euros
-            2 => 3500,   // société Id 2 a payé 3500 euros
-            // etc.
-        ]
-
+        *
+        *
+        *   tableau associatif a cette forme :
+        *
+        *   [
+        *   1 => 5000,   // société Id 1 a payé 5000 euros
+        *   2 => 3500,   // société Id 2 a payé 3500 euros
+        *   etc.
+        *   ]
+        *
+        *
         */
 
         return $this->render('session/suivi_show.html.twig', [

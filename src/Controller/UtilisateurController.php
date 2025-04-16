@@ -19,8 +19,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[IsGranted('IS_AUTHENTICATED_FULLY')] /* seul un utilisateur bien connecté peut accéder aux méthodes de ce contrôleur */
 final class UtilisateurController extends AbstractController
 {
-
-    
     #[Route('/accueil/parametres/utilisateur', name: 'app_utilisateur')]
     public function index(UserRepository $userRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -33,12 +31,12 @@ final class UtilisateurController extends AbstractController
 
         $users = $userRepository->findAll();
         
-        
         return $this->render('utilisateur/index.html.twig', [
             'users' => $users,
             'breadcrumbs' => $breadcrumbs,
         ]);
     }
+
 
 
 
@@ -175,6 +173,7 @@ final class UtilisateurController extends AbstractController
 
 
 
+
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/accueil/parametres/utilisateur/{id}/delete', name: 'delete_utilisateur')]
     public function delete(User $user, EntityManagerInterface $entityManager): Response
@@ -184,6 +183,7 @@ final class UtilisateurController extends AbstractController
 
         return $this->redirectToRoute('app_utilisateur'); // après une suppression, on redirige vers la liste des utilisateurs
     }
+
 
 
 
@@ -224,6 +224,8 @@ final class UtilisateurController extends AbstractController
     */
 
 
+
+
     // méthode provisoire pour ajouter un utilisateur 02 avec rôle USER (on ne sécurise pas => le mieux est de supprimer cette méthode après utilisation)
     #[Route('/ajout-user02', name: 'app_ajout_user02')]
     public function addUser02(EntityManagerInterface $em, UserPasswordHasherInterface $hasher)
@@ -261,6 +263,8 @@ final class UtilisateurController extends AbstractController
     */
 
 
+
+    
     // méthode pour tester un envoi de mail vers MailHog, pour s'assurer que tout va bien !
     // dans le navigateur, on entre : https://127.0.0.1:8000/test-email
     #[Route('/test-email', name: 'test_email')]

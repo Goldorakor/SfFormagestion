@@ -27,13 +27,11 @@ final class SocieteController extends AbstractController
             ['label' => 'Liste des sociétés'], // Pas de route car c’est la page actuelle
         ]);
         
-        
         // méthode choisie qui ne permet pas de trier la liste des sociétés
         // $societes = $societeRepository->findAll();
 
         $societes = $societeRepository->findBy([], ["raisonSociale"=>"ASC"]);
         // SELECT * FROM societe ORDER BY raisonSociale
-
 
         // un exemple si on voulait affiner le tri plus finement
         // $societes = $societeRepository->findBy(["villeSiege"=>"Strasbourg"], ["raisonSociale"=>"ASC"]);
@@ -44,6 +42,7 @@ final class SocieteController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
 
 
 
@@ -63,7 +62,6 @@ final class SocieteController extends AbstractController
         // Si condition est vraie → la valeur après ? est assignée.
         // Si condition est fausse → la valeur après : est assignée.
         
-        
         // 1. si pas de societe, on crée un nouveau societe (un objet societe est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$societe) {
             $societe = new Societe();
@@ -75,18 +73,14 @@ final class SocieteController extends AbstractController
         // 4. le traitement s'effectue ici ! si le formulaire soumis est correct, on fera l'insertion en BDD
         $form->handleRequest($request);
 
-
         // bloc qui concerne la soumission
         if ($form->isSubmitted() && $form->isValid()) {
             
             $societe = $form->getData(); // on récupère les données du formulaire dans notre objet Societe
 
-
             // Sauvegarde de la société
             // $entityManager->persist($societe);  équivaut à la méthode prepare() en PDO (on le fait plus bas)
             // $entityManager->flush(); équivaut à la méthode execute() en PDOStatement -> on exécute tout à la fin
-
-
 
             // Supprimer les anciennes responsabilités de cette société avant de les mettre à jour (sinon on a plein de doublons dans la table)
             // Toujours prendre cette méthode pour supprimer des enregistrements dans les tables associatives
@@ -95,13 +89,10 @@ final class SocieteController extends AbstractController
                 $societe->removeResponsabilite($responsabilite); // optionnel, pour tenir la collection à jour côté PHP
             }
 
-
             // Récupération des responsables sélectionnés
             $responsableLegal = $form->get('responsableLegal')->getData();
             $responsableAdministratif = $form->get('responsableAdministratif')->getData();
             $responsableRH = $form->get('responsableRH')->getData();
-
-
 
             // Création des responsabilités si un responsable est sélectionné
             if ($responsableLegal) { // vérifie si l'utilisateur a effectivement sélectionné un responsable légal via le formulaire -> si un responsable a été choisi, une nouvelle responsabilité est créée.
@@ -128,18 +119,15 @@ final class SocieteController extends AbstractController
                 $entityManager->persist($responsabiliteRH); // équivaut à la méthode prepare() en PDO -> Enregistrer toutes les modifications (societe et responsabilités)
             }
 
-
             // Enregistrement de la société et des responsabilités
             $entityManager->persist($societe);
             $entityManager->flush(); // équivaut à la méthode execute() en PDOStatement
-
 
             // redirection vers la liste des societes (si formulaire soumis et formulaire valide)
             return $this->redirectToRoute('app_societe');
         }
         // fin du bloc
         
-
         // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddSociete) }} --> affichage par défaut 
         return $this->render('societe/new.html.twig', [ // 'societe/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier societe
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
@@ -150,13 +138,13 @@ final class SocieteController extends AbstractController
         ]);
     }
 
+
     
     
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/accueil/creations/societe/{id}/delete', name: 'delete_societe')]
     public function delete(Societe $societe, EntityManagerInterface $entityManager): Response
     {
-        
         // Societe.php : Collection $apprenants - Collection $formateurs - Collection $responsabilites
         // voilà les collections d'entités à traiter pour la question d'intégrité référentielle
         
@@ -177,13 +165,13 @@ final class SocieteController extends AbstractController
             $this->addFlash('warning', "Impossible de supprimer cette société : elle possède encore au moins un lien avec un responsable. Supprimez ce lien en éditant le profil de la société d'abord.");
             return $this->redirectToRoute('show_societe', ['id' => $societe->getId()]); // on redirige immédiatement sur la vue de détails de la société (sans rien supprimer)
         }
-
         
         $entityManager->remove($societe); // on enlève la societe ciblée de la collection des societes
         $entityManager->flush(); // on effectue la requête SQL : DELETE FROM
 
         return $this->redirectToRoute('app_societe'); // après une suppression, on redirige vers la liste des societes
     }
+
 
 
     
@@ -197,7 +185,6 @@ final class SocieteController extends AbstractController
             ['label' => 'Liste des sociétés', 'route' => 'app_societe'], 
             ['label' => "Détails d'une société #".$societe->getId(), 'params' => ['id' => $societe->getId()]], // Société spécifique // Pas de route car c’est la page actuelle
         ]);
-        
         
         return $this->render('societe/show.html.twig', [
             'societe' => $societe,

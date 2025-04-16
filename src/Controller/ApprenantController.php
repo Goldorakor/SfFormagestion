@@ -20,47 +20,23 @@ final class ApprenantController extends AbstractController // classe ApprenantCo
     // url de la route : /apprenant
     // nom de la route : app_apprenant -> peut être changé mais doit être différent de tous les names de tous les controleurs !
     #[Route('/accueil/creations/apprenant', name: 'app_apprenant')]
-
-    // méthode index (première façon de faire)
-    // public function index(EntityManagerInterface $entityManager): Response
-
-    // méthode index (deuxième façon de faire)
     public function index(ApprenantRepository $apprenantRepository, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
-        // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
             ['label' => 'Créations', 'route' => 'creations'],
             ['label' => 'Liste des apprenants'], // Pas de route car c’est la page actuelle
         ]);
         
-        
-        
-        // exemple du début -> désuet pour la suite
-        $name = 'nom';
-
-        // méthode index (première façon de faire)
-        // $apprenants = $entityManager->getRepository(Apprenant::class)->findAll();
-
-        // méthode index (deuxième façon de faire)
-        // $apprenants = $apprenantRepository->findAll();
-
-        // méthode index (troisième façon de faire)
         $apprenants = $apprenantRepository->findBy([], ["nom"=>"ASC"]);
         // SELECT * FROM apprenant ORDER BY nom
-
 
         // un exemple si on voulait affiner le tri plus finement
         // $apprenants = $societeRepository->findBy(["ville"=>"Strasbourg"], ["nom"=>"ASC"]);
         // SELECT * FROM apprenant WHERE ville = 'Strasbourg' ORDER BY nom
 
-
-
         // permet de faire le lien entre le controleur et la vue (vers la vue 'apprenant/index.html.twig')
         return $this->render('apprenant/index.html.twig', [
-            // argument par défaut en guise d''exemple 
-            // {{ controler_name }} dans apprenant/index.html.twig -> navigateur (http://127.0.0.1:8000/apprenant) affiche 'ApprenantController'
-            'controller_name' => $name,
             'apprenants' => $apprenants,
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);

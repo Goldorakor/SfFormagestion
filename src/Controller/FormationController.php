@@ -24,7 +24,6 @@ final class FormationController extends AbstractController
             ['label' => 'Liste des formations'], // Pas de route car c’est la page actuelle
         ]);
         
-        
         // méthode choisie qui ne permet pas de trier la liste des formations
         // $formations = $formationRepository->findAll();
 
@@ -36,5 +35,3 @@ final class FormationController extends AbstractController
         ]);
     }
 }
-
-

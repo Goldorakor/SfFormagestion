@@ -36,9 +36,3 @@ final class ProgrammeController extends AbstractController
         ]);
     }
 }
-
-
-
-
-
-

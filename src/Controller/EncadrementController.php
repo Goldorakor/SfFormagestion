@@ -14,7 +14,6 @@ final class EncadrementController extends AbstractController
     public function index(): Response
     {
         return $this->render('encadrement/index.html.twig', [
-            'controller_name' => 'EncadrementController',
         ]);
     }
 }

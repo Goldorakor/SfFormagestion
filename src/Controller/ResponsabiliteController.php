@@ -14,7 +14,6 @@ final class ResponsabiliteController extends AbstractController
     public function index(): Response
     {
         return $this->render('responsabilite/index.html.twig', [
-            'controller_name' => 'ResponsabiliteController',
         ]);
     }
 }

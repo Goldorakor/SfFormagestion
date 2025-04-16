@@ -38,6 +38,8 @@ final class ModuleController extends AbstractController
     }
 
 
+
+    
     /*
     #[Route('/module/new', name: 'new_module')] // 'new_module' est un nom cohérent qui décrit bien la fonction
     #[Route('/module/{id}/edit', name: 'edit_module')] // 'edit_module' est un nom cohérent qui décrit bien la fonction attendue
@@ -88,6 +90,7 @@ final class ModuleController extends AbstractController
         return $this->redirectToRoute('app_module'); // après une suppression, on redirige vers la liste des modules
     }
     */
+
 
 
 

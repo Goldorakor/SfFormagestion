@@ -16,14 +16,13 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 #[IsGranted('IS_AUTHENTICATED_FULLY')] /* seul un utilisateur bien connecté peut accéder aux méthodes de ce contrôleur */
 final class AccountController extends AbstractController
 {
-
     #[Route('/account', name: 'app_account')]
     public function index(): Response
     {
         return $this->render('account/index.html.twig', [
-            'controller_name' => 'AccountController',
         ]);
     }
+
 
 
 

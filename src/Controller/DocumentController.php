@@ -9,7 +9,7 @@ use App\Service\PdfGenerator;
 use App\Repository\SessionRepository;
 use App\Repository\SocieteRepository;
 use App\Service\BreadcrumbsGenerator;
-// use App\Repository\ResponsableRepository;
+use App\Repository\ResponsableRepository;
 use App\Repository\ApprenantRepository;
 use App\Repository\EntrepriseRepository;
 use App\Repository\RepresentantRepository;
@@ -24,8 +24,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('IS_AUTHENTICATED_FULLY')] /* seul un utilisateur bien connecté peut accéder aux méthodes de ce contrôleur */
 final class DocumentController extends AbstractController
 {
-
-
     // cette méthode aurait pu servir à afficher la page "liste des modèles de documents" (comme le cas Apprenant par exemple)
     // mais cette page est statique et elle est donc traitée par une méthode dans PageController.php :
     // #[Route('/accueil/parametres/modeles_documents', name: 'modeles_documents')]
@@ -35,7 +33,6 @@ final class DocumentController extends AbstractController
     ): Response
     {
         return $this->render('document/index.html.twig', [
-            'controller_name' => 'DocumentController',
         ]);
     }
 
@@ -56,12 +53,9 @@ final class DocumentController extends AbstractController
         ]);
         
         return $this->render('document/programme.html.twig', [
-            'controller_name' => 'DocumentController',
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
-
-
 
 
 
@@ -80,14 +74,9 @@ final class DocumentController extends AbstractController
         ]);
         
         return $this->render('document/contrat_formateur.html.twig', [
-            'controller_name' => 'DocumentController',
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
-
-
-
-
 
 
 
@@ -121,11 +110,9 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         
-
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
@@ -135,10 +122,8 @@ final class DocumentController extends AbstractController
             ['label' => "Convocation apprenant #".$apprenant->getId(),], // Pas de route car c’est la page actuelle
         ]);
 
-
         $now = new \DateTime();
 
-        
         return $this->render('document/convocation.html.twig', [
             'session' => $session,
             'societe' => $societe,
@@ -150,6 +135,7 @@ final class DocumentController extends AbstractController
             'responsableLegal' => $responsableLegal,
         ]);
     }
+
 
 
 
@@ -168,47 +154,36 @@ final class DocumentController extends AbstractController
         ApprenantRepository $apprenantRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
+        PdfGenerator $pdfGenerator, /* on injecte le service pour pouvoir en bénéficier */
+        SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        // on récupère les chemins absolus des images (logo et tampon)
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
         
-        // Optionnel : configurer DomPDF
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+        // On récupère les extensions des fichiers (png, jpg, etc.)
+        $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
+        $tamponType = pathinfo($tamponPath, PATHINFO_EXTENSION);
+        
+        // On lit les contenus des fichiers
+        $logoData = file_get_contents($logoPath);
+        $tamponData = file_get_contents($tamponPath);
+        
+        // On encode les images en base64 : utile pour l’afficher dans un PDF
+        $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoData);
+        $tamponBase64 = 'data:image/' . $tamponType . ';base64,' . base64_encode($tamponData);
 
-        $dompdf = new Dompdf($pdfOptions);
-        
-        // Chemin vers le logo
-        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data = file_get_contents($path);
-        
-        // On encode l'image en base64
-        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-
-        // Chemin vers le tampon
-        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data02 = file_get_contents($path02);
-        
-        // On encode l'image en base64
-        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
-        
-
-        // on récupère la session, la société et toutes les données nécessaires
+        // on récupère la session de formation et la société concernée via leurs IDs
         $session = $sessionRepo->find($sessionId);
         $apprenant = $apprenantRepo->find($apprenantId);
         $societe = $apprenant->getSociete();
 
+        // On se protège d'une possible erreur
+        if (!$session || !$apprenant) {
+            throw $this->createNotFoundException('Session ou apprenant introuvable.');
+        }
+        
         // S’il y a une société, on récupère son id et le responsable légal
         $responsableLegal = null;
         if ($societe !== null) {
@@ -216,11 +191,9 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
-
 
         // Récupérer le contenu HTML du template Twig
         $htmlContent = $this->renderView('document/convocation_pdf.html.twig', [
@@ -236,21 +209,22 @@ final class DocumentController extends AbstractController
             'tamponBase64' => $tampon_base64,
         ]);
 
-        // Chargement et génération du PDF
-        $dompdf->loadHtml($htmlContent);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        // On génère le contenu PDF à l’aide du service PdfGenerator
+        $pdfContent = $pdfGenerator->getPdfContent($htmlContent);
 
-        // Envoi du PDF au navigateur
+        $slug = $slugger->slug($apprenant->__toString())->lower(); // pour avoir une identité de l'apprenant propre et normalisé
+
+        // On retourne une réponse HTTP contenant le fichier PDF
         return new Response(
-            $dompdf->output(),
+            $pdfContent,
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="convocation.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+                'Content-Disposition' => 'inline; filename="Convocation_' . $slug . '.pdf"', // nom de ficher avec nom de société propre et normalisé
             ]
         );
     }
+
 
 
 
@@ -270,7 +244,6 @@ final class DocumentController extends AbstractController
         BreadcrumbsGenerator $breadcrumbsGenerator,
     ): Response
     {
-        
         // on récupère la session, la société et toutes les données nécessaires
         $session = $sessionRepo->find($sessionId);
         $societe = $societeRepo->find($societeId);
@@ -279,10 +252,8 @@ final class DocumentController extends AbstractController
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         
-
         // Récupération du prix total payé par la société pour la session donnée
         $prixTotal = $societeRepo->findPrixSociete($sessionId, $societeId);
-
         
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -293,10 +264,8 @@ final class DocumentController extends AbstractController
             ['label' => "Convention société #".$societe->getId(),], // Pas de route car c’est la page actuelle
         ]);
 
-
         $now = new \DateTime();
 
-        
         return $this->render('document/convention.html.twig', [
             'session' => $session,
             'societe' => $societe,
@@ -317,6 +286,7 @@ final class DocumentController extends AbstractController
 
 
     
+
     /*
     *
     * route pour générer une convention PDF spécifique à une session et à une société (paramètres dynamiques dans l'url)
@@ -340,7 +310,6 @@ final class DocumentController extends AbstractController
         SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
-        
         // on récupère les chemins absolus des images (logo et tampon)
         $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
         $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
@@ -357,17 +326,14 @@ final class DocumentController extends AbstractController
         $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoData);
         $tamponBase64 = 'data:image/' . $tamponType . ';base64,' . base64_encode($tamponData);
 
-
         // on récupère la session de formation et la société concernée via leurs IDs
         $session = $sessionRepo->find($sessionId);
         $societe = $societeRepo->find($societeId);
-
 
         // On se protège d'une possible erreur
         if (!$session || !$societe) {
             throw $this->createNotFoundException('Session ou société introuvable.');
         }
-
 
         $apprenantsSoc = $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId);
         // On récupère les apprenants inscrits à cette session dans cette société
@@ -386,7 +352,6 @@ final class DocumentController extends AbstractController
 
         $now = new \DateTime();
         // on récupère la date actuelle
-
 
         /*  on génère du contenu HTML via Twig (le futur contenu du PDF) :
         toutes les variables nécessaires sont passées à Twig =>
@@ -423,6 +388,7 @@ final class DocumentController extends AbstractController
 
 
 
+
     /*
     *
     * route pour générer une feuille d'émargement spécifique à une session et à une société (paramètres dynamiques dans l'url)
@@ -447,7 +413,6 @@ final class DocumentController extends AbstractController
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
-        
 
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
@@ -457,7 +422,6 @@ final class DocumentController extends AbstractController
             ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
             ['label' => "Feuille émargement #".$societe->getId(),], // Pas de route car c’est la page actuelle
         ]);
-
 
         $now = new \DateTime();
 
@@ -530,7 +494,8 @@ final class DocumentController extends AbstractController
     }
 
 
-    
+  
+
     /*
     *
     * route pour générer une feuille d'émargement PDF spécifique à une session et à une société (paramètres dynamiques dans l'url)
@@ -545,57 +510,51 @@ final class DocumentController extends AbstractController
         SocieteRepository $societeRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
+        PdfGenerator $pdfGenerator, /* on injecte le service pour pouvoir en bénéficier */
+        SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        // on récupère les chemins absolus des images (logo et tampon)
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
         
-        // Optionnel : configurer DomPDF
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+        // On récupère les extensions des fichiers (png, jpg, etc.)
+        $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
+        $tamponType = pathinfo($tamponPath, PATHINFO_EXTENSION);
+        
+        // On lit les contenus des fichiers
+        $logoData = file_get_contents($logoPath);
+        $tamponData = file_get_contents($tamponPath);
+        
+        // On encode les images en base64 : utile pour l’afficher dans un PDF
+        $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoData);
+        $tamponBase64 = 'data:image/' . $tamponType . ';base64,' . base64_encode($tamponData);
 
-        $dompdf = new Dompdf($pdfOptions);
-        
-        // Chemin vers le logo
-        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data = file_get_contents($path);
-        
-        // On encode l'image en base64
-        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-
-        // Chemin vers le tampon
-        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data02 = file_get_contents($path02);
-        
-        // On encode l'image en base64
-        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
-
-
-        // on récupère la session, la société et  les autres données nécessaires
+        // on récupère la session de formation et la société concernée via leurs IDs
         $session = $sessionRepo->find($sessionId);
         $societe = $societeRepo->find($societeId);
 
+        // On se protège d'une possible erreur
+        if (!$session || !$societe) {
+            throw $this->createNotFoundException('Session ou société introuvable.');
+        }
 
-        // On protège les accès aux infos société
-        $apprenantsSoc = $societe ? $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId) : [];
-        $responsableLegal = $societe ? $societeRepo->findUniqueRespLegal($societe->getId()) : null;
+        $apprenantsSoc = $sessionRepo->findApprenantsBySocieteBySession($sessionId, $societeId);
+        // On récupère les apprenants inscrits à cette session dans cette société
 
-        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
-        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
+        $responsableLegal = $societeRepo->findUniqueRespLegal($societeId);
+        // on récupère Le responsable légal de la société
+
+        $entreprise = $entrepriseRepo->findUniqueEntreprise();
+        // on récupère les infos de l'organisme de formation (l’entreprise)
+
+        $representant = $representantRepo->findUniqueRepresentant();
+        // on récupère le représentant de l'organisme de formation
+
         $now = new \DateTime();
+        // on récupère la date actuelle
 
         /* partie pour récupérer les demi-journées qui composent la session */
-
         // On initialise un tableau vide pour stocker les demi-journées regroupées par date et moment (matin/après-midi)
         $demiJournees = [];
 
@@ -603,10 +562,13 @@ final class DocumentController extends AbstractController
         foreach ($session->getPlanifications() as $planif) {
             // On récupère la date au format d/m/Y (ex : 12/04/2025)
             $date = $planif->getDateDebut()->format('Y-m-d');
+
             // On récupère la date sous forme d'un objet DateTime qu'on passera à la vue
             $dateTwig = $planif->getDateDebut();
+
             // On extrait l'heure pour déterminer le moment de la journée (matin ou après-midi)
             $hour = (int)$planif->getDateDebut()->format('H');
+
             // Si l'heure est avant 12h, c'est le matin ; sinon, c'est l'après-midi
             $moment = ($hour < 12) ? 'matin' : 'après-midi';
             // On crée une clé unique pour chaque demi-journée, par exemple : "2025-04-12-matin"
@@ -659,21 +621,22 @@ final class DocumentController extends AbstractController
             'demi_journees' => $demiJournees,
         ]);
 
-        // Chargement et génération du PDF
-        $dompdf->loadHtml($htmlContent);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        // On génère le contenu PDF à l’aide du service PdfGenerator
+        $pdfContent = $pdfGenerator->getPdfContent($htmlContent);
 
-        // Envoi du PDF au navigateur
+        $slug = $slugger->slug($societe->getRaisonSociale())->lower(); // pour avoir un nom de société propre et normalisé
+
+        // On retourne une réponse HTTP contenant le fichier PDF
         return new Response(
-            $dompdf->output(),
+            $pdfContent,
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="feuille_emargement.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+                'Content-Disposition' => 'inline; filename="Feuille_emargement_' . $slug . '.pdf"', // nom de ficher avec nom de société propre et normalisé
             ]
         );
     }
+
 
 
 
@@ -709,7 +672,6 @@ final class DocumentController extends AbstractController
             ['label' => "Détails de suivi d'une session #".$session->getId(), 'route' => 'suivi_show_session', 'params' => ['id' => $session->getId()]],
             ['label' => "Feuille émargement #".$apprenant->getId(),], // Pas de route car c’est la page actuelle
         ]);
-
 
         $now = new \DateTime();
 
@@ -780,6 +742,7 @@ final class DocumentController extends AbstractController
     }
 
 
+
     
     /*
     *
@@ -795,51 +758,40 @@ final class DocumentController extends AbstractController
         ApprenantRepository $apprenantRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
+        PdfGenerator $pdfGenerator, /* on injecte le service pour pouvoir en bénéficier */
+        SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        // on récupère les chemins absolus des images (logo et tampon)
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
         
-        // Optionnel : configurer DomPDF
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+        // On récupère les extensions des fichiers (png, jpg, etc.)
+        $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
+        $tamponType = pathinfo($tamponPath, PATHINFO_EXTENSION);
+        
+        // On lit les contenus des fichiers
+        $logoData = file_get_contents($logoPath);
+        $tamponData = file_get_contents($tamponPath);
+        
+        // On encode les images en base64 : utile pour l’afficher dans un PDF
+        $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoData);
+        $tamponBase64 = 'data:image/' . $tamponType . ';base64,' . base64_encode($tamponData);
 
-        $dompdf = new Dompdf($pdfOptions);
-        
-        // Chemin vers le logo
-        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data = file_get_contents($path);
-        
-        // On encode l'image en base64
-        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-
-        // Chemin vers le tampon
-        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data02 = file_get_contents($path02);
-        
-        // On encode l'image en base64
-        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
-
-
-        // on récupère la session, la société et  les autres données nécessaires
+        // on récupère la session de formation et la société concernée via leurs IDs
         $session = $sessionRepo->find($sessionId);
         $apprenant = $apprenantRepo->find($apprenantId);
+        /*$societe = $apprenant->getSociete();*/
 
+        // On se protège d'une possible erreur
+        if (!$session || !$apprenant) {
+            throw $this->createNotFoundException('Session ou apprenant introuvable.');
+        }
 
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
-
+        
         /* partie pour récupérer les demi-journées qui composent la session */
 
         // On initialise un tableau vide pour stocker les demi-journées regroupées par date et moment (matin/après-midi)
@@ -903,23 +855,24 @@ final class DocumentController extends AbstractController
             'demi_journees' => $demiJournees,
         ]);
 
-        // Chargement et génération du PDF
-        $dompdf->loadHtml($htmlContent);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        // On génère le contenu PDF à l’aide du service PdfGenerator
+        $pdfContent = $pdfGenerator->getPdfContent($htmlContent);
 
-        // Envoi du PDF au navigateur
+        $slug = $slugger->slug($apprenant->__toString())->lower(); // pour avoir une identité de l'apprenant propre et normalisé
+
+        // On retourne une réponse HTTP contenant le fichier PDF
         return new Response(
-            $dompdf->output(),
+            $pdfContent,
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="feuille_emargement_solo.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+                'Content-Disposition' => 'inline; filename="Feuille_emargement_solo_' . $slug . '.pdf"', // nom de ficher avec nom de société propre et normalisé
             ]
         );
     }
 
 
+    
 
     /*
     *
@@ -950,11 +903,9 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         
-
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
@@ -964,9 +915,7 @@ final class DocumentController extends AbstractController
             ['label' => "Attestation fin formation apprenant #".$apprenant->getId(),], // Pas de route car c’est la page actuelle
         ]);
 
-
         $now = new \DateTime();
-
         
         return $this->render('document/attestation_fin_formation.html.twig', [
             'session' => $session,
@@ -979,6 +928,7 @@ final class DocumentController extends AbstractController
             'responsableLegal' => $responsableLegal,
         ]);
     }
+
 
 
 
@@ -997,47 +947,36 @@ final class DocumentController extends AbstractController
         ApprenantRepository $apprenantRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
+        PdfGenerator $pdfGenerator, /* on injecte le service pour pouvoir en bénéficier */
+        SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        // on récupère les chemins absolus des images (logo et tampon)
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
         
-        // Optionnel : configurer DomPDF
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+        // On récupère les extensions des fichiers (png, jpg, etc.)
+        $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
+        $tamponType = pathinfo($tamponPath, PATHINFO_EXTENSION);
+        
+        // On lit les contenus des fichiers
+        $logoData = file_get_contents($logoPath);
+        $tamponData = file_get_contents($tamponPath);
+        
+        // On encode les images en base64 : utile pour l’afficher dans un PDF
+        $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoData);
+        $tamponBase64 = 'data:image/' . $tamponType . ';base64,' . base64_encode($tamponData);
 
-        $dompdf = new Dompdf($pdfOptions);
-        
-        // Chemin vers le logo
-        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data = file_get_contents($path);
-        
-        // On encode l'image en base64
-        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-
-        // Chemin vers le tampon
-        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data02 = file_get_contents($path02);
-        
-        // On encode l'image en base64
-        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
-        
-
-        // on récupère la session, la société et toutes les données nécessaires
+        // on récupère la session de formation et la société concernée via leurs IDs
         $session = $sessionRepo->find($sessionId);
         $apprenant = $apprenantRepo->find($apprenantId);
         $societe = $apprenant->getSociete();
 
+        // On se protège d'une possible erreur
+        if (!$session || !$apprenant) {
+            throw $this->createNotFoundException('Session ou apprenant introuvable.');
+        }
+        
         // S’il y a une société, on récupère son id et le responsable légal
         $responsableLegal = null;
         if ($societe !== null) {
@@ -1045,11 +984,9 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
-
 
         // Récupérer le contenu HTML du template Twig
         $htmlContent = $this->renderView('document/attestation_fin_formation_pdf.html.twig', [
@@ -1065,18 +1002,18 @@ final class DocumentController extends AbstractController
             'tamponBase64' => $tampon_base64,
         ]);
 
-        // Chargement et génération du PDF
-        $dompdf->loadHtml($htmlContent);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        // On génère le contenu PDF à l’aide du service PdfGenerator
+        $pdfContent = $pdfGenerator->getPdfContent($htmlContent);
 
-        // Envoi du PDF au navigateur
+        $slug = $slugger->slug($apprenant->__toString())->lower(); // pour avoir une identité de l'apprenant propre et normalisé
+
+        // On retourne une réponse HTTP contenant le fichier PDF
         return new Response(
-            $dompdf->output(),
+            $pdfContent,
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="attestation_fin_formation.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+                'Content-Disposition' => 'inline; filename="Attestation_fin_formation_solo_' . $slug . '.pdf"', // nom de ficher avec nom de société propre et normalisé
             ]
         );
     }
@@ -1144,6 +1081,7 @@ final class DocumentController extends AbstractController
 
 
 
+
     /*
     *
     * route pour générer une attestation de présence PDF spécifique à une session et à un apprenant (paramètres dynamiques dans l'url)
@@ -1159,47 +1097,36 @@ final class DocumentController extends AbstractController
         ApprenantRepository $apprenantRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
+        PdfGenerator $pdfGenerator, /* on injecte le service pour pouvoir en bénéficier */
+        SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        // on récupère les chemins absolus des images (logo et tampon)
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
         
-        // Optionnel : configurer DomPDF
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+        // On récupère les extensions des fichiers (png, jpg, etc.)
+        $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
+        $tamponType = pathinfo($tamponPath, PATHINFO_EXTENSION);
+        
+        // On lit les contenus des fichiers
+        $logoData = file_get_contents($logoPath);
+        $tamponData = file_get_contents($tamponPath);
+        
+        // On encode les images en base64 : utile pour l’afficher dans un PDF
+        $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoData);
+        $tamponBase64 = 'data:image/' . $tamponType . ';base64,' . base64_encode($tamponData);
 
-        $dompdf = new Dompdf($pdfOptions);
-        
-        // Chemin vers le logo
-        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data = file_get_contents($path);
-        
-        // On encode l'image en base64
-        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-
-        // Chemin vers le tampon
-        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data02 = file_get_contents($path02);
-        
-        // On encode l'image en base64
-        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
-        
-
-        // on récupère la session, la société et toutes les données nécessaires
+        // on récupère la session de formation et la société concernée via leurs IDs
         $session = $sessionRepo->find($sessionId);
         $apprenant = $apprenantRepo->find($apprenantId);
         $societe = $apprenant->getSociete();
 
+        // On se protège d'une possible erreur
+        if (!$session || !$apprenant) {
+            throw $this->createNotFoundException('Session ou apprenant introuvable.');
+        }
+        
         // S’il y a une société, on récupère son id et le responsable légal
         $responsableLegal = null;
         if ($societe !== null) {
@@ -1207,11 +1134,9 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
-
 
         // Récupérer le contenu HTML du template Twig
         $htmlContent = $this->renderView('document/attestation_presence_pdf.html.twig', [
@@ -1227,21 +1152,22 @@ final class DocumentController extends AbstractController
             'tamponBase64' => $tampon_base64,
         ]);
 
-        // Chargement et génération du PDF
-        $dompdf->loadHtml($htmlContent);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        // On génère le contenu PDF à l’aide du service PdfGenerator
+        $pdfContent = $pdfGenerator->getPdfContent($htmlContent);
 
-        // Envoi du PDF au navigateur
+        $slug = $slugger->slug($apprenant->__toString())->lower(); // pour avoir une identité de l'apprenant propre et normalisé
+
+        // On retourne une réponse HTTP contenant le fichier PDF
         return new Response(
-            $dompdf->output(),
+            $pdfContent,
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="attestation_presence.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+                'Content-Disposition' => 'inline; filename="Attestation_presence_' . $slug . '.pdf"', // nom de ficher avec nom de société propre et normalisé
             ]
         );
     }
+
 
 
 
@@ -1286,6 +1212,7 @@ final class DocumentController extends AbstractController
         ]);
     }
     */
+
 
 
 
@@ -1350,6 +1277,7 @@ final class DocumentController extends AbstractController
 
 
 
+
     /*
     *
     * route pour générer une attestation d'assiduité PDF spécifique à une session et à un apprenant (paramètres dynamiques dans l'url)
@@ -1364,47 +1292,36 @@ final class DocumentController extends AbstractController
         ApprenantRepository $apprenantRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
+        PdfGenerator $pdfGenerator, /* on injecte le service pour pouvoir en bénéficier */
+        SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        // on récupère les chemins absolus des images (logo et tampon)
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
         
-        // Optionnel : configurer DomPDF
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+        // On récupère les extensions des fichiers (png, jpg, etc.)
+        $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
+        $tamponType = pathinfo($tamponPath, PATHINFO_EXTENSION);
+        
+        // On lit les contenus des fichiers
+        $logoData = file_get_contents($logoPath);
+        $tamponData = file_get_contents($tamponPath);
+        
+        // On encode les images en base64 : utile pour l’afficher dans un PDF
+        $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoData);
+        $tamponBase64 = 'data:image/' . $tamponType . ';base64,' . base64_encode($tamponData);
 
-        $dompdf = new Dompdf($pdfOptions);
-        
-        // Chemin vers le logo
-        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data = file_get_contents($path);
-        
-        // On encode l'image en base64
-        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-
-        // Chemin vers le tampon
-        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data02 = file_get_contents($path02);
-        
-        // On encode l'image en base64
-        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
-        
-
-        // on récupère la session, la société et toutes les données nécessaires
+        // on récupère la session de formation et la société concernée via leurs IDs
         $session = $sessionRepo->find($sessionId);
         $apprenant = $apprenantRepo->find($apprenantId);
         $societe = $apprenant->getSociete();
 
+        // On se protège d'une possible erreur
+        if (!$session || !$apprenant) {
+            throw $this->createNotFoundException('Session ou apprenant introuvable.');
+        }
+        
         // S’il y a une société, on récupère son id et le responsable légal
         $responsableLegal = null;
         if ($societe !== null) {
@@ -1412,11 +1329,9 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
-
 
         // Récupérer le contenu HTML du template Twig
         $htmlContent = $this->renderView('document/attestation_assiduite_pdf.html.twig', [
@@ -1432,24 +1347,23 @@ final class DocumentController extends AbstractController
             'tamponBase64' => $tampon_base64,
         ]);
 
-        // Chargement et génération du PDF
-        $dompdf->loadHtml($htmlContent);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        // On génère le contenu PDF à l’aide du service PdfGenerator
+        $pdfContent = $pdfGenerator->getPdfContent($htmlContent);
 
-        // Envoi du PDF au navigateur
+        $slug = $slugger->slug($apprenant->__toString())->lower(); // pour avoir une identité de l'apprenant propre et normalisé
+
+        // On retourne une réponse HTTP contenant le fichier PDF
         return new Response(
-            $dompdf->output(),
+            $pdfContent,
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="attestation_assiduite.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+                'Content-Disposition' => 'inline; filename="Attestation_assiduite_' . $slug . '.pdf"', // nom de ficher avec nom de société propre et normalisé
             ]
         );
     }
 
-
-
+    
     /*
     *
     * route pour générer un certificat de réalisation spécifique à une session et à un apprenant (paramètres dynamiques dans l'url)
@@ -1479,11 +1393,9 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         
-
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
@@ -1493,10 +1405,8 @@ final class DocumentController extends AbstractController
             ['label' => "Certificat réalisation apprenant #".$apprenant->getId(),], // Pas de route car c’est la page actuelle
         ]);
 
-
         $now = new \DateTime();
 
-        
         return $this->render('document/certificat_realisation.html.twig', [
             'session' => $session,
             'societe' => $societe,
@@ -1508,6 +1418,7 @@ final class DocumentController extends AbstractController
             'responsableLegal' => $responsableLegal,
         ]);
     }
+
 
 
 
@@ -1526,47 +1437,36 @@ final class DocumentController extends AbstractController
         ApprenantRepository $apprenantRepo,
         EntrepriseRepository $entrepriseRepo,
         RepresentantRepository $representantRepo,
+        PdfGenerator $pdfGenerator, /* on injecte le service pour pouvoir en bénéficier */
+        SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        // on récupère les chemins absolus des images (logo et tampon)
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
         
-        // Optionnel : configurer DomPDF
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->setIsRemoteEnabled(true); // Nécessaire si on a des images avec des URL absolues
+        // On récupère les extensions des fichiers (png, jpg, etc.)
+        $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
+        $tamponType = pathinfo($tamponPath, PATHINFO_EXTENSION);
+        
+        // On lit les contenus des fichiers
+        $logoData = file_get_contents($logoPath);
+        $tamponData = file_get_contents($tamponPath);
+        
+        // On encode les images en base64 : utile pour l’afficher dans un PDF
+        $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoData);
+        $tamponBase64 = 'data:image/' . $tamponType . ';base64,' . base64_encode($tamponData);
 
-        $dompdf = new Dompdf($pdfOptions);
-        
-        // Chemin vers le logo
-        $path = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data = file_get_contents($path);
-        
-        // On encode l'image en base64
-        $logo_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-
-        // Chemin vers le tampon
-        $path02 = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
-        
-        // On récupère l'extension du fichier (png, jpg, etc.)
-        $type02 = pathinfo($path02, PATHINFO_EXTENSION);
-        
-        // On lit le contenu du fichier
-        $data02 = file_get_contents($path02);
-        
-        // On encode l'image en base64
-        $tampon_base64 = 'data:image/' . $type02 . ';base64,' . base64_encode($data02);
-        
-
-        // on récupère la session, la société et toutes les données nécessaires
+        // on récupère la session de formation et la société concernée via leurs IDs
         $session = $sessionRepo->find($sessionId);
         $apprenant = $apprenantRepo->find($apprenantId);
         $societe = $apprenant->getSociete();
 
+        // On se protège d'une possible erreur
+        if (!$session || !$apprenant) {
+            throw $this->createNotFoundException('Session ou apprenant introuvable.');
+        }
+        
         // S’il y a une société, on récupère son id et le responsable légal
         $responsableLegal = null;
         if ($societe !== null) {
@@ -1574,11 +1474,9 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        
         $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
         $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
-
 
         // Récupérer le contenu HTML du template Twig
         $htmlContent = $this->renderView('document/certificat_realisation_pdf.html.twig', [
@@ -1594,28 +1492,21 @@ final class DocumentController extends AbstractController
             'tamponBase64' => $tampon_base64,
         ]);
 
-        // Chargement et génération du PDF
-        $dompdf->loadHtml($htmlContent);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+        // On génère le contenu PDF à l’aide du service PdfGenerator
+        $pdfContent = $pdfGenerator->getPdfContent($htmlContent);
 
-        // Envoi du PDF au navigateur
+        $slug = $slugger->slug($apprenant->__toString())->lower(); // pour avoir une identité de l'apprenant propre et normalisé
+
+        // On retourne une réponse HTTP contenant le fichier PDF
         return new Response(
-            $dompdf->output(),
+            $pdfContent,
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="certificat_realisation.pdf"', // 'Content-Disposition' => 'inline; filename="Convention_{{ societe.raisonSociale|slugify }}.pdf"',
+                'Content-Disposition' => 'inline; filename="Certificat_realisation_' . $slug . '.pdf"', // nom de ficher avec nom de société propre et normalisé
             ]
         );
     }
-
-
-
-
-
-
-
 
 
 
@@ -1634,7 +1525,6 @@ final class DocumentController extends AbstractController
         ]);
         
         return $this->render('document/contrat_client_particulier.html.twig', [
-            'controller_name' => 'DocumentController',
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }

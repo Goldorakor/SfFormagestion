@@ -14,7 +14,6 @@ final class CategorieController extends AbstractController
     public function index(): Response
     {
         return $this->render('categorie/index.html.twig', [
-            'controller_name' => 'CategorieController',
         ]);
     }
 }

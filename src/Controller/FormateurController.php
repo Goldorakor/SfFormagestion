@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
+
+
 #[IsGranted('IS_AUTHENTICATED_FULLY')] /* seul un utilisateur bien connecté peut accéder aux méthodes de ce contrôleur */
 final class FormateurController extends AbstractController
 {
@@ -57,7 +59,6 @@ final class FormateurController extends AbstractController
         // Si condition est vraie → la valeur après ? est assignée.
         // Si condition est fausse → la valeur après : est assignée.
         
-        
         // 1. si pas de formateur, on crée un nouveau formateur (un objet formateur est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$formateur) {
             $formateur = new Formateur();
@@ -68,7 +69,6 @@ final class FormateurController extends AbstractController
 
         // 4. le traitement s'effectue ici ! si le formulaire soumis est correct, on fera l'insertion en BDD
         $form->handleRequest($request);
-
 
         // bloc qui concerne la soumission
         if ($form->isSubmitted() && $form->isValid()) {
@@ -83,7 +83,6 @@ final class FormateurController extends AbstractController
             return $this->redirectToRoute('app_formateur');
         }
         // fin du bloc
-
 
         // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddFormateur) }} --> affichage par défaut 
         return $this->render('formateur/new.html.twig', [ // 'formateur/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier formateur
@@ -120,6 +119,7 @@ final class FormateurController extends AbstractController
 
 
     
+
     #[Route('/accueil/creations/formateur/{id}', name: 'show_formateur')]
     public function show(Formateur $formateur, BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -131,7 +131,6 @@ final class FormateurController extends AbstractController
             ['label' => "Détails du formateur #".$formateur->getId(), 'params' => ['id' => $formateur->getId()]], // Formateur spécifique // Pas de route car c’est la page actuelle
         ]);
         
-        
         $now = new DateTime(); // on a besoin de créer cet objet DateTime pour savoir si une session est à venir, en cours ou terminée dans la vue de détails du formateur (repère temporel)
         
         return $this->render('formateur/show.html.twig', [
@@ -142,5 +141,3 @@ final class FormateurController extends AbstractController
     }
 
 }
-
-

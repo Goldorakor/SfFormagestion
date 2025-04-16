@@ -19,15 +19,15 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[IsGranted('IS_AUTHENTICATED_FULLY')] /* seul un utilisateur bien connecté peut accéder aux méthodes de ce contrôleur */
 final class EntrepriseController extends AbstractController
 {
-    
     // je ne supprime pas cette méthode, peut-être servira-t-elle plus tard
     #[Route('/entreprise', name: 'app_entreprise')]
     public function index(): Response
     {
         return $this->render('entreprise/index.html.twig', [
-            'controller_name' => 'EntrepriseController',
         ]);
     }
+
+
 
 
     // https://symfony.com/doc/current/controller/upload_file.html -> on récupère la partie de code qui permet définir la méthode ci-dessous
@@ -39,7 +39,6 @@ final class EntrepriseController extends AbstractController
     // attention : #[Autowire('%kernel.project_dir%/public/uploads/logos')] => #[Autowire('%env(LOGO_DIRECTORY)%')] : stockage en dehors de public - voir le fichier .env
 
     {
-    
         // pour construire notre fil d'Ariane
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
@@ -47,11 +46,9 @@ final class EntrepriseController extends AbstractController
             ['label' => 'Infos sur la société'], // Pas de route car c’est la page actuelle
         ]);
         
-        
         $logosDirectory = $this->getParameter('logos_directory'); // on récupère le bon chemin d'upload
         
         // dump($logosDirectory); die();  Vérification du chemin
-        
         
         // On récupère la seule entreprise existante ou on en crée une si aucune n'existe.
         $entreprise = $entityManager->getRepository(Entreprise::class)->findOneBy([]) ?? new Entreprise();
@@ -71,7 +68,6 @@ final class EntrepriseController extends AbstractController
 
             if ($logoFile) {
 
-
                 // Si un logo existe déjà, on supprime l'ancien fichier du dossier
                 if ($entreprise->getLogoFilename()) {
                     $oldFilePath = $logosDirectory . $entreprise->getLogoFilename();
@@ -80,7 +76,6 @@ final class EntrepriseController extends AbstractController
                         unlink($oldFilePath);  // Supprimer le fichier logo existant
                     }
                 }
-
 
                 // https://symfony.com/doc/current/controller/upload_file.html
                 // vérification de l'extension du fichier (on vérifie déjà dans RepresentantType.php mais une vérification supplémentaire au niveau du contrôleur empêche toute tentative de contournement en manipulant l’extension d’un fichier malveillant)
@@ -138,6 +133,8 @@ final class EntrepriseController extends AbstractController
     }
 
 
+
+    
     // les fichiers stockés en dehors de 'public' ne sont pas directement accessibles par url. Pour les afficher, il faut créer une route spéciale qui lit les fichiers et les sert via Symfony.
     #[Route('/logo/{filename}', name: 'logo_display')]
     public function displayLogo(string $filename): Response

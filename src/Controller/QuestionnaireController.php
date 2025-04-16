@@ -14,7 +14,6 @@ final class QuestionnaireController extends AbstractController
     public function index(): Response
     {
         return $this->render('questionnaire/index.html.twig', [
-            'controller_name' => 'QuestionnaireController',
         ]);
     }
 }

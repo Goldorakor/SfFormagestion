@@ -21,6 +21,8 @@ final class PageController extends AbstractController
     }
 
 
+
+
     #[Route('/accueil/parametres/termes_publiables/reglement_interieur', name: 'reglement_interieur_page')]
     public function regInterieur(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -55,6 +57,8 @@ final class PageController extends AbstractController
     }
 
 
+
+
     #[Route('/accueil/parametres/termes_publiables/conditions_generales_vente', name: 'conditions_generales_vente_page')]
     public function condGenVente(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -70,6 +74,8 @@ final class PageController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
+
 
 
     #[Route('/accueil/parametres/termes_publiables', name: 'termes_publiables')]
@@ -88,6 +94,8 @@ final class PageController extends AbstractController
     }
 
 
+
+
     #[Route('/accueil/parametres/modeles_documents', name: 'modeles_documents')]
     public function modelesDocuments(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -102,6 +110,8 @@ final class PageController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
+
 
 
     #[Route('/accueil/parametres', name: 'parametres')]
@@ -119,6 +129,8 @@ final class PageController extends AbstractController
     }
 
 
+
+
     #[Route('/accueil/suivis', name: 'suivis')]
     public function suivis(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -132,6 +144,8 @@ final class PageController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
+
 
 
     #[Route('/accueil/creations', name: 'creations')]
@@ -149,6 +163,8 @@ final class PageController extends AbstractController
     }
 
 
+
+
     #[Route('/accueil', name: 'accueil')]
     public function accueil(BreadcrumbsGenerator $breadcrumbsGenerator): Response
     {
@@ -161,6 +177,8 @@ final class PageController extends AbstractController
             'breadcrumbs' => $breadcrumbs, // on passe cette variable à la vue pour afficher le fil d'Ariane
         ]);
     }
+
+
 
     
     // voie de garage pour les fonctionnalités en cours de développement ! 
@@ -178,6 +196,8 @@ final class PageController extends AbstractController
         ]);
     }
 
+
+    
 
     // voie de garage pour les tests d'affichage ! 
     #[Route('/accueil/affichage', name: 'affichage')]

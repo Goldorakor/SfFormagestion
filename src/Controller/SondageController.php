@@ -18,6 +18,7 @@ final class SondageController extends AbstractController
         ]);
     }
 
+
     
     
     // les deux méthodes suivantes ont été mises en place pour résoudre un gros souci de paramétrage de Symfony
@@ -28,6 +29,8 @@ final class SondageController extends AbstractController
     dump($testParam); // Affiche la valeur du paramètre dans la barre de débogage
     return new Response('Test réussi, paramètre: ' . $testParam); // Affiche la valeur du paramètre dans la réponse
     }
+    
+
     
 
     #[Route('/test-logo-directory', name: 'test_logo_directory')]
