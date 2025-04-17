@@ -21,7 +21,7 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     flex-direction: column; /* Met les éléments en colonne */
     align-items: center; /* Aligne les éléments au centre */
     width: 12.5rem; /* Largeur fixe pour la sidebar */
-    padding: 10px 0 0 0; /* on évite que le premier bouton soit trop collé au haut de la page */
+    padding: 0.625rem 0 0 0; /* on évite que le premier bouton soit trop collé au haut de la page */
     /* ce padding 10px explique le décalage vers le bas constaté quand on inspecte la navbar dans le header */
     overflow-y: auto; /* Permet un défilement vertical */
     height: 100vh; /* Utilise toute la hauteur de la fenêtre */
@@ -46,19 +46,19 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 display: block;
 color: #f2f2f2;
 text-align: center;
-padding: 16px 16px;
+padding: 0.625rem 0.625rem;
 text-decoration: none;
-font-size: 14px;
+font-size: 0.875rem;
 }
 
 
 /* Style des boutons "Créations", "Suivis" et "Paramètres"  => attention : .princbtn seul ne fonctionne pas */
 .sidenav .princbtn {
   color: #282828; /* Couleur du texte */
-  font-size: 28px; /* Taille de police plus grande */
+  font-size: 1.75rem; /* Taille de police plus grande */
   background-color: transparent; /* Pas de fond */
   border: none; /* Pas de bordure */
-  padding: 16px 16px; /* Garder la même taille de padding que pour les autres boutons */
+  padding: 1rem 1rem; /* Garder la même taille de padding que pour les autres boutons */
   text-align: center; /* Centrer le texte */
   width: 100%; /* Garder la largeur de ces éléments pour qu'ils prennent toute la largeur de la barre */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* boutons principaux de la barre beaucoup plus lisibles avec cette police */
@@ -72,18 +72,18 @@ font-size: 14px;
 
 /* Style des autres boutons autres que  "Nouveau", Créations", "Suivis" et "Paramètres"  => attention : .princbtn seul ne fonctionne pas */
 .sidenav .btn-purple {
-    font-size: 18px; /* Taille de police plus grande */
+    font-size: 1.125rem; /* Taille de police plus grande */
     border: none;
     outline: none;
     color: #ffffff; /* Couleur du texte */
-    padding: 9px 18px 9px 18px; /* Garder la même taille de padding que pour les autres boutons => 20px pour équilibrer 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif */
+    padding: 0.5625rem 1.125rem 0.5625rem 1.125rem; /* Garder la même taille de padding que pour les autres boutons => 20px pour équilibrer 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif */
     background-color: #4449d5; /* Pas de fond */
     font-family: inherit;
-    margin: 8px 0; /* Centrer le bouton */
-    width: 162px; /* Largeur du bouton plus petite */
+    margin: 0.5625rem 0; /* Centrer le bouton */
+    width: 10.125rem; /* Largeur du bouton plus petite */
     height: auto;
     text-align: center; /* Centrer le texte */
-    border-radius: 10px;
+    border-radius: 0.625rem;
     display: flex;
     align-items: center; /* Centrer le texte verticalement */
     justify-content: center; /* Centrer le texte horizontalement si nécessaire */
@@ -108,25 +108,25 @@ font-size: 14px;
     display: flex; /* permet d'aligner l'icône et le texte correctement */
     align-items: center; /* centre verticalement le contenu */
     justify-content: center; /* Centrer le texte horizontalement si nécessaire */
-    font-size: 20px;
+    font-size: 1.25rem;
     border: none;
     outline: none;
     color: #ffffff; /* couleur du texte du bouton 'nouveau' */
-    padding: 8px 18px 10px 18px; /* change la hauteur du bouton orange 'nouveau' */
+    padding: 0.5rem 1.125rem 0.625rem 1.125rem; /* change la hauteur du bouton orange 'nouveau' */
     background-color: #ff4300; /* couleur de fond du bouton 'nouveau' */
     font-family: inherit;
-    margin: 15px 0 20px 0; /* Centrer le bouton 20px 0 25px 0*/
-    width: 150px; /* Largeur du bouton plus petite */
+    margin: 0.9375rem 0 1.25rem 0; /* Centrer le bouton 20px 0 25px 0*/
+    width: 9.375rem; /* Largeur du bouton plus petite */
     height: auto; /* change la hauteur du bouton orange 'nouveau' */
     text-align: center; /* Centrer le texte */
-    border-radius: 20px; /* bouton orange aux bords arrondis */
+    border-radius: 1.25rem; /* bouton orange aux bords arrondis */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     cursor: pointer; /* Indique que c'est cliquable */
 }
 
 
 .dropbtn i {
-  margin-left: 10px; /* Espace entre l'icône et le texte du bouton orange */
+  margin-left: 0.625rem; /* Espace entre l'icône et le texte du bouton orange */
 }
 
   
@@ -134,12 +134,12 @@ font-size: 14px;
 .dropdown-content {
     display: block;  /* Changer de 'none' à 'block' pour travailler avec opacity */
     position: absolute;
-    top: 146px;
-    left: 8px;
+    top: 9.125rem;
+    left: 0.5rem;
     background-color: #f9f9f9; /* couleur de fond du rectangle de menu déroulant */
-    min-width: 180px;
-    border-radius: 5px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3); /*  ombre que projette le rectangle du menu déroulant */
+    min-width: 11.25rem;
+    border-radius: 0.3125rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.3); /*  ombre que projette le rectangle du menu déroulant */
     overflow: hidden;
     opacity: 0;          /* Initialement invisible */
     visibility: hidden;  /* Masquer le menu */
@@ -150,9 +150,9 @@ font-size: 14px;
 .dropdown-content a {
     /* float: none; */
     color: #5b5b5b; /* couleur du texte dans le rectangle du menu déroulant */
-    font-size: 17px; /* taille écriture dans le menu déroulant nouveau */
+    font-size: 1.0625rem; /* taille écriture dans le menu déroulant nouveau */
     font-family: "Times New Roman", Times, serif;
-    padding: 12px 12px;
+    padding: 0.75rem 0.75rem;
     text-decoration: none;
     display: block;
     text-align: left;
@@ -200,7 +200,7 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 
 /* Quand l’écran est plus petit */
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 41.25rem) { /* 660px */
   .sidenav {
     display: none;
   }
@@ -214,8 +214,8 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     display: flex;
     flex-direction: column; /* Met les éléments en colonne */
     align-items: center; /* Aligne les éléments au centre */
-    width: 60px; /* Largeur fixe pour la sidebar */
-    padding: 0px 0 0 0; /* 5px 0 0 0 => on évite que le premier bouton soit trop collé au haut de la page */
+    width: 3.75rem; /* Largeur fixe pour la sidebar */
+    padding: 0 0 0 0; /* 5px 0 0 0 => on évite que le premier bouton soit trop collé au haut de la page */
     /* ce padding 10px explique le décalage vers le bas constaté quand on inspecte la navbar dans le header */
     overflow-y: auto; /* Permet un défilement vertical */
     height: 100vh; /* Utilise toute la hauteur de la fenêtre */
@@ -227,17 +227,17 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
   }
 
   .sidenav-mobile li {
-    width: 60px; 
-    height: 60px;
+    width: 3.75rem; 
+    height: 3.75rem;
     display: flex;
     justify-content: center; /* Centrer les éléments à l'intérieur du <li> */
     align-items: center;
-    margin-bottom: 60px;
+    margin-bottom: 3.75rem;
     
   }
 
   .logo-sidenav-mobile img {
-    width: 120px; /* Ajuste la largeur */
+    width: 7.5rem; /* Ajuste la largeur */
     height: auto; /* Garde les proportions */
     object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
   }
@@ -254,12 +254,12 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
   }
 
   .icon-sidenav-mobile img {
-    width: 60px; /* Ajuste la largeur */
-    height: 60px; /* Garde les proportions */
+    width: 3.75rem; /* Ajuste la largeur */
+    height: 3.75rem; /* Garde les proportions */
     text-align: center; /* Centrer le texte */
     justify-content: center;
     border-radius: 50%;
-    border: 2px solid #4449D5;
+    border: 0.125rem solid #4449D5;
     box-sizing: border-box; /* Assure que la bordure est incluse dans la taille totale */
     padding: 0; /* Retire tout padding qui pourrait affecter l'apparence */
     margin: 0; /* Retire toute marge qui pourrait affecter l'apparence */

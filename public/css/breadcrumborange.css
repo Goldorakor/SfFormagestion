@@ -5,22 +5,22 @@ code css pour le fil d'ariane (orange)
 */
   
 .ariane {
-    margin-left: 200px; /* Décale le contenu principal pour qu'il ne soit pas caché par la barre de navigation latérale */
+    margin-left: 12.5rem; /* Décale le contenu principal pour qu'il ne soit pas caché par la barre de navigation latérale */
     display: flex;
     align-items: center; /* Aligne le texte et la liste sur la même ligne */
-    gap: 5px; /* Ajoute un petit espace entre les éléments */
+    gap: 0.3125rem; /* Ajoute un petit espace entre les éléments */
   }
 
-  @media (max-width: 660px) {
+  @media (max-width: 41.25rem) { /* 600px */
     .ariane {
-      margin-left: 60px;
+      margin-left: 3.75rem;
     }
   }
     
   .fil-ariane {
     list-style: none; /* Supprime les puces des listes (<ol> ou <ul>) */
     display: flex; /* Affiche les éléments en ligne (horizontalement) */
-    font-size: 14px; /* Définit la taille du texte */
+    font-size: 0.875rem; /* Définit la taille du texte */
     padding: 0;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fil d'Ariane beaucoup plus lisible avec cette police */
@@ -29,7 +29,7 @@ code css pour le fil d'ariane (orange)
   .fil-ariane-texte {
     color: #dc6a17; /* Définit la couleur du texte en orange terne */
     font-weight: bold; /* Met le texte d'introduction du fil d'ariane en gras */
-    margin-right: 0px; /* Ajoute un espace entre le texte d'introduction et l'élément suivant : à 0 sinon trop d'espace */
+    margin-right: 0; /* Ajoute un espace entre le texte d'introduction et l'élément suivant : à 0 sinon trop d'espace */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
     
@@ -40,7 +40,7 @@ code css pour le fil d'ariane (orange)
     
   .fil-ariane li:not(:last-child)::after {
     content: " > "; /* Ajoute le séparateur automatique */
-    margin: 0 5px;
+    margin: 0 0.3125rem;
     color: #dc6a17; /* Même couleur que les liens en orange terne */
   }
     

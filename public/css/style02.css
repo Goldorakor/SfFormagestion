@@ -11,6 +11,10 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   overflow-x: hidden; /* empêche le défilement horizontal */
 }
 
+html {
+  font-size: 16px; /* 16px (valeur par défaut du navigateur) */
+}
+
 * { /* on calibre notre page => important au moins pour la navbar */
   margin: 0;
   padding: 0;
@@ -31,18 +35,18 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-left: 190px;
-  margin-right: 130px; /* 130 ?? */
-  margin-bottom: 40px; /* 80px trop grand : pas besoin d'un tel espace ! */
+  margin-left: 11.875rem;
+  margin-right: 8.125rem; /* 130 ?? */
+  margin-bottom: 2.5rem; /* 80px trop grand : pas besoin d'un tel espace ! */
   /* en principe, il faudrait 200 120 40 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
   font-family: 'Inter', sans-serif;
 }
 
 .sous-cont {
   display : flex;
-  margin-left : 0px;
-  margin-right: 0px;
-  margin-bottom: 0px;
+  margin-left : 0;
+  margin-right: 0;
+  margin-bottom: 0;
   width: 95%;
   flex-direction: column;
   justify-content: center;
@@ -54,55 +58,59 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 }
 
 main {
-  margin-left: 10px; /* décale le contenu principal pour éviter qu'il soit sous la navbar 110 */
-  margin-right: 10px; /* décale le contenu principal pour équilibrer entre droite et gauche */
-  padding: 15px 0 0 0;
+  margin-left: 0.625rem; /* décale le contenu principal pour éviter qu'il soit sous la navbar 110 */
+  margin-right: 0.625rem; /* décale le contenu principal pour équilibrer entre droite et gauche */
+  padding: 0.9375rem 0 0 0;
   min-height: 100vh; /* assure que le fond prend au moins toute la hauteur de l'écran */
   min-width: 100vw;
 }
 
 h1 {
   color : #DC6A17;
-  font-size: 70px; /* définit la taille de la police à 50 pixels */
+  font-size: 4.375rem; /* définit la taille de la police à 50 pixels */
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 5px;
+  margin-top: center;
+  margin-top: 3.125rem;
+  margin-bottom: 0.3125rem;
   width: 100%;
 }
 
 .h1-sans-h3 {  /* pour bénéficier d'un espace vers le bas important */
   color : #DC6A17;
-  font-size: 70px; /* définit la taille de la police à 50 pixels */
+  font-size: 4.375rem; /* définit la taille de la police à 50 pixels */
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 3.125rem;
+  margin-bottom: center;
+  margin-top: 3.125rem;
   width: 100%;
 }
   
 h2 {
   color : #FF4300;
-  font-size: 36px; /* définit la taille de la police à 50 pixels */
+  font-size: 2.25rem; /* définit la taille de la police à 50 pixels */
   text-align: left;
-  margin-top: 50px;
-  margin-bottom: 20px;
+  margin-top: center;
+  margin-top: 3.125rem;
+  margin-bottom: 1.25rem;
   width: 100%;
 }
   
 h3 {
   color : #FF9944;
-  font-size: 24px; /* définit la taille de la police à 24 pixels */
+  font-size: 1.5rem; /* définit la taille de la police à 24 pixels */
   text-align: center;
-  margin-top: 0px;
-  margin-bottom: 50px;
+  margin-top: 0;
+  margin-bottom: center;
+  margin-top: 3.125rem;
   width: 100%;
 }
 
 h4 {
   color: #DC6A17;
-  font-size: 28px; /* définit la taille de la police à 28 pixels */
+  font-size: 1.75rem; /* définit la taille de la police à 28 pixels */
   text-align: left;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 0.625rem;
+  margin-bottom: 0.3125rem;
   width: 100%;
 }
 
@@ -112,8 +120,8 @@ h4 {
   width: 100px;
   height: 100px;
   object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
-  border: 1px solid #a92b2b; /* ajouter une bordure douce autour de l'image */
-  border-radius: 8px; /* bordures arrondies */
+  border: 0.0625rem solid #a92b2b; /* ajouter une bordure douce autour de l'image */
+  border-radius: 0.5rem; /* bordures arrondies */
 } 
 
 
@@ -133,17 +141,17 @@ VUES D'ENSEMBLE
 }
 
 .documents-table th {
-  font-size: 22px;
+  font-size: 1.375rem;
   color: #FF4300;
-  padding: 18px 0px 22px 18px; /* 18px 0px 22px 16px */
+  padding: 1.125rem 0 1.375rem 1.125rem; /* 18px 0px 22px 16px */
   text-align: left;
 }
 
 .documents-table td {
-  font-size: 22px;
+  font-size: 1.375rem;
   color: #282828;
-  padding: 10px 10px 10px 10px; /* 10px 10px 10px 10px */
-  border-bottom: 1px solid #ddd;
+  padding: 0.625rem 0.625rem 0.625rem 0.625rem; /* 10px 10px 10px 10px */
+  border-bottom: 0.0625rem solid #ddd;
 }
 
 .documents-table tr:hover {
@@ -164,7 +172,7 @@ thead tr:hover {
   height: 100%;
   text-decoration: none;
   color: inherit;
-  padding: 0px 0px 0px 10px; /* la hauteur du rectangle doit rester assez petite : on veut juste un décalage du bord gauche */
+  padding: 0 0 0 0.625rem; /* la hauteur du rectangle doit rester assez petite : on veut juste un décalage du bord gauche */
 }
 
 
@@ -174,10 +182,10 @@ thead tr:hover {
   align-items: center; /* centre verticalement le contenu */
   background-color: #4449D5; /* Violet */
   color: #ffffff; /* Écriture blanche */
-  padding: 8px 25px 12px 25px;
-  border-radius: 30px;
+  padding: 0.5rem 1.5625rem 0.75rem 1.5625rem;
+  border-radius: 1.875rem;
   text-decoration: none;
-  font-size: 26px;
+  font-size: 1.625rem;
   /* font-weight: bold; */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
@@ -187,8 +195,8 @@ thead tr:hover {
 }
 
 .btn.btn-rose i {
-  font-size: 36px; /* l'icone n'est pas assez grande */
-  margin-right: 12px; /* espacement entre l'icône et le texte */
+  font-size: 2.25rem; /* l'icone n'est pas assez grande */
+  margin-right: 0.75rem; /* espacement entre l'icône et le texte */
 }
 
 .btn.btn-rose:hover {
@@ -200,7 +208,7 @@ thead tr:hover {
   display: flex;
   justify-content: flex-end;
   width: 100%; /* assure que le div prend toute la largeur disponible */
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 
@@ -232,10 +240,10 @@ FORMULAIRES
 form {
   max-width: 90%; /* Ajuste la largeur max selon ton besoin */
   margin: auto; /* formulaire bien centré */
-  padding: 20px 20px 80px 20px; /* 80px pour une marge du bas généreuse */
+  padding: 1.25rem 1.25rem 5rem 1.25rem; /* 80px pour une marge du bas généreuse */
   background-color: #f9f9f9; /* Couleur de fond */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 /* Style des labels */
@@ -243,8 +251,8 @@ label {
   color: #282828; /* Gris foncé */
   font-weight: bold;
   display: block;
-  margin-bottom: 5px;
-  font-size: 22px;
+  margin-bottom: 0.3125rem;
+  font-size: 1.375rem;
 }
 
 input::placeholder, textarea::placeholder {
@@ -255,8 +263,8 @@ input::placeholder, textarea::placeholder {
 chaque ligne est un flex container */
 .form-ligne01 {
   display: flex;
-  gap: 15px; /* Espacement entre les champs */
-  margin-bottom: 15px; /* Espacement entre les lignes */
+  gap: 0.9375rem; /* Espacement entre les champs */
+  margin-bottom: 0.9375rem; /* Espacement entre les lignes */
 }
 
 
@@ -311,9 +319,9 @@ chaque ligne est un flex container */
 .form-ligne02 {
   display: flex;
   flex-direction: column;
-  gap: 40px; /* Espacement entre les champs */
-  margin-top: 60px; /* Espacement entre les lignes */
-  margin-bottom: 60px; /* Espacement entre les lignes */
+  gap: 2.5rem; /* Espacement entre les champs */
+  margin-top: 3.75rem; /* Espacement entre les lignes */
+  margin-bottom: 3.75rem; /* Espacement entre les lignes */
 }
 
 /* Style des champs de formulaire */
@@ -324,26 +332,26 @@ input[type="date"],
 input[type="datetime-local"],
 select {
   width: 100%; /* Prend toute la largeur de son conteneur */
-  padding: 10px;
-  border: 1px solid #ccceff;
-  border-radius: 5px; /* Bords arrondis */
+  padding: 0.625rem;
+  border: 0.0625rem solid #ccceff;
+  border-radius: 0.3125rem; /* Bords arrondis */
   background-color: #ffffff; /* Fond blanc */
-  font-size: 16px;
-  height: 40px; /* Hauteur ajustable */
-  line-height: 10px;
+  font-size: 1rem;
+  height: 2.5rem; /* Hauteur ajustable */
+  line-height: 0.625rem;
   box-sizing: border-box; /* Évite que le padding change la taille du champ */
 }
 
 input[type="file"],
 select {
   width: 100%; /* Prend toute la largeur de son conteneur */
-  padding-top: 7px;
-  padding-left: 10px;
-  border: 1px solid #ccceff;
-  border-radius: 5px; /* Bords arrondis */
+  padding-top: 0.4375rem;
+  padding-left: 0.625rem;
+  border: 0.0625rem solid #ccceff;
+  border-radius: 0.3125rem; /* Bords arrondis */
   background-color: #ffffff; /* Fond blanc */
-  font-size: 16px;
-  height: 40px; /* Hauteur ajustable */
+  font-size: 1rem;
+  height: 2.5rem; /* Hauteur ajustable */
   
   box-sizing: border-box; /* Évite que le padding change la taille du champ */
 }
@@ -352,7 +360,7 @@ select {
 
 
 .user-comment{
-  font-size: 16px;
+  font-size: 1rem;
   font-style: italic;
   color: #5b5b5b;
 }
@@ -402,16 +410,16 @@ FIN DES BOUTONS "ENREGISTRER" DES FORMULAIRES
   flex-direction: row;
   justify-content: center;
   width: 100%; /* assure que le div prend toute la largeur disponible */
-  margin-top: 60px;
-  gap: 60px;
+  margin-top: 3.75rem;
+  gap: 3.75rem;
 }
 
 .check-email {
-  font-size: 26px;
+  font-size: 1.625rem;
   color: #282828;
 }
 
 .check-clic {
-  font-size: 26px;
+  font-size: 1.625rem;
   color: #bd1e73;
 }

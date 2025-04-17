@@ -11,6 +11,10 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
     overflow-x: hidden; /* Empêche le défilement horizontal */
 }
 
+html {
+    font-size: 16px; /* 16px (valeur par défaut du navigateur) */
+  }
+
 * { /* on calibre notre page => important au moins pour la navbar */
     margin: 0;
     padding: 0;
@@ -47,75 +51,75 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
 
 #login-cont02{
     background-color:#F7BED7;  /* fcf2f5 */
-    padding-bottom: 100px; /* Ajuster cette valeur pour remonter plus */
+    padding-bottom: 6.25rem; /* Ajuster cette valeur pour remonter plus */
 }
 
 .login-logofg img{
-    width: 500px;
-    height: 300px;
+    width: 31.25rem;
+    height: 18.75rem;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
 .login-img img{
-    width: 500px;
-    height: 500px;
+    width: 31.25rem;
+    height: 31.25rem;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
 .login-logoft img{
-    width: 600px;
-    height: 400px;
+    width: 37.5rem;
+    height: 25rem;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
 h1 {
     color :#282828; /* Change la couleur du texte en rose */
-    font-size: 70px; /* définit la taille de la police à 70 pixels */
+    font-size: 4.375rem; /* définit la taille de la police à 70 pixels */
     text-align: center;
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     font-style: italic;
 }
 
 h2 {
       color : #4449D5;
-      font-size: 36px; /* définit la taille de la police à 50 pixels */
+      font-size: 2.25rem; /* définit la taille de la police à 50 pixels */
       text-align: left;
-      margin-top: 50px;
-      margin-bottom: 20px;
+      margin-top: 3.125rem;
+      margin-bottom: 1.25rem;
 }
 
 h3 {
     color :#a2118a; /* Change la couleur du texte en rose */
-    font-size: 20px; /* définit la taille de la police à 20 pixels */
+    font-size: 1.25rem; /* définit la taille de la police à 20 pixels */
     text-align: center;
-    margin-top: 0px;
-    margin-bottom: 50px;
+    margin-top: 0;
+    margin-bottom: 3.125rem;
 }
 
 h4 {
     color: #790945;
-    font-size: 20px; /* définit la taille de la police à 50 pixels */
+    font-size: 1.25rem; /* définit la taille de la police à 50 pixels */
     text-align: left;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin-top: 0.625rem;
+    margin-bottom: 0.3125rem;
 }
 
 #login-cont01 p {
     color: #5b5b5b;
-    font-size: 40px;
+    font-size: 2.5rem;
     text-align: center;
     font-style: italic;
 }
 
 #login-cont02 p {
     color: #5b5b5b;
-    font-size: 30px;
+    font-size: 1.875rem;
 }
 
 #login-cont02 a {
     color: #5b5b5b;
-    font-size: 20px;
+    font-size: 1.25rem;
     text-decoration: none;
     font-style: italic;
     font-family: Arial, Helvetica, sans-serif;
@@ -126,7 +130,7 @@ h4 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 60px;
+    gap: 3.75rem;
 }
 
 .identifiant, .mot-passe {
@@ -145,10 +149,10 @@ h4 {
 
 input[type="email"], input[type="password"], input[type="text"] {
     width: 100%;
-    padding: 20px;
-    font-size: 24px;
-    /* border: 2px solid #ccc; */
-    border-radius: 30px;
+    padding: 1.25rem;
+    font-size: 1.5rem;
+    /* border: 0.125rem solid #ccc; */
+    border-radius: 1.875rem;
     background-color: #ffffff;
     outline: none;
 }
@@ -173,7 +177,7 @@ input[type="email"], input[type="password"], input[type="text"] {
 input:-webkit-autofill {
     background-color: #ffffff !important;
     -webkit-text-fill-color: #282828 !important; /* Force la couleur du texte */
-    box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    box-shadow: 0 0 0 62.5rem #ffffff inset !important;
 }
 
 /*
@@ -187,17 +191,17 @@ FIN DU CODE SPECIAL
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 80px;
+    margin-top: 3.125rem;
+    margin-bottom: 5rem;
 }
 
 .btn-purple {
     background-color: #4449D5;
     color: #ffffff;
-    font-size: 24px;
-    border-radius: 30px;
-    width: 220px;
-    height: 60px;
+    font-size: 1.5rem;
+    border-radius: 1.875rem;
+    width: 13.75rem;
+    height: 3.75rem;
     border: none; /* enlève le bord gris dû au nivagateur */
     cursor: pointer;
     transition: background 0.3s ease;
@@ -215,7 +219,7 @@ Style pour le footer de la page login
 
 .footer-container {
     background-color: #e5e5e5;
-    padding: 8px; /* Ajouté un peu de padding vertical */
+    padding: 0.5rem; /* Ajouté un peu de padding vertical */
     text-align: center;
     width: 100%;
     margin: 0 auto;
@@ -228,7 +232,7 @@ Style pour le footer de la page login
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 200px;
+    gap: 12.5rem;
     flex-wrap: wrap; /* pour éviter les problèmes d'affichage sur des écrans très étroits */
 }
 
@@ -237,12 +241,12 @@ Style pour le footer de la page login
     color: #282828;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
-    font-size: 16px;
-    padding: 10px 0px;
+    font-size: 1rem;
+    padding: 0.625rem 0;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     display: inline-block;
-    margin: 0px;             /* Espacement entre les liens */
+    margin: 0;             /* Espacement entre les liens */
     transition: background-color 0.3s ease; /* Transition pour le hover */
 }
 
@@ -267,17 +271,17 @@ Style pour le footer de la page login
 }
 
 .password-container input {
-    padding-right: 35px; /* pour laisser la place à l’icône */
+    padding-right: 2.1875rem; /* pour laisser la place à l’icône */
 }
 
 .password-container i {
     position: absolute;
     top: 50%;
-    right: 10px;
+    right: 0.625rem;
     transform: translateY(-50%);
     cursor: pointer;
     color: #5b5b5b;
-    font-size: 26px;
+    font-size: 1.625rem;
 }
 
 /*
