@@ -296,9 +296,11 @@ final class DocumentController extends AbstractController
     /* Le nom de la route (generer_convention_pdf) pourra être utilisé dans Twig ou dans les redirections */
     #[Route('/accueil/suivis/session/{sessionId}/societe/{societeId}/convention_pdf', name: 'generer_convention_pdf')] 
      
-    /* Déclaration de la méthode et injection des dépendances */
-    /* Cette méthode est appelée quand la route est visitée. Elle attend en paramètres : 
-    Les deux ID passés dans l’URL et plusieurs repositories injectés automatiquement (grâce à l’autowiring) pour interagir avec la base de données. */
+    /* Déclaration de la méthode et injection des dépendances
+    *  Cette méthode est appelée quand la route est visitée. Elle attend en paramètres : 
+    *  Les deux ID passés dans l’URL et plusieurs repositories injectés automatiquement
+    *  (grâce à l’autowiring) pour interagir avec la base de données. 
+    */
     public function genererConventionPdf(
         int $sessionId,
         int $societeId,
