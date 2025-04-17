@@ -27,13 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
         let temp = document.createElement('div');
         temp.innerHTML = newForm;
 
-        // Sélectionne les champs apprenant et prix à partir du prototype
+        // Sélectionne les champs module, duree, dateDebut et dateFin à partir du prototype
         const moduleField = temp.querySelector('[name*="[module]"]');
-        const dureeField = temp.querySelector('[name*="[durée]"]');
+        const dureeField = temp.querySelector('[name*="[duree]"]');
         const dateDebutField = temp.querySelector('[name*="[dateDebut]"]');
         const dateFinField = temp.querySelector('[name*="[dateFin]"]');
 
-        // Crée la cellule pour le champ "apprenant" et y insère le champ récupéré
+        // Crée la cellule pour le champ "module" et y insère le champ récupéré
         const divModule = document.createElement('div');
         divModule.classList.add('form-cell', 'module-nomModule');
         divModule.appendChild(moduleField);
