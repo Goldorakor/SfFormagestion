@@ -11,6 +11,10 @@ html, body {  /* avec ces lignes, le bandeau blanc latéral droite disparait */
   overflow-x: hidden; /* empêche le défilement horizontal */
 }
 
+html {
+  font-size: 16px; /* 16px (valeur par défaut du navigateur) */
+}
+
 * { /* on calibre notre page => important au moins pour la navbar */
   margin: 0;
   padding: 0;
@@ -125,7 +129,7 @@ code css pour les grands bandeaux cliquables (les pages des grandes sections : c
   width: 100%;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 660px) {
   .h2-creations {
     display: none;
   }
@@ -174,34 +178,34 @@ PAGE D'ACCUEIL
 
 .accueil-h1 {
   color :#790945; /* change la couleur du texte en rose */
-  font-size: 50px; /* définit la taille de la police à 50 pixels */
+  font-size: 3.125rem; /* définit la taille de la police à 50 pixels */
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 0.625rem;
+  margin-bottom: 0.3125rem;
 }
 
 .accueil-h2 {
   color :#282828; /* change la couleur du texte en rose */
-  font-size: 50px; /* définit la taille de la police à 50 pixels */
+  /* font-size: 3.125rem;  1 rem = 16 pixels - 2 rem = 32 pixels */
+  font-size: clamp(2rem, 5vw, 3.125rem); /* LE TOP en matière de responsive */
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 100px;
-  padding-right: 30px; /* meilleure réaction de h2 à la diminution de la largeur d'écran */
-  padding-left: 30px; /* meilleure réaction de h2 à la diminution de la largeur d'écran */
+  margin-top: 3.125rem;
+  margin-bottom: 6.25rem;
+  padding-right: 2rem; /* meilleure réaction de h2 à la diminution de la largeur d'écran */
+  padding-left: 2rem; /* meilleure réaction de h2 à la diminution de la largeur d'écran */
   /* background-color: lightgray;  Pour voir le conteneur */
-
   display: flex; /* Active Flexbox */
   justify-content: center; /* Centre horizontalement */
   align-items: center; /* Centre verticalement */
-  height: 60px; /* Définit une hauteur (on ajuste si besoin) */
+  height: 3.75rem; /* Définit une hauteur (on ajuste si besoin) */
 }
 
 .accueil-h3 {
   color :#a2118a; /* change la couleur du texte en rose */
-  font-size: 20px; /* définit la taille de la police à 20 pixels */
+  font-size: 1.25rem; /* définit la taille de la police à 20 pixels */
   text-align: center;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
 }
 
 .accueil-boite1 {
@@ -209,8 +213,8 @@ PAGE D'ACCUEIL
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  gap: 300px;
-  margin-bottom: 40px;
+  gap: 18.75rem;
+  margin-bottom: 2.5rem;
 }
 
 .accueil-lien {
@@ -224,18 +228,18 @@ PAGE D'ACCUEIL
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+  margin-left: 1.875rem;
+  margin-right: 1.875rem;
 }
 
 .accueil-img img {  /* si je ne rajoute pas img, il ne peut pas sélectionner l'image de "Suivis" */
   /* text-align : right; */
   /*margin-top : 15px;  on ne souhaite pas coller le logo en haut du document */
   /*margin-right : 30px;  on ne souhaite pas coller le logo au bord du document */
-  width: 400px;
-  height: 360px;
+  width: 25rem;
+  height: 22.5rem;
   object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
@@ -252,16 +256,22 @@ a.accueil-card {
   }
 }
 
-@media (max-width: 840px) {
+@media (max-width: 660px) {
   .accueil-sous-cont {
     margin-left: 50px;
     margin-right: 80px;
     margin-bottom: 20px;
     /* en principe, il faudrait 60 70 20 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
   }
-}
-
-@media (max-width: 660px) {
+  .accueil-boite1 {
+    flex-direction: column;
+    gap: 50px; /* espace entre créations et suivis */
+    margin-top: 50px; /* espace entre suivis et paramètres */
+    margin-bottom: 0;
+  }
+  .accueil-h2 {
+    display: none;
+  }
   .accueil-h1 {
     font-size: 36px; /* définit la taille de la police à 50 pixels */
   }
@@ -272,33 +282,6 @@ a.accueil-card {
   }
   .accueil-h3 {
     font-size: 16px;
-  }
-}
-
-@media (min-width: 501px) and (max-width: 660px) {
-  .accueil-h2 {
-    font-size: 30px;
-    margin-bottom: 50px;
-    min-width: 100%;
-    max-height: 120px; /* On ajuste la hauteur pour garder le centrage */
-    /* background-color: lightgray;  Pour voir le conteneur */
-  }
-  .accueil-boite1 {
-    flex-direction: column;
-    gap: 30px; /* espace entre créations et suivis */
-    margin-bottom: 30px; /* espace entre suivis et paramètres */
-  }
-}
-
-@media (max-width: 500px) {
-  .accueil-boite1 {
-    flex-direction: column;
-    gap: 50px; /* espace entre créations et suivis */
-    margin-top: 50px; /* espace entre suivis et paramètres */
-    margin-bottom: 0;
-  }
-  .accueil-h2 {
-    display: none;
   }
 }
 

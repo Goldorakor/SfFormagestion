@@ -211,8 +211,8 @@ final class DocumentController extends AbstractController
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
             'pdfMode' => true,
-            'logoBase64' => $logo_base64,
-            'tamponBase64' => $tampon_base64,
+            'logoBase64' => $logoBase64,
+            'tamponBase64' => $tamponBase64,
         ]);
 
         // On génère le contenu PDF à l’aide du service PdfGenerator
@@ -628,8 +628,8 @@ final class DocumentController extends AbstractController
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
             'pdfMode' => true,
-            'logoBase64' => $logo_base64,
-            'tamponBase64' => $tampon_base64,
+            'logoBase64' => $logoBase64,
+            'tamponBase64' => $tamponBase64,
             'demi_journees' => $demiJournees,
         ]);
 
@@ -869,8 +869,8 @@ final class DocumentController extends AbstractController
             'representant' => $representant,
             'pdfMode' => true,
             'logoBase64' => $logo_base64,
-            'tamponBase64' => $tampon_base64,
-            'demi_journees' => $demiJournees,
+            'logoBase64' => $logoBase64,
+            'tamponBase64' => $tamponBase64,
         ]);
 
         // On génère le contenu PDF à l’aide du service PdfGenerator
@@ -1022,8 +1022,8 @@ final class DocumentController extends AbstractController
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
             'pdfMode' => true,
-            'logoBase64' => $logo_base64,
-            'tamponBase64' => $tampon_base64,
+            'logoBase64' => $logoBase64,
+            'tamponBase64' => $tamponBase64,
         ]);
 
         // On génère le contenu PDF à l’aide du service PdfGenerator
@@ -1178,8 +1178,8 @@ final class DocumentController extends AbstractController
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
             'pdfMode' => true,
-            'logoBase64' => $logo_base64,
-            'tamponBase64' => $tampon_base64,
+            'logoBase64' => $logoBase64,
+            'tamponBase64' => $tamponBase64,
         ]);
 
         // On génère le contenu PDF à l’aide du service PdfGenerator
@@ -1379,8 +1379,8 @@ final class DocumentController extends AbstractController
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
             'pdfMode' => true,
-            'logoBase64' => $logo_base64,
-            'tamponBase64' => $tampon_base64,
+            'logoBase64' => $logoBase64,
+            'tamponBase64' => $tamponBase64,
         ]);
 
         // On génère le contenu PDF à l’aide du service PdfGenerator
@@ -1530,8 +1530,8 @@ final class DocumentController extends AbstractController
             'representant' => $representant,
             'responsableLegal' => $responsableLegal,
             'pdfMode' => true,
-            'logoBase64' => $logo_base64,
-            'tamponBase64' => $tampon_base64,
+            'logoBase64' => $logoBase64,
+            'tamponBase64' => $tamponBase64,
         ]);
 
         // On génère le contenu PDF à l’aide du service PdfGenerator

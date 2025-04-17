@@ -20,7 +20,7 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
     display: flex;
     flex-direction: column; /* Met les éléments en colonne */
     align-items: center; /* Aligne les éléments au centre */
-    width: 200px; /* Largeur fixe pour la sidebar */
+    width: 12.5rem; /* Largeur fixe pour la sidebar */
     padding: 10px 0 0 0; /* on évite que le premier bouton soit trop collé au haut de la page */
     /* ce padding 10px explique le décalage vers le bas constaté quand on inspecte la navbar dans le header */
     overflow-y: auto; /* Permet un défilement vertical */
@@ -200,7 +200,7 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 
 /* Quand l’écran est plus petit */
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 660px) {
   .sidenav {
     display: none;
   }
