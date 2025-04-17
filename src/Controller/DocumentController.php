@@ -158,9 +158,17 @@ final class DocumentController extends AbstractController
         SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        $entreprise = $entrepriseRepo->findUniqueEntreprise();
+        // on récupère les infos de l'organisme de formation (l’entreprise)
+
+        $representant = $representantRepo->findUniqueRepresentant();
+        // on récupère le représentant de l'organisme de formation
+        
         // on récupère les chemins absolus des images (logo et tampon)
-        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        $logoFilename = $entreprise->getLogoFilename();
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/'.$logoFilename;
+        $tamponFilename = $representant->getTamponFilename();
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/'.$tamponFilename;
         
         // On récupère les extensions des fichiers (png, jpg, etc.)
         $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
@@ -191,8 +199,6 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
-        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
 
         // Récupérer le contenu HTML du template Twig
@@ -518,9 +524,17 @@ final class DocumentController extends AbstractController
         SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        $entreprise = $entrepriseRepo->findUniqueEntreprise();
+        // on récupère les infos de l'organisme de formation (l’entreprise)
+
+        $representant = $representantRepo->findUniqueRepresentant();
+        // on récupère le représentant de l'organisme de formation
+        
         // on récupère les chemins absolus des images (logo et tampon)
-        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        $logoFilename = $entreprise->getLogoFilename();
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/'.$logoFilename;
+        $tamponFilename = $representant->getTamponFilename();
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/'.$tamponFilename;
         
         // On récupère les extensions des fichiers (png, jpg, etc.)
         $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
@@ -548,12 +562,6 @@ final class DocumentController extends AbstractController
 
         $responsableLegal = $societeRepo->findUniqueRespLegal($societeId);
         // on récupère Le responsable légal de la société
-
-        $entreprise = $entrepriseRepo->findUniqueEntreprise();
-        // on récupère les infos de l'organisme de formation (l’entreprise)
-
-        $representant = $representantRepo->findUniqueRepresentant();
-        // on récupère le représentant de l'organisme de formation
 
         $now = new \DateTime();
         // on récupère la date actuelle
@@ -766,9 +774,17 @@ final class DocumentController extends AbstractController
         SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        $entreprise = $entrepriseRepo->findUniqueEntreprise();
+        // on récupère les infos de l'organisme de formation (l’entreprise)
+
+        $representant = $representantRepo->findUniqueRepresentant();
+        // on récupère le représentant de l'organisme de formation
+        
         // on récupère les chemins absolus des images (logo et tampon)
-        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        $logoFilename = $entreprise->getLogoFilename();
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/'.$logoFilename;
+        $tamponFilename = $representant->getTamponFilename();
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/'.$tamponFilename;
         
         // On récupère les extensions des fichiers (png, jpg, etc.)
         $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
@@ -792,8 +808,6 @@ final class DocumentController extends AbstractController
             throw $this->createNotFoundException('Session ou apprenant introuvable.');
         }
 
-        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
-        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
         
         /* partie pour récupérer les demi-journées qui composent la session */
@@ -955,9 +969,17 @@ final class DocumentController extends AbstractController
         SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        $entreprise = $entrepriseRepo->findUniqueEntreprise();
+        // on récupère les infos de l'organisme de formation (l’entreprise)
+
+        $representant = $representantRepo->findUniqueRepresentant();
+        // on récupère le représentant de l'organisme de formation
+        
         // on récupère les chemins absolus des images (logo et tampon)
-        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        $logoFilename = $entreprise->getLogoFilename();
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/'.$logoFilename;
+        $tamponFilename = $representant->getTamponFilename();
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/'.$tamponFilename;
         
         // On récupère les extensions des fichiers (png, jpg, etc.)
         $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
@@ -988,8 +1010,6 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
-        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
 
         // Récupérer le contenu HTML du template Twig
@@ -1105,9 +1125,17 @@ final class DocumentController extends AbstractController
         SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        $entreprise = $entrepriseRepo->findUniqueEntreprise();
+        // on récupère les infos de l'organisme de formation (l’entreprise)
+
+        $representant = $representantRepo->findUniqueRepresentant();
+        // on récupère le représentant de l'organisme de formation
+        
         // on récupère les chemins absolus des images (logo et tampon)
-        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        $logoFilename = $entreprise->getLogoFilename();
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/'.$logoFilename;
+        $tamponFilename = $representant->getTamponFilename();
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/'.$tamponFilename;
         
         // On récupère les extensions des fichiers (png, jpg, etc.)
         $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
@@ -1138,8 +1166,6 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
-        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
 
         // Récupérer le contenu HTML du template Twig
@@ -1300,9 +1326,17 @@ final class DocumentController extends AbstractController
         SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        $entreprise = $entrepriseRepo->findUniqueEntreprise();
+        // on récupère les infos de l'organisme de formation (l’entreprise)
+
+        $representant = $representantRepo->findUniqueRepresentant();
+        // on récupère le représentant de l'organisme de formation
+        
         // on récupère les chemins absolus des images (logo et tampon)
-        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        $logoFilename = $entreprise->getLogoFilename();
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/'.$logoFilename;
+        $tamponFilename = $representant->getTamponFilename();
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/'.$tamponFilename;
         
         // On récupère les extensions des fichiers (png, jpg, etc.)
         $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
@@ -1333,8 +1367,6 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
-        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
 
         // Récupérer le contenu HTML du template Twig
@@ -1445,9 +1477,17 @@ final class DocumentController extends AbstractController
         SluggerInterface $slugger, /* on injecte le service pour pouvoir en bénéficier */
     ): Response
     {
+        $entreprise = $entrepriseRepo->findUniqueEntreprise();
+        // on récupère les infos de l'organisme de formation (l’entreprise)
+
+        $representant = $representantRepo->findUniqueRepresentant();
+        // on récupère le représentant de l'organisme de formation
+        
         // on récupère les chemins absolus des images (logo et tampon)
-        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/logo-formatoque-67d018f6254f1.png';
-        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/tampon-formatoque-67d01558ce68c.jpg';
+        $logoFilename = $entreprise->getLogoFilename();
+        $logoPath = $this->getParameter('kernel.project_dir') . '/var/uploads/logos/'.$logoFilename;
+        $tamponFilename = $representant->getTamponFilename();
+        $tamponPath = $this->getParameter('kernel.project_dir') . '/var/uploads/tampons/'.$tamponFilename;
         
         // On récupère les extensions des fichiers (png, jpg, etc.)
         $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
@@ -1478,8 +1518,6 @@ final class DocumentController extends AbstractController
             $responsableLegal = $societeRepo->findUniqueRespLegal($societeId); // pour récupérer le responsable légal de la société
         }
 
-        $entreprise = $entrepriseRepo->findUniqueEntreprise(); // pour récupérer l'organisme de formation
-        $representant = $representantRepo->findUniqueRepresentant(); // pour récupérer le représentant de l'organisme de formation
         $now = new \DateTime();
 
         // Récupérer le contenu HTML du template Twig
