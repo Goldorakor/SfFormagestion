@@ -359,7 +359,7 @@ final class SessionController extends AbstractController
             ['label' => 'Créations', 'route' => 'creations'],
             ['label' => 'Liste des sessions', 'route' => 'app_session'], 
             ['label' => "Détails d'une session #".$session->getId(), 'params' => ['id' => $session->getId()]], 
-            // Session spécifique // Pas de route car c’est la page actuelle
+            // Session spécifique // Pas de route car c’est la page actuelle, on pourrait supprimer 'params' => ['id' => $session->getId()]
         ]);
         
         return $this->render('session/show.html.twig', [
