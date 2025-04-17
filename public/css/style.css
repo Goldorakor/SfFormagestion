@@ -47,6 +47,7 @@ main {
   margin-bottom: 2.5rem; /* 80px trop grand : pas besoin d'un tel espace ! */
   /* en principe, il faudrait 200 120 40 comme margin mais je cherche à compenser un décalage inexpliqué pour le moment */
   font-family: 'Inter', sans-serif;
+  /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
 }
 
 .sous-cont {
@@ -495,22 +496,6 @@ VUES DE DETAILS
   width: calc(50% - 0.625rem); /* Définit la largeur à 50% moins la moitié du gap pour éviter les débordements */
 }
 
-/*
-version groupée fiche-module et clickable-div (si conflit, meilleure méthode)
-
-.fiche-module {
-  display: flex; /* Active Flexbox pour organiser l'intérieur du module 
-  flex-direction: column; /* Empile les éléments à l'intérieur verticalement 
-  width: calc(50% - 20px); /* Définit la largeur à 50% moins l'espace du gap pour éviter le dépassement 
-  color: #282828; /* Définit la couleur du texte 
-  background-color: #ffffff; /* Fond blanc 
-  border-radius: 20px; /* Ajoute des coins arrondis 
-  font-size: 26px; /* Définit la taille du texte 
-  padding: 20px; /* Ajoute un espacement interne autour du contenu 
-  line-height: 1.2; /* Définit l’espacement entre les lignes de texte 
-  box-sizing: border-box; /* Inclut padding et bordure dans la largeur totale 
-}
-*/
 
 .fiche-champ {
   display: flex; /* Active Flexbox pour organiser le contenu */
@@ -979,7 +964,7 @@ Tableau de suivi administratif d'une session
 
 .recap-table td {
   font-size: 1.375rem;
-  padding: 0.625rem 0.625rem 0.625rem 0.625rem; /* 10px 10px 10px 10px */
+  padding: 0.625rem 0.625rem 0.625rem 0.625rem;
 }
 
 .recap-table tr:hover {
@@ -1223,9 +1208,10 @@ select {
   border: 0.0625rem solid #ccceff;
   border-radius: 0.3125rem; /* Bords arrondis */
   background-color: #ffffff; /* Fond blanc */
-  font-size: 1rem;
+  font-size: 1.1rem;
   height: 2.5rem; /* Hauteur ajustable */
   box-sizing: border-box; /* Évite que le padding change la taille du champ */
+  font-family: 'Inter', sans-serif; /* sinon j'ai des tyles différents dans les tubes */
 }
 
 

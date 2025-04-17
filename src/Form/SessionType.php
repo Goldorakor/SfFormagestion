@@ -34,7 +34,7 @@ class SessionType extends AbstractType
             ->add('accroche', TextareaType::class, [
                 'label' => 'Accroche', // texte qui s'affiche devant le rectangle de saisie
                 'required' => false,   // champ non obligatoire
-                'attr' => ['placeholder' => 'Phrase d’accroche optionnelle'],
+                'attr' => ['placeholder' => "Phrase d'accroche optionnelle"],
             ])
 
             ->add('nbPlaces', IntegerType::class, [
