@@ -171,7 +171,7 @@ code css pour les grands bandeaux cliquables (les pages des grandes sections : c
   .bandeau-mobile {
     display: inline-flex;
   }
-  h3 {
+  .h3-creations {
     display: none;
   }
   .csp-ecran {
@@ -185,8 +185,8 @@ code css pour les grands bandeaux cliquables (les pages des grandes sections : c
     display: flex;
     text-decoration: none;           /* supprime le soulignement */
     padding: 0.3125rem 0.9375rem 0.9375rem 0.625rem;     /* ajoute de l’espace intérieur entre le contenu (le texte) et la bordure du a */
-    margin-top: 0.9375rem;                /* ajoute de l’espace au dessus des bandeaux */
-    margin-bottom: 0.9375rem;             /* ajoute de l’espace en dessous des bandeaux */
+    margin-top: 1.875rem;                /* ajoute de l’espace au dessus des bandeaux */
+    margin-bottom: 1.875rem;             /* ajoute de l’espace en dessous des bandeaux */
     border-radius: 0.625rem;             /* pour les bords arrondis */
     font-size: 1rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -343,10 +343,47 @@ VUES D'ENSEMBLE
 
 */
 
+.h1-liste-générale {
+  color :#790945; /* change la couleur du texte en rose */
+  font-size: 4.375rem; /* définit la taille de la police à 50 pixels */
+  text-align: center;
+  margin-top: 3.125rem;
+  margin-bottom: 0.3125rem;
+  width: 100%;
+}
+
+.h3-liste-générale {
+  color :#a2118a; /* change la couleur du texte en rose */
+  font-size: 1.5rem; /* définit la taille de la police à 24 pixels */
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 3.125rem;
+  width: 100%;
+}
+
 .apprenants-table {
   width: 100%;
   border-collapse: collapse;
   background-color: white;
+}
+
+.liste-ensemble-mobile {
+  display: none;
+}
+
+.mobile-app-unite-lien {
+  color: #282828;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  text-decoration: none;
+  min-width: max-content;
+  width: 80%;
+}
+
+.mobile-app-unite-lien:hover {
+  background-color: #efefff;
 }
 
 .apprenants-table th {
@@ -373,10 +410,6 @@ thead tr:hover {
 
 .clickable-row {
   cursor: pointer; /* le curseur de la souris change */
-}
-
-.fiche-module:hover {
-  background-color: #efefff; /* le curseur de la souris change */
 }
 
 .clickable-row a {
@@ -449,6 +482,36 @@ thead tr:hover {
   justify-content: flex-end;
   width: 100%; /* assure que le div prend toute la largeur disponible */
   margin-bottom: 1.25rem;
+}
+
+
+@media (max-width: 41.25rem) {
+  .h1-liste-générale {
+    color :#4449D5; /* change la couleur du texte en rose */
+    font-size: 2rem; /* 4.375rem; /* définit la taille de la police à 50 pixels */
+    margin-top: 2rem;
+    margin-bottom: 0.3125rem;
+  }
+  .h3-liste-générale {
+    color :#4449D5; /* change la couleur du texte en rose */
+    font-size: 1.2rem; /* définit la taille de la police à 24 pixels */
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+  .position-purple {
+    display: none;
+   }
+  .apprenants-table {
+   display: none;
+  }
+  .liste-ensemble-mobile {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 }
 
 /*
@@ -532,6 +595,11 @@ VUES DE DETAILS
   padding: 1.25rem; /* Espacement interne */
   line-height: 1.2; /* Espacement entre les lignes de texte */
 }
+
+.fiche-module:hover {
+  background-color: #efefff; /* le curseur de la souris change */
+}
+
 
 .clickable-div {
   display: flex;   /* Active Flexbox pour organiser les éléments */

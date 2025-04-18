@@ -8,8 +8,8 @@
 
 <div class="accueil-sous-cont">
 
-    <h1>Liste des apprenants</h1>
-    <h3>Votre annuaire compte {{ apprenants|length }} apprenants répertoriés</h3>
+    <h1 class="h1-liste-générale">Liste des apprenants</h1>
+    <h3 class="h3-liste-générale">Votre annuaire compte {{ apprenants|length }} apprenants répertoriés</h3>
 
     <div class="sous-cont">
 
@@ -67,6 +67,19 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <div class="liste-ensemble-mobile">
+                {% for apprenant in apprenants %}
+                    <a href="{{ path('show_apprenant', {'id' : apprenant.id}) }}" class="mobile-app-unite-lien">
+                        <div class="mobile-app-unite">
+                            <b>{{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}</b><br>
+                            {{ apprenant.email|lower }}<br>
+                            {{ apprenant.tel }}<br>
+                            {% if apprenant.societe is not null %}{{ apprenant.societe.raisonSociale }}{% else %}-{% endif %}
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
         
         {% else %}
         
