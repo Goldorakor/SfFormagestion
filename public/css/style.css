@@ -65,7 +65,7 @@ main {
   width: 100%;
 }
 
-main {
+main { /* doublon : à vérifier avant réunion client du 23 mai => cause du décalage de 10px ?? */
   margin-left: 0.625rem; /* décale le contenu principal pour éviter qu'il soit sous la navbar */
   margin-right: 0.625rem; /* décale le contenu principal pour équilibrer entre droite et gauche */
   padding: 0.9375rem 0 0 0;
@@ -108,7 +108,6 @@ h4 {
   margin-bottom: 0.3125rem;
   width: 100%;
 }
-
 
 p {
   font-size: 1.625rem;
@@ -207,6 +206,8 @@ PAGE D'ACCUEIL
   text-align: center;
   margin-top: 0rem;
   margin-bottom: 0rem;
+  padding-right: 0.2rem; /* meilleure réaction de h2 à la diminution de la largeur d'écran */
+  padding-left: 0.2rem; /* meilleure réaction de h2 à la diminution de la largeur d'écran */
 }
 
 .accueil-boite1 {
@@ -216,6 +217,7 @@ PAGE D'ACCUEIL
   align-items: center;
   gap: 18.75rem;
   margin-bottom: 2.5rem;
+  width: 100%;
 }
 
 .accueil-lien {
@@ -239,8 +241,8 @@ PAGE D'ACCUEIL
   /* text-align : right; */
   /*margin-top : 15px;  on ne souhaite pas coller le logo en haut du document */
   /*margin-right : 30px;  on ne souhaite pas coller le logo au bord du document */
-  width: 25rem;
-  height: 22.5rem;
+  width: clamp(20rem, 47.1vw, 25rem); /* 25rem; */
+  height: clamp(18rem, 43vw, 22.5rem); /* 22.5rem; */
   object-fit: contain; /* pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
