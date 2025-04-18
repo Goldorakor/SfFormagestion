@@ -5,66 +5,99 @@ code css pour mon fil d'ariane (celui en violet)
 */
 
 .ariane {
-    margin-left: 12.5rem; /* Décale le contenu principal pour qu'il ne soit pas caché par la barre de navigation latérale */
-    display: flex;
-    flex-direction: row;
-    align-items: center; /* Aligne le texte et la liste sur la même ligne */
-    gap: 0.3125rem; /* Ajoute un petit espace entre les éléments */
-  }
+  margin-left: 12.5rem; /* Décale le contenu principal pour qu'il ne soit pas caché par la barre de navigation latérale */
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Aligne le texte et la liste sur la même ligne */
+  gap: 0.3125rem; /* Ajoute un petit espace entre les éléments */
+}
 
-  @media (max-width: 41.25rem) { /* 660px */
-    .ariane {
-      margin-left: 3.75rem;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
+.fil-ariane {
+  list-style: none; /* Supprime les puces des listes (<ol> ou <ul>) */
+  display: flex; /* Affiche les éléments en ligne (horizontalement) */
+  flex-direction: row;
+  font-size: 0.875rem; /* Définit la taille du texte */
+  padding: 0;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fil d'Ariane beaucoup plus lisible avec cette police */
+}
 
+.fil-ariane-texte {
+  color: #790945; /* Définit la couleur du texte en orange */
+  font-weight: bold; /* Met le texte d'introduction du fil d'ariane en gras */
+  margin-right: 0; /* Ajoute un espace entre le texte d'introduction et l'élément suivant : à 0 sinon trop d'espace */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+  
+.fil-ariane li {
+  display: flex; /* Garde les éléments sur une ligne */
+  flex-direction: row;
+  align-items: center;
+}
+  
+.fil-ariane li:not(:last-child)::after {
+  content: " > "; /* Ajoute le séparateur automatique */
+  margin: 0 0.3125rem;
+  color: #790945; /* Même couleur que les liens */
+}
+  
+.fil-ariane li a {
+  text-decoration: none; /* Supprime le soulignement des liens */
+  color: #790945; /* Définit la couleur des liens en bleu */
+}
+  
+.fil-ariane li a:hover {
+  text-decoration: underline; /* Ajoute un soulignement au survol des liens */
+  color: #A2118A; /* Définit la couleur au survol de la souris */
+}
+  
+.fil-ariane .dernier {
+  font-style: italic; /* Met le dernier élément du fil d'Ariane en italic -> font-weight: bold; */
+  color: #A2118A; /* Change la couleur du dernier élément en noir */
+}
+
+@media (min-width: 41.3125rem) and (max-width: 62.5rem) { /* 660px */
+  .ariane {
+    margin-left: 12.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
   .fil-ariane {
-    list-style: none; /* Supprime les puces des listes (<ol> ou <ul>) */
-    display: flex; /* Affiche les éléments en ligne (horizontalement) */
-    font-size: 0.875rem; /* Définit la taille du texte */
-    padding: 0;
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fil d'Ariane beaucoup plus lisible avec cette police */
+    flex-direction: column; /* Affichage vertical */
+    align-items: flex-start; /* Alignement à gauche */
   }
-  
-  .fil-ariane-texte {
-    color: #790945; /* Définit la couleur du texte en orange */
-    font-weight: bold; /* Met le texte d'introduction du fil d'ariane en gras */
-    margin-right: 0; /* Ajoute un espace entre le texte d'introduction et l'élément suivant : à 0 sinon trop d'espace */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .fil-ariane li {
-    display: flex; /* Garde les éléments sur une ligne */
-    align-items: center;
-  }
-  
   .fil-ariane li:not(:last-child)::after {
-    content: " > "; /* Ajoute le séparateur automatique */
-    margin: 0 0.3125rem;
-    color: #790945; /* Même couleur que les liens */
+    content: ">"; /* On garde la flèche */
+    display: inline; /* Juste pour être sûr qu'elle s'affiche bien */
+    margin-left: 0.25rem; /* espace entre l'élément du fil et le chevron */
   }
-  
-  .fil-ariane li a {
-    text-decoration: none; /* Supprime le soulignement des liens */
-    color: #790945; /* Définit la couleur des liens en bleu */
+  .fil-ariane li {
+    margin-bottom: 0.25rem; /* Petit espace entre chaque ligne */
   }
+}
   
-  .fil-ariane li a:hover {
-    text-decoration: underline; /* Ajoute un soulignement au survol des liens */
-    color: #A2118A; /* Définit la couleur au survol de la souris */
+@media (max-width: 41.25rem) { /* 660px */
+  .ariane {
+    margin-left: 3.75rem;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .fil-ariane .dernier {
-    font-style: italic; /* Met le dernier élément du fil d'Ariane en italic -> font-weight: bold; */
-    color: #A2118A; /* Change la couleur du dernier élément en noir */
+  .fil-ariane {
+    flex-direction: column; /* Affichage vertical */
+    align-items: flex-start; /* Alignement à gauche */
   }
-  
-  /* 
+  .fil-ariane li:not(:last-child)::after {
+    content: ">"; /* On garde la flèche */
+    display: inline; /* Juste pour être sûr qu'elle s'affiche bien */
+    margin-left: 0.25rem; /* espace entre l'élément du fil et le chevron */
+  }
+  .fil-ariane li {
+    margin-bottom: 0.25rem; /* Petit espace entre chaque ligne */
+  }
+}
+
+/* 
 
   fin du code css pour mon fil d'ariane 
   
-  */
-  
+*/
