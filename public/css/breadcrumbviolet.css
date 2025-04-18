@@ -7,6 +7,7 @@ code css pour mon fil d'ariane (celui en violet)
 .ariane {
     margin-left: 12.5rem; /* Décale le contenu principal pour qu'il ne soit pas caché par la barre de navigation latérale */
     display: flex;
+    flex-direction: row;
     align-items: center; /* Aligne le texte et la liste sur la même ligne */
     gap: 0.3125rem; /* Ajoute un petit espace entre les éléments */
   }
@@ -14,6 +15,8 @@ code css pour mon fil d'ariane (celui en violet)
   @media (max-width: 41.25rem) { /* 660px */
     .ariane {
       margin-left: 3.75rem;
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 
