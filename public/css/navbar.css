@@ -200,7 +200,7 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 
 /* Quand l’écran est plus petit */
-@media screen and (max-width: 41.25rem) { /* 660px */
+@media screen and (max-width: 41.25rem) { /* (min-width: 0px) and (max-width: 660px) { */
   .sidenav {
     display: none;
   }

@@ -108,7 +108,7 @@ https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp
 
 /* version plus petite */
 
-@media (max-width: 41.25rem) { /* 660px */
+@media (max-width: 41.25rem) { /* (min-width: 0px) and (max-width: 660px) { */
     .navbar {
       top: 0.625rem;
       right: 0.625rem;

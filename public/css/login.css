@@ -37,7 +37,7 @@ html {
     flex: 1; /* Utilise l'espace disponible */
 }
 
-#login-cont01, #login-cont02{
+#login-cont01, #login-cont02 {
     display : flex;
     flex-direction: column;
     justify-content: center;
@@ -45,28 +45,28 @@ html {
     width: 50%; /* Changé de 50vw à 50% => plus souple */
 }
 
-#login-cont01{
+#login-cont01 {
     background-color:#ffffff;  /* fcf2f5 */
 }
 
-#login-cont02{
+#login-cont02 {
     background-color:#F7BED7;  /* fcf2f5 */
     padding-bottom: 6.25rem; /* Ajuster cette valeur pour remonter plus */
 }
 
-.login-logofg img{
+.login-logofg img {
     width: 31.25rem;
     height: 18.75rem;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
-.login-img img{
+.login-img img {
     width: 31.25rem;
     height: 31.25rem;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
-.login-logoft img{
+.login-logoft img {
     width: 37.5rem;
     height: 25rem;
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
@@ -125,12 +125,13 @@ h4 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.tubes-login{
+.tubes-login {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 3.75rem;
+    width: 100%;
 }
 
 .identifiant, .mot-passe {
@@ -138,10 +139,10 @@ h4 {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 100%;
+    width: 80%;
 }
 
-.identifiant label, .mot-passe label{
+.identifiant label, .mot-passe label {
     color: #5b5b5b;
     font-size: 36px;
     margin-left: 25px; /* écriture sur la partie droite du tube oblong et non pas sur la partie arrondie */
@@ -232,7 +233,7 @@ Style pour le footer de la page login
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 12.5rem;
+    gap: clamp(5rem, 20vw, 12.5rem); /* 12.5rem; */
     flex-wrap: wrap; /* pour éviter les problèmes d'affichage sur des écrans très étroits */
 }
 
@@ -257,6 +258,16 @@ Style pour le footer de la page login
 /* Honey Pot - Pot de miel : pour piéger les bots */
 .lavande {
     display: none;
+}
+
+#footer-michael {
+    color: #8e3200;
+    font-weight: bold;
+}
+
+#footer-michael:hover {
+    color: #ff5900;
+    font-weight: bold;
 }
 
 /*
@@ -289,3 +300,15 @@ Style pour le footer de la page login
 * fin de la mise en place du toggle pour afficher ou cacher le mot de passe
 *
 */
+
+@media (max-width: 660px) { /* (min-width: 0px) and (max-width: 660px) { */
+    .footer-container {
+      display: none;
+    }
+    .login-wrap {
+        flex-direction: column;
+    }
+    #login-cont01, #login-cont02 {
+        width: 100%;
+    }
+  }
