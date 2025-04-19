@@ -34,7 +34,8 @@ html {
     display : flex;
     flex-direction: row;
     width: 100%;
-    flex: 1; /* Utilise l'espace disponible */
+    height: 100%;
+    /*flex: 1;  Utilise l'espace disponible */
 }
 
 #login-cont01, #login-cont02 {
@@ -51,63 +52,39 @@ html {
 
 #login-cont02 {
     background-color:#F7BED7;  /* fcf2f5 */
-    padding-bottom: 6.25rem; /* Ajuster cette valeur pour remonter plus */
+    /* padding-bottom: 6.25rem;  Ajuster cette valeur pour remonter plus */
 }
 
 .login-logofg img {
-    width: 31.25rem;
-    height: 18.75rem;
+    width: clamp(12.89rem, 31.25vw, 31.25rem); /* 31.25rem; */
+    height: clamp(7.734rem, 18.75vw, 18.75rem); /* 18.75rem; */
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
 .login-img img {
-    width: 31.25rem;
-    height: 31.25rem;
+    width: clamp(12.89rem, 31.25vw, 31.25rem); /* 31.25rem; */
+    height: clamp(12.89rem, 31.25vw, 31.25rem); /* 31.25rem; */
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
 .login-logoft img {
-    width: 37.5rem;
-    height: 25rem;
+    width: clamp(15.469rem, 37.5vw, 37.5rem); /* 37.5rem; */
+    height: clamp(10.312rem, 25vw, 25rem); /* 25rem; */
     object-fit: contain; /* Pour s'assurer que l'image garde ses proportions sans être déformée */
 }
 
-h1 {
+#login-cont01 h1{
     color :#282828; /* Change la couleur du texte en rose */
-    font-size: 4.375rem; /* définit la taille de la police à 70 pixels */
+    font-size: clamp(2.4rem, 4.375vw, 4.375rem); /* clamp(1.804rem, 4.375vw, 4.375rem); */
     text-align: center;
     margin-top: 0;
     margin-bottom: 1.25rem;
     font-style: italic;
 }
 
-h2 {
-      color : #4449D5;
-      font-size: 2.25rem; /* définit la taille de la police à 50 pixels */
-      text-align: left;
-      margin-top: 3.125rem;
-      margin-bottom: 1.25rem;
-}
-
-h3 {
-    color :#a2118a; /* Change la couleur du texte en rose */
-    font-size: 1.25rem; /* définit la taille de la police à 20 pixels */
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 3.125rem;
-}
-
-h4 {
-    color: #790945;
-    font-size: 1.25rem; /* définit la taille de la police à 50 pixels */
-    text-align: left;
-    margin-top: 0.625rem;
-    margin-bottom: 0.3125rem;
-}
-
 #login-cont01 p {
     color: #5b5b5b;
-    font-size: 2.5rem;
+    font-size: clamp(1.3rem, 2.5vw, 2.5rem); /* clamp(1.031rem, 2.5vw, 2.5rem); */
     text-align: center;
     font-style: italic;
 }
@@ -125,22 +102,35 @@ h4 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
 .tubes-login {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 3.75rem;
-    width: 100%;
+    width: clamp(24vw, calc(40vw - (100vw - 660px) * 0.017), 40vw); 
 }
+/*
+100% = largeur max quand l'écran est petit (vers 660px)
+calc(120% - 12.5vw) = fait décroître la largeur progressivement entre 660px et 1600px
+80% = largeur minimale, quand l’écran est grand (≥ 1600px)
+*/
 
 .identifiant, .mot-passe {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 80%;
+    width: 100%;
 }
+
 
 .identifiant label, .mot-passe label {
     color: #5b5b5b;
@@ -302,13 +292,15 @@ Style pour le footer de la page login
 */
 
 @media (max-width: 660px) { /* (min-width: 0px) and (max-width: 660px) { */
-    .footer-container {
-      display: none;
+    #login-cont01 {
+        display: none;
     }
-    .login-wrap {
-        flex-direction: column;
-    }
-    #login-cont01, #login-cont02 {
+    #login-cont02 {
         width: 100%;
     }
+    .footer-container {
+        display: none;
+      }
   }
+
+

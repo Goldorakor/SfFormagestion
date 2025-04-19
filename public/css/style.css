@@ -130,7 +130,7 @@ code css pour les grands bandeaux cliquables (les pages des grandes sections : c
 }
 
 .h1-creations {
-  font-size: clamp(2rem, 9.46vw, 4.375rem); /* devient responsive uniquement en dessous de 600px */ /* (70 / 740) × 100 = 9.46vw */
+  font-size: clamp(2rem, 9.46vw, 4.375rem); /* devient responsive uniquement en dessous de 740px */ /* (4.375*16 / 740) × 100 = 9.46vw */
 }
 
 .lot-bandeau {
