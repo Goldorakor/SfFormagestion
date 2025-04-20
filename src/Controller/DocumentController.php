@@ -383,7 +383,8 @@ final class DocumentController extends AbstractController
         // On génère le contenu PDF à l’aide du service PdfGenerator
         $pdfContent = $pdfGenerator->getPdfContent($htmlContent);
 
-        $slug = $slugger->slug($societe->getRaisonSociale())->lower(); // pour avoir un nom de société propre et normalisé
+        $slug = $slugger->slug($societe->getRaisonSociale())->lower(); 
+        // pour avoir un nom de société propre et normalisé
 
         // On retourne une réponse HTTP contenant le fichier PDF
         return new Response(
@@ -391,7 +392,8 @@ final class DocumentController extends AbstractController
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="Convention_' . $slug . '.pdf"', // nom de ficher avec nom de société propre et normalisé
+                'Content-Disposition' => 'inline; filename="Convention_' . $slug . '.pdf"', 
+                // nom de ficher avec nom de société propre et normalisé
             ]
         );
     }

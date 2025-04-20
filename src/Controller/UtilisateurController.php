@@ -267,7 +267,7 @@ final class UtilisateurController extends AbstractController
     
     // méthode pour tester un envoi de mail vers MailHog, pour s'assurer que tout va bien !
     // dans le navigateur, on entre : https://127.0.0.1:8000/test-email
-    #[Route('/test-email', name: 'test_email')]
+    #[Route('/test-email02', name: 'test_email02')]
     public function sendEmail(MailerInterface $mailer): Response
     {
         $email = (new Email())
@@ -278,7 +278,7 @@ final class UtilisateurController extends AbstractController
 
         $mailer->send($email);
 
-        return new Response('Email envoyé ! Vérifie Mailpit 😉');
+        return new Response('Email envoyé ! Vérifie MailHog 😉');
     }
 
 }

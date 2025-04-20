@@ -43,11 +43,11 @@ class SocieteRepository extends ServiceEntityRepository
 
 
 
-    // méthode pour récupérer le prix total payé par une société donnée pour une session déterminée (prix global que paie une société pour ses salariés inscrits)
+    // méthode pour récupérer le prix total payé par une société donnée pour une session déterminée 
+    // (prix global que paie une société pour ses salariés inscrits)
     // utile dans le document convention mais aussi dans la vue de détails d'une session dans le suivi administratif
     public function findPrixSociete($session_id, $societe_id)
     {
-
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery("
             SELECT s.raisonSociale, SUM(i.prix) AS totalPaye
@@ -65,7 +65,6 @@ class SocieteRepository extends ServiceEntityRepository
             ["raisonSociale" => "Nom de la société", "totalPaye" => 5000]
         ]*/
         return $query->getOneOrNullResult();  // -> ["raisonSociale" => "Nom de la société", "totalPaye" => 5000]
-
     }
 
     /* 
