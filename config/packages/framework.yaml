@@ -3,7 +3,9 @@ framework:
     secret: '%env(APP_SECRET)%'
 
     # Note that the session will be started ONLY if you read or write from it.
-    session: true
+    session:
+        cookie_secure: auto       # Active le flag Secure uniquement en HTTPS
+        cookie_httponly: true     # Empêche l’accès aux cookies par JavaScript
 
     #esi: true
     #fragments: true

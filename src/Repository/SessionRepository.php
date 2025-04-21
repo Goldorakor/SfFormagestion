@@ -110,6 +110,28 @@ class SessionRepository extends ServiceEntityRepository
 
     */
 
+    /*
+    avec le QueryBuilder de Doctrine :
+
+    public function findApprenantsBySocieteBySession($sessionId, $societeId)
+    {
+        return $this->createQueryBuilder('i')
+            ->select('s.id AS societeId, s.raisonSociale, a.id, a.nom, a.prenom, a.email, a.metier')
+            ->join('i.apprenant', 'a')
+            ->join('a.societe', 's')
+            ->where('i.session = :sessionId')
+            ->andWhere('a.societe = :societeId')
+            ->orderBy('s.raisonSociale')
+            ->addOrderBy('a.nom')
+            ->setParameter('sessionId', $sessionId)
+            ->setParameter('societeId', $societeId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    => à mettre ABSOLUMENT dans InscriptionRepository.php
+    */
+
 
 
     // méthode pour récupérer la liste des apprenants non salariés d'une société ayant participé à une session déterminée (liste des "particuliers" qui ont participé)

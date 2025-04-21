@@ -32,7 +32,7 @@ class ChangePasswordFormType extends AbstractType
                         new NotBlank([
                             'message' => 'Veuillez entrer un mot de passe',
                         ]),
-                        /* on commente ici car on a centralisé les règles de validation dans alidator/PasswordConstraints.php
+                        /* on commente ici car on a centralisé les règles de validation dans validator/PasswordConstraints.php
                         new Length([
                             'min' => 12,
                             'minMessage' => 'Your password should be at least {{ limit }} characters',
@@ -41,7 +41,7 @@ class ChangePasswordFormType extends AbstractType
                         ]),*/
                         new PasswordStrength(),
                         new NotCompromisedPassword(),
-                    ], PasswordConstraints::get()), // On ajoute la contrainte Regex définie dans Validator/PasswordConstraints.php
+                    ], PasswordConstraints::get()), // On ajoute les contraintes (Regex, longueur) définies dans Validator/PasswordConstraints.php
                     'label' => 'Nouveau mot de passe',
                 ],
                 'second_options' => [

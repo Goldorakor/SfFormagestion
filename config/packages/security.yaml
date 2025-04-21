@@ -30,10 +30,13 @@ security:
 
             # pour permettre aux utilisateurs de rester connectés
             remember_me: 
-                secret: '%env(APP_SECRET)%' # Utilise le secret de l'application
-                lifetime: 604800 # 1 semaine
-                path: /
-                always_remember_me: false # Optionnel : forcer ou non l'activation
+                secret: '%env(APP_SECRET)%'       # Utilise le secret de l'application
+                lifetime: 604800                  # 1 semaine en secondes
+                path: /                           # Cookie valable sur tout le site
+                always_remember_me: false         # Ne pas forcer par défaut (activé si case cochée dans le formulaire)
+                secure: auto                      # Le cookie sera "secure" seulement si le site est en HTTPS
+                httponly: true                    # Empêche l’accès aux cookies via JavaScript (protection XSS)
+
 
             logout:
                 path: app_logout
