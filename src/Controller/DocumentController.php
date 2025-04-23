@@ -870,9 +870,9 @@ final class DocumentController extends AbstractController
             'entreprise' => $entreprise,
             'representant' => $representant,
             'pdfMode' => true,
-            'logoBase64' => $logo_base64,
             'logoBase64' => $logoBase64,
             'tamponBase64' => $tamponBase64,
+            'demi_journees' => $demiJournees,
         ]);
 
         // On génère le contenu PDF à l’aide du service PdfGenerator
