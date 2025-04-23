@@ -63,8 +63,8 @@ class Apprenant
     private ?string $email = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotBlank]
-    #[Assert\Date]
+    /*#[Assert\NotBlank]
+    #[Assert\Date]*/
     private ?\DateTimeInterface $dateNaissance = null;
 
     #[ORM\Column(length: 50)]

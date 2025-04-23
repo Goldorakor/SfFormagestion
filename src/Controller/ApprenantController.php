@@ -59,7 +59,7 @@ final class ApprenantController extends AbstractController // classe ApprenantCo
         $breadcrumbs = $breadcrumbsGenerator->generate([
             ['label' => 'Accueil', 'route' => 'accueil'],
             ['label' => 'Créations', 'route' => 'creations'],
-            ['label' => 'Liste des apprenants', 'route' => 'app_apprenant'], 
+            ['label' => 'Liste des apprenants', 'route' => 'app_apprenant'],
             ['label' => !$apprenant ? "Créer un apprenant" : "Modifier un apprenant"], // Pas de route car c’est la page actuelle
         ]);
         // $variable = (condition) ? valeur_si_vrai : valeur_si_faux;
