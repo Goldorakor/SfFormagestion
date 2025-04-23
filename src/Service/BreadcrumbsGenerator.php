@@ -1,6 +1,7 @@
 <?php
 
 /* On ajoute un service pour générer les breadcrumbs */
+/* Un service est une classe réutilisable qui effectue un traitement précis. Il est indépendant des requêtes HTTP et peut être utilisé dans un contrôleur, un autre service, un formulaire, etc */
 
 namespace App\Service;
 
@@ -82,4 +83,9 @@ Résultat retourné : un tableau de tableaux associatifs
 */
 
 
-
+/*
+Contrôleur	                        Service
+Lié à la requête HTTP	            Indépendant de la requête HTTP
+Gère l’entrée/sortie utilisateur	Gère une logique métier réutilisable
+Utilise les services	            Est utilisé par les contrôleurs ou d'autres services
+*/

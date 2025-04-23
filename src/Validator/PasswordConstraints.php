@@ -1,6 +1,7 @@
 <?php
 
 /* création d'une classe PHP PasswordConstraints.php pour regrouper les règles */
+/* une classe utilitaire => une classe statique qui sert uniquement à regrouper de la logique réutilisable sans avoir besoin de créer une instance (new) pour l'utiliser */
 namespace App\Validator;
 
 use Symfony\Component\Validator\Constraints\Regex;
