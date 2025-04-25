@@ -73,7 +73,7 @@
 
     </p>
     <p>
-        à l'adresse suivante : {% if societe is defined %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
+        à l'adresse suivante : {% if societe is not null %}{{ societe.adresseSiege }} {{ societe.codePostalSiege }} {{ societe.villeSiege|capitalize }} {{ societe.paysSiege|upper }}{% else %}au domicile de {{ apprenant.prenom|capitalize }} {{ apprenant.nom|upper }}{% endif %}
     </p>
 </div>
 
