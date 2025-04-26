@@ -103,7 +103,7 @@ class SessionRepository extends ServiceEntityRepository
     SELECT s.id AS societeId, s.raison_sociale, a.id, a.nom, a.prenom, a.email, a.metier
     FROM inscription i
     JOIN apprenant a ON i.apprenant_id = a.id
-    JOIN societe s ON a.societe_id = societe.id
+    JOIN societe s ON a.societe_id = s.id
     WHERE i.session_id = :sessionId
     AND a.societe_id = :societeId
     ORDER BY s.raison_sociale, a.nom;
