@@ -166,7 +166,7 @@ code css pour les grands bandeaux cliquables (les pages des grandes sections : c
   background-color: #efefff; /* petit effet 'violet clair' au survol */
 }
 
-@media (max-width: 41.25rem) { /* 660px */
+@media (max-width: 660px) { /* 660px */
   .h2-creations {
     display: none;
   }
@@ -296,7 +296,7 @@ a.accueil-card {
     text-decoration: none;
 }
 
-@media (min-width: 41.3125rem) and (max-width: 100rem) { /* (min-width: 661px) and (max-width: 1600px) { */
+@media (min-width: 661px) and (max-width: 1600px) { /* (min-width: 661px) and (max-width: 1600px) { */
   .accueil-boite1 {
     flex-direction: column;
     gap: 3.75rem; /* espace entre créations et suivis */
@@ -304,7 +304,7 @@ a.accueil-card {
   }
 }
 
-@media (max-width: 41.25rem) { /* (min-width: 0px) and (max-width: 660px) { */
+@media (max-width: 660px) { /* (min-width: 0px) and (max-width: 660px) { */
   .accueil-sous-cont {
     margin-left: 3.125rem;
     margin-right: 5rem;
@@ -487,7 +487,7 @@ thead tr:hover {
 }
 
 
-@media (max-width: 41.25rem) {
+@media (max-width: 660px) {
   .h1-liste-générale {
     color :#4449D5; /* change la couleur du texte en rose */
     font-size: 2rem; /* 4.375rem; /* définit la taille de la police à 50 pixels */
